@@ -139,16 +139,23 @@ export function useRealtimeAsset(
 
   // Define fetchInitial outside useEffect for reuse
   const fetchInitial = useCallback(
-    async (isMounted: () => boolean) => {
-      // Only fetch if not in cache OR if we want to ensure freshness
-      const supabase = createClientComponentClient();
+    async (isMounted: () => boolean, force = false) => {
+      // Guarda: se já existe no store com bucket e file_path e não é chamada forçada, evita re-fetch desnecessário
+      if (!force) {
+        const cached = useContentStore.getState().assets[assetKey];
+        if (cached && cached.bucket && cached.file_path) {
+          if (isMounted()) {
+            setLoading(false);
+          }
+          return;
+        }
+      }
 
-      // Check if we should even fetch (e.g. if tab is hidden, skip unless forced)
-      // But for initial load we always fetch.
+      const supabase = createClientComponentClient();
 
       const { data, error: fetchError } = await supabase
         .from('site_assets')
-        .select('*')
+        .select('key, bucket, file_path, updated_at')
         .eq('key', assetKey)
         .maybeSingle();
 
@@ -198,6 +205,12 @@ export function useRealtimeAsset(
       if (isDisposed) return;
       if (pollingTimerRef.current) clearTimeout(pollingTimerRef.current);
 
+      // Se o asset já está em cache com dados válidos, não precisa de polling ativo agressivo
+      const cached = useContentStore.getState().assets[assetKey];
+      if (cached && cached.bucket && cached.file_path) {
+        return;
+      }
+
       let delay = POLLING_CONFIG.activeInterval;
 
       // Logic: If hidden, use long interval. If error backoff, increase.
@@ -232,15 +245,15 @@ export function useRealtimeAsset(
       isVisibleRef.current = document.visibilityState === 'visible';
 
       if (isVisibleRef.current) {
-        // Came to foreground: Poll immediately if it's been a while, or just restart schedule
-        // For simplicity: restart schedule with short delay to feel "responsive"
-        stopPolling();
-        backoffCountRef.current = 0; // Reset backoff on user interaction
-        void fetchInitial(isMounted).then(() => scheduleNextPoll());
+        // Se ainda não temos o asset em cache, tenta buscar
+        const cached = useContentStore.getState().assets[assetKey];
+        if (!cached || !cached.bucket || !cached.file_path) {
+          stopPolling();
+          backoffCountRef.current = 0; // Reset backoff on user interaction
+          void fetchInitial(isMounted).then(() => scheduleNextPoll());
+        }
       } else {
-        // Went to background: Stop current timer and switch to slow poll
         stopPolling();
-        scheduleNextPoll();
       }
     };
 
@@ -249,10 +262,15 @@ export function useRealtimeAsset(
     document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('focus', handleVisibilityChange); // Extra responsiveness
 
-    void fetchInitial(isMounted).then(() => {
-      if (isDisposed) return;
-      scheduleNextPoll();
-    });
+    const initialCached = useContentStore.getState().assets[assetKey];
+    if (!initialCached || !initialCached.bucket || !initialCached.file_path) {
+      void fetchInitial(isMounted).then(() => {
+        if (isDisposed) return;
+        scheduleNextPoll();
+      });
+    } else {
+      setLoading(false);
+    }
 
     // --- Join Global Subscription ---
     void subscribeToAssets();
