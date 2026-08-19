@@ -11,7 +11,7 @@ let globalChannel: ReturnType<
   ReturnType<typeof createClientComponentClient>['channel']
 > | null = null;
 let subscribersCount = 0;
-let unsubscribeTimeout: NodeJS.Timeout | null = null;
+let unsubscribeTimeout: ReturnType<typeof setTimeout> | null = null;
 let isConnecting = false;
 
 const subscribeToAssets = async () => {
@@ -133,7 +133,7 @@ export function useRealtimeAsset(
   const [error, setError] = useState<Error | null>(null);
 
   // Refs for polling management
-  const pollingTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const pollingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const backoffCountRef = useRef(0);
   const isVisibleRef = useRef(true);
 
@@ -168,6 +168,7 @@ export function useRealtimeAsset(
       }
 
       if (data) {
+        setError(null);
         upsertAsset(data as DbAsset);
         // Reset backoff on success
         backoffCountRef.current = 0;
