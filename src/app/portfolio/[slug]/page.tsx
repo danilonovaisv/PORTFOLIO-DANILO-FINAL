@@ -408,12 +408,11 @@ export default async function ProjectPage({ params }: Props) {
             })
           ) : narrativeParagraphs.length > 0 ? (
             narrativeParagraphs.map((paragraph, index) => (
-              <p
+              <GhostMarkdown
                 key={`${project.id}-paragraph-${index}`}
-                className="text-muted-foreground leading-relaxed"
-              >
-                {paragraph}
-              </p>
+                content={paragraph}
+                className="font-figtree text-muted-foreground leading-relaxed"
+              />
             ))
           ) : (
             <p className="text-muted-foreground leading-relaxed">

@@ -3,6 +3,7 @@
 import React from 'react';
 import { m } from 'motion/react';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 
 interface AlpaBlockTextFullProps {
   title?: string;
@@ -35,11 +36,11 @@ export function AlpaBlockTextFull({
           {title}
         </h3>
       )}
-      <div className="text-lg md:text-xl text-textSecondary leading-relaxed space-y-4">
-        {content?.split('\n').map((para, i) => (
-          <p key={i}>{para}</p>
-        ))}
-      </div>
+      <GhostMarkdown
+        content={content}
+        className="text-textSecondary"
+      />
     </m.div>
   );
 }
+

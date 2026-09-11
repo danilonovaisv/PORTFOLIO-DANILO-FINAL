@@ -11,6 +11,7 @@ import {
   resolveLandingAsset,
 } from '@/lib/media/asset-contract';
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 
 interface AlpaBlockMediaTextProps {
   media: string;
@@ -116,11 +117,10 @@ export function AlpaBlockMediaText({
       }}
       className="flex flex-col justify-center"
     >
-      <div className="text-base md:text-lg text-textSecondary leading-relaxed space-y-4">
-        {text?.split('\n').map((para, i) => (
-          <p key={i}>{para}</p>
-        ))}
-      </div>
+      <GhostMarkdown
+        content={text}
+        className="text-textSecondary"
+      />
     </m.div>
   );
 

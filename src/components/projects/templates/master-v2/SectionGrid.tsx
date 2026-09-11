@@ -4,6 +4,7 @@ import { m } from 'motion/react';
 import { GHOST_EASE } from '@/config/motion';
 import type { MasterProjectV2GalleryItem } from '@/types/project-template';
 import BlockMedia from '@/components/projects/templates/master-v2/BlockMedia';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 
 type SectionGridProps = {
   item: MasterProjectV2GalleryItem;
@@ -80,9 +81,10 @@ export default function SectionGrid({
               </h3>
             ) : null}
             {item.description ? (
-              <p className="max-w-2xl text-base leading-relaxed text-white/80 md:text-lg">
-                {item.description}
-              </p>
+              <GhostMarkdown
+                content={item.description}
+                className="max-w-2xl text-base leading-relaxed text-white/80 md:text-lg"
+              />
             ) : null}
           </div>
         ) : null}
