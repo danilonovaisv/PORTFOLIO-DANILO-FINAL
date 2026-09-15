@@ -2,8 +2,19 @@
 
 **Phase**: VIDEO ARCHITECTURE REFACTOR (`audit/video-architecture-refactor`)
 **Current Focus**: Resolução de vazamentos de ciclo de vida de vídeo, violações de Autoplay Policy (NotAllowedError), renderização dupla em DOM e tempestades de requisições de mídia em miniaturas de carrossel.
-**Last Update**: 2026-09-15 00:46
+**Last Update**: 2026-09-15 04:48
 **Production URL**: https://portfoliodanilo.com
+
+## Wiki-Brain Activation (2026-09-15 04:48)
+
+> **@obsidian_vault_operator** — ATIVO em `graphify-out/`
+
+- **`graphify-out/00-INDEX.md`** — OFM master index (Wikilinks, callouts, YAML properties)
+- **`graphify-out/architecture-map.canvas`** — JSON Canvas Spec 1.0 visual architecture map
+- **`graphify-out/components.base`** — Obsidian Base views (table / cards / list)
+- **`scripts/wiki-brain-sync.ts`** — Canvas validation + auto-generation para novos módulos `src/`
+- **Sync command**: `pnpm tsx scripts/wiki-brain-sync.ts --auto`
+
 
 ## Video Architecture Audit Summary (2026-09-15)
 
