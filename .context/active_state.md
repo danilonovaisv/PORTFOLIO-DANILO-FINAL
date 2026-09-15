@@ -1,9 +1,19 @@
-# Active State: CLOUDFLARE WORKERS (OPENNEXT) MIGRATION & ASSET CLEANUP ✅
+# Active State: VIDEO ARCHITECTURE REFACTOR & LIFECYCLE AUDIT ✅
 
-**Phase**: CLOUDFLARE WORKERS MIGRATION
-**Current Focus**: Migração do deploy do Firebase Hosting/Pages para Cloudflare Workers utilizando @opennextjs/cloudflare e correção de links de assets quebrados no Supabase.
-**Last Update**: 2026-07-09 09:25
+**Phase**: VIDEO ARCHITECTURE REFACTOR (`audit/video-architecture-refactor`)
+**Current Focus**: Resolução de vazamentos de ciclo de vida de vídeo, violações de Autoplay Policy (NotAllowedError), renderização dupla em DOM e tempestades de requisições de mídia em miniaturas de carrossel.
+**Last Update**: 2026-09-15 00:46
 **Production URL**: https://portfoliodanilo.com
+
+## Video Architecture Audit Summary (2026-09-15)
+
+- [x] **DOM Dual-Mount Fix**: `FeaturedProjectCardFrame.tsx` elimina duplicidade de elemento `<video>` em cards usando `ResponsiveVideo` unificado com guarda de estado `activeSingleMedia`.
+- [x] **Thumbnail Storm Elimination**: `AdaptiveMediaLayout.tsx` substitui a estampa `<video src="#t=0.001">` em miniaturas por componente `Image` estático com overlay de ícone `Play`.
+- [x] **Autoplay Policy Compliance**: `ImageLightbox.tsx` e `AssetLightbox.tsx` iniciam estritamente com `muted={true}`, eliminando atributo `muted={false}` e chamadas `.play()` sem tratamento de exceção.
+- [x] **Scroll Unmute Hardening**: `VideoManifesto.tsx` remove unmute por scroll; áudio acionável estritamente via interação do usuário (botão de som).
+- [x] **Offscreen Pause Standard**: `ResponsiveVideo.tsx` e `CategoryStripe.tsx` aplicam `IntersectionObserver` determinístico para pausar execução quando fora da viewport.
+- [x] **QA Verification**: 42 suites de testes unitários (291 testes), `pnpm run typecheck` e `pnpm run lint` validados com 100% de aprovação.
+
 
 ## Deploy Summary
 

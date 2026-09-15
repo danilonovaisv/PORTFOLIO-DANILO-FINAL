@@ -108,14 +108,10 @@ export function AssetLightbox({ asset, onClose }: AssetLightboxProps) {
             src={asset.src}
             poster={asset.poster}
             autoPlay
-            muted={false}
+            muted
             loop={false}
             controls
             playsInline
-            onLoadedMetadata={(event) => {
-              event.currentTarget.muted = false;
-              void event.currentTarget.play().catch(() => undefined);
-            }}
           >
             <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
           </video>

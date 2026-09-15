@@ -1,5 +1,38 @@
 # Adjustment Log
 
+## [2026-09-15T00:46] Video Architecture Audit & Lifecycle Refactoring
+
+**Context:** Auditoria técnica completa e refatoração da arquitetura de elementos `<video>` no portfólio para sanar vazamentos de memória/processamento offscreen, violações de Autoplay Policy dos navegadores (`NotAllowedError`), montagem duplicada de elementos de vídeo em DOM e requisições HTTP redundantes em miniaturas de carrossel.
+
+**Changes Applied:**
+
+1. **Eliminação de Montagem Duplicada de `<video>` no DOM (`FeaturedProjectCardFrame.tsx`)** ✅
+   - Removido o elemento `<video>` duplo que renderizava simultaneamente via classes CSS `hidden md:block` e `block md:hidden`.
+   - Implementado o componente unificado `ResponsiveVideo` com guarda de estado `activeSingleMedia` para alternância limpa entre mídia estática e vídeo.
+
+2. **Eliminação da Tempestade de Mídia em Miniaturas (`AdaptiveMediaLayout.tsx`)** ✅
+   - Substituídos os elementos `<video src="#t=0.001">` em miniaturas de carrossel por tags `Image` otimizadas com ícone de `Play` sobreposto, economizando banda e prevenindo decolegagem desnecessária de descritores de mídia no navegador.
+
+3. **Conformidade com Autoplay Policy & Lightboxes (`ImageLightbox.tsx` e `AssetLightbox.tsx`)** ✅
+   - Removido o atributo `muted={false}` das tags de vídeo em modais/lightboxes. Os vídeos agora inicializam estritamente com `muted={true}`.
+   - O `.play()` é delegado ao `useEffect` com suporte a fallback silencioso em bloco `catch`, prevenindo exceções de `NotAllowedError` não capturadas.
+
+4. **Remoção de Desbloqueio de Áudio por Scroll (`VideoManifesto.tsx`)** ✅
+   - Removida a tentativa de atirar `muted = false` com base na posição de rolagem (violava restrição de gesto explícito do usuário em browsers baseados em Chromium/WebKit). O áudio agora é estritamente controlado pelo botão interativo de Mute/Unmute.
+
+5. **Pausagem Determinística Offscreen (`ResponsiveVideo.tsx` e `CategoryStripe.tsx`)** ✅
+   - Padronizado o uso de `IntersectionObserver` com prop `pauseOffscreen`, pausando chamadas de decodificação de vídeo quando o elemento sai da janela de visualização do usuário.
+
+**Verification:**
+
+- ✅ `pnpm run typecheck` — 0 erros de compilação TypeScript.
+- ✅ `pnpm run lint` — 0 erros no ESLint.
+- ✅ `pnpm test` — 42 suites de testes executadas, 291 testes unitários aprovados (100% de sucesso).
+
+**Status:** Concluído.
+
+---
+
 ## [2026-07-09T09:25] Cloudflare Workers (OpenNext) Migration & Supabase Asset Cleanup
 
 **Context:** Migração completa da infraestrutura de deploy do Firebase Hosting/Cloudflare Pages estático para Cloudflare Workers com suporte a Server-Side Rendering (SSR) via OpenNext e limpeza/correção de assets com links quebrados.

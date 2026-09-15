@@ -54,3 +54,9 @@ Exibir conteúdo detalhado do projeto sem sair da página, mantendo acessibilida
 - Quando o projeto não possui mídia interna além da capa, o modal assume estado vazio controlado em vez de repetir a thumb.
 - Embed do YouTube permanece com autoplay, mute e loop via utilitário central `getYouTubeEmbedUrl`.
 - Os botões de fechamento nas primitives de `dialog` e `sheet` passaram a expor `aria-label` explícito, fortalecendo a navegação por leitor de tela e teclado.
+
+## 8. Atualização de estado — 2026-09-15
+
+- `AdaptiveMediaLayout.tsx`: miniaturas do carrossel agora utilizam `Image` com ícone de `Play` sobreposto em vez de instanciar `<video src="#t=0.001">`, eliminando a tempestade de carregamento de vídeo offscreen.
+- `ImageLightbox.tsx` e `AssetLightbox.tsx`: os vídeos inicializam estritamente com `muted={true}` e delegam o `.play()` ao ciclo de vida controlado (`useEffect`), capturando falhas de autoplay policy (`NotAllowedError`) e aplicando fallback silencioso sem crash de runtime.
+

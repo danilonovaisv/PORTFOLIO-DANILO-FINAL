@@ -80,8 +80,10 @@ export function ImageLightbox({
     if (!isOpen || !src || !isVideo(src) || !videoRef.current) return;
 
     const video = videoRef.current;
-    video.muted = false;
-    void video.play().catch(() => undefined);
+    video.play().catch(() => {
+      video.muted = true;
+      void video.play().catch(() => undefined);
+    });
   }, [isOpen, src]);
 
   if (!portalRoot) return null;
@@ -163,14 +165,9 @@ export function ImageLightbox({
                   src={src}
                   className="h-full w-full object-contain"
                   controls
-                  autoPlay
-                  muted={false}
+                  muted
                   playsInline
                   preload="metadata"
-                  onLoadedMetadata={(event) => {
-                    event.currentTarget.muted = false;
-                    void event.currentTarget.play().catch(() => undefined);
-                  }}
                 >
                   <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
                 </video>
