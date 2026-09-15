@@ -7,6 +7,7 @@ import type {
   MasterProjectV2GalleryItem,
 } from '@/types/project-template';
 import BlockMedia from '@/components/projects/templates/master-v2/BlockMedia';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 
 type SectionFeatures3Props = {
   item: MasterProjectV2GalleryItem;
@@ -79,9 +80,10 @@ export default function SectionFeatures3({
               </h3>
             ) : null}
             {item.description ? (
-              <p className="max-w-3xl text-base leading-relaxed text-white/78 md:text-lg">
-                {item.description}
-              </p>
+              <GhostMarkdown
+                content={item.description}
+                className="max-w-3xl text-base leading-relaxed text-white/78 md:text-lg"
+              />
             ) : null}
           </div>
         )}
@@ -111,9 +113,10 @@ export default function SectionFeatures3({
                 {feature.title}
               </h4>
               {feature.description ? (
-                <p className="mt-3 text-sm leading-relaxed text-white/76 md:text-base">
-                  {feature.description}
-                </p>
+                <GhostMarkdown
+                  content={feature.description}
+                  className="mt-3 text-sm leading-relaxed text-white/76 md:text-base"
+                />
               ) : null}
             </article>
           ))}

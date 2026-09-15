@@ -19,7 +19,7 @@ import argparse
 import subprocess
 from pathlib import Path
 
-AGENT_DIR = Path(".agent")
+AGENT_DIR = Path(".agents")
 PID_FILE = AGENT_DIR / "preview.pid"
 LOG_FILE = AGENT_DIR / "preview.log"
 

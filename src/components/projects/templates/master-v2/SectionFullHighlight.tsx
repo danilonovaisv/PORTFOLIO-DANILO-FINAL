@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { GHOST_EASE } from '@/config/motion';
 import type { MasterProjectV2GalleryItem } from '@/types/project-template';
 import BlockMedia from '@/components/projects/templates/master-v2/BlockMedia';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 
 type SectionFullHighlightProps = {
   item: MasterProjectV2GalleryItem;
@@ -76,9 +77,10 @@ export default function SectionFullHighlight({
             </h3>
           ) : null}
           {item.description ? (
-            <p className="max-w-3xl text-base leading-relaxed text-white/82 md:text-xl">
-              {item.description}
-            </p>
+            <GhostMarkdown
+              content={item.description}
+              className="max-w-3xl text-base leading-relaxed text-white/82 md:text-xl"
+            />
           ) : null}
         </div>
       </m.article>

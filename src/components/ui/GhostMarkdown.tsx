@@ -12,10 +12,16 @@ type GhostMarkdownProps = {
   textConfig?: TextConfig;
 };
 
-function normalizeMarkdownLineBreaks(content: string) {
-  // We avoid lookbehind as it can fail in older browsers and causes issues
-  // Instead, we will rely on CSS `whitespace-pre-wrap` in the bodyClass
-  return content.replace(/\r\n/g, '\n');
+function normalizeMarkdownContent(content: string): string {
+  // 1. Unescape literal \n if present (e.g. from JSON/form serialization)
+  let text = content.replace(/\\n/g, '\n');
+  // 2. Normalize Windows \r\n to \n
+  text = text.replace(/\r\n/g, '\n');
+  // 3. Strip any unsafe inline html style / class attributes
+  text = text
+    .replace(/\sstyle\s*=\s*(?:"[^"]*"|'[^']*')/gi, '')
+    .replace(/\sclass(Name)?\s*=\s*(?:"[^"]*"|'[^']*')/gi, '');
+  return text;
 }
 
 function resolveAlignmentClass(textAlign?: TextConfig['textAlign']) {
@@ -36,15 +42,11 @@ export function GhostMarkdown({
 }: GhostMarkdownProps) {
   if (!content || typeof content !== 'string') return null;
 
-  const normalized = normalizeMarkdownLineBreaks(
-    content
-      .replace(/\sstyle\s*=\s*(?:"[^"]*"|'[^']*')/gi, '')
-      .replace(/\sclass(Name)?\s*=\s*(?:"[^"]*"|'[^']*')/gi, '')
-  );
+  const normalized = normalizeMarkdownContent(content);
 
   const alignClass = resolveAlignmentClass(textConfig?.textAlign);
   const bodyClass = cn(
-    'text-body leading-relaxed text-white/84 whitespace-pre-wrap',
+    'text-base md:text-lg leading-relaxed text-white/80',
     textConfig?.fontSize,
     textConfig?.fontWeight,
     alignClass
@@ -57,11 +59,14 @@ export function GhostMarkdown({
   const components = useMemo(
     () => ({
       p: ({ children }: any) => (
-        <p className={cn(bodyClass, 'mb-4')}>{children}</p>
+        <p className={cn(bodyClass, 'mb-4 last:mb-0')}>{children}</p>
       ),
       h1: ({ children }: any) => (
         <h1
-          className={cn('text-h1 mb-6 text-balance font-semibold', alignClass)}
+          className={cn(
+            'text-3xl md:text-5xl font-semibold tracking-tight text-white mb-6 text-balance',
+            alignClass
+          )}
           {...headingProps}
         >
           {children}
@@ -69,7 +74,10 @@ export function GhostMarkdown({
       ),
       h2: ({ children }: any) => (
         <h2
-          className={cn('text-h2 mb-5 text-balance font-semibold', alignClass)}
+          className={cn(
+            'text-2xl md:text-4xl font-semibold tracking-tight text-white mb-5 text-balance',
+            alignClass
+          )}
           {...headingProps}
         >
           {children}
@@ -77,24 +85,73 @@ export function GhostMarkdown({
       ),
       h3: ({ children }: any) => (
         <h3
-          className={cn('text-h3 mb-4 text-balance font-semibold', alignClass)}
+          className={cn(
+            'text-xl md:text-3xl font-semibold tracking-tight text-white mb-4 text-balance',
+            alignClass
+          )}
           {...headingProps}
         >
           {children}
         </h3>
       ),
+      h4: ({ children }: any) => (
+        <h4
+          className={cn(
+            'text-lg md:text-xl font-semibold tracking-tight text-white mb-3 text-balance',
+            alignClass
+          )}
+          {...headingProps}
+        >
+          {children}
+        </h4>
+      ),
+      h5: ({ children }: any) => (
+        <h5
+          className={cn(
+            'text-base md:text-lg font-semibold tracking-tight text-white mb-2',
+            alignClass
+          )}
+          {...headingProps}
+        >
+          {children}
+        </h5>
+      ),
+      h6: ({ children }: any) => (
+        <h6
+          className={cn(
+            'text-sm md:text-base font-semibold tracking-tight text-white mb-2',
+            alignClass
+          )}
+          {...headingProps}
+        >
+          {children}
+        </h6>
+      ),
       ul: ({ children }: any) => (
-        <ul className={cn(bodyClass, 'mb-4 list-disc space-y-2 pl-6')}>
+        <ul
+          className={cn(
+            bodyClass,
+            'mb-4 list-disc list-outside pl-6 space-y-2 marker:text-blueAccent'
+          )}
+        >
           {children}
         </ul>
       ),
       ol: ({ children }: any) => (
-        <ol className={cn(bodyClass, 'mb-4 list-decimal space-y-2 pl-6')}>
+        <ol
+          className={cn(
+            bodyClass,
+            'mb-4 list-decimal list-outside pl-6 space-y-2 marker:text-blueAccent'
+          )}
+        >
           {children}
         </ol>
       ),
+      li: ({ children }: any) => (
+        <li className="leading-relaxed text-white/80">{children}</li>
+      ),
       blockquote: ({ children }: any) => (
-        <blockquote className="mb-4 border-l border-bluePrimary/60 pl-4 text-white/78">
+        <blockquote className="my-4 border-l-2 border-bluePrimary bg-white/[0.02] py-2 pl-4 italic text-white/80 rounded-r">
           {children}
         </blockquote>
       ),
@@ -104,19 +161,47 @@ export function GhostMarkdown({
       em: ({ children }: any) => (
         <em className="italic text-white/90">{children}</em>
       ),
+      a: ({ href, children, node: _node, ...props }: any) => {
+        const isExternal =
+          href?.startsWith('http://') || href?.startsWith('https://');
+        return (
+          <a
+            href={href}
+            className="text-blueAccent underline underline-offset-4 transition-colors hover:text-blueAccent/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent"
+            {...(isExternal
+              ? { target: '_blank', rel: 'noopener noreferrer' }
+              : {})}
+            {...props}
+          >
+            {children}
+          </a>
+        );
+      },
+      code: ({ children, className: codeClassName, node: _node, ...props }: any) => (
+        <code
+          className={cn(
+            'rounded bg-white/10 px-1.5 py-0.5 font-mono text-sm text-blueAccent',
+            codeClassName
+          )}
+          {...props}
+        >
+          {children}
+        </code>
+      ),
+      pre: ({ children }: any) => (
+        <pre className="my-4 overflow-x-auto rounded-lg border border-white/10 bg-black/50 p-4 font-mono text-sm text-white/90">
+          {children}
+        </pre>
+      ),
+      hr: () => <hr className="my-6 border-white/10" />,
     }),
     [bodyClass, alignClass, headingProps]
   );
 
   return (
-    <div
-      className={cn(
-        'max-w-none prose prose-invert prose-p:my-0 prose-img:rounded-xl prose-a:text-blueAccent hover:prose-a:text-blueAccent/80 prose-strong:text-white prose-li:marker:text-blueAccent',
-        proseClassName,
-        className
-      )}
-    >
+    <div className={cn('ghost-markdown w-full max-w-none', proseClassName, className)}>
       <ReactMarkdown components={components}>{normalized}</ReactMarkdown>
     </div>
   );
 }
+

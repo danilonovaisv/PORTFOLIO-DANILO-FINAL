@@ -13,6 +13,7 @@ import { getAssetUrl } from '@/lib/utils';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
 import type {
   MasterProjectAsset,
@@ -319,7 +320,7 @@ export default function MasterProjectTemplate({
 
             <div className="mt-8 space-y-4 text-base leading-relaxed text-white/78 md:text-lg">
               {introParagraphs.map((paragraph, index) => (
-                <p key={`intro-${index}`}>{paragraph}</p>
+                <GhostMarkdown key={`intro-${index}`} content={paragraph} />
               ))}
             </div>
 
@@ -368,9 +369,10 @@ export default function MasterProjectTemplate({
                       “{item.quote || item.title || project.project_title}”
                     </p>
                     {item.description ? (
-                      <p className="mx-auto mt-6 max-w-4xl text-lg leading-relaxed text-white/90 md:text-2xl">
-                        {item.description}
-                      </p>
+                      <GhostMarkdown
+                        content={item.description}
+                        className="mx-auto mt-6 max-w-4xl text-lg leading-relaxed text-white/90 md:text-2xl text-center"
+                      />
                     ) : null}
                   </m.blockquote>
                 );
@@ -424,9 +426,10 @@ export default function MasterProjectTemplate({
                         </h3>
                       ) : null}
                       {item.description ? (
-                        <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/82 md:text-lg">
-                          {item.description}
-                        </p>
+                        <GhostMarkdown
+                          content={item.description}
+                          className="mt-3 max-w-2xl text-base leading-relaxed text-white/82 md:text-lg"
+                        />
                       ) : null}
                     </figcaption>
                   )}

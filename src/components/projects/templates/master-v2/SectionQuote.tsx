@@ -3,6 +3,7 @@
 import { m } from 'motion/react';
 import { GHOST_EASE } from '@/config/motion';
 import type { MasterProjectV2GalleryItem } from '@/types/project-template';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 
 type SectionQuoteProps = {
   item: MasterProjectV2GalleryItem;
@@ -47,9 +48,10 @@ export default function SectionQuote({
           “{item.quote || item.title || 'Criar com intenção.'}”
         </p>
         {item.description ? (
-          <p className="mx-auto mt-6 max-w-4xl text-base leading-relaxed text-white/82 md:text-xl">
-            {item.description}
-          </p>
+          <GhostMarkdown
+            content={item.description}
+            className="mx-auto mt-6 max-w-4xl text-base leading-relaxed text-white/82 md:text-xl text-center"
+          />
         ) : null}
       </blockquote>
     </m.section>

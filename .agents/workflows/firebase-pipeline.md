@@ -5,7 +5,7 @@ description: Pipeline rigoroso de validação de ambiente, preflight e preparaç
 # Firebase Deployment Pipeline
 
 1. Inicie o processo executando o `/pre-flight-check` para garantir que o código está estável.
-2. Invoque as políticas de segurança do projeto lendo `@.agent/rules/30-execution-protocol.md`.
+2. Invoque as políticas de segurança do projeto lendo `@.agents/rules/30-execution-protocol.md`.
 3. Garanta que todas as variáveis de ambiente (.env) necessárias para produção estejam válidas e não-comprometidas:
    `// turbo /Users/danilonovais/.local/bin/node @node_modules/.bin/tsx scripts/validate-env.ts`
 4. Valide o contrato de deploy do Firebase (firebase.json / firebaserc) checando se a configuração de hospedagem está correta:

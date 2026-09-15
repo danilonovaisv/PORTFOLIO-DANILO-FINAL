@@ -1,24 +1,15 @@
 packages:
   - functions
-  - src/app
   - .
 allowBuilds:
   '@firebase/util': false
+  '@parcel/watcher': false
   esbuild: false
   protobufjs: false
   re2: false
   sharp: false
   unrs-resolver: false
   workerd: true
-
-ignoredBuiltDependencies:
-  - '@firebase/util'
-  - esbuild
-  - msw
-  - protobufjs
-  - re2
-  - sharp
-  - unrs-resolver
 
 minimumReleaseAge: 0
 

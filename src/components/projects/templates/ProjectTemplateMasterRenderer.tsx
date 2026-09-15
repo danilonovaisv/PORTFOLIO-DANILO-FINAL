@@ -24,6 +24,7 @@ import SectionSplit from '@/components/projects/templates/master-v2/SectionSplit
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 
 // LiquidEther removed as it was unused
 // const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
@@ -354,7 +355,7 @@ export default function ProjectTemplateMasterRenderer({
               {introParagraphs.length > 0 ? (
                 <div className="space-y-4 text-base leading-relaxed text-white/80 md:text-lg">
                   {introParagraphs.map((paragraph, index) => (
-                    <p key={`intro-${index}`}>{paragraph}</p>
+                    <GhostMarkdown key={`intro-${index}`} content={paragraph} />
                   ))}
                 </div>
               ) : null}

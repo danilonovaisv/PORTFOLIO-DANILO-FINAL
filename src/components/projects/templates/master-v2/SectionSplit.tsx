@@ -4,6 +4,7 @@ import { m } from 'motion/react';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import type { MasterProjectV2GalleryItem } from '@/types/project-template';
 import BlockMedia from '@/components/projects/templates/master-v2/BlockMedia';
+import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 
 type SectionSplitProps = {
   item: MasterProjectV2GalleryItem;
@@ -58,9 +59,10 @@ export default function SectionSplit({
             {title}
           </h3>
           {item.description ? (
-            <p className="mt-4 text-base leading-relaxed text-white/80 md:text-lg">
-              {item.description}
-            </p>
+            <GhostMarkdown
+              content={item.description}
+              className="mt-4 text-base leading-relaxed text-white/80 md:text-lg"
+            />
           ) : null}
         </aside>
 
