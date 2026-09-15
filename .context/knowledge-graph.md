@@ -101,3 +101,32 @@ The central orchestration layer for the portfolio.
 - **[Firebase Knowledge Base](.context/knowledge/Knowledge-Base-Firebase.json)**: Complete index of Firebase documentation, SDKs, and tools.
 - **[Supabase Knowledge Base](.context/knowledge/Knowledge-Base-Supabase.json)**: Complete index of Supabase documentation, client libraries, and community tools.
 - **[Knowledge Skills](.context/knowledge/knowledge_skills.json)**: Definition of specialized agent capabilities and available tools.
+
+## 7. Wiki-Brain Vault System (@obsidian_vault_operator)
+
+**Activated:** 2026-09-15 | **Operator Agent:** `@obsidian_vault_operator`
+
+The Wiki-Brain is the vault-native knowledge management layer of the Ghost System, located in `graphify-out/` — co-located with the graphify AST and semantic graph output for unified intelligence access.
+
+### Vault Structure (graphify-out/)
+
+| File | Type | Purpose |
+|------|------|---------|
+| `00-INDEX.md` | OFM Note | Master index with Wikilinks, callouts, and properties |
+| `architecture-map.canvas` | JSON Canvas 1.0 | Visual architecture map (Next.js ↔ R3F ↔ Supabase ↔ Firebase) |
+| `components.base` | Obsidian Base | Aggregated component database views (table / cards / list) |
+
+### Automation
+
+- **`scripts/wiki-brain-sync.ts`**: Validates `.canvas` JSON integrity, scans broken Wikilinks, and auto-generates canvas node stubs for new `src/` modules.
+  - `pnpm tsx scripts/wiki-brain-sync.ts` — full validation
+  - `pnpm tsx scripts/wiki-brain-sync.ts --auto` — auto-update canvas with new modules
+
+### Obsidian Subsystems Active
+
+- **OFM**: Wikilinks `[[Note]]`, Embeds `![[file]]`, Callouts `> [!type]`, YAML Frontmatter properties
+- **JSON Canvas Spec 1.0**: Architecture visual maps with auto-generation for `src/` modules
+- **Obsidian Bases**: YAML-based aggregated views filtered by `#ghost-system` tag
+- **Defuddle CLI**: Web extraction for external documentation ingestion (`defuddle parse <url> --md`)
+- **MCP Bridge**: `obsidian` and `mcp-tools-istefox` servers for remote read/write operations
+

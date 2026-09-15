@@ -39,6 +39,7 @@ Invoque ou assuma estas skills conforme a tarefa:
 | **@motion_choreographer** | `motion-choreographer` | Framer Motion e Sincronização de Scroll.  |
 | **@audit_sentinel**       | `audit-sentinel`       | Compliance de Grid, Vitals e Segurança.   |
 | **@devops-engineer**      | `deploy-manager`       | Infraestrutura, Build, Deploy e Releases. |
+| **@obsidian_vault_operator** | `obsidian-vault-operator` | Wiki-Brain, OFM Notes, Canvas Maps & Bases |
 
 ## 📐 4. REGRAS DE EXECUÇÃO (Non-Negotiable)
 
