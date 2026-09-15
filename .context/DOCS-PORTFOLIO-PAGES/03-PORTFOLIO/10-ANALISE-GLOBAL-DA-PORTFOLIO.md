@@ -10,11 +10,11 @@
 
 ## Skills Utilizadas
 
-- `.agent/skills/3d-web-experience/SKILL.md`
-- `.agent/skills/framer-motion/SKILL.md`
-- `.agent/skills/audit-website/SKILL.md`
-- `.agent/skills/nextjs-react-expert/SKILL.md`
-- `.agent/skills/supabase/SKILL.md`
+- `.agentss/skills/3d-web-experience/SKILL.md`
+- `.agentss/skills/framer-motion/SKILL.md`
+- `.agentss/skills/audit-website/SKILL.md`
+- `.agentss/skills/nextjs-react-expert/SKILL.md`
+- `.agentss/skills/supabase/SKILL.md`
 
 ## Referências Context7 (MCP)
 

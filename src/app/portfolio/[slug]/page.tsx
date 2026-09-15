@@ -13,7 +13,7 @@ import {
   mapStaticProjectToPortfolioProject,
 } from '@/lib/portfolio/project-mappers';
 import type { PortfolioProject } from '@/types/project';
-import { isVideo } from '@/lib/utils';
+import { getAssetUrl, isVideo } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { generateVideoSchema } from '@/lib/schema';
 
@@ -347,7 +347,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="relative w-full aspect-video md:aspect-[2.4/1] rounded-2xl md:rounded-4xl overflow-hidden bg-muted shadow-2xl">
           {isVideo(project.image) ? (
             <video
-              src={project.image}
+              src={getAssetUrl(project.image, { isVideo: true })}
               autoPlay
               muted
               loop
@@ -365,7 +365,7 @@ export default async function ProjectPage({ params }: Props) {
             </video>
           ) : (
             <Image
-              src={project.image}
+              src={getAssetUrl(project.image, { width: 1920, quality: 85 })}
               alt={project.title}
               fill
               className="object-cover"
@@ -446,7 +446,7 @@ export default async function ProjectPage({ params }: Props) {
               >
                 {isVideo(media) ? (
                   <video
-                    src={media}
+                    src={getAssetUrl(media, { isVideo: true })}
                     autoPlay
                     muted
                     loop
@@ -464,7 +464,7 @@ export default async function ProjectPage({ params }: Props) {
                   </video>
                 ) : (
                   <Image
-                    src={media}
+                    src={getAssetUrl(media, { width: 1280, quality: 80 })}
                     alt={`${project.title} - mídia ${index + 1}`}
                     fill
                     className="object-cover"

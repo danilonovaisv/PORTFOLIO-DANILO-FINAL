@@ -97,7 +97,7 @@ def cleanup_unused_files():
     to_delete = knip_files.intersection(unimported_files)
     
     # Filter security patterns
-    EXCLUDE_PATTERNS = ['.agent/', 'knip.config', 'package.json', '.env', 'node_modules', 'public/']
+    EXCLUDE_PATTERNS = ['.agents/', 'knip.config', 'package.json', '.env', 'node_modules', 'public/']
     to_delete = [f for f in to_delete if not any(p in f for p in EXCLUDE_PATTERNS)]
 
     if to_delete:

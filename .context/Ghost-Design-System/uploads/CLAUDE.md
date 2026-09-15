@@ -100,15 +100,15 @@
 ## Agent Governance — Single Source of Truth Order
 
 ```
-docs/blueprints_project/ → .agent/rules/ → .agent/workflows/ → .agents/ → .context/
+docs/blueprints_project/ → .agentss/rules/ → .agentss/workflows/ → .agentss/ → .context/
 ```
 
 ### Agent-Context Separation
 
 | Directory   | Access     | Purpose                                                                 |
 | ----------- | ---------- | ----------------------------------------------------------------------- |
-| `.agents/`  | READ-ONLY  | Skill library — 385 skills, 30+ personas, 80+ workflows, 15+ rule files |
-| `.agent/`   | READ-ONLY  | Lightweight rules and workflows (Gemini/Cursor)                         |
+| `.agentss/` | READ-ONLY  | Skill library — 385 skills, 30+ personas, 80+ workflows, 15+ rule files |
+| `.agentss/` | READ-ONLY  | Lightweight rules and workflows (Gemini/Cursor)                         |
 | `.context/` | READ-WRITE | Source of truth for current project state; sync after every code change |
 
 ### Orchestrated Agents (Ghost System)
@@ -246,7 +246,7 @@ This project supports 7 AI systems simultaneously. Each has its own config direc
 | `.cursorrules`                   | Cursor IDE                   | Ghost System architect, @-triggered personas     |
 | `AGENTS.md`                      | All agents                   | Master governance, Ghost System orchestration    |
 | `GEMINI.md`                      | Gemini / Google AI           | Antigravity identity, 13 shared modules          |
-| `.agents/`                       | Shared skill library         | 385 skills, 80+ workflows, rule files            |
+| `.agentss/`                      | Shared skill library         | 385 skills, 80+ workflows, rule files            |
 | `.codex/`                        | OpenAI Codex                 | Multi-agent (6 threads), 3 agent types           |
 | `.windsurf/`                     | Windsurf IDE                 | Agents + skills                                  |
 | `.max/`                          | Max AI                       | Model routing, project context                   |

@@ -31,7 +31,9 @@ jest.mock('react-markdown', () => {
           <Paragraph>
             Texto com {Strong && <Strong>negrito</Strong>} e{' '}
             {LinkComp && (
-              <LinkComp href="https://portfoliodanilo.com">link externo</LinkComp>
+              <LinkComp href="https://portfoliodanilo.com">
+                link externo
+              </LinkComp>
             )}
           </Paragraph>
         )}
@@ -54,7 +56,9 @@ describe('GhostMarkdown Component', () => {
   it('normalizes literal \\n and renders semantic components correctly', () => {
     render(
       <GhostMarkdown
-        content={'## Título\\n\\nParágrafo com **negrito** e [link](https://portfoliodanilo.com)'}
+        content={
+          '## Título\\n\\nParágrafo com **negrito** e [link](https://portfoliodanilo.com)'
+        }
         textConfig={{ textAlign: 'center', fontSize: 'text-xl' }}
       />
     );
@@ -83,7 +87,9 @@ describe('GhostMarkdown Component', () => {
 
   it('strips unsafe inline styles and classes', () => {
     render(
-      <GhostMarkdown content={'<span style="color:red" class="evil">Texto limpo</span>'} />
+      <GhostMarkdown
+        content={'<span style="color:red" class="evil">Texto limpo</span>'}
+      />
     );
     const raw = screen.getByTestId('raw-normalized-text');
     expect(raw.textContent).not.toContain('style=');

@@ -17,7 +17,7 @@ If you're reading this in an AI chat (Claude, Gemini, etc.), **you're good to go
 Type this in your AI chat:
 
 ```
-Read .agent/rules/GEMINI.md and activate all rules and skills
+Read .agents/rules/GEMINI.md and activate all rules and skills
 ```
 
 The AI will:
@@ -57,13 +57,13 @@ Before I start, let me ask:
 
 ## 📋 Available Resources
 
-### Core Files:
+### Core Files
 
 - `GEMINI.md` - Master ruleset (ALWAYS active)
 - `ARCHITECTURE.md` - System architecture
 - `SKILLS.md` - Complete skills inventory (550+)
 
-### Workflows:
+### Workflows
 
 - `/plan` - Task breakdown & Planning
 - `/audit` - Comprehensive project audit
@@ -90,7 +90,7 @@ Before I start, let me ask:
 **Try this:**
 
 ```
-Please read and apply rules from .agent/rules/GEMINI.md
+Please read and apply rules from .agents/rules/GEMINI.md
 ```
 
 ### AI Asks Too Many/Few Questions?

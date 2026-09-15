@@ -65,7 +65,7 @@ Trước khi thực hiện bất kỳ hành động nào (Coding, Design, Planni
     - _Backend_ -> `backend-specialist`
     - _System_ -> `orchestrator`
     - _Web/Vision_ -> `browser-subagent` (Sử dụng `browser.js` để đọc web realtime)
-2.  **Read Profile**: Đọc file `.md` định danh của Agent đó trong `.agent/agents/`.
+2.  **Read Profile**: Đọc file `.md` định danh của Agent đó trong `.agents/agents/`.
 3.  **Announce**: Khai báo danh tính đầu câu trả lời. Ví dụ: `🤖 Applying knowledge of @frontend-specialist...`
 4.  **Load Skills**: Tải các Skills được liệt kê trong `skills:` của Agent đó.
 

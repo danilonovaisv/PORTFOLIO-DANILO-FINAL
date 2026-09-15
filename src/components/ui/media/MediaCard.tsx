@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import type { ProjectMedia } from '@/lib/media/media-format';
 import {
@@ -20,6 +21,7 @@ type MediaCardProps = {
   loop?: boolean;
   muted?: boolean;
   playsInline?: boolean;
+  pauseOffscreen?: boolean;
   preload?: 'none' | 'metadata' | 'auto';
   objectPosition?: string;
   'aria-hidden'?: boolean | 'true' | 'false';
@@ -36,10 +38,12 @@ export function MediaCard({
   loop = true,
   muted = true,
   playsInline = true,
+  pauseOffscreen = true,
   preload = 'metadata',
   objectPosition = 'center',
   'aria-hidden': ariaHidden,
 }: MediaCardProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const fit = media.fit ?? getDefaultMediaFit(media.kind);
   const mediaClasses = cn(
     'h-full w-full object-center',
@@ -51,6 +55,31 @@ export function MediaCard({
     media.kind === 'video' ? { isVideo: true } : undefined
   );
 
+  useEffect(() => {
+    const videoEl = videoRef.current;
+    if (!videoEl || !pauseOffscreen || media.kind !== 'video' || typeof IntersectionObserver === 'undefined') {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          if (!videoEl.paused) {
+            videoEl.pause();
+          }
+        } else {
+          if (videoEl.paused && autoPlay) {
+            videoEl.play().catch(() => {});
+          }
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(videoEl);
+    return () => observer.disconnect();
+  }, [pauseOffscreen, autoPlay, media.kind]);
+
   return (
     <div
       className={cn(
@@ -61,6 +90,7 @@ export function MediaCard({
     >
       {media.kind === 'video' ? (
         <video
+          ref={videoRef}
           src={resolvedSrc}
           poster={poster}
           autoPlay={autoPlay}
@@ -89,3 +119,4 @@ export function MediaCard({
     </div>
   );
 }
+

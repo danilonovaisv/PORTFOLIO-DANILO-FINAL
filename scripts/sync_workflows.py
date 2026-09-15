@@ -661,4 +661,4 @@ for filename, content in files.items():
     except Exception as e:
         print(f"⚠️ Erro inesperado ao sincronizar {filename}: {e}")
 
-print("\n🎉 Sincronização completa! Todos os workflows acessíveis foram atualizados em .agent/workflows/")
+print("\n🎉 Sincronização completa! Todos os workflows acessíveis foram atualizados em .agents/workflows/")

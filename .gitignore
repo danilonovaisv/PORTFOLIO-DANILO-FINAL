@@ -93,15 +93,13 @@ test-results/
 # AI/Agent Tooling
 .ai/
 .aiassistant/
-# AI/Agent System (.agent)
-.agent_backup*/
-.agent/broken_links_report.json
-.agent/skills/
-.agent/skills-archive/
-.agent/.shared/
-.agent/data/
-# Secondary agent skill library
+# AI/Agent System (.agents)
+.agents_backup*/
+.agents/broken_links_report.json
 .agents/skills/
+.agents/skills-archive/
+.agents/.shared/
+.agents/data/
 .github/*
 !.github/workflows/
 .github/workflows/*

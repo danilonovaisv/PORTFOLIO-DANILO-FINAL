@@ -11,14 +11,14 @@ Este workspace implementa o **Antigravity Project Orchestrator Engine**:
 - Cria prompts estruturados
 - Produz protótipos (funcional e interativo)
 - Prepara deploy (web/app/automations)
-- Opera em arquitetura **3 camadas**: Directive → Orchestration → Execution (determinístico) (ref. `.agent/AGENT.md`)
+- Opera em arquitetura **3 camadas**: Directive → Orchestration → Execution (determinístico) (ref. `.agentss/AGENT.md`)
 
 ---
 
 ## 1. Estrutura ideal de diretórios
 
 .
-├── .agent/
+├── .agentss/
 │ ├── AGENT.md
 │ ├── MCPs-uteis.curated-config.json
 │ ├── skills_index.json
@@ -297,11 +297,11 @@ Para uma entrega ser considerada “pronta”:
 
 Adotar o modelo:
 
-- **Directive**: SOPs em `directives/` (o que fazer) (ref. `.agent/AGENT.md`)
+- **Directive**: SOPs em `directives/` (o que fazer) (ref. `.agentss/AGENT.md`)
 - **Orchestration**: roteamento, decisões, handoffs em `agents/`
 - **Execution**: scripts determinísticos em `execution/` (ingestão, normalização, geração, validação)
 
-> Regra: decisões na camada Orchestration; efeitos colaterais e processamento repetível na Execution. (ref. `.agent/AGENT.md`)
+> Regra: decisões na camada Orchestration; efeitos colaterais e processamento repetível na Execution. (ref. `.agentss/AGENT.md`)
 
 ---
 
@@ -479,7 +479,7 @@ Orquestrador principal do **Antigravity Project Orchestrator Engine**. Responsá
 
 ## Operating Model
 
-3 camadas: Directive → Orchestration → Execution (ref. `.agent/AGENT.md`).
+3 camadas: Directive → Orchestration → Execution (ref. `.agentss/AGENT.md`).
 
 ## Inputs
 
@@ -600,7 +600,7 @@ agents/proto.web.md
 
 ## Reference
 
-Usar o template de prompt de protótipo (ref. `.agent/prompt-structure.md`) e design system de referência (ref. `.agent/design-systems.md`).
+Usar o template de prompt de protótipo (ref. `.agentss/prompt-structure.md`) e design system de referência (ref. `.agentss/design-systems.md`).
 
 ## Outputs
 
@@ -740,7 +740,7 @@ rules/30.prompts.md
 
 # Prompt Rules
 
-- Prompts seguem estrutura padrão (role/task/stack/visual/implementation/config) conforme template de prototipagem (ref. `.agent/prompt-structure.md`)
+- Prompts seguem estrutura padrão (role/task/stack/visual/implementation/config) conforme template de prototipagem (ref. `.agentss/prompt-structure.md`)
 - Packs versionados e testáveis
 - Sempre declarar suposições e limites
 
@@ -823,7 +823,7 @@ skills/prompting/prompt-structure.md
 
 # Skill: prompt-structure
 
-Use a estrutura padrão de protótipo (role/task/stack/visual/implementation/tailwind config) conforme referência em `.agent/prompt-structure.md`.
+Use a estrutura padrão de protótipo (role/task/stack/visual/implementation/tailwind config) conforme referência em `.agentss/prompt-structure.md`.
 
 ⸻
 
@@ -876,7 +876,7 @@ configs/workspace.config.json
 "metrics": ["latency_ms", "failures", "retries"]
 },
 "mcp": {
-"curatedConfigPath": ".agent/MCPs-uteis.curated-config.json"
+"curatedConfigPath": ".agentss/MCPs-uteis.curated-config.json"
 }
 }
 

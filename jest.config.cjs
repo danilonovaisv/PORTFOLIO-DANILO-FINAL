@@ -22,7 +22,6 @@ const baseConfig = {
   },
   transformIgnorePatterns: ['node_modules/(?!(framer-motion)/)'],
   modulePathIgnorePatterns: [
-    '<rootDir>/.agent/',
     '<rootDir>/.agents/',
     '<rootDir>/functions/',
     '<rootDir>/.firebase/',

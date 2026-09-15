@@ -82,7 +82,7 @@ Use these keywords to communicate precisely with the AI.
 | `security-auditor` | Vulnerability checks. |
 | `seo-expert-kit` | Comprehensive SEO toolkit. |
 | `tdd-master-workflow` | Test-Driven Development flow. |
-| ... | *(And hundreds more in `.agent/skills` folder)* |
+| ... | *(And hundreds more in `.agentss/skills` folder)* |
 
 ---
 

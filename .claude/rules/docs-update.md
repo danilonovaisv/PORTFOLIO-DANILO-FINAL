@@ -40,8 +40,8 @@ Mỗi khi thêm tính năng mới, Agent PHẢI kiểm tra và cập nhật các
 
 ## 🔄 2. QUY TRÌNH TỰ ĐỘNG
 
-1. **Phát hiện thay đổi**: Sau khi tạo file mới trong `.agent/`
-2. **Chạy script**: `node .agent/scripts/update-docs.js`
+1. **Phát hiện thay đổi**: Sau khi tạo file mới trong `.agents/`
+2. **Chạy script**: `node .agents/scripts/update-docs.js`
 3. **Review output**: Script sẽ hiển thị số liệu hiện tại
 4. **Cập nhật thủ công**: Dựa vào checklist ở trên
 5. **Commit docs**: Tạo commit riêng cho docs

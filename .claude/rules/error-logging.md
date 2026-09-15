@@ -85,7 +85,7 @@ Mỗi lỗi PHẢI tuân thủ cấu trúc sau trong `ERRORS.md`:
 ## 📍 4. VỊ TRÍ LƯU FILE
 
 - **File chính**: `ERRORS.md` (tại thư mục gốc dự án)
-- **Backup**: `.agent/logs/errors-[YYYY-MM].md` (theo tháng)
+- **Backup**: `.agents/logs/errors-[YYYY-MM].md` (theo tháng)
 
 ---
 

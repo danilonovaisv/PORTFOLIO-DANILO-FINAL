@@ -77,7 +77,7 @@ module.exports = {
 
 ## Documentação Completa
 
-📖 Ver: `.agent/rules/postcss-tailwind-config.md`
+📖 Ver: `.agents/rules/postcss-tailwind-config.md`
 
 ## Comandos Úteis
 

@@ -21,7 +21,7 @@ fi
 echo ""
 echo "MCP Servers are configured to run via command runners in 'mcp_servers.json'."
 echo ""
-echo "Please verify your GitHub Token is set in '.agent/mcp-config.json' if you intend to use the GitHub server."
+echo "Please verify your GitHub Token is set in '.agents/mcp_config.json' if you intend to use the GitHub server."
 echo "Running 'pnpm install' to ensure project integrity..."
 
 # Use -s for silent pnpm install to reduce noise, unless it fails

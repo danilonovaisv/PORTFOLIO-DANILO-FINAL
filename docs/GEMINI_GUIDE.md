@@ -27,7 +27,7 @@ npx antigravity-ide my-gemini-agent
 ### 2. Configure for Gemini
 
 ```javascript
-// .agent/config.js
+// .agentss/config.js
 export default {
   model: {
     provider: "google",
@@ -35,7 +35,7 @@ export default {
     apiKey: process.env.GEMINI_API_KEY
   },
   skills: {
-    loadFrom: ".agent/skills",
+    loadFrom: ".agentss/skills",
     categories: ["ai", "development", "data"]
   }
 }
@@ -50,8 +50,8 @@ import fs from "fs";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // Load skills
-const skills = fs.readdirSync(".agent/skills")
-  .map(dir => fs.readFileSync(`.agent/skills/${dir}/SKILL.md`, "utf-8"))
+const skills = fs.readdirSync(".agentss/skills")
+  .map(dir => fs.readFileSync(`.agentss/skills/${dir}/SKILL.md`, "utf-8"))
   .join("\n\n---\n\n");
 
 const model = genAI.getGenerativeModel({ 
@@ -70,7 +70,7 @@ const result = await chat.sendMessage("Build a RAG system with TypeScript");
 
 This workspace is **Global-Powered**. Do not repeat standard rules/skills in local files.
 1.  **Primary Source**: `~/.antigravity/` (Global Master Skills & Rules)
-2.  **Secondary Source**: `.agent/` (Project-specific Overrides only)
+2.  **Secondary Source**: `.agentss/` (Project-specific Overrides only)
 
 If a workflow/skill is found in Global, use it as the default.
 
@@ -188,13 +188,13 @@ Tools (10+ skills)
 ```javascript
 // Gemini 1.5 Pro has 2M token context
 // Can load ALL 550 skills!
-const allSkills = loadAllSkills(".agent/skills");
+const allSkills = loadAllSkills(".agentss/skills");
 ```
 
 **Option 2: Selective (Gemini Flash)**
 ```javascript
 // Gemini 2.0 Flash - load specific categories
-const skills = loadSkills(".agent/skills", {
+const skills = loadSkills(".agentss/skills", {
   categories: ["ai", "development", "data"]
 });
 ```

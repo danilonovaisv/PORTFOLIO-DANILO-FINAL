@@ -117,10 +117,7 @@ export function AlpaBlockMediaText({
       }}
       className="flex flex-col justify-center"
     >
-      <GhostMarkdown
-        content={text}
-        className="text-textSecondary"
-      />
+      <GhostMarkdown content={text} className="text-textSecondary" />
     </m.div>
   );
 

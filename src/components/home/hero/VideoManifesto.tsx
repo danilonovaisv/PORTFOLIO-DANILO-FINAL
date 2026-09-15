@@ -55,30 +55,7 @@ export function VideoManifesto({
 
   const deskBR = useTransform(scrollYProgress, [0.6, 1], ['16px', '0px']);
 
-  const [hasPlayedHold, setHasPlayedHold] = useState(false);
-
-  useEffect(() => {
-    if (isMobile || hasPlayedHold || shouldReduceMotion) return;
-
-    const unsubscribe = scrollYProgress.on('change', (latest) => {
-      // Quando o video atingir 99% a 100% da viewport (start top)
-      if (latest >= 0.99 && !hasPlayedHold) {
-        setHasPlayedHold(true);
-
-        // Unmute automático e tentar tocar áudio se não estiver
-        setMuted(false);
-        if (videoRef.current) {
-          videoRef.current.play().catch(() => {
-            // Se autoplay foi bloqueado pelo browser
-          });
-        }
-      }
-    });
-
-    return () => unsubscribe();
-  }, [scrollYProgress, hasPlayedHold, isMobile, shouldReduceMotion]);
-
-  // Mutar sempre por padrão; som só habilita via ação explícita do usuário (botão)
+  // Mutar sempre por padrão e garantir muting quando fora da tela
   useEffect(() => {
     if (!sectionRef.current) return;
 
@@ -88,7 +65,7 @@ export function VideoManifesto({
           setMuted(true);
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.1 }
     );
 
     observer.observe(sectionRef.current);
