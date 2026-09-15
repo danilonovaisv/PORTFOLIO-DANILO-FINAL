@@ -1,7 +1,7 @@
 
 import os
 
-workflow_dir = "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agent/workflows"
+workflow_dir = "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/workflows"
 
 for filename in os.listdir(workflow_dir):
     if filename.endswith(".md"):

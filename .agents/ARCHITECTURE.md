@@ -17,7 +17,7 @@ Antigravity Kit is a modular system consisting of:
 ## 🏗️ Directory Structure
 
 ```plaintext
-.agent/
+.agents/
 ├── ARCHITECTURE.md          # This file
 ├── CONCEPTS.md              # Rule, Skill, Workflow definitions
 ├── agents/                  # 5 Specialist Agents
@@ -45,10 +45,10 @@ Antigravity Kit is a modular system consisting of:
 
 System operates on the classic management framework to ensure continuous quality:
 
-1.  **PLAN**: Defines MVP, PRD, and creates the execution blueprint.
-2.  **DO**: Worker Agents build the features according to the plan.
-3.  **CHECK**: Independent audit, running tests, and quality gate.
-4.  **ACT**: Refines the output and finalizes operation.
+1. **PLAN**: Defines MVP, PRD, and creates the execution blueprint.
+2. **DO**: Worker Agents build the features according to the plan.
+3. **CHECK**: Independent audit, running tests, and quality gate.
+4. **ACT**: Refines the output and finalizes operation.
 
 ---
 
@@ -137,10 +137,10 @@ Master validation scripts that orchestrate skill-level scripts.
 
 ```bash
 # Quick validation during development
-python .agent/scripts/checklist.py .
+python scripts/checklist.py .
 
 # Full verification before deployment
-python .agent/scripts/verify_all.py . --url http://localhost:3000
+python scripts/verify_all.py . --url http://localhost:3000
 ```
 
 ### What They Check

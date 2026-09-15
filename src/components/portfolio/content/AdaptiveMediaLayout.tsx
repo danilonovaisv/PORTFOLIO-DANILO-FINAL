@@ -268,10 +268,16 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                                     </div>
                                                 </div>
                                             ) : isThumbVid ? (
-                                                <div className="relative w-full h-full">
-                                                    <video src={`${getAssetUrl(media, { isVideo: true })}#t=0.001`} className="w-full h-full object-cover bg-black/5" muted playsInline preload="metadata" />
-                                                    <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
-                                                        <Play className="w-6 h-6 text-white fill-current opacity-80" />
+                                                <div className="relative w-full h-full bg-[#0a0f1c]">
+                                                    <Image
+                                                        src={DEFAULT_VIDEO_POSTER}
+                                                        alt={`Video thumbnail ${idx + 1}`}
+                                                        fill
+                                                        className="object-cover"
+                                                        sizes="200px"
+                                                    />
+                                                    <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/50 transition-colors">
+                                                        <Play className="w-6 h-6 text-white fill-current opacity-90" />
                                                     </div>
                                                 </div>
                                             ) : (

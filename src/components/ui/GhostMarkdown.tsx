@@ -177,7 +177,12 @@ export function GhostMarkdown({
           </a>
         );
       },
-      code: ({ children, className: codeClassName, node: _node, ...props }: any) => (
+      code: ({
+        children,
+        className: codeClassName,
+        node: _node,
+        ...props
+      }: any) => (
         <code
           className={cn(
             'rounded bg-white/10 px-1.5 py-0.5 font-mono text-sm text-blueAccent',
@@ -199,9 +204,14 @@ export function GhostMarkdown({
   );
 
   return (
-    <div className={cn('ghost-markdown w-full max-w-none', proseClassName, className)}>
+    <div
+      className={cn(
+        'ghost-markdown w-full max-w-none',
+        proseClassName,
+        className
+      )}
+    >
       <ReactMarkdown components={components}>{normalized}</ReactMarkdown>
     </div>
   );
 }
-

@@ -58,6 +58,7 @@ export default [
     languageOptions: {
       parser,
       parserOptions: {
+        warnOnUnsupportedTypeScriptVersion: false,
         ecmaVersion: 'latest',
         sourceType: 'module',
         ecmaFeatures: {
@@ -70,8 +71,8 @@ export default [
     },
     plugins: nextPlugin
       ? {
-          '@next/next': nextPlugin,
-        }
+        '@next/next': nextPlugin,
+      }
       : {},
     settings: nextCoreWebVitals?.settings ?? {},
     rules: {

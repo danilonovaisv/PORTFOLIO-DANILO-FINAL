@@ -45,7 +45,7 @@
 ## 🛠️ Verification Scripts
 
 ```bash
-python .agent/skills/lint-and-validate/scripts/lint_runner.py src/components/sobre/GhostModel.tsx
+python .agents/skills/lint-and-validate/scripts/lint_runner.py src/components/sobre/GhostModel.tsx
 ```
 
 ---

@@ -100,7 +100,7 @@
 ## Agent Governance — Single Source of Truth Order
 
 ```
-docs/blueprints_project/ → .agent/rules/ → .agent/workflows/ → .agents/ → .context/
+docs/blueprints_project/ → .agents/rules/ → .agents/workflows/ → .agents/ → .context/
 ```
 
 ### Agent-Context Separation
@@ -108,7 +108,7 @@ docs/blueprints_project/ → .agent/rules/ → .agent/workflows/ → .agents/ �
 | Directory   | Access     | Purpose                                                                 |
 | ----------- | ---------- | ----------------------------------------------------------------------- |
 | `.agents/`  | READ-ONLY  | Skill library — 385 skills, 30+ personas, 80+ workflows, 15+ rule files |
-| `.agent/`   | READ-ONLY  | Lightweight rules and workflows (Gemini/Cursor)                         |
+| `.agents/`  | READ-ONLY  | Lightweight rules and workflows (Gemini/Cursor)                         |
 | `.context/` | READ-WRITE | Source of truth for current project state; sync after every code change |
 
 ### Orchestrated Agents (Ghost System)

@@ -30,5 +30,5 @@ Defined in `AGENT.md`, checking consistency with executed tasks.
 
 ## Operational Constraints
 
-- **FileSystem**: `src/` is open. `.agent/` is read-restricted (use `AGENT.md` as proxy).
+- **FileSystem**: `src/` is open. `.agentss/` is read-restricted (use `AGENT.md` as proxy).
 - **Assets**: Must use `assets.json` mapping (see KI-005).

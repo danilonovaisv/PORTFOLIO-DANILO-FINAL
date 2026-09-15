@@ -20,7 +20,7 @@ The goal is to resolve the error `exec: "npx": executable file not found in $PAT
 3.  **Verify `scripts/npx` shim**:
     *   Ensure it's executable and works correctly.
 4.  **Update PATH in Environment**:
-    *   Ensure `.agent/mcp_config.json` (if used by the IDE) has the correct PATH or uses the wrapper.
+    *   Ensure `.agentss/mcp_config.json` (if used by the IDE) has the correct PATH or uses the wrapper.
 
 ## Action Items
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { m } from 'motion/react';
@@ -59,8 +59,20 @@ export const CategoryStripe = React.memo(function CategoryStripe({
       : title;
 
   const stripeRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const parallaxY = useGhostParallaxY(stripeRef, 18);
   const isVideo = category.thumbnail.endsWith('.mp4');
+
+  useEffect(() => {
+    const videoEl = videoRef.current;
+    if (!videoEl || !isVideo) return;
+
+    if (isHovered) {
+      videoEl.play().catch(() => {});
+    } else {
+      videoEl.pause();
+    }
+  }, [isHovered, isVideo]);
 
   return (
     <m.div
@@ -114,8 +126,9 @@ export const CategoryStripe = React.memo(function CategoryStripe({
               >
                 {isVideo ? (
                   <video
+                    ref={videoRef}
                     src={category.thumbnail}
-                    autoPlay
+                    autoPlay={false}
                     loop
                     muted
                     playsInline

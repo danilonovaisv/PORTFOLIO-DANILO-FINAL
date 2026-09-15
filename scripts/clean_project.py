@@ -74,7 +74,7 @@ PROTECTED_PATHS = [
     ".vscode",
     ".idea",
     ".husky",
-    ".agent",
+    ".agents",
     "src",
     "app",
     "pages",

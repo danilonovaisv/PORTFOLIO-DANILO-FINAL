@@ -173,10 +173,10 @@ docs/blueprints_project/ → .agents/rules/ → .agents/workflows/ → .agents/ 
 
 ### Agent-Context Separation
 
-| Directory   | Access     | Purpose                                                                 |
-| ----------- | ---------- | ----------------------------------------------------------------------- |
+| Directory   | Access     | Purpose                                                                             |
+| ----------- | ---------- | ----------------------------------------------------------------------------------- |
 | `.agents/`  | READ-ONLY  | Antigravity Workspace Customizations Root — Skills, Rules, Workflows, Personas, MCP |
-| `.context/` | READ-WRITE | Source of truth for current project state; sync after every code change |
+| `.context/` | READ-WRITE | Source of truth for current project state; sync after every code change             |
 
 ### Orchestrated Agents (Ghost System)
 

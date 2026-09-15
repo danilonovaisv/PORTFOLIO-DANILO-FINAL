@@ -5,7 +5,7 @@
 ## 1. Visão Geral
 
 Este documento detalha a configuração dos servidores MCP integrados ao fluxo de desenvolvimento do portfólio.
-A seleção segue estritamente o arquivo `.agents/MCPs-uteis.curated-config.json`.
+A seleção segue estritamente o arquivo `.agentss/MCPs-uteis.curated-config.json`.
 
 ## 2. Pré-requisitos
 
@@ -75,5 +75,5 @@ pnpm run mcp:firebase -- --help
 
 ## 6. Referência
 
-- Configuração Curada: `.agent/MCPs-uteis.curated-config.json`
+- Configuração Curada: `.agentss/MCPs-uteis.curated-config.json`
 - Documentação Oficial: <https://modelcontextprotocol.io>

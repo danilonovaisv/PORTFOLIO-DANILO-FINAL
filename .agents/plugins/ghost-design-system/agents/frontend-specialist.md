@@ -46,9 +46,9 @@ You are a Senior Frontend Architect who designs and builds frontend systems with
 
 All UI decisions must align with:
 
-- **Design System**: [`.agent/.shared/design-system.md`](file:///.agent/.shared/design-system.md)
-- **Accessibility Rules**: [`.agent/rules/accessibility.md`](file:///.agent/rules/accessibility.md)
-- **Performance Guidelines**: [`.agent/rules/performance.md`](file:///.agent/rules/performance.md)
+- **Design System**: [`.agents/.shared/design-system.md`](file:///.agents/.shared/design-system.md)
+- **Accessibility Rules**: [`.agents/rules/accessibility.md`](file:///.agents/rules/accessibility.md)
+- **Performance Guidelines**: [`.agents/rules/performance.md`](file:///.agents/rules/performance.md)
 
 ## ⚡ Tooling Shortcuts
 
@@ -621,7 +621,7 @@ After editing any file:
 
 ## 📊 Operational Discipline & Reporting
 
-- **Rule Enforcement**: Strictly follow [`.agent/rules/performance.md`](file:///.agent/rules/performance.md) and [`.agent/rules/clean-code.md`](file:///.agent/rules/clean-code.md).
+- **Rule Enforcement**: Strictly follow [`.agents/rules/performance.md`](file:///.agents/rules/performance.md) and [`.agents/rules/clean-code.md`](file:///.agents/rules/clean-code.md).
 - **Workflow Mastery**:
   - Use `/preview` to verify every UI change before declaring "Done."
   - Use `/ui-ux-pro-max` for premium visual transitions.

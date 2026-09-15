@@ -40,7 +40,7 @@ def main():
     create_file(".context/conventions.md", "# Convenções da Equipe\n- Use tipagem estrita.\n- Documente as funções públicas.")
 
     # 2. A Biblioteca de Habilidades (Agent Skills)
-    skill_dir = ".agent/skills/example-review-skill"
+    skill_dir = ".agents/skills/example-review-skill"
     os.makedirs(f"{skill_dir}/scripts", exist_ok=True)
     os.makedirs(f"{skill_dir}/references", exist_ok=True)
     os.makedirs(f"{skill_dir}/assets", exist_ok=True)
@@ -66,14 +66,14 @@ Analisar código em busca de vulnerabilidades, code smells e problemas de perfor
     """)
 
     # 3. Orquestração Ativa (Workflows)
-    create_file(".agent/workflows/brainstorm.md", "# Workflow: /brainstorm\n**Ação:** Analisar os requisitos e gerar um 'Implementation Plan' em `artifacts/` antes de codificar.")
-    create_file(".agent/workflows/test.md", "# Workflow: /test\n**Ação:** Ler a implementação e gerar suítes de testes automatizados para a feature.")
-    create_file(".agent/workflows/deploy.md", "# Workflow: /deploy\n**Ação:** Executar lints, build e preparar os scripts de CI/CD.")
+    create_file(".agents/workflows/brainstorm.md", "# Workflow: /brainstorm\n**Ação:** Analisar os requisitos e gerar um 'Implementation Plan' em `artifacts/` antes de codificar.")
+    create_file(".agents/workflows/test.md", "# Workflow: /test\n**Ação:** Ler a implementação e gerar suítes de testes automatizados para a feature.")
+    create_file(".agents/workflows/deploy.md", "# Workflow: /deploy\n**Ação:** Executar lints, build e preparar os scripts de CI/CD.")
 
     # 4. Personas e Agentes Especialistas (Multi-Agent Swarm)
-    create_file(".agent/agents/frontend-specialist.md", "# Persona: Frontend Specialist\n**Foco:** React, TailwindCSS, Acessibilidade, UI/UX.")
-    create_file(".agent/agents/security-auditor.md", "# Persona: Security Auditor\n**Foco:** Prevenção de OWASP Top 10, sanitização de inputs, vazamento de dados.")
-    create_file(".agent/agents/architect.md", "# Persona: Systems Architect\n**Foco:** Design de banco de dados, escalabilidade, escolhas de infraestrutura.")
+    create_file(".agents/agents/frontend-specialist.md", "# Persona: Frontend Specialist\n**Foco:** React, TailwindCSS, Acessibilidade, UI/UX.")
+    create_file(".agents/agents/security-auditor.md", "# Persona: Security Auditor\n**Foco:** Prevenção de OWASP Top 10, sanitização de inputs, vazamento de dados.")
+    create_file(".agents/agents/architect.md", "# Persona: Systems Architect\n**Foco:** Design de banco de dados, escalabilidade, escolhas de infraestrutura.")
 
     # 5. Conectividade com o Mundo Exterior (MCP)
     create_file("mcp_servers.json", """
@@ -105,13 +105,13 @@ SANDBOX_TYPE=local
 SANDBOX_TIMEOUT_SEC=300
     """)
 
-    # 8. Gestão de Versionamento (Ocultar .agent localmente)
+    # 8. Gestão de Versionamento (Ocultar .agents localmente)
     git_exclude_path = ".git/info/exclude"
     if os.path.exists(".git"):
-        append_to_file(git_exclude_path, "\n# Ignorar configurações do Agente localmente\n.agent/")
-        print("✅ Pasta `.agent/` adicionada ao .git/info/exclude para manter suas skills privadas localmente.")
+        append_to_file(git_exclude_path, "\n# Ignorar configurações do Agente localmente\n.agents/")
+        print("✅ Pasta `.agents/` adicionada ao .git/info/exclude para manter suas skills privadas localmente.")
     else:
-        print("⚠️ Repositório Git não detectado. Lembre-se de adicionar `.agent/` ao seu .gitignore se quiser ocultar suas skills da equipe.")
+        print("⚠️ Repositório Git não detectado. Lembre-se de adicionar `.agents/` ao seu .gitignore se quiser ocultar suas skills da equipe.")
 
     print("\n🎉 Scaffold Cognitivo concluído! Sua IDE agora está configurada para operar como um Sistema Agêntico.")
 

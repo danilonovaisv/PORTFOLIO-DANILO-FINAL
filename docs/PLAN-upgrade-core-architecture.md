@@ -1,6 +1,6 @@
 # PLAN: Upgrade Core Architecture to Context-Aware Rules
 
-> **Goal**: Refactor `.agent/rules` from a monolithic design to a modular, context-aware structure leveraging Antigravity's advanced triggers (Glob, Model Decision).
+> **Goal**: Refactor `.agents/rules` from a monolithic design to a modular, context-aware structure leveraging Antigravity's advanced triggers (Glob, Model Decision).
 
 ---
 

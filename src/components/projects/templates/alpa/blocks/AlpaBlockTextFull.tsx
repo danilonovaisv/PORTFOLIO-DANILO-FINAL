@@ -36,11 +36,7 @@ export function AlpaBlockTextFull({
           {title}
         </h3>
       )}
-      <GhostMarkdown
-        content={content}
-        className="text-textSecondary"
-      />
+      <GhostMarkdown content={content} className="text-textSecondary" />
     </m.div>
   );
 }
-

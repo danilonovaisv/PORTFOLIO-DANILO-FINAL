@@ -7,6 +7,8 @@ import type { PointerEvent as ReactPointerEvent } from 'react';
 import FeaturedProjectAnimatedBackground from '@/components/home/featured-projects/FeaturedProjectAnimatedBackground';
 import type { FeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
 import { MediaCard } from '@/components/ui/media/MediaCard';
+import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { resolveHomeFeaturedConfig } from '@/lib/portfolio/home-featured';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import {
@@ -37,6 +39,7 @@ export default function FeaturedProjectCardFrame({
 }: FeaturedProjectCardFrameProps) {
   const visualRef = useRef<HTMLDivElement | null>(null);
   const [logoFailed, setLogoFailed] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 767px)');
   const homeFeatured = resolveHomeFeaturedConfig(
     project.homeFeatured,
     project.featuredOnHome ?? project.isFeatured
@@ -100,6 +103,16 @@ export default function FeaturedProjectCardFrame({
     project.layout.sizes ??
     '(max-width: 768px) 92vw, (max-width: 1280px) 46vw, 31vw';
 
+  const bothAreVideos =
+    desktopMedia?.kind === 'video' && mobileMedia?.kind === 'video';
+
+  const activeSingleMedia =
+    desktopMedia && mobileMedia && baseMediaDiffers
+      ? isMobile
+        ? mobileMedia
+        : desktopMedia
+      : (desktopMedia ?? mobileMedia);
+
   return (
     <div
       className={cn(
@@ -119,30 +132,22 @@ export default function FeaturedProjectCardFrame({
 
         {showThumb ? (
           <div className="absolute inset-0">
-            {desktopMedia && mobileMedia && baseMediaDiffers ? (
-              <>
-                <MediaCard
-                  media={desktopMedia}
-                  sizes={cardMediaSizes}
-                  priority={priority}
-                  poster={DEFAULT_VIDEO_POSTER}
-                  className="absolute inset-0 hidden h-full w-full md:block"
-                  mediaClassName={commonMediaClasses}
-                  aria-hidden
-                />
-                <MediaCard
-                  media={mobileMedia}
-                  sizes={cardMediaSizes}
-                  priority={priority}
-                  poster={DEFAULT_VIDEO_POSTER}
-                  className="absolute inset-0 block h-full w-full md:hidden"
-                  mediaClassName={commonMediaClasses}
-                  aria-hidden
-                />
-              </>
-            ) : desktopMedia || mobileMedia ? (
+            {bothAreVideos && desktopMedia && mobileMedia && baseMediaDiffers ? (
+              <ResponsiveVideo
+                desktopSrc={getAssetUrl(desktopMedia.src, { isVideo: true })}
+                mobileSrc={getAssetUrl(mobileMedia.src, { isVideo: true })}
+                desktopPoster={DEFAULT_VIDEO_POSTER}
+                autoPlay
+                muted
+                loop
+                playsInline
+                pauseOffscreen
+                className={cn('absolute inset-0 h-full w-full object-cover', commonMediaClasses)}
+                aria-hidden
+              />
+            ) : activeSingleMedia ? (
               <MediaCard
-                media={(desktopMedia ?? mobileMedia)!}
+                media={activeSingleMedia}
                 sizes={cardMediaSizes}
                 priority={priority}
                 poster={DEFAULT_VIDEO_POSTER}

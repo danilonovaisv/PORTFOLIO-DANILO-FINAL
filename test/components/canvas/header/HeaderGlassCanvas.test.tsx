@@ -5,12 +5,19 @@ import * as THREE from 'three';
 
 // Mocks
 jest.mock('three', () => {
-  const original = jest.requireActual('three');
   return {
-    ...original,
+    Color: jest.fn().mockImplementation((val) => {
+      let hex = typeof val === 'string' ? val.replace('#', '') : '000000';
+      return {
+        getHexString: () => hex,
+        set: (newVal: string) => {
+          hex = typeof newVal === 'string' ? newVal.replace('#', '') : hex;
+        },
+      };
+    }),
     ShaderMaterial: jest.fn().mockImplementation((config) => {
       return {
-        uniforms: config.uniforms, // pass through the uniforms object created in component
+        uniforms: config.uniforms,
         vertexShader: config.vertexShader,
         fragmentShader: config.fragmentShader,
         dispose: jest.fn(),

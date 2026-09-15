@@ -7,7 +7,7 @@ Este documento descreve a configuração do sistema de Agent/AI para o projeto.
 ## 📁 Estrutura de Pastas
 
 ```
-.agent/
+.agentss/
 ├── rules/              ✅ VERSIONADO (Git)
 │   ├── README.md
 │   ├── coding-standards.md    # Padrões de código
@@ -36,15 +36,15 @@ Este documento descreve a configuração do sistema de Agent/AI para o projeto.
 
 ```gitignore
 # AI/Agent Tooling
-.agent/*              # Ignora tudo em .agent/
-!.agent/rules/        # EXCETO rules/
-!.agent/workflows/    # EXCETO workflows/
+.agentss/*              # Ignora tudo em .agentss/
+!.agentss/rules/        # EXCETO rules/
+!.agentss/workflows/    # EXCETO workflows/
 ```
 
 **Resultado:**
 
 - ✅ `rules/` e `workflows/` são versionados
-- ❌ Outros arquivos em `.agent/` são ignorados
+- ❌ Outros arquivos em `.agentss/` são ignorados
 - ✅ `.context/` é versionado (fonte de verdade visual e protótipos)
 
 ### 2. SWEEP.md Criado
@@ -55,11 +55,11 @@ Arquivo principal de configuração do agente localizado na raiz do projeto:
 - Stack tecnológica
 - Padrões de código
 - Problemas conhecidos e soluções
-- Referência aos diretórios `.agent/rules/` e `.agent/workflows/`
+- Referência aos diretórios `.agentss/rules/` e `.agentss/workflows/`
 
 ### 3. Rules (Regras)
 
-**Localização:** `.agent/rules/`
+**Localização:** `.agentss/rules/`
 
 **Arquivos criados:**
 
@@ -75,7 +75,7 @@ Arquivo principal de configuração do agente localizado na raiz do projeto:
 
 ### 4. Workflows
 
-**Localização:** `.agent/workflows/`
+**Localização:** `.agentss/workflows/`
 
 **Arquivos criados:**
 
@@ -132,30 +132,30 @@ Arquivo principal de configuração do agente localizado na raiz do projeto:
 
 ### Adicionar Nova Regra
 
-1. Criar arquivo em `.agent/rules/nome-da-regra.md`
+1. Criar arquivo em `.agentss/rules/nome-da-regra.md`
 2. Documentar a regra em markdown
 3. Commit e push
 
 ```bash
 # Exemplo
-touch .agent/rules/testing-standards.md
+touch .agentss/rules/testing-standards.md
 # Editar o arquivo
-git add .agent/rules/testing-standards.md
+git add .agentss/rules/testing-standards.md
 git commit -m "docs: adiciona regras de testes"
 git push
 ```
 
 ### Adicionar Novo Workflow
 
-1. Criar arquivo em `.agent/workflows/nome-do-workflow.md`
+1. Criar arquivo em `.agentss/workflows/nome-do-workflow.md`
 2. Documentar o processo passo-a-passo
 3. Commit e push
 
 ```bash
 # Exemplo
-touch .agent/workflows/database-migration.md
+touch .agentss/workflows/database-migration.md
 # Editar o arquivo
-git add .agent/workflows/database-migration.md
+git add .agentss/workflows/database-migration.md
 git commit -m "docs: adiciona workflow de migração de banco"
 git push
 ```
@@ -220,9 +220,9 @@ Problemas comuns e soluções
 ## 🔗 Referências
 
 - **SWEEP.md** - Configuração principal na raiz do projeto
-- **.agent/README.md** - Documentação da pasta .agent
-- **.agent/rules/README.md** - Documentação das regras
-- **.agent/workflows/README.md** - Documentação dos workflows
+- **.agentss/README.md** - Documentação da pasta .agents
+- **.agentss/rules/README.md** - Documentação das regras
+- **.agentss/workflows/README.md** - Documentação dos workflows
 - **.context/** - Fonte de verdade com protótipos e referências visuais
 
 ---

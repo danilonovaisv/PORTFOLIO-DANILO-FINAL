@@ -9,7 +9,7 @@ priority: critical
 
 ### Layer 1: Directive (SOPs)
 
-- **Source**: `.agent/rules/`
+- **Source**: `.agents/rules/`
 - **Action**: Read -> Understand -> Comply.
 - **Rule**: Never deviate without an `ARCH-DECISION` artifact.
 

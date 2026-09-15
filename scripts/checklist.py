@@ -56,16 +56,16 @@ def print_error(text: str):
 
 # Define priority-ordered checks
 CORE_CHECKS = [
-    ("Security Scan", ".agent/skills/vulnerability-scanner/scripts/security_scan.py", True),
-    ("Lint Check", ".agent/skills/lint-and-validate/scripts/lint_runner.py", True),
-    ("Schema Validation", ".agent/skills/database-design/scripts/schema_validator.py", False),
-    ("Test Runner", ".agent/skills/testing-patterns/scripts/test_runner.py", False),
-    ("UX Audit", ".agent/skills/frontend-design/scripts/ux_audit.py", False),
-    ("SEO Check", ".agent/skills/seo-fundamentals/scripts/seo_checker.py", False),
+    ("Security Scan", ".agents/skills/vulnerability-scanner/scripts/security_scan.py", True),
+    ("Lint Check", ".agents/skills/lint-and-validate/scripts/lint_runner.py", True),
+    ("Schema Validation", ".agents/skills/database-design/scripts/schema_validator.py", False),
+    ("Test Runner", ".agents/skills/testing-patterns/scripts/test_runner.py", False),
+    ("UX Audit", ".agents/skills/frontend-design/scripts/ux_audit.py", False),
+    ("SEO Check", ".agents/skills/seo-fundamentals/scripts/seo_checker.py", False),
 ]
 
 PERFORMANCE_CHECKS = [
-    ("Lighthouse Audit", ".agent/skills/performance-profiling/scripts/lighthouse_audit.py", True),
+    ("Lighthouse Audit", ".agents/skills/performance-profiling/scripts/lighthouse_audit.py", True),
     ("Playwright E2E", ["pnpm", "run", "test:e2e"], False),
 ]
 
