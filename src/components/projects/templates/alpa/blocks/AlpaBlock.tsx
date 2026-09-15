@@ -2,6 +2,7 @@
 
 import React from 'react';
 import type { ZoomAsset } from '../../types';
+import { HTMLVideoBlock } from '@/components/ui/HTMLVideoBlock';
 
 // Specialized Blocks
 import { AlpaBlockTitle } from './AlpaBlockTitle';
@@ -83,6 +84,15 @@ export function AlpaBlock({
           poster={content.poster || block.poster}
           revealInitial={revealInitial}
           revealVisible={revealVisible}
+        />
+      );
+
+    case 'html-video':
+      return (
+        <HTMLVideoBlock
+          html={content.html || block.html}
+          media={content.media || block.src}
+          title={content.text || block.title || 'HTML Video Preview'}
         />
       );
 

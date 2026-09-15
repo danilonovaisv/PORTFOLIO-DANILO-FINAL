@@ -17,7 +17,7 @@ export type ResolvedAsset =
         'empty' | 'invalid-url' | 'invalid-youtube' | 'unsupported-provider';
     };
 
-export type AssetTypeHint = 'image' | 'video' | 'youtube';
+export type AssetTypeHint = 'image' | 'video' | 'youtube' | 'html';
 
 const YOUTUBE_ID_PATTERN = /^[a-zA-Z0-9_-]{11}$/;
 const VIDEO_FILE_PATTERN = /\.(mp4|webm|ogg|mov|m4v)(?:[?#].*)?$/i;

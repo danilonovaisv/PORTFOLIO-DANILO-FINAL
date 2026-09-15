@@ -3,6 +3,7 @@ export type BlockType =
   | 'image'
   | 'video'
   | 'video-autoplay'
+  | 'html-video'
   | 'image-text'
   | 'text-image'
   | 'image-image'
@@ -29,9 +30,10 @@ export interface LandingPageBlockContent {
   poster?: string;
   order?: number;
   poster2?: string;
-  mediaType?: 'image' | 'video' | 'youtube';
-  mediaType2?: 'image' | 'video' | 'youtube';
+  mediaType?: 'image' | 'video' | 'youtube' | 'html';
+  mediaType2?: 'image' | 'video' | 'youtube' | 'html';
   bandColor?: string;
+  html?: string;
   [key: string]: any;
 }
 

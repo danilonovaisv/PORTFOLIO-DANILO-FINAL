@@ -19,6 +19,7 @@ export const V3_BLOCK_TYPES: BlockType[] = [
   'image',
   'video',
   'video-autoplay',
+  'html-video',
   'image-text',
   'text-image',
   'image-image',
@@ -401,6 +402,7 @@ export const normalizeLandingBlock = (
       mediaType2,
       autoplay: asBoolean(contentRecord.autoplay),
       bandColor: asString(contentRecord.bandColor ?? record.bandColor),
+      html: asString(contentRecord.html ?? record.html),
     },
   };
 

@@ -193,8 +193,9 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
 
     case 'video':
     case 'video-autoplay': // Treat similarly in editor, logic mainly for frontend
+    case 'html-video':
       return (
-        <div className="p-4">
+        <div className="p-4 space-y-4">
           {renderMediaInput(
             'media',
             'video',
@@ -202,6 +203,17 @@ export function BlockEditor({ block, onChange }: BlockEditorProps) {
             'previewUrl',
             'System_Media_Full'
           )}
+          <div className="space-y-1">
+            <label className="text-xs uppercase tracking-widest text-white/40 font-medium">
+              HTML_VIDEO_CODE
+            </label>
+            <textarea
+              value={block.content.html || ''}
+              onChange={(e) => updateContent({ html: e.target.value })}
+              className="w-full min-h-[160px] bg-white/[0.02] border border-white/10 rounded-xl p-3 outline-none focus:border-bluePrimary/50 font-mono text-xs text-white"
+              placeholder="<!-- HTML Video code -->"
+            />
+          </div>
         </div>
       );
 
