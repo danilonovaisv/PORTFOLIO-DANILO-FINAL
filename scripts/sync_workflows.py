@@ -1,7 +1,7 @@
 import os
 
 # Caminho destino
-WORKFLOWS_DIR = ".agent/workflows"
+WORKFLOWS_DIR = ".agents/workflows"
 
 # Certificar que o diretório existe
 if not os.path.exists(WORKFLOWS_DIR):

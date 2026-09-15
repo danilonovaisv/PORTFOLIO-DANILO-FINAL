@@ -1,6 +1,5 @@
 packages:
   - functions
-  - src/app
   - .
 allowBuilds:
   '@firebase/util': false

@@ -20,11 +20,11 @@ Este workflow é ativado quando o usuário executa o comando `/squirrel-audit [R
 Execute estritamente os comandos abaixo no terminal integrado, aguardando a conclusão de cada um:
 
 1. Execute a auditoria alvo: `AUDIT_ID=$(squirrel audit http://localhost:3000/[ROUTE] | tail -1)`
-2. Gere o relatório em formato LLM e leia o output: `squirrel report $AUDIT_ID --format llm > .agent/temp_audit.md`
+2. Gere o relatório em formato LLM e leia o output: `squirrel report $AUDIT_ID --format llm > .agents/temp_audit.md`
 
 ## 3. Análise Multi-Camada (Raciocínio)
 
-Leia o arquivo `.agent/temp_audit.md`. Ignore falsos positivos comuns de WebGL e cruze os dados com a nossa stack:
+Leia o arquivo `.agents/temp_audit.md`. Ignore falsos positivos comuns de WebGL e cruze os dados com a nossa stack:
 
 - **Next.js App Router & Firebase Hosting:** Procure por componentes de cliente (`"use client"`) muito pesados que afetem o TBT (Total Blocking Time).
 - **R3F & Three.js:** O relatório não verá o canvas. Vasculhe o código dos componentes da `[ROUTE]` e garanta que geometrias/materiais estão usando `useMemo` e que o `<Canvas>` usa `frameloop="demand"` (ou validação via Intersection Observer).

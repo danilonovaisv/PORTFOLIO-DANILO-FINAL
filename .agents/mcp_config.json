@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Antigravity Workspace MCP Configuration for Ghost System",
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-context7"],
+      "env": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      }
+    },
+    "supabase": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=umkmwbkwvulxtdodzmzf"
+    },
+    "motion": {
+      "command": "/opt/homebrew/bin/npx",
+      "args": [
+        "-y",
+        "https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest"
+      ],
+      "env": {
+        "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin",
+        "npm_config_cache": "/tmp/npm-mcp-cache"
+      }
+    },
+    "squirrelscan": {
+      "type": "http",
+      "url": "https://mcp.squirrelscan.com/mcp"
+    }
+  }
+}

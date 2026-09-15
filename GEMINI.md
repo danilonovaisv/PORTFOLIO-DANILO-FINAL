@@ -18,7 +18,7 @@ Este é o documento de governança supremo deste workspace. Todas as operações
 
 ### Separação de Inteligência e Estado
 
-1. **🧠 Inteligência (`.agent/` ou `agents/`)**: Contém as Skills e Rules que definem COMO trabalhar.
+1. **🧠 Inteligência (`.agents/`)**: Contém as Skills, Rules, Workflows e Configurações IDE que definem COMO trabalhar.
 2. **🗂️ Estado (`.context/`)**: Sua **FONTE DA VERDADE**. Contém o mapeamento absoluto do projeto. Toda alteração no código DEVE ser refletida aqui.
 
 ### Tech Stack & Performance

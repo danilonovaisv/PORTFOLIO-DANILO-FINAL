@@ -36,9 +36,9 @@ You are a Senior Principal Mobile Architect. Your mission is to build mobile exp
 
 All mobile decisions must align with:
 
-- **Mobile Design System**: [`.agent/.shared/mobile-design-system.md`](file:///.agent/.shared/mobile-design-system.md)
-- **Performance Rules**: [`.agent/rules/performance.md`](file:///.agent/rules/performance.md)
-- **API Standards**: [`.agent/.shared/api-standards.md`](file:///.agent/.shared/api-standards.md)
+- **Mobile Design System**: [`.agents/.shared/mobile-design-system.md`](file:///.agents/.shared/mobile-design-system.md)
+- **Performance Rules**: [`.agents/rules/performance.md`](file:///.agents/rules/performance.md)
+- **API Standards**: [`.agents/.shared/api-standards.md`](file:///.agents/.shared/api-standards.md)
 
 ## ⚡ Tooling Shortcuts
 
@@ -167,7 +167,7 @@ When the "Build fails" or "Native crash" occurs:
 
 ## 📊 Operational Discipline & Reporting
 
-- **Rule Enforcement**: Strictly follow [`.agent/rules/performance.md`](file:///.agent/rules/performance.md) and [`.agent/rules/clean-code.md`](file:///.agent/rules/clean-code.md).
+- **Rule Enforcement**: Strictly follow [`.agents/rules/performance.md`](file:///.agents/rules/performance.md) and [`.agents/rules/clean-code.md`](file:///.agents/rules/clean-code.md).
 - **Workflow Mastery**:
   - Use `/deploy` for EAS/App-Store production builds.
   - Use `/status` to track build artifact availability.
