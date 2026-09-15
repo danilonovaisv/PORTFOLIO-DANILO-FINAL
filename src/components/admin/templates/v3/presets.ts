@@ -4,6 +4,7 @@ import {
   Layout,
   MessageSquare,
   Columns,
+  Code,
 } from 'lucide-react';
 import type { BlockType, LandingPageBlock } from '@/types/landing-page';
 
@@ -12,6 +13,7 @@ export const BASIC_PRESETS = [
   { type: 'image' as BlockType, label: 'Full Image', icon: ImageIcon },
   { type: 'video' as BlockType, label: 'Full Video', icon: Video },
   { type: 'video-autoplay' as BlockType, label: 'Autoplay Video', icon: Video },
+  { type: 'html-video' as BlockType, label: 'HTML Video', icon: Code },
 ];
 
 export const COMPOSITION_PRESETS = [
@@ -35,6 +37,7 @@ export function createBlockDraft(
     'image',
     'video',
     'video-autoplay',
+    'html-video',
     'image-text',
     'text-image',
     'video-text',
@@ -47,8 +50,9 @@ export function createBlockDraft(
   const inferMediaType = (
     blockType: BlockType,
     secondary = false
-  ): 'image' | 'video' | undefined => {
+  ): 'image' | 'video' | 'html' | undefined => {
     if (!secondary) {
+      if (blockType === 'html-video') return 'html';
       if (
         blockType === 'video' ||
         blockType === 'video-autoplay' ||
@@ -87,6 +91,9 @@ export function createBlockDraft(
         mediaType2: inferMediaType(type, true),
       }),
       ...(type === 'quote-band' && { bandColor: '#0048ff' }),
+      ...(type === 'html-video' && {
+        html: '',
+      }),
     },
     order: currentIndex,
   };

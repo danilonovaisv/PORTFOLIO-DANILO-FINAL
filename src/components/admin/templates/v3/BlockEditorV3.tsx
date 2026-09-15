@@ -281,6 +281,25 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
           { kind: 'video' }
         )}
 
+      {block.type === 'html-video' && (
+        <div className="space-y-4">
+          {renderMediaField('TRACK_IMAGE_OR_MEDIA_ASSET (OPTIONAL)', { kind: 'image' })}
+
+          <label className="block space-y-1">
+            <span className={labelClasses}>HTML_VIDEO_MARKUP / CUSTOM_HTML_PREVIEW</span>
+            <textarea
+              className={`${inputClasses} min-h-60 font-mono text-xs`}
+              value={block.content.html || ''}
+              onChange={(e) => updateContent({ html: e.target.value })}
+              placeholder="<!-- Insert custom HTML video, iframe embed, or scroll preview markup here -->"
+            />
+            <span className="block text-[10px] text-white/40">
+              Protocol: Full HTML5, inline scripts, styles & custom video embeds supported.
+            </span>
+          </label>
+        </div>
+      )}
+
       {(block.type === 'image-text' ||
         block.type === 'text-image' ||
         block.type === 'video-text') && (

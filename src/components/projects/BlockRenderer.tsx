@@ -9,6 +9,7 @@ import { sanitizeTailwindValue, supabaseLoader } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
+import { HTMLVideoBlock } from '@/components/ui/HTMLVideoBlock';
 import { ghostRise } from '@/config/motion';
 import {
   extractYoutubeId,
@@ -80,7 +81,7 @@ export default function BlockRenderer({
 
   const renderMedia = (
     src?: string,
-    type?: 'image' | 'video' | 'youtube',
+    type?: 'image' | 'video' | 'youtube' | 'html',
     autoplay = true
   ) => {
     if (!src) return null;
@@ -173,6 +174,17 @@ export default function BlockRenderer({
         return (
           <div className="w-full max-w-[1680px] mx-auto px-4 md:px-0">
             {renderMedia(content.media, content.mediaType || 'video', true)}
+          </div>
+        );
+
+      case 'html-video':
+        return (
+          <div className="w-full max-w-[1680px] mx-auto px-4 md:px-0">
+            <HTMLVideoBlock
+              html={content.html}
+              media={content.media}
+              title={content.text || 'HTML Video Preview'}
+            />
           </div>
         );
 
