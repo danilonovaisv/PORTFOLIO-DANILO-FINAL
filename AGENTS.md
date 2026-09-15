@@ -125,6 +125,8 @@ docs/blueprints_project/ → .agents/rules/ → .agents/workflows/ → .agents/ 
 - **Active State:** `.context/active_state.md`
 - **Page Specs:** `.context/DOCS-PORTFOLIO-PAGES/`
 - **Governance:** `AGENTS.md`
+- **Wiki-Brain Vault:** `/Users/danilonovais/OBSIDIAN/Wiki`
+- **Wiki-Brain Graph:** `/Users/danilonovais/OBSIDIAN/Wiki/graphify-out/graph.json`
 
 ---
 

@@ -106,9 +106,9 @@ The central orchestration layer for the portfolio.
 
 **Activated:** 2026-09-15 | **Operator Agent:** `@obsidian_vault_operator`
 
-The Wiki-Brain is the vault-native knowledge management layer of the Ghost System, located in `graphify-out/` — co-located with the graphify AST and semantic graph output for unified intelligence access.
+The Wiki-Brain is the vault-native knowledge management layer of the Ghost System. Its canonical vault is `/Users/danilonovais/OBSIDIAN/Wiki`, with Graphify output in `/Users/danilonovais/OBSIDIAN/Wiki/graphify-out`.
 
-### Vault Structure (graphify-out/)
+### Vault Structure (`/Users/danilonovais/OBSIDIAN/Wiki/graphify-out/`)
 
 | File | Type | Purpose |
 |------|------|---------|
@@ -118,7 +118,7 @@ The Wiki-Brain is the vault-native knowledge management layer of the Ghost Syste
 
 ### Automation
 
-- **`scripts/wiki-brain-sync.ts`**: Validates `.canvas` JSON integrity, scans broken Wikilinks, and auto-generates canvas node stubs for new `src/` modules.
+- **`scripts/wiki-brain-sync.ts`**: Uses `/Users/danilonovais/OBSIDIAN/Wiki` by default, validates `.canvas` JSON integrity, scans broken Wikilinks, and auto-generates canvas node stubs for new `src/` modules. Set `WIKI_BRAIN_VAULT` to override the vault for an isolated run.
   - `pnpm tsx scripts/wiki-brain-sync.ts` — full validation
   - `pnpm tsx scripts/wiki-brain-sync.ts --auto` — auto-update canvas with new modules
 
@@ -129,4 +129,3 @@ The Wiki-Brain is the vault-native knowledge management layer of the Ghost Syste
 - **Obsidian Bases**: YAML-based aggregated views filtered by `#ghost-system` tag
 - **Defuddle CLI**: Web extraction for external documentation ingestion (`defuddle parse <url> --md`)
 - **MCP Bridge**: `obsidian` and `mcp-tools-istefox` servers for remote read/write operations
-
