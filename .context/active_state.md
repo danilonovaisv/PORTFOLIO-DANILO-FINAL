@@ -1,17 +1,27 @@
-# Active State: VIDEO ARCHITECTURE REFACTOR & LIFECYCLE AUDIT ✅
+# Active State: AGENTS ORCHESTRATOR & WIKI-BRAIN AUTO-SYNC ✅
 
-**Phase**: VIDEO ARCHITECTURE REFACTOR (`audit/video-architecture-refactor`)
-**Current Focus**: Resolução de vazamentos de ciclo de vida de vídeo, violações de Autoplay Policy (NotAllowedError), renderização dupla em DOM e tempestades de requisições de mídia em miniaturas de carrossel.
-**Last Update**: 2026-09-15 04:48
+**Phase**: WIKI-BRAIN KNOWLEDGE GRAPH & AGENTS ORCHESTRATION (`/agents-orquestrator`, `/wiki-brain`)
+**Current Focus**: Orquestração agêntica multi-domínio, validação de JSON Canvas, sincronização de Wikilinks e auto-detecção de nós de módulos de `src/` no vault canônico `/Users/danilonovais/OBSIDIAN/Wiki`.
+**Last Update**: 2026-09-15 06:20
 **Production URL**: https://portfoliodanilo.com
+
+## Agents Orchestration & Wiki-Brain Execution (2026-09-15 05:21)
+
+> **@orchestrator** & **@obsidian_vault_operator** — ATIVOS em `/Users/danilonovais/OBSIDIAN/Wiki/graphify-out/` e `.context/`
+
+- **`scripts/wiki-brain-sync.ts --auto`**: Executado com sucesso — Auto-varredura detectou 11 novos subdiretórios em `src/` (`app`, `components`, `config`, `contexts`, `data`, `hooks`, `lib`, `store`, `styles`, `types`, `validations`), gerando nós dinâmicos no Canvas.
+- **`/Users/danilonovais/OBSIDIAN/Wiki/graphify-out/architecture-map.canvas`**: mapa canônico de arquitetura do projeto.
+- **`/Users/danilonovais/OBSIDIAN/Wiki/graphify-out/00-INDEX.md`**: índice OFM canônico do projeto.
+- **Typecheck**: `pnpm run typecheck` executado com 100% de aprovação (0 erros).
+
 
 ## Wiki-Brain Activation (2026-09-15 04:48)
 
-> **@obsidian_vault_operator** — ATIVO em `graphify-out/`
+> **@obsidian_vault_operator** — ATIVO em `/Users/danilonovais/OBSIDIAN/Wiki/graphify-out/`
 
-- **`graphify-out/00-INDEX.md`** — OFM master index (Wikilinks, callouts, YAML properties)
-- **`graphify-out/architecture-map.canvas`** — JSON Canvas Spec 1.0 visual architecture map
-- **`graphify-out/components.base`** — Obsidian Base views (table / cards / list)
+- **`/Users/danilonovais/OBSIDIAN/Wiki/graphify-out/00-INDEX.md`** — OFM master index (Wikilinks, callouts, YAML properties)
+- **`/Users/danilonovais/OBSIDIAN/Wiki/graphify-out/architecture-map.canvas`** — JSON Canvas Spec 1.0 visual architecture map
+- **`/Users/danilonovais/OBSIDIAN/Wiki/graphify-out/components.base`** — Obsidian Base views (table / cards / list)
 - **`scripts/wiki-brain-sync.ts`** — Canvas validation + auto-generation para novos módulos `src/`
 - **Sync command**: `pnpm tsx scripts/wiki-brain-sync.ts --auto`
 

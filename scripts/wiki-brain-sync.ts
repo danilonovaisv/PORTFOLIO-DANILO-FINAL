@@ -20,7 +20,11 @@
 import fs from "fs";
 import path from "path";
 
-const VAULT_DIR = path.resolve(process.cwd(), "graphify-out");
+const DEFAULT_WIKI_BRAIN_VAULT = "/Users/danilonovais/OBSIDIAN/Wiki";
+const WIKI_BRAIN_VAULT = path.resolve(
+  process.env.WIKI_BRAIN_VAULT ?? DEFAULT_WIKI_BRAIN_VAULT
+);
+const VAULT_DIR = path.join(WIKI_BRAIN_VAULT, "graphify-out");
 const SRC_DIR = path.resolve(process.cwd(), "src");
 const CANVAS_FILE = path.join(VAULT_DIR, "architecture-map.canvas");
 
