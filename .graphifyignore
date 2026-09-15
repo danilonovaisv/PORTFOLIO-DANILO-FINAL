@@ -2,4 +2,14 @@
 vendor/
 node_modules/
 dist/
+build/
 *.generated.py
+.env
+.env.*
+.venv/
+venv/
+__pycache__/
+.git/
+secrets/
+credentials/
+private/
