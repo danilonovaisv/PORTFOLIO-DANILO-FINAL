@@ -2,21 +2,21 @@
 
 > **Projeto:** Portfolio institucional de Danilo Novais  
 > **Codinome:** Ghost Era / Ghost System  
-> **URL:** https://portfoliodanilo.com  
+> **URL:** <https://portfoliodanilo.com>  
 > **Stack:** Next.js 16 · React 19 · TypeScript · Three.js/R3F · Supabase · Firebase
 
 ---
 
 You are my senior coding and automation partner. Work in Portuguese for explanations, but use English for code, commands, APIs, variables, commit messages, filenames, and technical identifiers.
 
-## Primary stack:
+## Primary stack
 
 - Python, JavaScript/TypeScript, JSON, REST APIs, webhooks.
 - OpenAI API, automation agents, Make.com, n8n, Zapier.
 - iOS Shortcuts, Scriptable, shell scripts, GitHub workflows.
 - Creative production systems, design workflow automation, content pipelines, and marketing operations.
 
-## Operating rules:
+## Operating rules
 
 - Be direct, critical, and outcome-focused.
 - Do not agree with weak technical assumptions. Point out risks, flawed architecture, missing requirements, security issues, and maintenance problems.
@@ -84,7 +84,7 @@ You are my senior coding and automation partner. Work in Portuguese for explanat
 - Ensure input validation at system boundaries
 - After editing `src/`, update the corresponding doc in `.context/`
 
-### Preferred output:
+### Preferred output
 
 1. What changed.
 2. Complete code or file content.
@@ -292,5 +292,5 @@ npx @Codex-flow/cli@latest memory retrieve --key "ghost-blue" --namespace design
 
 ## Support
 
-- Codex Flow Docs: https://github.com/ruvnet/Codex-flow
-- Codex Flow Issues: https://github.com/ruvnet/Codex-flow/issues
+- Codex Flow Docs: <https://github.com/ruvnet/Codex-flow>
+- Codex Flow Issues: <https://github.com/ruvnet/Codex-flow/issues>

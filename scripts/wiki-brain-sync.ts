@@ -173,8 +173,8 @@ function generateCanvasNodeForNewModules(): void {
   // Scan src/ for key modules (app directories, major component dirs)
   const srcDirs = fs.existsSync(SRC_DIR)
     ? fs.readdirSync(SRC_DIR, { withFileTypes: true })
-        .filter((d) => d.isDirectory())
-        .map((d) => d.name)
+      .filter((d) => d.isDirectory())
+      .map((d) => d.name)
     : [];
 
   const newNodes: CanvasNode[] = [];
