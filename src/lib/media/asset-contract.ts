@@ -12,10 +12,10 @@ export type Asset = {
 export type ResolvedAsset =
   | { ok: true; asset: Asset; source: 'new' | 'legacy' }
   | {
-      ok: false;
-      reason:
-        'empty' | 'invalid-url' | 'invalid-youtube' | 'unsupported-provider';
-    };
+    ok: false;
+    reason:
+    'empty' | 'invalid-url' | 'invalid-youtube' | 'unsupported-provider';
+  };
 
 export type AssetTypeHint = 'image' | 'video' | 'youtube' | 'html';
 
@@ -189,7 +189,7 @@ export function resolveLandingAsset(
   const inferredType = inferAssetType(trimmed, typeHint);
   const source =
     trimmed === url ||
-    (isAbsoluteHttpUrl(trimmed) && !trimmed.includes('/storage/v1/'))
+      (isAbsoluteHttpUrl(trimmed) && !trimmed.includes('/storage/v1/'))
       ? 'new'
       : 'legacy';
 
