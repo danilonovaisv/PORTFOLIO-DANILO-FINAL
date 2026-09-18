@@ -26,6 +26,10 @@ export const V3_BLOCK_TYPES: BlockType[] = [
   'image-video',
   'video-text',
   'quote-band',
+  // Composições polimórficas
+  'media-1x',
+  'media-2x',
+  'media-3x',
 ];
 
 export const asRecord = (value: unknown): Record<string, unknown> | null => {

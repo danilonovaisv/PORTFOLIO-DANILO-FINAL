@@ -8,6 +8,7 @@ import {
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
   MASTER_PROJECT_TEMPLATE_V3,
+  MASTER_PROJECT_TEMPLATE_V3_HERO,
 } from '@/types/project-template';
 
 interface LandingPageSettingsProps {
@@ -58,17 +59,20 @@ export function LandingPageSettings({
             setTemplate(event.target.value as ProjectTemplateId)
           }
         >
+          <option value={MASTER_PROJECT_TEMPLATE_V3_HERO}>V3_ALPA_HERO_EXPANDED</option>
           <option value={MASTER_PROJECT_TEMPLATE_V3}>V3_ALPA_ATOMIC</option>
           <option value={MASTER_PROJECT_TEMPLATE_V2}>V2_MLPE_GRID</option>
           <option value={MASTER_PROJECT_TEMPLATE}>V1_MASTER_CORE</option>
           <option value={LEGACY_PROJECT_TEMPLATE}>V0_LEGACY_BLOCKS</option>
         </select>
         <p className="font-mono text-[9px] leading-relaxed text-white/30 uppercase tracking-tighter">
-          {template === MASTER_PROJECT_TEMPLATE_V3
-            ? 'Atomic compositions with clean hero & asset zoom.'
-            : template === MASTER_PROJECT_TEMPLATE_V2
-              ? 'MLPE Standard with structured grid blocks.'
-              : 'Legacy system support mode.'}
+          {template === MASTER_PROJECT_TEMPLATE_V3_HERO
+            ? 'V3 expanded with hero media above title (image, video or HTML).'
+            : template === MASTER_PROJECT_TEMPLATE_V3
+              ? 'Atomic compositions with clean hero & asset zoom.'
+              : template === MASTER_PROJECT_TEMPLATE_V2
+                ? 'MLPE Standard with structured grid blocks.'
+                : 'Legacy system support mode.'}
         </p>
       </div>
 

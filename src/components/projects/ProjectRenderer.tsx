@@ -14,11 +14,13 @@ import {
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
   MASTER_PROJECT_TEMPLATE_V3,
+  MASTER_PROJECT_TEMPLATE_V3_HERO,
 } from '@/types/project-template';
 import BlockRenderer from '@/components/projects/BlockRenderer';
 import MasterProjectTemplate from '@/components/projects/templates/MasterProjectTemplate';
 import ProjectTemplateMasterRenderer from '@/components/projects/templates/ProjectTemplateMasterRenderer';
 import ProjectTemplateALPARenderer from '@/components/projects/templates/ProjectTemplateALPARenderer';
+import ProjectTemplateALPAHeroRenderer from '@/components/projects/templates/ProjectTemplateALPAHeroRenderer';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
@@ -178,6 +180,10 @@ export default function ProjectRenderer({ project }: ProjectRendererProps) {
 
   if (parsed.template === MASTER_PROJECT_TEMPLATE_V3) {
     return <ProjectTemplateALPARenderer project={parsed.data} />;
+  }
+
+  if (parsed.template === MASTER_PROJECT_TEMPLATE_V3_HERO) {
+    return <ProjectTemplateALPAHeroRenderer project={parsed.data} />;
   }
 
   return <LegacyProjectRenderer project={project} blocks={parsed.blocks} />;

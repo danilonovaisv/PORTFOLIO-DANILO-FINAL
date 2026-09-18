@@ -114,6 +114,8 @@ export interface PortfolioProject extends Omit<BaseProjectData, 'summary'> {
   hoverImage?: string;
   videoPreview?: string;
   thumbnailMedia?: string;
+  /** HTML embed para thumbnail interativa (iframes, WebGL, código animado) */
+  thumbnailHtml?: string;
   type: ProjectType;
   layout: ProjectGridLayout;
   detail?: ProjectDetail;

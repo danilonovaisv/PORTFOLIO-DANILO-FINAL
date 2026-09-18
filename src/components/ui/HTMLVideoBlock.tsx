@@ -8,6 +8,8 @@ interface HTMLVideoBlockProps {
   media?: string;
   title?: string;
   className?: string;
+  /** Quando true, remove o header bar, bordas e sombra — útil em landing pages e thumbnails */
+  frameless?: boolean;
 }
 
 export function HTMLVideoBlock({
@@ -15,6 +17,7 @@ export function HTMLVideoBlock({
   media,
   title = 'HTML Video Preview',
   className = '',
+  frameless = false,
 }: HTMLVideoBlockProps) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [speed, setSpeed] = useState(1);
@@ -65,6 +68,21 @@ export function HTMLVideoBlock({
   // Case 1: Full HTML document or custom embed markup provided
   if (html) {
     if (isFullHtmlDoc) {
+      if (frameless) {
+        return (
+          <div className={`w-full overflow-hidden ${className}`}>
+            <div className="relative aspect-video w-full overflow-hidden">
+              <iframe
+                srcDoc={html}
+                title={title}
+                className="h-full w-full border-0"
+                sandbox="allow-scripts allow-same-origin allow-popups"
+              />
+            </div>
+          </div>
+        );
+      }
+
       return (
         <div className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0f] shadow-2xl ${className}`}>
           <div className="flex items-center justify-between border-b border-white/10 bg-[#0a0a0f]/90 px-4 py-2 text-xs text-white/70 font-mono">
@@ -88,6 +106,15 @@ export function HTMLVideoBlock({
       );
     }
 
+    if (frameless) {
+      return (
+        <div
+          className={`w-full overflow-hidden ${className}`}
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      );
+    }
+
     return (
       <div className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0f] shadow-2xl ${className}`}>
         <div className="p-4" dangerouslySetInnerHTML={{ __html: html }} />
@@ -97,6 +124,30 @@ export function HTMLVideoBlock({
 
   // Case 2: Interactive Scroll Video Preview using media asset (like attached CONIB example)
   if (media) {
+    if (frameless) {
+      return (
+        <div className={`group relative w-full overflow-hidden bg-[#0a0a0f] ${className}`}>
+          {/* Video / Scroll Viewport - frameless */}
+          <div className="relative aspect-video w-full overflow-hidden bg-[#0a0a0f]">
+            <div ref={trackRef} className="absolute left-0 top-0 w-full will-change-transform">
+              <img src={media} alt={title} className="block w-full h-auto" />
+              <img src={media} alt={`${title} loop`} className="block w-full h-auto" />
+            </div>
+
+            {/* Vignette Gradients */}
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#0a0a0f]/60 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0a0a0f]/60 to-transparent" />
+
+            {/* Progress Bar */}
+            <div
+              className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-indigo-500 transition-all duration-75"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className={`group relative w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0f] shadow-2xl ${className}`}>
         {/* Top Header Bar */}
@@ -174,6 +225,7 @@ export function HTMLVideoBlock({
       </div>
     );
   }
+
 
   // Fallback when neither html nor media is provided
   return (

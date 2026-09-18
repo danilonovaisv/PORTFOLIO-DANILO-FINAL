@@ -86,6 +86,17 @@ export default function BlockRenderer({
   ) => {
     if (!src) return null;
 
+    // HTML block — renderiza como HTMLVideoBlock frameless (suporta srcDoc e markup inline)
+    if (type === 'html') {
+      return (
+        <HTMLVideoBlock
+          html={src}
+          frameless
+          className="w-full rounded-2xl overflow-hidden"
+        />
+      );
+    }
+
     const resolved = resolveLandingAsset(src, type);
     if (!resolved.ok) return renderAssetFallback();
 
@@ -144,6 +155,31 @@ export default function BlockRenderer({
     );
   };
 
+  /**
+   * renderSlotByContent — renderiza um slot polimórfico baseado no mediaType.
+   * Se mediaType='html', usa o campo html/html2/html3 do content.
+   * Caso contrário, usa renderMedia normal com media/media2/media3.
+   */
+  const renderSlotByContent = (
+    mediaSrc: string | undefined,
+    mediaType: 'image' | 'video' | 'youtube' | 'html' | undefined,
+    htmlSrc: string | undefined,
+    altSrc: string | undefined,
+    autoplay = true
+  ) => {
+    if (mediaType === 'html' && htmlSrc) {
+      return (
+        <HTMLVideoBlock
+          html={htmlSrc}
+          frameless
+          title={altSrc || 'HTML Embed'}
+          className="w-full rounded-2xl overflow-hidden"
+        />
+      );
+    }
+    return renderMedia(mediaSrc, mediaType, autoplay);
+  };
+
   // Content Switching
   const renderContent = () => {
     switch (type) {
@@ -184,6 +220,7 @@ export default function BlockRenderer({
               html={content.html}
               media={content.media}
               title={content.text || 'HTML Video Preview'}
+              frameless
             />
           </div>
         );
@@ -240,6 +277,65 @@ export default function BlockRenderer({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               {renderMedia(content.media, content.mediaType || 'video', true)}
               {renderText(content.text, content.textConfig)}
+            </div>
+          </div>
+        );
+
+      /* ── Composições polimórficas ── */
+      case 'media-1x':
+        return (
+          <div className="std-grid">
+            {renderSlotByContent(
+              content.media,
+              content.mediaType,
+              content.html,
+              content.alt
+            )}
+          </div>
+        );
+
+      case 'media-2x':
+        return (
+          <div className="std-grid">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {renderSlotByContent(
+                content.media,
+                content.mediaType,
+                content.html,
+                content.alt
+              )}
+              {renderSlotByContent(
+                content.media2,
+                content.mediaType2,
+                content.html2,
+                content.alt2
+              )}
+            </div>
+          </div>
+        );
+
+      case 'media-3x':
+        return (
+          <div className="std-grid">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {renderSlotByContent(
+                content.media,
+                content.mediaType,
+                content.html,
+                content.alt
+              )}
+              {renderSlotByContent(
+                content.media2,
+                content.mediaType2,
+                content.html2,
+                content.alt2
+              )}
+              {renderSlotByContent(
+                content.media3,
+                content.mediaType3,
+                content.html3,
+                content.alt3
+              )}
             </div>
           </div>
         );
