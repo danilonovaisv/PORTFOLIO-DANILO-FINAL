@@ -59,7 +59,9 @@ export function LandingPageSettings({
             setTemplate(event.target.value as ProjectTemplateId)
           }
         >
-          <option value={MASTER_PROJECT_TEMPLATE_V3_HERO}>V3_ALPA_HERO_EXPANDED</option>
+          <option value={MASTER_PROJECT_TEMPLATE_V3_HERO}>
+            V3_ALPA_HERO_EXPANDED
+          </option>
           <option value={MASTER_PROJECT_TEMPLATE_V3}>V3_ALPA_ATOMIC</option>
           <option value={MASTER_PROJECT_TEMPLATE_V2}>V2_MLPE_GRID</option>
           <option value={MASTER_PROJECT_TEMPLATE}>V1_MASTER_CORE</option>

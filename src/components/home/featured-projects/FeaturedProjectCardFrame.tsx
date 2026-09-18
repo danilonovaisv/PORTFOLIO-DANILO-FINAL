@@ -132,7 +132,10 @@ export default function FeaturedProjectCardFrame({
 
         {showThumb ? (
           <div className="absolute inset-0">
-            {bothAreVideos && desktopMedia && mobileMedia && baseMediaDiffers ? (
+            {bothAreVideos &&
+            desktopMedia &&
+            mobileMedia &&
+            baseMediaDiffers ? (
               <ResponsiveVideo
                 desktopSrc={getAssetUrl(desktopMedia.src, { isVideo: true })}
                 mobileSrc={getAssetUrl(mobileMedia.src, { isVideo: true })}
@@ -142,7 +145,10 @@ export default function FeaturedProjectCardFrame({
                 loop
                 playsInline
                 pauseOffscreen
-                className={cn('absolute inset-0 h-full w-full object-cover', commonMediaClasses)}
+                className={cn(
+                  'absolute inset-0 h-full w-full object-cover',
+                  commonMediaClasses
+                )}
                 aria-hidden
               />
             ) : activeSingleMedia ? (

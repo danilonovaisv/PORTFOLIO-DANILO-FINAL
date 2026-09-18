@@ -32,13 +32,13 @@ Este é o documento de governança supremo deste workspace. Todas as operações
 
 Invoque ou assuma estas skills conforme a tarefa:
 
-| Agente                    | Skill Ativa            | Responsabilidade Principal                |
-| :------------------------ | :--------------------- | :---------------------------------------- |
-| **@ghost_architect**      | `ghost-architect`      | Estrutura de Pastas, Arquitetura e Types. |
-| **@spectral_artist**      | `spectral-artist`      | Shaders, WebGL e Materiais Ghost.         |
-| **@motion_choreographer** | `motion-choreographer` | Framer Motion e Sincronização de Scroll.  |
-| **@audit_sentinel**       | `audit-sentinel`       | Compliance de Grid, Vitals e Segurança.   |
-| **@devops-engineer**      | `deploy-manager`       | Infraestrutura, Build, Deploy e Releases. |
+| Agente                       | Skill Ativa               | Responsabilidade Principal                 |
+| :--------------------------- | :------------------------ | :----------------------------------------- |
+| **@ghost_architect**         | `ghost-architect`         | Estrutura de Pastas, Arquitetura e Types.  |
+| **@spectral_artist**         | `spectral-artist`         | Shaders, WebGL e Materiais Ghost.          |
+| **@motion_choreographer**    | `motion-choreographer`    | Framer Motion e Sincronização de Scroll.   |
+| **@audit_sentinel**          | `audit-sentinel`          | Compliance de Grid, Vitals e Segurança.    |
+| **@devops-engineer**         | `deploy-manager`          | Infraestrutura, Build, Deploy e Releases.  |
 | **@obsidian_vault_operator** | `obsidian-vault-operator` | Wiki-Brain, OFM Notes, Canvas Maps & Bases |
 
 ## 📐 4. REGRAS DE EXECUÇÃO (Non-Negotiable)

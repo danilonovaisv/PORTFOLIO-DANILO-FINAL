@@ -240,7 +240,9 @@ function normalizeMasterTemplateV3(
 
   const baseV3 = {
     schema_version: '3.0' as const,
-    template: isV3Hero ? MASTER_PROJECT_TEMPLATE_V3_HERO : MASTER_PROJECT_TEMPLATE_V3,
+    template: isV3Hero
+      ? MASTER_PROJECT_TEMPLATE_V3_HERO
+      : MASTER_PROJECT_TEMPLATE_V3,
     project_slug:
       asString(record.project_slug) ?? fallback.slug ?? defaults.project_slug,
     hero_cover_image: heroCoverRecord
@@ -256,8 +258,13 @@ function normalizeMasterTemplateV3(
     ...(heroTopMediaRecord
       ? {
           hero_top_media: {
-            ...normalizeAsset(heroTopMediaRecord, `${defaults.project_title} hero media`),
-            kind: (asString(heroTopMediaRecord.kind) as 'image' | 'video' | 'html') || 'image',
+            ...normalizeAsset(
+              heroTopMediaRecord,
+              `${defaults.project_title} hero media`
+            ),
+            kind:
+              (asString(heroTopMediaRecord.kind) as
+                'image' | 'video' | 'html') || 'image',
             html: asString(heroTopMediaRecord.html),
           },
         }
@@ -419,4 +426,3 @@ export function getProjectSeoDescription(
 
   return `Landing page do projeto ${fallbackTitle} por Danilo Novais. Creative Development especializado em WebGL, Motion Design e branding editorial de alta performance.`;
 }
-

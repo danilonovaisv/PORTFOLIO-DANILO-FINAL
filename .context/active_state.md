@@ -21,7 +21,6 @@
 - **`/Users/danilonovais/OBSIDIAN/Wiki/graphify-out/00-INDEX.md`**: índice OFM canônico do projeto.
 - **Typecheck**: `pnpm run typecheck` executado com 100% de aprovação (0 erros).
 
-
 ## Wiki-Brain Activation (2026-09-15 04:48)
 
 > **@obsidian_vault_operator** — ATIVO em `/Users/danilonovais/OBSIDIAN/Wiki/graphify-out/`
@@ -32,7 +31,6 @@
 - **`scripts/wiki-brain-sync.ts`** — Canvas validation + auto-generation para novos módulos `src/`
 - **Sync command**: `pnpm tsx scripts/wiki-brain-sync.ts --auto`
 
-
 ## Video Architecture Audit Summary (2026-09-15)
 
 - [x] **DOM Dual-Mount Fix**: `FeaturedProjectCardFrame.tsx` elimina duplicidade de elemento `<video>` em cards usando `ResponsiveVideo` unificado com guarda de estado `activeSingleMedia`.
@@ -41,7 +39,6 @@
 - [x] **Scroll Unmute Hardening**: `VideoManifesto.tsx` remove unmute por scroll; áudio acionável estritamente via interação do usuário (botão de som).
 - [x] **Offscreen Pause Standard**: `ResponsiveVideo.tsx` e `CategoryStripe.tsx` aplicam `IntersectionObserver` determinístico para pausar execução quando fora da viewport.
 - [x] **QA Verification**: 42 suites de testes unitários (291 testes), `pnpm run typecheck` e `pnpm run lint` validados com 100% de aprovação.
-
 
 ## Deploy Summary
 

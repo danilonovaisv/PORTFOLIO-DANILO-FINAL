@@ -29,7 +29,10 @@ export function HTMLVideoBlock({
 
   // If html contains a full HTML document (e.g., <!DOCTYPE html> or <html> tag), render as srcDoc iframe
   const isFullHtmlDoc = Boolean(
-    html && (html.includes('<!DOCTYPE') || html.includes('<html') || html.includes('<script'))
+    html &&
+    (html.includes('<!DOCTYPE') ||
+      html.includes('<html') ||
+      html.includes('<script'))
   );
 
   useEffect(() => {
@@ -46,7 +49,8 @@ export function HTMLVideoBlock({
 
       if (isPlaying) {
         const pixelsPerMs = (scrollDistance / cycleDuration) * speed;
-        offsetRef.current = (offsetRef.current + pixelsPerMs * delta) % scrollDistance;
+        offsetRef.current =
+          (offsetRef.current + pixelsPerMs * delta) % scrollDistance;
         const currentProgress = (offsetRef.current / scrollDistance) * 100;
         setProgress(currentProgress);
 
@@ -84,7 +88,9 @@ export function HTMLVideoBlock({
       }
 
       return (
-        <div className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0f] shadow-2xl ${className}`}>
+        <div
+          className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0f] shadow-2xl ${className}`}
+        >
           <div className="flex items-center justify-between border-b border-white/10 bg-[#0a0a0f]/90 px-4 py-2 text-xs text-white/70 font-mono">
             <span className="flex items-center gap-2">
               <Film size={14} className="text-bluePrimary" />
@@ -116,7 +122,9 @@ export function HTMLVideoBlock({
     }
 
     return (
-      <div className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0f] shadow-2xl ${className}`}>
+      <div
+        className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0f] shadow-2xl ${className}`}
+      >
         <div className="p-4" dangerouslySetInnerHTML={{ __html: html }} />
       </div>
     );
@@ -126,12 +134,21 @@ export function HTMLVideoBlock({
   if (media) {
     if (frameless) {
       return (
-        <div className={`group relative w-full overflow-hidden bg-[#0a0a0f] ${className}`}>
+        <div
+          className={`group relative w-full overflow-hidden bg-[#0a0a0f] ${className}`}
+        >
           {/* Video / Scroll Viewport - frameless */}
           <div className="relative aspect-video w-full overflow-hidden bg-[#0a0a0f]">
-            <div ref={trackRef} className="absolute left-0 top-0 w-full will-change-transform">
+            <div
+              ref={trackRef}
+              className="absolute left-0 top-0 w-full will-change-transform"
+            >
               <img src={media} alt={title} className="block w-full h-auto" />
-              <img src={media} alt={`${title} loop`} className="block w-full h-auto" />
+              <img
+                src={media}
+                alt={`${title} loop`}
+                className="block w-full h-auto"
+              />
             </div>
 
             {/* Vignette Gradients */}
@@ -149,7 +166,9 @@ export function HTMLVideoBlock({
     }
 
     return (
-      <div className={`group relative w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0f] shadow-2xl ${className}`}>
+      <div
+        className={`group relative w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0f] shadow-2xl ${className}`}
+      >
         {/* Top Header Bar */}
         <div className="flex items-center justify-between border-b border-white/10 bg-[#0a0a0f]/95 px-6 py-3 font-mono text-xs text-white/90">
           <div className="flex items-center gap-2">
@@ -163,9 +182,16 @@ export function HTMLVideoBlock({
 
         {/* Video / Scroll Viewport */}
         <div className="relative aspect-video w-full overflow-hidden bg-[#0a0a0f]">
-          <div ref={trackRef} className="absolute left-0 top-0 w-full will-change-transform">
+          <div
+            ref={trackRef}
+            className="absolute left-0 top-0 w-full will-change-transform"
+          >
             <img src={media} alt={title} className="block w-full h-auto" />
-            <img src={media} alt={`${title} loop`} className="block w-full h-auto" />
+            <img
+              src={media}
+              alt={`${title} loop`}
+              className="block w-full h-auto"
+            />
           </div>
 
           {/* Vignette Gradients */}
@@ -188,7 +214,11 @@ export function HTMLVideoBlock({
               className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white hover:text-[#0a0a0f]"
               title={isPlaying ? 'Pause' : 'Play'}
             >
-              {isPlaying ? <Pause size={14} /> : <Play size={14} className="ml-0.5" />}
+              {isPlaying ? (
+                <Pause size={14} />
+              ) : (
+                <Play size={14} className="ml-0.5" />
+              )}
             </button>
             <button
               type="button"
@@ -205,7 +235,9 @@ export function HTMLVideoBlock({
 
           {/* Speed Controls */}
           <div className="flex items-center gap-2">
-            <span className="text-[10px] tracking-wider text-white/40 uppercase">Vel</span>
+            <span className="text-[10px] tracking-wider text-white/40 uppercase">
+              Vel
+            </span>
             {[0.5, 1, 2, 3].map((s) => (
               <button
                 key={s}
@@ -225,7 +257,6 @@ export function HTMLVideoBlock({
       </div>
     );
   }
-
 
   // Fallback when neither html nor media is provided
   return (

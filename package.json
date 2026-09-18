@@ -12,18 +12,6 @@
   "engines": {
     "node": "22"
   },
-  "pnpm": {
-    "ignoredBuiltDependencies": [
-      "@firebase/util",
-      "esbuild",
-      "msw",
-      "protobufjs",
-      "re2",
-      "sharp",
-      "sqlite3",
-      "unrs-resolver"
-    ]
-  },
   "scripts": {
     "dev": "next dev",
     "start": "node .next/standalone/server.js",
@@ -72,7 +60,7 @@
     "assets:sync:full": "tsx scripts/auto-sync-assets.ts",
     "assets:audit": "python3 scripts/audit_assets.py",
     "manage-keys": "tsx scripts/manage-service-account-keys.ts",
-    "update": "(pnpm outdated || [ $? -eq 1 ]) && npx --yes npm-check-updates -u && pnpm install",
+    "update": "(pnpm outdated || [ $? -eq 1 ]) && pnpm dlx npm-check-updates --packageManager pnpm -x typescript -u && pnpm install",
     "tools:all": "./scripts/project-tools.sh check-env && ./scripts/project-tools.sh install && ./scripts/project-tools.sh deep-clean && ./scripts/project-tools.sh update-aggressive && ./scripts/project-tools.sh full && ./scripts/project-tools.sh lint && ./scripts/project-tools.sh test && ./scripts/project-tools.sh build-check && ./scripts/project-tools.sh report",
     "clean:mac": "python3 scripts/clean_attributes.py",
     "prebuildmac": "pnpm clean:mac",
@@ -97,11 +85,11 @@
     "clsx": "^2.1.1",
     "gsap": "^3.15.0",
     "lenis": "^1.3.26",
-    "lucide-react": "^1.46.0",
-    "motion": "^13.3.0",
+    "lucide-react": "^1.47.0",
+    "motion": "^13.4.0",
     "next": "16.3.5",
     "ogl": "^1.0.11",
-    "openai": "^7.15.0",
+    "openai": "^7.18.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-hook-form": "^7.88.0",
@@ -125,48 +113,31 @@
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@types/jest": "^30.0.0",
-    "@types/node": "26.5.1",
+    "@types/node": "26.6.1",
     "@types/pg": "^8.23.1",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@types/three": "^0.186.0",
     "@typescript-eslint/parser": "^8.70.0",
     "commander": "^15.0.0",
-    "dotenv": "^17.4.2",
+    "dotenv": "^18.0.0",
     "eslint": "^10.10.0",
     "eslint-plugin-import": "^2.32.0",
-    "esbuild": "^0.19.2",
-    "firebase-tools": "^15.30.1",
+    "esbuild": "^0.28.2",
+    "firebase-tools": "^15.30.2",
     "jest": "^30.5.1",
     "jest-environment-jsdom": "^30.5.1",
-    "knip": "^6.35.1",
+    "knip": "^6.37.0",
     "pg": "^8.23.0",
     "postcss": "^8.5.28",
-    "prettier": "^3.9.6",
+    "prettier": "^3.9.8",
     "rimraf": "^6.1.3",
     "tailwindcss": "4.3.3",
     "ts-jest": "^29.4.12",
     "tsx": "^4.23.13",
-    "typescript": "^5.8.2",
-    "wrangler": "^4.131.2",
+    "typescript": "~5.9.3",
+    "wrangler": "^4.134.0",
     "yaml": "^2.9.1"
   },
-  "overrides": {
-    "typescript": "^5.8.2",
-    "esbuild": ">=0.19.2",
-    "test-exclude": "7.0.1",
-    "tar": "7.5.13",
-    "hono": "4.11.7",
-    "fast-xml-parser": "5.3.4",
-    "cookie": "0.7.0",
-    "@react-three/drei": {
-      "react": "$react",
-      "react-dom": "$react-dom"
-    },
-    "@react-three/postprocessing": {
-      "react": "$react",
-      "react-dom": "$react-dom"
-    }
-  },
-  "packageManager": "pnpm@12.4.1"
+  "packageManager": "pnpm@12.4.2"
 }

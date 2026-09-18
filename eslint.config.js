@@ -71,8 +71,8 @@ export default [
     },
     plugins: nextPlugin
       ? {
-        '@next/next': nextPlugin,
-      }
+          '@next/next': nextPlugin,
+        }
       : {},
     settings: nextCoreWebVitals?.settings ?? {},
     rules: {

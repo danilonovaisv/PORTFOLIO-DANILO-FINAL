@@ -144,7 +144,11 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
 
   const renderMediaField = (
     label: string,
-    options?: { secondary?: boolean; tertiary?: boolean; kind?: 'image' | 'video' | 'youtube' }
+    options?: {
+      secondary?: boolean;
+      tertiary?: boolean;
+      kind?: 'image' | 'video' | 'youtube';
+    }
   ) => {
     const slotNum = options?.tertiary ? '3' : options?.secondary ? '2' : '';
     const mediaKey = slotNum ? `media${slotNum}` : 'media';
@@ -211,7 +215,10 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
     const label = `SLOT_${slotIndex.toString().padStart(2, '0')}`;
 
     return (
-      <div key={`slot-${slotIndex}`} className="space-y-3 rounded border border-white/5 bg-white/[0.02] p-3">
+      <div
+        key={`slot-${slotIndex}`}
+        className="space-y-3 rounded border border-white/5 bg-white/[0.02] p-3"
+      >
         <div className="flex items-center justify-between">
           <span className={labelClasses}>{label}_TYPE</span>
           <select
@@ -337,10 +344,14 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
 
       {block.type === 'html-video' && (
         <div className="space-y-4">
-          {renderMediaField('TRACK_IMAGE_OR_MEDIA_ASSET (OPTIONAL)', { kind: 'image' })}
+          {renderMediaField('TRACK_IMAGE_OR_MEDIA_ASSET (OPTIONAL)', {
+            kind: 'image',
+          })}
 
           <label className="block space-y-1">
-            <span className={labelClasses}>HTML_VIDEO_MARKUP / CUSTOM_HTML_PREVIEW</span>
+            <span className={labelClasses}>
+              HTML_VIDEO_MARKUP / CUSTOM_HTML_PREVIEW
+            </span>
             <textarea
               className={`${inputClasses} min-h-60 font-mono text-xs`}
               value={block.content.html || ''}
@@ -348,7 +359,8 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
               placeholder="<!-- Insert custom HTML video, iframe embed, or scroll preview markup here -->"
             />
             <span className="block text-[10px] text-white/40">
-              Protocol: Full HTML5, inline scripts, styles & custom video embeds supported.
+              Protocol: Full HTML5, inline scripts, styles & custom video embeds
+              supported.
             </span>
           </label>
         </div>
@@ -385,9 +397,7 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
 
       {/* ── Composições polimórficas (media-1x / media-2x / media-3x) ── */}
       {block.type === 'media-1x' && (
-        <div className="space-y-3">
-          {renderPolymorphicSlot(1)}
-        </div>
+        <div className="space-y-3">{renderPolymorphicSlot(1)}</div>
       )}
 
       {block.type === 'media-2x' && (

@@ -1,6 +1,11 @@
 'use client';
 
-import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { cn } from '@/lib/utils';
 
 export type ResponsiveVideoProps =
@@ -56,7 +61,12 @@ export const ResponsiveVideo = forwardRef<
 
     useEffect(() => {
       const videoEl = innerRef.current;
-      if (!videoEl || !pauseOffscreen || typeof IntersectionObserver === 'undefined') return;
+      if (
+        !videoEl ||
+        !pauseOffscreen ||
+        typeof IntersectionObserver === 'undefined'
+      )
+        return;
 
       const observer = new IntersectionObserver(
         ([entry]) => {
@@ -100,4 +110,3 @@ export const ResponsiveVideo = forwardRef<
 );
 
 ResponsiveVideo.displayName = 'ResponsiveVideo';
-

@@ -110,11 +110,11 @@ The Wiki-Brain is the vault-native knowledge management layer of the Ghost Syste
 
 ### Vault Structure (`/Users/danilonovais/OBSIDIAN/Wiki/graphify-out/`)
 
-| File | Type | Purpose |
-| ------ | ------ | --------- |
-| `00-INDEX.md` | OFM Note | Master index with Wikilinks, callouts, and properties |
+| File                      | Type            | Purpose                                                       |
+| ------------------------- | --------------- | ------------------------------------------------------------- |
+| `00-INDEX.md`             | OFM Note        | Master index with Wikilinks, callouts, and properties         |
 | `architecture-map.canvas` | JSON Canvas 1.0 | Visual architecture map (Next.js ↔ R3F ↔ Supabase ↔ Firebase) |
-| `components.base` | Obsidian Base | Aggregated component database views (table / cards / list) |
+| `components.base`         | Obsidian Base   | Aggregated component database views (table / cards / list)    |
 
 ### Automation
 

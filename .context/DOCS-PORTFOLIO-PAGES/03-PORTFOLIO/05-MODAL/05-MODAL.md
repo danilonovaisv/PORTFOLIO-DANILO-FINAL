@@ -59,4 +59,3 @@ Exibir conteúdo detalhado do projeto sem sair da página, mantendo acessibilida
 
 - `AdaptiveMediaLayout.tsx`: miniaturas do carrossel agora utilizam `Image` com ícone de `Play` sobreposto em vez de instanciar `<video src="#t=0.001">`, eliminando a tempestade de carregamento de vídeo offscreen.
 - `ImageLightbox.tsx` e `AssetLightbox.tsx`: os vídeos inicializam estritamente com `muted={true}` e delegam o `.play()` ao ciclo de vida controlado (`useEffect`), capturando falhas de autoplay policy (`NotAllowedError`) e aplicando fallback silencioso sem crash de runtime.
-
