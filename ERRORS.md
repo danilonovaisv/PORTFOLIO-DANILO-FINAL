@@ -6,8 +6,32 @@
 
 ## Thống kê nhanh
 
-- **Tổng lỗi**: 20
-- **Đã sửa**: 20
+- **Tổng lỗi**: 21
+- **Đã sửa**: 21
+
+---
+
+## [2026-09-18 08:55] - `npm error code EOVERRIDE` ao executar `pnpm run update`
+
+- **Type**: Integration / CLI Error
+- **Severity**: Medium
+- **File**: `package.json`, `pnpm-workspace.yaml`
+- **Agent**: Antigravity / Ghost Commander
+- **Root Cause**:
+  1. O script `"update"` em `package.json` invocava `npx --yes npm-check-updates -u`, o qual executava o binário do `npm`. O `npm` falhava ao encontrar o bloco de nível superior `"overrides"` em `package.json` contendo `"esbuild": ">=0.19.2"` que conflitava com a dependência direta `"esbuild": "^0.19.2"`.
+  2. O `npm-check-updates` atualizou a dependência de desenvolvimento `typescript` para a versão `7.0.2`, incompatível com a versão instalada do `@typescript-eslint` v8.
+- **Error Message**:
+  ```text
+  npm error code EOVERRIDE
+  npm error Override for esbuild@^0.19.2 conflicts with direct dependency
+  Error: typescript-eslint does not support TS 7.0.
+  ```
+- **Fix Applied**:
+  1. Atualizado o script `"update"` para utilizar `pnpm dlx npm-check-updates --packageManager pnpm -x typescript -u && pnpm install`, garantindo o uso exclusivo do runner nativo do pnpm e ignorando atualizações para majors do TypeScript incompatíveis com `@typescript-eslint`.
+  2. Removido o campo legado `"overrides"`/`"pnpm"` do `package.json` e consolidados os overrides no `pnpm-workspace.yaml`, padrão oficial do `pnpm` v10+.
+  3. Revertida a versão do `typescript` para `~5.9.3` no `package.json`.
+- **Prevention**: Usar sempre `pnpm dlx` em vez de `npx` e migrar configurações de overrides para `pnpm-workspace.yaml`. Excluir pacotes críticos como `typescript` de atualizações automáticas via `npm-check-updates` quando houver dependência de parsers ESLint.
+- **Status**: Fixed
 
 ---
 

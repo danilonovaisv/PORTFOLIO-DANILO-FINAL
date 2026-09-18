@@ -11,9 +11,9 @@ export type BlockType =
   | 'video-text'
   | 'quote-band'
   // Composições polimórficas dinâmicas (mídias livres: image | video | html)
-  | 'media-1x'   // 1 bloco de mídia livre (fullwidth)
-  | 'media-2x'   // 2 blocos de mídia lado a lado (tipo configurável por slot)
-  | 'media-3x';  // 3 blocos de mídia em linha (tipo configurável por slot)
+  | 'media-1x' // 1 bloco de mídia livre (fullwidth)
+  | 'media-2x' // 2 blocos de mídia lado a lado (tipo configurável por slot)
+  | 'media-3x'; // 3 blocos de mídia em linha (tipo configurável por slot)
 
 export interface TextConfig {
   fontSize?: string; // e.g., 'text-lg', 'text-4xl', or custom values

@@ -45,7 +45,9 @@ export function MediaCard({
 }: MediaCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const fit = media.fit ?? getDefaultMediaFit(media.kind === 'html' ? 'image' : media.kind);
+  const fit =
+    media.fit ??
+    getDefaultMediaFit(media.kind === 'html' ? 'image' : media.kind);
   const mediaClasses = cn(
     'h-full w-full object-center',
     MEDIA_FIT_CLASS[fit],
@@ -59,7 +61,12 @@ export function MediaCard({
   // Pause video off-screen (IntersectionObserver)
   useEffect(() => {
     const videoEl = videoRef.current;
-    if (!videoEl || !pauseOffscreen || media.kind !== 'video' || typeof IntersectionObserver === 'undefined') {
+    if (
+      !videoEl ||
+      !pauseOffscreen ||
+      media.kind !== 'video' ||
+      typeof IntersectionObserver === 'undefined'
+    ) {
       return;
     }
 
@@ -85,7 +92,12 @@ export function MediaCard({
   // Pause HTML iframe off-screen — manda mensagem postMessage ao iframe (melhor esforço)
   useEffect(() => {
     const iframeEl = iframeRef.current;
-    if (!iframeEl || !pauseOffscreen || media.kind !== 'html' || typeof IntersectionObserver === 'undefined') {
+    if (
+      !iframeEl ||
+      !pauseOffscreen ||
+      media.kind !== 'html' ||
+      typeof IntersectionObserver === 'undefined'
+    ) {
       return;
     }
 

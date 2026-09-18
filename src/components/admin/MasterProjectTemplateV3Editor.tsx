@@ -48,7 +48,10 @@ function AddBlockDropdown({ onAdd }: { onAdd: (_type: BlockType) => void }) {
         {BASIC_PRESETS.map((preset) => {
           const Icon = preset.icon;
           return (
-            <DropdownMenuItem key={preset.type} onClick={() => onAdd(preset.type)}>
+            <DropdownMenuItem
+              key={preset.type}
+              onClick={() => onAdd(preset.type)}
+            >
               <Icon className="mr-2 h-4 w-4" />
               {preset.label}
             </DropdownMenuItem>
@@ -62,7 +65,10 @@ function AddBlockDropdown({ onAdd }: { onAdd: (_type: BlockType) => void }) {
         {COMPOSITION_PRESETS.map((preset) => {
           const Icon = preset.icon;
           return (
-            <DropdownMenuItem key={preset.type} onClick={() => onAdd(preset.type)}>
+            <DropdownMenuItem
+              key={preset.type}
+              onClick={() => onAdd(preset.type)}
+            >
               <Icon className="mr-2 h-4 w-4" />
               {preset.label}
             </DropdownMenuItem>

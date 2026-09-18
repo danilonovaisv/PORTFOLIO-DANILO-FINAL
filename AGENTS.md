@@ -109,12 +109,12 @@ docs/blueprints_project/ → .agents/rules/ → .agents/workflows/ → .agents/ 
 
 ### Orchestrated Agents (Ghost System)
 
-| Agent                   | Skill                  | Responsibility                                           |
-| ----------------------- | ---------------------- | -------------------------------------------------------- |
-| `@ghost_architect`      | `ghost-architect`      | Next.js architecture, folder integrity, TypeScript types |
-| `@spectral_artist`      | `spectral-artist`      | Ghost Blue shaders, WebGL materials, visual aesthetics   |
-| `@motion_choreographer` | `motion-choreographer` | Framer Motion, Lenis, scroll sync                        |
-| `@audit_sentinel`       | `audit-sentinel`       | Grid compliance `.std-grid`, Lighthouse, z-index         |
+| Agent                      | Skill                     | Responsibility                                             |
+| -------------------------- | ------------------------- | ---------------------------------------------------------- |
+| `@ghost_architect`         | `ghost-architect`         | Next.js architecture, folder integrity, TypeScript types   |
+| `@spectral_artist`         | `spectral-artist`         | Ghost Blue shaders, WebGL materials, visual aesthetics     |
+| `@motion_choreographer`    | `motion-choreographer`    | Framer Motion, Lenis, scroll sync                          |
+| `@audit_sentinel`          | `audit-sentinel`          | Grid compliance `.std-grid`, Lighthouse, z-index           |
 | `@obsidian_vault_operator` | `obsidian-vault-operator` | Wiki-Brain management, OFM notes, canvas maps & base views |
 
 ### Reference Documents (Single Source of Truth)

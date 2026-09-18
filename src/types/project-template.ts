@@ -6,7 +6,8 @@ export const MASTER_PROJECT_TEMPLATE = 'master-project-v1' as const;
 export const MASTER_PROJECT_TEMPLATE_V2 = 'master-project-v2' as const;
 export const MASTER_PROJECT_TEMPLATE_V3 = 'master-project-v3-alpa' as const;
 /** Variante com hero media acima do título — imagem, vídeo ou HTML */
-export const MASTER_PROJECT_TEMPLATE_V3_HERO = 'master-project-v3-alpa-hero' as const;
+export const MASTER_PROJECT_TEMPLATE_V3_HERO =
+  'master-project-v3-alpa-hero' as const;
 
 export type MasterProjectTemplateId =
   | typeof MASTER_PROJECT_TEMPLATE

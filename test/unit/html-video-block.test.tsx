@@ -1,8 +1,14 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { HTMLVideoBlock } from '@/components/ui/HTMLVideoBlock';
-import { BASIC_PRESETS, createBlockDraft } from '@/components/admin/templates/v3/presets';
-import { normalizeLandingBlock, V3_BLOCK_TYPES } from '@/lib/projects/template-schema-utils';
+import {
+  BASIC_PRESETS,
+  createBlockDraft,
+} from '@/components/admin/templates/v3/presets';
+import {
+  normalizeLandingBlock,
+  V3_BLOCK_TYPES,
+} from '@/lib/projects/template-schema-utils';
 
 describe('HTMLVideoBlock & Preset System', () => {
   it('registers html-video in BASIC_PRESETS for the Admin UI menu', () => {
@@ -35,11 +41,14 @@ describe('HTMLVideoBlock & Preset System', () => {
     const normalized = normalizeLandingBlock(rawBlock, 0, 'Fallback Alt');
     expect(normalized).not.toBeNull();
     expect(normalized?.type).toBe('html-video');
-    expect(normalized?.content.html).toBe('<div class="custom-video">HTML Content</div>');
+    expect(normalized?.content.html).toBe(
+      '<div class="custom-video">HTML Content</div>'
+    );
   });
 
   it('renders HTMLVideoBlock with html content', () => {
-    const htmlSnippet = '<div data-testid="custom-html-node">Custom Video Code</div>';
+    const htmlSnippet =
+      '<div data-testid="custom-html-node">Custom Video Code</div>';
     render(<HTMLVideoBlock html={htmlSnippet} title="Test Title" />);
     expect(screen.getByTestId('custom-html-node')).toBeInTheDocument();
   });

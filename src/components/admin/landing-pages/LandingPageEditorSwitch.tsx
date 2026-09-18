@@ -78,7 +78,10 @@ export function LandingPageEditorSwitch({
     );
   }
 
-  if (template === MASTER_PROJECT_TEMPLATE_V3 || template === MASTER_PROJECT_TEMPLATE_V3_HERO) {
+  if (
+    template === MASTER_PROJECT_TEMPLATE_V3 ||
+    template === MASTER_PROJECT_TEMPLATE_V3_HERO
+  ) {
     return (
       <MasterProjectTemplateV3Editor
         value={masterTemplateV3}

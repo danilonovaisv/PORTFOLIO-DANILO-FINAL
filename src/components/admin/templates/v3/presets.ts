@@ -63,7 +63,12 @@ export function createBlockDraft(
     'media-3x',
   ].includes(type);
 
-  const needsMedia2 = ['image-image', 'image-video', 'media-2x', 'media-3x'].includes(type);
+  const needsMedia2 = [
+    'image-image',
+    'image-video',
+    'media-2x',
+    'media-3x',
+  ].includes(type);
   const needsMedia3 = ['media-3x'].includes(type);
 
   const inferMediaType = (
@@ -87,7 +92,11 @@ export function createBlockDraft(
       )
         return 'image';
       // Polimórficos: padrão image (o editor permite alterar por slot)
-      if (blockType === 'media-1x' || blockType === 'media-2x' || blockType === 'media-3x')
+      if (
+        blockType === 'media-1x' ||
+        blockType === 'media-2x' ||
+        blockType === 'media-3x'
+      )
         return 'image';
     } else {
       if (blockType === 'image-video') return 'video';
