@@ -1,5 +1,5 @@
 export type MediaFormat = 'square' | 'landscape';
-export type MediaKind = 'image' | 'video';
+export type MediaKind = 'image' | 'video' | 'html';
 export type MediaFit = 'cover' | 'contain';
 
 export interface ProjectMedia {

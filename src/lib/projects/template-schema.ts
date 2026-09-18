@@ -4,10 +4,12 @@ import {
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
   MASTER_PROJECT_TEMPLATE_V3,
+  MASTER_PROJECT_TEMPLATE_V3_HERO,
   type MasterProjectGalleryItem,
   type MasterProjectTemplateData,
   type MasterProjectTemplateV2Data,
   type MasterProjectTemplateV3Data,
+  type MasterProjectTemplateV3HeroData,
   type MasterProjectV2GalleryItem,
   type ParsedLandingPageContent,
 } from '@/types/project-template';
@@ -207,13 +209,15 @@ function normalizeMasterTemplateV2(
 function normalizeMasterTemplateV3(
   value: unknown,
   fallback: TemplateFallback = {}
-): MasterProjectTemplateV3Data | null {
+): MasterProjectTemplateV3Data | MasterProjectTemplateV3HeroData | null {
   const record = asRecord(value);
   if (!record) return null;
 
   const template = asString(record.template);
+  const isV3Hero = template === MASTER_PROJECT_TEMPLATE_V3_HERO;
   const hasMasterFields =
     template === MASTER_PROJECT_TEMPLATE_V3 ||
+    isV3Hero ||
     Array.isArray(record.gallery_grid);
 
   if (!hasMasterFields) return null;
@@ -222,6 +226,7 @@ function normalizeMasterTemplateV3(
   const fallbackAlt = `Capa do projeto ${fallback.title ?? defaults.project_title}`;
   const heroCoverRecord = asRecord(record.hero_cover_image);
   const heroLogoRecord = asRecord(record.hero_logo_image);
+  const heroTopMediaRecord = asRecord(record.hero_top_media);
 
   const galleryGrid = Array.isArray(record.gallery_grid)
     ? record.gallery_grid
@@ -233,9 +238,9 @@ function normalizeMasterTemplateV3(
   const ctaRecord = asRecord(record.cta);
   const seoRecord = asRecord(record.seo);
 
-  return {
-    schema_version: '3.0',
-    template: MASTER_PROJECT_TEMPLATE_V3,
+  const baseV3 = {
+    schema_version: '3.0' as const,
+    template: isV3Hero ? MASTER_PROJECT_TEMPLATE_V3_HERO : MASTER_PROJECT_TEMPLATE_V3,
     project_slug:
       asString(record.project_slug) ?? fallback.slug ?? defaults.project_slug,
     hero_cover_image: heroCoverRecord
@@ -248,6 +253,15 @@ function normalizeMasterTemplateV3(
     hero_logo_image: heroLogoRecord
       ? normalizeAsset(heroLogoRecord, `${defaults.project_title} logo`)
       : defaults.hero_logo_image,
+    ...(heroTopMediaRecord
+      ? {
+          hero_top_media: {
+            ...normalizeAsset(heroTopMediaRecord, `${defaults.project_title} hero media`),
+            kind: (asString(heroTopMediaRecord.kind) as 'image' | 'video' | 'html') || 'image',
+            html: asString(heroTopMediaRecord.html),
+          },
+        }
+      : {}),
     project_title:
       asString(record.project_title) ??
       fallback.title ??
@@ -291,6 +305,11 @@ function normalizeMasterTemplateV3(
       og_image: asString(seoRecord?.og_image) ?? defaults.seo?.og_image,
     },
   };
+
+  if (isV3Hero) {
+    return baseV3 as MasterProjectTemplateV3HeroData;
+  }
+  return baseV3 as MasterProjectTemplateV3Data;
 }
 
 const hasV2LayoutType = (value: unknown): boolean => {
@@ -307,15 +326,22 @@ export function parseLandingPageContent(
 
   if (
     template === MASTER_PROJECT_TEMPLATE_V3 ||
+    template === MASTER_PROJECT_TEMPLATE_V3_HERO ||
     (template !== MASTER_PROJECT_TEMPLATE &&
       template !== MASTER_PROJECT_TEMPLATE_V2 &&
       hasV3BlockType(record?.gallery_grid))
   ) {
     const masterV3 = normalizeMasterTemplateV3(content, fallback);
     if (masterV3) {
+      if (masterV3.template === MASTER_PROJECT_TEMPLATE_V3_HERO) {
+        return {
+          template: MASTER_PROJECT_TEMPLATE_V3_HERO,
+          data: masterV3 as MasterProjectTemplateV3HeroData,
+        };
+      }
       return {
         template: MASTER_PROJECT_TEMPLATE_V3,
-        data: masterV3,
+        data: masterV3 as MasterProjectTemplateV3Data,
       };
     }
   }
@@ -359,7 +385,8 @@ export function getProjectOgImage(
   if (
     parsed.template === MASTER_PROJECT_TEMPLATE ||
     parsed.template === MASTER_PROJECT_TEMPLATE_V2 ||
-    parsed.template === MASTER_PROJECT_TEMPLATE_V3
+    parsed.template === MASTER_PROJECT_TEMPLATE_V3 ||
+    parsed.template === MASTER_PROJECT_TEMPLATE_V3_HERO
   ) {
     return (
       parsed.data.seo?.og_image ||
@@ -379,7 +406,8 @@ export function getProjectSeoDescription(
   if (
     parsed.template === MASTER_PROJECT_TEMPLATE ||
     parsed.template === MASTER_PROJECT_TEMPLATE_V2 ||
-    parsed.template === MASTER_PROJECT_TEMPLATE_V3
+    parsed.template === MASTER_PROJECT_TEMPLATE_V3 ||
+    parsed.template === MASTER_PROJECT_TEMPLATE_V3_HERO
   ) {
     const defaultDesc = `Conheça o projeto ${parsed.data.project_title} de Danilo Novais. Uma experiência de ${parsed.data.project_services?.join(', ') || 'design e desenvolvimento'} com foco em narrativa visual e performance.`;
     return (
@@ -391,3 +419,4 @@ export function getProjectSeoDescription(
 
   return `Landing page do projeto ${fallbackTitle} por Danilo Novais. Creative Development especializado em WebGL, Motion Design e branding editorial de alta performance.`;
 }
+

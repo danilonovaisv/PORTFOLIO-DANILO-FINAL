@@ -93,6 +93,7 @@ export function AlpaBlock({
           html={content.html || block.html}
           media={content.media || block.src}
           title={content.text || block.title || 'HTML Video Preview'}
+          frameless
         />
       );
 

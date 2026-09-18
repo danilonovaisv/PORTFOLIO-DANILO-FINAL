@@ -16,7 +16,22 @@ export const BASIC_PRESETS = [
   { type: 'html-video' as BlockType, label: 'HTML Video', icon: Code },
 ];
 
+/**
+ * System_Compositions — Blocos de múltipla mídia.
+ *
+ * Os novos tipos media-1x / media-2x / media-3x são polimórficos:
+ * cada slot aceita image | video | html de forma independente,
+ * configurável no BlockEditorV3 por slot.
+ *
+ * Os tipos legados abaixo são mantidos para compatibilidade retroativa
+ * com landing pages existentes.
+ */
 export const COMPOSITION_PRESETS = [
+  // --- Novos: livres por quantidade de blocos ---
+  { type: 'media-1x' as BlockType, label: '1× Mídia Livre', icon: Layout },
+  { type: 'media-2x' as BlockType, label: '2× Mídias Livres', icon: Columns },
+  { type: 'media-3x' as BlockType, label: '3× Mídias Livres', icon: Columns },
+  // --- Legados (mantidos) ---
   { type: 'image-text' as BlockType, label: 'Image & Text', icon: Columns },
   { type: 'text-image' as BlockType, label: 'Text & Image', icon: Columns },
   { type: 'video-text' as BlockType, label: 'Video & Text', icon: Columns },
@@ -43,9 +58,13 @@ export function createBlockDraft(
     'video-text',
     'image-image',
     'image-video',
+    'media-1x',
+    'media-2x',
+    'media-3x',
   ].includes(type);
 
-  const needsMedia2 = ['image-image', 'image-video'].includes(type);
+  const needsMedia2 = ['image-image', 'image-video', 'media-2x', 'media-3x'].includes(type);
+  const needsMedia3 = ['media-3x'].includes(type);
 
   const inferMediaType = (
     blockType: BlockType,
@@ -67,9 +86,14 @@ export function createBlockDraft(
         blockType === 'image-video'
       )
         return 'image';
+      // Polimórficos: padrão image (o editor permite alterar por slot)
+      if (blockType === 'media-1x' || blockType === 'media-2x' || blockType === 'media-3x')
+        return 'image';
     } else {
       if (blockType === 'image-video') return 'video';
       if (blockType === 'image-image') return 'image';
+      // Polimórficos slot 2: padrão image
+      if (blockType === 'media-2x' || blockType === 'media-3x') return 'image';
     }
     return undefined;
   };
@@ -89,6 +113,11 @@ export function createBlockDraft(
         media2: '',
         alt2: '',
         mediaType2: inferMediaType(type, true),
+      }),
+      ...(needsMedia3 && {
+        media3: '',
+        alt3: '',
+        mediaType3: 'image',
       }),
       ...(type === 'quote-band' && { bandColor: '#0048ff' }),
       ...(type === 'html-video' && {

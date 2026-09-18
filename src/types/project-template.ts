@@ -5,11 +5,14 @@ export const LEGACY_PROJECT_TEMPLATE = 'legacy-blocks' as const;
 export const MASTER_PROJECT_TEMPLATE = 'master-project-v1' as const;
 export const MASTER_PROJECT_TEMPLATE_V2 = 'master-project-v2' as const;
 export const MASTER_PROJECT_TEMPLATE_V3 = 'master-project-v3-alpa' as const;
+/** Variante com hero media acima do título — imagem, vídeo ou HTML */
+export const MASTER_PROJECT_TEMPLATE_V3_HERO = 'master-project-v3-alpa-hero' as const;
 
 export type MasterProjectTemplateId =
   | typeof MASTER_PROJECT_TEMPLATE
   | typeof MASTER_PROJECT_TEMPLATE_V2
-  | typeof MASTER_PROJECT_TEMPLATE_V3;
+  | typeof MASTER_PROJECT_TEMPLATE_V3
+  | typeof MASTER_PROJECT_TEMPLATE_V3_HERO;
 
 export type ProjectTemplateId =
   typeof LEGACY_PROJECT_TEMPLATE | MasterProjectTemplateId;
@@ -176,6 +179,24 @@ export interface MasterProjectTemplateV3Data extends Omit<
   seo?: MasterProjectTemplateSeo;
 }
 
+/**
+ * Variante V3 com Hero Media expandida acima do título.
+ * Aceita imagem, vídeo ou HTML embed via hero_top_media.
+ */
+export interface MasterProjectTemplateV3HeroData extends Omit<
+  MasterProjectTemplateV3Data,
+  'template'
+> {
+  template: typeof MASTER_PROJECT_TEMPLATE_V3_HERO;
+  /** Mídia exibida acima do título principal na seção hero */
+  hero_top_media?: MasterProjectAsset & {
+    /** Tipo da mídia: image | video | html */
+    kind?: 'image' | 'video' | 'html';
+    /** Código HTML (apenas quando kind === 'html') */
+    html?: string;
+  };
+}
+
 export type ParsedLandingPageContent =
   | {
       template: typeof LEGACY_PROJECT_TEMPLATE;
@@ -192,4 +213,8 @@ export type ParsedLandingPageContent =
   | {
       template: typeof MASTER_PROJECT_TEMPLATE_V3;
       data: MasterProjectTemplateV3Data;
+    }
+  | {
+      template: typeof MASTER_PROJECT_TEMPLATE_V3_HERO;
+      data: MasterProjectTemplateV3HeroData;
     };

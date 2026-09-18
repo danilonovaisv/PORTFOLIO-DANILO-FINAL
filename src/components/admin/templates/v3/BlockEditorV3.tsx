@@ -144,14 +144,15 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
 
   const renderMediaField = (
     label: string,
-    options?: { secondary?: boolean; kind?: 'image' | 'video' | 'youtube' }
+    options?: { secondary?: boolean; tertiary?: boolean; kind?: 'image' | 'video' | 'youtube' }
   ) => {
-    const mediaKey = options?.secondary ? 'media2' : 'media';
-    const altKey = options?.secondary ? 'alt2' : 'alt';
-    const posterKey = options?.secondary ? 'poster2' : 'poster';
-    const mediaTypeKey = options?.secondary ? 'mediaType2' : 'mediaType';
-    const fileKey = options?.secondary ? 'file2' : 'file';
-    const previewKey = options?.secondary ? 'previewUrl2' : 'previewUrl';
+    const slotNum = options?.tertiary ? '3' : options?.secondary ? '2' : '';
+    const mediaKey = slotNum ? `media${slotNum}` : 'media';
+    const altKey = slotNum ? `alt${slotNum}` : 'alt';
+    const posterKey = slotNum ? `poster${slotNum}` : 'poster';
+    const mediaTypeKey = slotNum ? `mediaType${slotNum}` : 'mediaType';
+    const fileKey = slotNum ? `file${slotNum}` : 'file';
+    const previewKey = slotNum ? `previewUrl${slotNum}` : 'previewUrl';
     const kind =
       options?.kind ??
       (block.content[mediaTypeKey] === 'youtube'
@@ -165,8 +166,8 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
       alt: block.content[altKey] || '',
       kind: kind === 'youtube' ? 'video' : kind,
       poster: block.content[posterKey] || '',
-      file: block[fileKey] || null,
-      previewUrl: block[previewKey] || '',
+      file: (block as Record<string, any>)[fileKey] || null,
+      previewUrl: (block as Record<string, any>)[previewKey] || '',
     };
 
     return (
@@ -195,6 +196,59 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
         }}
         requireAlt={kind === 'image'}
       />
+    );
+  };
+
+  /**
+   * renderPolymorphicSlot — slot de mídia livre com seletor de tipo (image | video | html)
+   * Utilizado pelos tipos media-1x, media-2x e media-3x.
+   */
+  const renderPolymorphicSlot = (slotIndex: 1 | 2 | 3) => {
+    const slotSuffix = slotIndex === 1 ? '' : String(slotIndex);
+    const mediaTypeKey = slotSuffix ? `mediaType${slotSuffix}` : 'mediaType';
+    const htmlKey = slotSuffix ? `html${slotSuffix}` : 'html';
+    const currentType: string = block.content[mediaTypeKey] || 'image';
+    const label = `SLOT_${slotIndex.toString().padStart(2, '0')}`;
+
+    return (
+      <div key={`slot-${slotIndex}`} className="space-y-3 rounded border border-white/5 bg-white/[0.02] p-3">
+        <div className="flex items-center justify-between">
+          <span className={labelClasses}>{label}_TYPE</span>
+          <select
+            className="rounded border border-white/10 bg-black/30 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-white/70 outline-none"
+            value={currentType}
+            onChange={(e) => updateContent({ [mediaTypeKey]: e.target.value })}
+            aria-label={`${label} media type`}
+          >
+            <option value="image">Imagem</option>
+            <option value="video">Vídeo</option>
+            <option value="html">HTML</option>
+          </select>
+        </div>
+
+        {currentType === 'html' ? (
+          <div className="space-y-2">
+            <label className="block space-y-1">
+              <span className={labelClasses}>{label}_HTML_MARKUP</span>
+              <textarea
+                className={`${inputClasses} min-h-40 font-mono text-xs`}
+                value={block.content[htmlKey] || ''}
+                onChange={(e) => updateContent({ [htmlKey]: e.target.value })}
+                placeholder="<!-- HTML embed, iframe, ou código interativo -->"
+              />
+              <span className="block text-[10px] text-white/30">
+                Protocol: Full HTML5, scripts e estilos suportados (sandbox).
+              </span>
+            </label>
+          </div>
+        ) : (
+          renderMediaField(`${label}_MEDIA`, {
+            secondary: slotIndex === 2,
+            tertiary: slotIndex === 3,
+            kind: currentType === 'video' ? 'video' : 'image',
+          })
+        )}
+      </div>
     );
   };
 
@@ -326,6 +380,28 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
               kind: block.type === 'image-video' ? 'video' : 'image',
             }
           )}
+        </div>
+      )}
+
+      {/* ── Composições polimórficas (media-1x / media-2x / media-3x) ── */}
+      {block.type === 'media-1x' && (
+        <div className="space-y-3">
+          {renderPolymorphicSlot(1)}
+        </div>
+      )}
+
+      {block.type === 'media-2x' && (
+        <div className="grid gap-4 md:grid-cols-2">
+          {renderPolymorphicSlot(1)}
+          {renderPolymorphicSlot(2)}
+        </div>
+      )}
+
+      {block.type === 'media-3x' && (
+        <div className="grid gap-4 md:grid-cols-3">
+          {renderPolymorphicSlot(1)}
+          {renderPolymorphicSlot(2)}
+          {renderPolymorphicSlot(3)}
         </div>
       )}
     </div>

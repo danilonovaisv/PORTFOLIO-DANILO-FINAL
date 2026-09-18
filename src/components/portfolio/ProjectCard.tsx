@@ -82,15 +82,25 @@ export const ProjectCard = React.memo(function ProjectCard({
         isVideo(candidate) &&
         !isLegacyProjectMediaAsset(candidate)
     ) ?? null;
-  const hoverMedia: ProjectMedia | null = hoverVideoCandidate
+
+  // HTML embed thumbnail — tem prioridade sobre vídeo no hover
+  const hoverMedia: ProjectMedia | null = project.thumbnailHtml
     ? {
-        kind: 'video',
-        src: hoverVideoCandidate,
+        kind: 'html',
+        src: project.thumbnailHtml,
         format: desktopMedia?.format ?? desktopPreferredCover,
-        fit: 'contain',
+        fit: 'cover',
         alt: visualAltText,
       }
-    : null;
+    : hoverVideoCandidate
+      ? {
+          kind: 'video',
+          src: hoverVideoCandidate,
+          format: desktopMedia?.format ?? desktopPreferredCover,
+          fit: 'contain',
+          alt: visualAltText,
+        }
+      : null;
   const hasVideo =
     !!hoverMedia &&
     !(

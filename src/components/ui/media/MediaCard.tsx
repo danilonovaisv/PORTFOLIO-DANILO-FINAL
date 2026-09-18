@@ -44,7 +44,8 @@ export function MediaCard({
   'aria-hidden': ariaHidden,
 }: MediaCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const fit = media.fit ?? getDefaultMediaFit(media.kind);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const fit = media.fit ?? getDefaultMediaFit(media.kind === 'html' ? 'image' : media.kind);
   const mediaClasses = cn(
     'h-full w-full object-center',
     MEDIA_FIT_CLASS[fit],
@@ -55,6 +56,7 @@ export function MediaCard({
     media.kind === 'video' ? { isVideo: true } : undefined
   );
 
+  // Pause video off-screen (IntersectionObserver)
   useEffect(() => {
     const videoEl = videoRef.current;
     if (!videoEl || !pauseOffscreen || media.kind !== 'video' || typeof IntersectionObserver === 'undefined') {
@@ -80,6 +82,31 @@ export function MediaCard({
     return () => observer.disconnect();
   }, [pauseOffscreen, autoPlay, media.kind]);
 
+  // Pause HTML iframe off-screen — manda mensagem postMessage ao iframe (melhor esforço)
+  useEffect(() => {
+    const iframeEl = iframeRef.current;
+    if (!iframeEl || !pauseOffscreen || media.kind !== 'html' || typeof IntersectionObserver === 'undefined') {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        try {
+          iframeEl.contentWindow?.postMessage(
+            entry.isIntersecting ? 'resume' : 'pause',
+            '*'
+          );
+        } catch {
+          // cross-origin iframe — ignora silenciosamente
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(iframeEl);
+    return () => observer.disconnect();
+  }, [pauseOffscreen, media.kind]);
+
   return (
     <div
       className={cn(
@@ -102,6 +129,17 @@ export function MediaCard({
           className={mediaClasses}
           style={{ objectPosition }}
         />
+      ) : media.kind === 'html' ? (
+        // HTML embed thumbnail — sandboxed iframe com IntersectionObserver de pausa
+        <iframe
+          ref={iframeRef}
+          srcDoc={media.src}
+          title={media.alt || 'HTML Thumbnail'}
+          className={cn('border-0', mediaClasses)}
+          sandbox="allow-scripts allow-same-origin"
+          aria-hidden={ariaHidden}
+          loading="lazy"
+        />
       ) : (
         <Image
           src={resolvedSrc}
@@ -119,4 +157,3 @@ export function MediaCard({
     </div>
   );
 }
-

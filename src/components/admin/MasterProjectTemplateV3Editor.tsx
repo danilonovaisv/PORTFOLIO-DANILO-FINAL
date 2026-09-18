@@ -25,6 +25,54 @@ import {
   createBlockDraft,
 } from './templates/v3/presets';
 
+/** Botão reutilizável de adição de bloco — usado no topo e no rodapé da lista */
+function AddBlockDropdown({ onAdd }: { onAdd: (_type: BlockType) => void }) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-bluePrimary px-4 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition-all hover:bg-bluePrimary/90"
+        >
+          <Plus size={14} />
+          Add_Block_Node
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        align="end"
+        className="w-72 border-white/10 bg-background text-white font-mono"
+      >
+        <DropdownMenuLabel className="text-[10px] uppercase tracking-[0.2em] text-white/40">
+          Core_Layouts
+        </DropdownMenuLabel>
+        {BASIC_PRESETS.map((preset) => {
+          const Icon = preset.icon;
+          return (
+            <DropdownMenuItem key={preset.type} onClick={() => onAdd(preset.type)}>
+              <Icon className="mr-2 h-4 w-4" />
+              {preset.label}
+            </DropdownMenuItem>
+          );
+        })}
+
+        <DropdownMenuSeparator className="bg-white/5" />
+        <DropdownMenuLabel className="text-[10px] uppercase tracking-[0.2em] text-white/40">
+          System_Compositions
+        </DropdownMenuLabel>
+        {COMPOSITION_PRESETS.map((preset) => {
+          const Icon = preset.icon;
+          return (
+            <DropdownMenuItem key={preset.type} onClick={() => onAdd(preset.type)}>
+              <Icon className="mr-2 h-4 w-4" />
+              {preset.label}
+            </DropdownMenuItem>
+          );
+        })}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
 export type MasterProjectV3GalleryDraft = LandingPageBlock;
 
 export type MasterProjectTemplateV3Draft = Omit<
@@ -153,54 +201,7 @@ export default function MasterProjectTemplateV3Editor({
             System_Dynamic_Grid
           </h3>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button
-                type="button"
-                className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-bluePrimary px-4 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition-all hover:bg-bluePrimary/90"
-              >
-                <Plus size={14} />
-                Add_Block_Node
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="w-72 border-white/10 bg-background text-white font-mono"
-            >
-              <DropdownMenuLabel className="text-[10px] uppercase tracking-[0.2em] text-white/40">
-                Core_Layouts
-              </DropdownMenuLabel>
-              {BASIC_PRESETS.map((preset) => {
-                const Icon = preset.icon;
-                return (
-                  <DropdownMenuItem
-                    key={preset.type}
-                    onClick={() => addBlock(preset.type)}
-                  >
-                    <Icon className="mr-2 h-4 w-4" />
-                    {preset.label}
-                  </DropdownMenuItem>
-                );
-              })}
-
-              <DropdownMenuSeparator className="bg-white/5" />
-              <DropdownMenuLabel className="text-[10px] uppercase tracking-[0.2em] text-white/40">
-                System_Compositions
-              </DropdownMenuLabel>
-              {COMPOSITION_PRESETS.map((preset) => {
-                const Icon = preset.icon;
-                return (
-                  <DropdownMenuItem
-                    key={preset.type}
-                    onClick={() => addBlock(preset.type)}
-                  >
-                    <Icon className="mr-2 h-4 w-4" />
-                    {preset.label}
-                  </DropdownMenuItem>
-                );
-              })}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <AddBlockDropdown onAdd={addBlock} />
         </div>
 
         <div className="space-y-6">
@@ -266,6 +267,13 @@ export default function MasterProjectTemplateV3Editor({
               </m.div>
             ))}
           </AnimatePresence>
+
+          {/* Botão de adição de bloco no rodapé — evita scroll ao topo quando a lista é longa */}
+          {value.gallery_grid.length > 0 && (
+            <div className="flex justify-end pt-2">
+              <AddBlockDropdown onAdd={addBlock} />
+            </div>
+          )}
         </div>
       </section>
     </div>

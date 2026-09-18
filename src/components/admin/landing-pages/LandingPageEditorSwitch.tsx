@@ -5,6 +5,7 @@ import {
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
   MASTER_PROJECT_TEMPLATE_V3,
+  MASTER_PROJECT_TEMPLATE_V3_HERO,
 } from '@/types/project-template';
 import type { BlockType, LandingPageBlock } from '@/types/landing-page';
 import MasterProjectTemplateEditor, {
@@ -77,7 +78,7 @@ export function LandingPageEditorSwitch({
     );
   }
 
-  if (template === MASTER_PROJECT_TEMPLATE_V3) {
+  if (template === MASTER_PROJECT_TEMPLATE_V3 || template === MASTER_PROJECT_TEMPLATE_V3_HERO) {
     return (
       <MasterProjectTemplateV3Editor
         value={masterTemplateV3}
