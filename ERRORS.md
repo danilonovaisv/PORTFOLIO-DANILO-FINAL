@@ -470,3 +470,27 @@
   - **Option 1 (Recommended)**: Upgrade Cloudflare Workers account to Workers Paid ($5/month) to increase Worker size limit from 3 MiB to 10 MiB (compressed) / 50 MiB.
   - **Option 2**: Switch to Static Export (`output: 'export'`) or deploy to Firebase Hosting / Cloudflare Pages.
 - **Status**: Identified (Action Required: Upgrade Cloudflare Workers Plan or Enable Static Export)
+
+---
+
+## [2026-09-19 03:55] - `typescript-eslint does not support TS 7.0` & Jest ESM Transform Failure
+
+- **Type**: Process & Test Failure
+- **Severity**: High
+- **File**: `package.json`, `jest.config.cjs`
+- **Agent**: Antigravity / Sentinel Prime
+- **Root Cause**:
+  1. Running `pnpm run update` updated the `typescript` package to `~7.0.2` (a pre-release/nightly version). `@typescript-eslint/parser` v8 threw `Error: typescript-eslint does not support TS 7.0.` blocking `pnpm run lint` and `pnpm run test`.
+  2. `pnpm run test` failed on `test/security/admin-server-access.test.ts` because `cookie@2.0.1` (ESM module required by `@supabase/ssr`) was loaded via pnpm symlinked node_modules paths (`.pnpm/cookie@...`) which were not matched by `transformIgnorePatterns`.
+- **Error Message**:
+
+  ```text
+  Error: typescript-eslint does not support TS 7.0.
+  Must use import to load ES Module: .../node_modules/.pnpm/cookie@2.0.1/node_modules/cookie/dist/index.js
+  ```
+
+- **Fix Applied**:
+  1. Fixed `"typescript": "~6.0.2"` in `devDependencies` and added `"pnpm": { "overrides": { "typescript": "~6.0.2" } }` in `package.json` to prevent automatic TS 7 upgrades.
+  2. Updated `transformIgnorePatterns` in `jest.config.cjs` to `['node_modules/(?!(.*cookie|.*framer-motion|.*@supabase)/)']` so Jest's ESM transformer matches pnpm symlinks.
+- **Prevention**: Use pnpm overrides for core tooling dependencies (like `typescript`) that have strict peer dependencies with linter parsers. Update Jest `transformIgnorePatterns` to use wildcard regex matching for ESM packages in pnpm monorepos.
+- **Status**: Fixed

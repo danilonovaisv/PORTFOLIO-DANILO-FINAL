@@ -97,6 +97,8 @@ const projectBaseFieldsSchema = z.object({
     })
     .optional(),
   case_body: z.string().optional(),
+  url_landscape: z.string().trim().nullable().optional(),
+  url_square: z.string().trim().nullable().optional(),
 });
 
 const enforceFeaturedPublishedRule = (

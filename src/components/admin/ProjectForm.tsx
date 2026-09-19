@@ -33,7 +33,10 @@ import {
 
 import { ProjectBasicDetailsSection } from './form-sections/ProjectBasicDetailsSection';
 import { HomeFeaturedSection } from './form-sections/HomeFeaturedSection';
-import { MediaUploadSection } from './form-sections/MediaUploadSection';
+import {
+  MediaUploadSection,
+  type CoverMediaMode,
+} from './form-sections/MediaUploadSection';
 import { TagsSection } from './form-sections/TagsSection';
 
 type Props = {
@@ -49,6 +52,20 @@ export function ProjectForm({
   landingPages,
   selectedTagIds = [],
 }: Props) {
+  const initialLandscapeIsHtml = Boolean(
+    project?.url_landscape &&
+    (project.url_landscape.trim().startsWith('<') ||
+      project.url_landscape.includes('<iframe') ||
+      project.url_landscape.includes('<video'))
+  );
+
+  const [landscapeMode, setLandscapeMode] = useState<CoverMediaMode>(
+    initialLandscapeIsHtml ? 'html' : 'file'
+  );
+  const [landscapeHtml, setLandscapeHtml] = useState<string>(
+    initialLandscapeIsHtml ? (project?.url_landscape ?? '') : ''
+  );
+
   const hasExistingLandscape = Boolean(
     project?.url_landscape ?? project?.thumbnail_path
   );
@@ -166,7 +183,28 @@ export function ProjectForm({
     setError(null);
     startTransition(async () => {
       try {
-        let url_landscape = project?.url_landscape ?? null;
+        const hasLandscapeHtml =
+          landscapeMode === 'html' && Boolean(landscapeHtml.trim());
+        const hasLandscapeFileOrBlob =
+          landscapeMode === 'file' &&
+          (Boolean(landscapeVariant) || hasExistingLandscape);
+
+        if (!hasLandscapeHtml && !hasLandscapeFileOrBlob) {
+          setError(
+            'SYSTEM_ERR: ASSET_16x9_REQUIRED — UPLOAD_OR_HTML_BEFORE_SAVE'
+          );
+          return;
+        }
+
+        if (!squareVariant && !hasExistingSquare) {
+          setError('SYSTEM_ERR: ASSET_1x1_REQUIRED — UPLOAD_BEFORE_SAVE');
+          return;
+        }
+
+        let url_landscape =
+          landscapeMode === 'html'
+            ? landscapeHtml.trim()
+            : (project?.url_landscape ?? null);
         let url_square = project?.url_square ?? null;
         const galleryEntries: Array<{
           path?: string;
@@ -177,22 +215,12 @@ export function ProjectForm({
 
         const clientSlug = slugify(values.client_name);
 
-        if (!landscapeVariant && !hasExistingLandscape) {
-          setError('SYSTEM_ERR: ASSET_16x9_REQUIRED — UPLOAD_BEFORE_SAVE');
-          return;
-        }
-
-        if (!squareVariant && !hasExistingSquare) {
-          setError('SYSTEM_ERR: ASSET_1x1_REQUIRED — UPLOAD_BEFORE_SAVE');
-          return;
-        }
-
         let homeFeaturedLogoPath =
           project?.home_featured?.logoPath ??
           values.home_featured?.logoPath ??
           null;
 
-        if (landscapeVariant) {
+        if (landscapeMode === 'file' && landscapeVariant) {
           url_landscape = await uploadToBucket(
             'portfolio-media',
             `${clientSlug}/${values.slug}/assets-do-projeto`,
@@ -423,6 +451,10 @@ export function ProjectForm({
         <MediaUploadSection
           urlLandscape={project?.url_landscape}
           urlSquare={project?.url_square}
+          landscapeMode={landscapeMode}
+          landscapeHtml={landscapeHtml}
+          onChangeLandscapeMode={setLandscapeMode}
+          onChangeLandscapeHtml={setLandscapeHtml}
           onChangeLandscapeFile={setLandscapeVariant}
           onChangeSquareFile={setSquareVariant}
         />
