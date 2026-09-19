@@ -473,24 +473,25 @@
 
 ---
 
-## [2026-09-19 03:55] - `typescript-eslint does not support TS 7.0` & Jest ESM Transform Failure
+## [2026-09-19 03:55] - `typescript-eslint does not support TS 7.0` & `cookie@2.0.1` `serialize` Missing Export
 
-- **Type**: Process & Test Failure
+- **Type**: Integration / Build Failure
 - **Severity**: High
-- **File**: `package.json`, `jest.config.cjs`
+- **File**: `package.json`, `pnpm-workspace.yaml`, `jest.config.cjs`
 - **Agent**: Antigravity / Sentinel Prime
 - **Root Cause**:
-  1. Running `pnpm run update` updated the `typescript` package to `~7.0.2` (a pre-release/nightly version). `@typescript-eslint/parser` v8 threw `Error: typescript-eslint does not support TS 7.0.` blocking `pnpm run lint` and `pnpm run test`.
-  2. `pnpm run test` failed on `test/security/admin-server-access.test.ts` because `cookie@2.0.1` (ESM module required by `@supabase/ssr`) was loaded via pnpm symlinked node_modules paths (`.pnpm/cookie@...`) which were not matched by `transformIgnorePatterns`.
+  1. Running `pnpm run update` updated the `typescript` package to `~7.0.2` (a pre-release/nightly version). `@typescript-eslint/parser` v8 threw `Error: typescript-eslint does not support TS 7.0.` blocking `pnpm run lint`.
+  2. `pnpm run update` upgraded `cookie` to `2.0.1`. In `cookie` 2.0.0+, `cookie.serialize` was replaced by `stringifyCookie`. `@supabase/ssr@0.12.7` imports `* as cookie from "cookie"` and invokes `cookie.serialize()`, causing Turbopack / OpenNext build failure (`Export serialize doesn't exist in target module cookie@2.0.1`).
 - **Error Message**:
 
   ```text
   Error: typescript-eslint does not support TS 7.0.
-  Must use import to load ES Module: .../node_modules/.pnpm/cookie@2.0.1/node_modules/cookie/dist/index.js
+  Error: Export serialize doesn't exist in target module [project]/node_modules/.pnpm/cookie@2.0.1/...
   ```
 
 - **Fix Applied**:
-  1. Fixed `"typescript": "~6.0.2"` in `devDependencies` and added `"pnpm": { "overrides": { "typescript": "~6.0.2" } }` in `package.json` to prevent automatic TS 7 upgrades.
-  2. Updated `transformIgnorePatterns` in `jest.config.cjs` to `['node_modules/(?!(.*cookie|.*framer-motion|.*@supabase)/)']` so Jest's ESM transformer matches pnpm symlinks.
-- **Prevention**: Use pnpm overrides for core tooling dependencies (like `typescript`) that have strict peer dependencies with linter parsers. Update Jest `transformIgnorePatterns` to use wildcard regex matching for ESM packages in pnpm monorepos.
+  1. Locked `typescript: "~6.0.2"` and added `cookie: ">=0.7.0 <2.0.0"` override in `pnpm-workspace.yaml`.
+  2. Re-ran `pnpm install` to downgrade `cookie` to `0.7.2` preserving backward compatibility with `@supabase/ssr`.
+  3. Updated `transformIgnorePatterns` in `jest.config.cjs` to `['node_modules/(?!(.*cookie|.*framer-motion|.*@supabase)/)']` for PNPM symlink matching.
+- **Prevention**: Enforce version constraints `cookie: '>=0.7.0 <2.0.0'` in `pnpm-workspace.yaml` overrides so automated update scripts do not pull breaking major versions of transitive dependencies.
 - **Status**: Fixed

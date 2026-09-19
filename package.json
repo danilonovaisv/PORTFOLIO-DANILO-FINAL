@@ -139,10 +139,5 @@
     "wrangler": "^4.135.0",
     "yaml": "^2.9.1"
   },
-  "packageManager": "pnpm@12.4.2",
-  "pnpm": {
-    "overrides": {
-      "typescript": "~6.0.2"
-    }
-  }
+  "packageManager": "pnpm@12.4.2"
 }
