@@ -59,11 +59,10 @@ function getCardMediaCandidateRecords(
       ? (project.imageLandscapeFormat ?? 'landscape')
       : (project.imageSquareFormat ?? 'square');
 
-  const hasStructuredCover =
-    Boolean(primaryCover || secondaryCover || project.image);
-  const shouldPreferDedicatedCover =
-    hasStructuredCover && isLegacyProjectMediaAsset(project.thumbnailMedia);
-
+  const thumbnailHtmlCandidate: MediaCandidate = {
+    src: project.thumbnailHtml,
+    format: preferredCover,
+  };
   const thumbnailCandidate: MediaCandidate = {
     src: project.thumbnailMedia,
     format: preferredCover,
@@ -86,6 +85,45 @@ function getCardMediaCandidateRecords(
     format: preferredCover,
     explicitFormat: project.videoPreviewFormat,
   };
+
+  const hasStructuredCover = Boolean(
+    primaryCover || secondaryCover || project.image || project.thumbnailHtml
+  );
+
+  // Prioritize HTML video candidate if present in thumbnailHtml or primary/secondary cover
+  const htmlCandidate = [
+    thumbnailHtmlCandidate,
+    primaryCandidate,
+    secondaryCandidate,
+    thumbnailCandidate,
+  ].find((candidate) => candidate.src && isHtmlMedia(candidate.src));
+
+  if (htmlCandidate && htmlCandidate.src) {
+    const remaining = [
+      primaryCandidate,
+      secondaryCandidate,
+      imageCandidate,
+      thumbnailCandidate,
+      videoCandidate,
+    ].filter(
+      (candidate): candidate is MediaCandidate & { src: string } =>
+        Boolean(candidate.src) && candidate.src !== htmlCandidate.src
+    );
+
+    return [
+      {
+        src: htmlCandidate.src,
+        format: htmlCandidate.explicitFormat ?? htmlCandidate.format,
+      },
+      ...remaining.map((candidate) => ({
+        src: candidate.src,
+        format: candidate.explicitFormat ?? candidate.format,
+      })),
+    ];
+  }
+
+  const shouldPreferDedicatedCover =
+    hasStructuredCover && isLegacyProjectMediaAsset(project.thumbnailMedia);
 
   const orderedCandidates: MediaCandidate[] = shouldPreferDedicatedCover
     ? [
