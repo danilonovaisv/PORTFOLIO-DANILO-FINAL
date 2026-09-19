@@ -21,11 +21,13 @@
   1. O script `"update"` em `package.json` invocava `npx --yes npm-check-updates -u`, o qual executava o binário do `npm`. O `npm` falhava ao encontrar o bloco de nível superior `"overrides"` em `package.json` contendo `"esbuild": ">=0.19.2"` que conflitava com a dependência direta `"esbuild": "^0.19.2"`.
   2. O `npm-check-updates` atualizou a dependência de desenvolvimento `typescript` para a versão `7.0.2`, incompatível com a versão instalada do `@typescript-eslint` v8.
 - **Error Message**:
+
   ```text
   npm error code EOVERRIDE
   npm error Override for esbuild@^0.19.2 conflicts with direct dependency
   Error: typescript-eslint does not support TS 7.0.
   ```
+
 - **Fix Applied**:
   1. Atualizado o script `"update"` para utilizar `pnpm dlx npm-check-updates --packageManager pnpm -x typescript -u && pnpm install`, garantindo o uso exclusivo do runner nativo do pnpm e ignorando atualizações para majors do TypeScript incompatíveis com `@typescript-eslint`.
   2. Removido o campo legado `"overrides"`/`"pnpm"` do `package.json` e consolidados os overrides no `pnpm-workspace.yaml`, padrão oficial do `pnpm` v10+.
@@ -45,10 +47,12 @@
   1. `src/app/api/admin/storage/upload/route.ts` executava no Edge Runtime (`export const runtime = 'edge'`) e invocava `Buffer.from(bytes)`. O objeto global `Buffer` não existe nativamente em isolados Cloudflare Workers sem polyfills, gerando `ReferenceError: Buffer is not defined` e fazendo o OpenNext/Cloudflare retornar HTTP 500 cru.
   2. O Supabase remoto não possuía os buckets `portfolio-media` e `site-assets` cadastrados em `storage.buckets`, nem as políticas de RLS em `storage.objects` permitindo upload por usuários autenticados e leitura pública.
 - **Error Message**:
+
   ```text
   POST https://portfoliodanilo.com/api/admin/storage/upload 500 (Internal Server Error)
   SYSTEM_ERR: STORAGE_UPLOAD_FAILURE
   ```
+
 - **Fix Applied**:
   1. Substituído `Buffer.from(bytes)` por `new Uint8Array(bytes)` nativo no Edge Runtime e adicionada validação de tamanho de arquivo (`file.size > 25MB`).
   2. Envolvido `createClient()` em `try/catch` no `requireAdminAccess` para retornar JSON de permissão 401/403 em vez de exceção de infraestrutura 500.
@@ -69,9 +73,11 @@
 - **Agent**: Antigravity / Ghost Commander
 - **Root Cause**: Next.js compiled pages using `export const runtime = 'edge'` as separate Serverless Edge Functions. When bundled by `@opennextjs/cloudflare`, the dynamic imports in `PortfolioClient.tsx` (using `next/dynamic`) failed to load because the CJS/ESM interop resolved to `undefined` on the Edge runtime in workerd, throwing `TypeError: Cannot read properties of undefined (reading 'default')` at `interopDefault`.
 - **Error Message**:
+
   ```text
   TypeError: Cannot read properties of undefined (reading 'default') at interopDefault (handler.mjs:107:15698)
   ```
+
 - **Fix Applied**: Commented out the `export const runtime = 'edge';` segment configurations from all page files under `src/app/` (including `/portfolio`, `/portfolio/[slug]`, `/projects/[slug]` and all `/admin` routes) to force Next.js to package them inside the unified, Node-compatible bundle structure unmapped in OpenNext.
 - **Prevention**: Avoid using the `edge` segment runtime configuration config in Next.js dependency tree unless required, allowing the OpenNext bundler to automatically handle optimal runtime integration.
 - **Status**: Fixed
@@ -84,9 +90,11 @@
 - **Agent**: Antigravity / Ghost Commander
 - **Root Cause**: React hydration or DOM unmounting sequence triggered a race condition where the HTML5 `video.play()` promise was rejected with an `AbortError` (due to media removal) before the `useEffect` cleanup hook set the `active` flag to `false`, causing the error to be incorrectly logged as a warning.
 - **Error Message**:
+
   ```text
   [browser] [ResponsiveVideo] Autoplay falhou ou foi bloqueado pelo browser: AbortError: The play() request was interrupted because the media was removed from the document.
   ```
+
 - **Fix Applied**: Updated the catch block in `ResponsiveVideo.tsx` to explicitly check and silence any `AbortError` or DOM interruption errors (e.g., matching `'AbortError'`, `'NS_ERROR_DOM_ABORT_ERR'`, or messages containing `'interrupted'`) regardless of the React lifecycle state.
 - **Prevention**: Always use comprehensive name and message string validation when handling HTML5 media play promise rejections, as browser engine interruption notifications can resolve asynchronously outside of React's lifecycle updates.
 - **Status**: Fixed
@@ -99,9 +107,11 @@
 - **Agent**: Antigravity / Ghost Commander
 - **Root Cause**: Running `pnpm dlx npm-check-updates -u` inside the update script fails with a missing manifest error `ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND` because pnpm's global dlx runner in version 11 attempts to locate a `package.json` inside its internal temporary cache directory, causing a crash.
 - **Error Message**:
+
   ```
   [ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND] No package.json (or package.yaml, or package.json5) was found in "/Users/danilonovais/Library/Caches/pnpm/dlx/.../node_modules/npm-check-updates".
   ```
+
 - **Fix Applied**: Replaced the single-run call `pnpm dlx npm-check-updates -u` with the native Node execution runner `npx --yes npm-check-updates -u` which safely downloads and executes check-updates without requiring local importer manifests in its cache.
 - **Prevention**: Prefer `npx --yes` over `pnpm dlx` for executing single-use command-line CLI tools from the registry in pnpm-managed monorepos or projects.
 - **Status**: Fixed
@@ -114,12 +124,14 @@
 - **Agent**: Antigravity / Ghost Commander
 - **Root Cause**: The Resend API returned a 403 Forbidden validation error because the API key is running in sandbox/testing mode, which restricts sending emails to verified domains or any email other than the account owner's registered email (`danilo_novais@yahoo.com.br`).
 - **Error Message**:
+
   ```json
   {
     "name": "validation_error",
     "message": "You can only send testing emails to your own email address (danilo_novais@yahoo.com.br). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain."
   }
   ```
+
 - **Fix Applied**: Hardcoded the target email `to` as `danilo@portfoliodanilo.com` in `src/app/api/contact/route.ts` as requested by the user. Note: To successfully dispatch to this address, the user must verify the `portfoliodanilo.com` domain in the Resend dashboard and update `RESEND_FROM_EMAIL` to a verified sender domain.
 - **Prevention**: Document domain verification requirements for email APIs in production setup guidelines.
 - **Status**: Fixed
@@ -210,8 +222,8 @@
 - **Agent**: Antigravity / Ghost Commander
 - **Root Cause**: Passing Framer Motion `MotionValue` objects to standard HTML elements' `style` prop. In React 19 / Turbopack environment, this triggers a `TypeError: Failed to set an indexed property [0] on 'CSSStyleDeclaration': Indexed property setter is not supported.` because standard CSSStyleDeclaration objects do not handle MotionValue objects as values.
 - **Error Message**: `TypeError: Failed to set an indexed property [0] on 'CSSStyleDeclaration': Indexed property setter is not supported.`
-- **Fix Applied**: Wrapped `DynamicAssetVideo` in a `motion.div` in `AboutHero.tsx` and moved the `y" parallax animation to the wrapper. This ensures that `MotionValues`are only handled by Framer Motion's`motion" components, which extract the raw values before applying them to the DOM.
-- **Prevention**: Always use `motion` components when passing `MotionValue`s to `style` props. Avoid casting `MotionValue` to `any" inside `style={{ ... }}` blocks for non-motion components.
+- **Fix Applied**: Wrapped `DynamicAssetVideo` in a `motion.div` in `AboutHero.tsx` and moved the `y" parallax animation to the wrapper. This ensures that`MotionValues`are only handled by Framer Motion's`motion" components, which extract the raw values before applying them to the DOM.
+- **Prevention**: Always use `motion` components when passing `MotionValue`s to `style` props. Avoid casting `MotionValue` to `any" inside`style={{ ... }}` blocks for non-motion components.
 - **Status**: Fixed
 
 ## [2026-05-04 00:30] - Network Error / ENOTFOUND during `pnpm install`
@@ -234,9 +246,11 @@
 - **Agent**: Antigravity / Ghost Commander
 - **Root Cause**: The global image loader and URL utilities were incorrectly identifying 3D models (`.glb`, `.gltf`) as transformable images, attempting to route them through the Supabase Image Transformation service (`/render/image/public/`) which returned 400 for non-image binary files.
 - **Error Message**:
+
   ```
   fetch for "https://.../storage/v1/render/image/public/site-assets/3d/ghost-v1.glb?width=800&quality=85&format=webp" responded with 400
   ```
+
 - **Fix Applied**: Updated `NON_TRANSFORM_EXTENSIONS` in `image-loader.ts`, added regex checks in `urls.ts`, and integrated `is3DModel` detection in `utils.ts` to bypass transformations and force the direct object storage endpoint (`/object/public/`) for 3D assets.
 - **Prevention**: Maintain a centralized list of non-transformable file extensions and ensure all asset resolution utilities share this logic. Added 3D models to the non-transformable list alongside videos and SVGs.
 - **Status**: Fixed
@@ -251,10 +265,12 @@
   1. The `<ShaderAnimation>` component in `ManifestoScrollSection` was positioned with a negative z-index `-z-50`. Since the parent section had a relative position with a solid background `bg-[#040013]`, the canvas was rendered behind the background layer and became entirely invisible.
   2. The `AboutClosing` component had a `hasVideoError` hook that completely unmounted the `<ResponsiveVideo>` element if a media error or network latency occurred during load, leaving a completely blank black space.
 - **Error Message**:
+
   ```text
   [Shader rendering behind stacking context]
   [HTML5 video playback/network error triggering total unmount]
   ```
+
 - **Fix Applied**:
   1. Changed the z-index of the `<ShaderAnimation>` component to `z-0` so it resides on top of the section's base background but below the text content (`z-10`) and radial blur overlays (`zIndex: 0` inline).
   2. Removed the conditional unmounting logic from `AboutClosing` and the `hasVideoError` state. Now, the responsive video always mounts successfully, relying on native HTML5 `<video>` poster fallbacks during network buffering or media stream loading.
@@ -271,10 +287,12 @@
 - **Agent**: Antigravity / Sentinel Prime
 - **Root Cause**: The local macOS sandbox restrictions (Catalina/Sequoia/Catalina Security Policies) block standard Mach Ports and local loopback socket binds needed for Playwright's headless browser instrumentation. This results in the error `browserContext.newPage: Test timeout of 30000ms exceeded while setting up "page"`, indicating that browsers cannot establish a communication channel.
 - **Error Message**:
+
   ```text
   Test timeout of 30000ms exceeded while setting up "page".
   Error: browserContext.newPage: Test timeout of 30000ms exceeded.
   ```
+
 - **Fix Applied**: Adjusted the E2E TypeScript compilation in `test/e2e/portfolio.spec.ts` (declaring missing `heroVideo` to pass `pnpm run build-check` with Exit Code 0). Identified that local execution must be bypassed or run in environments with relaxed socket permissions, recommending execution on CI/CD pipelines where sandboxing rules do not restrict headless browser rendering.
 - **Prevention**: In highly sandboxed macOS environments, run unit/integration tests with Jest locally (which pass since they do not spawn real browser runtimes) and delegate E2E Playwright verification to isolated cloud integration pipelines.
 - **Status**: Fixed (Code compiled and suite verified; execution issue isolated as local system sandbox restriction).
@@ -289,9 +307,11 @@
 - **Agent**: Antigravity / Ghost Commander
 - **Root Cause**: The RLS policy "Allow anonymous insert for errors" on the `public.client_errors` table used an overly permissive expression `WITH CHECK (true)`. This allowed unrestricted INSERT access to anonymous and authenticated users, bypassing standard row-level security protections and triggering the Supabase Linter warning `rls_policy_always_true`.
 - **Error Message**:
+
   ```text
   Table public.client_errors has an RLS policy Allow anonymous insert for errors for INSERT that allows unrestricted access (WITH CHECK clause is always true).
   ```
+
 - **Fix Applied**: Replaced `WITH CHECK (true)` with logical domain constraints on input fields: `WITH CHECK (severity IN ('low', 'medium', 'high', 'critical') AND source IN ('browser', 'server', 'edge') AND error_data IS NOT NULL)`. Applied the updated policy on the remote database via SQL execution and synchronized the local migration file. This successfully eliminated the `rls_policy_always_true` security warning from Supabase Advisors.
 - **Prevention**: Never use `WITH CHECK (true)` on writable policies (INSERT, UPDATE) even for anonymous logging tables. Add strict schema-level check constraints or value lists in the policy's condition block to restrict input vectors and satisfy database security linters.
 - **Status**: Fixed
@@ -306,10 +326,12 @@
 - **Agent**: Antigravity / Sentinel Prime
 - **Root Cause**: Attempting to call YouTube IFrame API methods like `isMuted()`, `unMute()`, `mute()`, `playVideo()`, or `getPlayerState()` on `event.target` or `playerRef.current` during component unmounting or active hot-reloads (Next.js Fast Refresh) when the underlying player has been destroyed or is in a transient state where these methods are no longer exposed.
 - **Error Message**:
+
   ```text
   TypeError: event.target.isMuted is not a function
       at YouTubePlayer.useEffect.initPlayer (src/components/ui/YouTubePlayer.tsx:100:39)
   ```
+
 - **Fix Applied**: Implemented robust type guards and defensive checks (`typeof ... === 'function'`) before executing any player methods on either `event.target` or `playerRef.current` inside event listeners (`onReady`, `onStateChange`) and interaction/lifecycle handlers.
 - **Prevention**: Always use `typeof ... === 'function'` safeguards when communicating with external asynchronous third-party APIs (like YouTube IFrame Player) inside React lifecycle hooks, especially to handle unmounting or hot reloading state cleanups cleanly.
 - **Status**: Fixed
@@ -324,11 +346,13 @@
 - **Agent**: Antigravity / Ghost Commander
 - **Root Cause**: The unit test expected the video source elements to have the hardcoded local relative paths (`/site.assets/...`) for the desktop and mobile versions. However, after migrating the video paths to the real Supabase CDN URLs in `src/lib/video-assets.ts`, the test assertions failed as the actual component rendered the absolute CDN URLs.
 - **Error Message**:
+
   ```text
   expect(element).toHaveAttribute("data-desktop-src", "/site.assets/portfolio/portfolio.hero_desktop_video.mp4")
   Expected: "/site.assets/portfolio/portfolio.hero_desktop_video.mp4"
   Received: "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/portfolio/hero/portfolio.hero_desktop_video.mp4"
   ```
+
 - **Fix Applied**: Updated the test assertions in `PortfolioHeroNew.test.tsx` to dynamically query the paths directly from the imported `RESPONSIVE_VIDEOS` object. This makes the test resilient to any future URL changes in the asset configuration file.
 - **Prevention**: Avoid hardcoding static configuration values in unit test assertions when they can be dynamically imported from the source configuration objects.
 - **Status**: Fixed
@@ -343,10 +367,12 @@
 - **Agent**: Antigravity / Ghost Commander
 - **Root Cause**: The test `should ensure all enabled stdio servers use npx, node, or docker` used a strict regular expression validation to verify the command executable for MCP servers, allowing only `node`, `npx`, `docker`, and `gk`. A python-based MCP server in the user's local config was configured to run via `uvx` (the uv package runner), triggering a validation failure.
 - **Error Message**:
+
   ```text
   Expected pattern: /(^|\/|\\)(node|npx|docker|gk)(\.exe|\.cmd)?$/i
   Received string:  "uvx"
   ```
+
 - **Fix Applied**: Expanded the regex patterns inside `test/mcp_config.test.ts` (across the context7, filesystem, and global stdio validators) to include `uvx` as a recognized package runner tool, restoring the test suite to green.
 - **Prevention**: Ensure that test validation schemas for developer-controlled configuration files (like `mcp_config.json`) support modern tools widely adopted by the developer community (such as uv/uvx for python environments).
 - **Status**: Fixed
@@ -361,12 +387,14 @@
 - **Agent**: Antigravity / Ghost Commander
 - **Root Cause**: The custom tab/dot navigation handler (`handleDotClick`) in `ManifestoScrollSection` was ignoring clicks completely if `line1Status === 'exit'`. During E2E tests, the autoplay transition (with an interval of 4500ms) would periodically enter the `'exit'` state (lasting 450ms). When Playwright attempted to click on a dot during this exit animation window, the click was ignored, causing the active phrase state not to update and assertions on `#manifesto-phrase-live` to time out and fail.
 - **Error Message**:
+
   ```text
   Error: expect(locator).toHaveText(expected) failed
   Locator:  locator('[data-testid="beliefs-section"]').locator('#manifesto-phrase-live')
   Expected: "Transformo intenção em presença."
   Received: "Crio o que a marca diz antes mesmo de falar."
   ```
+
 - **Fix Applied**: Removed the conditional check `|| line1Status === 'exit'` inside `handleDotClick` so that clicks on dots are never ignored. Active timers and transition timeouts are now cleared and re-initialized immediately on manual dot click, ensuring instantaneous responsiveness and reliable state transition.
 - **Prevention**: Avoid blocking user interactive handlers (like navigation clicks) based on temporary visual animation states, unless strictly necessary. If input blocking is desired for double-click prevention, ensure it is extremely brief and doesn't interfere with standard automated testing interactions.
 - **Status**: Fixed
@@ -381,12 +409,14 @@
 - **Agent**: Antigravity / Ghost Commander
 - **Root Cause**: During full parallel E2E runs, the machine's load caused React's JS hydration to complete slightly slower. Playwright clicked on the dot navigation button as soon as it became visible (from Next.js SSR), but before the React event listener had finished attaching to the element (hydration). This caused the click to be lost and not trigger `onClick`.
 - **Error Message**:
+
   ```text
   Error: expect(locator).toHaveText(expected) failed
   Locator:  locator('[data-testid="beliefs-section"]').locator('#manifesto-phrase-live')
   Expected: "Transformo intenção em presença."
   Received: "Crio o que a marca diz antes mesmo de falar."
   ```
+
 - **Fix Applied**: Implemented a robust retry loop in `about-beliefs.spec.ts` that clicks on the dot navigation button up to 3 times with a short timeout delay in between, validating if the live region updates to the correct phrase before proceeding.
 - **Prevention**: For E2E tests targetting dynamic SSR web apps, always write interactive tests defensively by incorporating retries or verifying hydration milestones before expecting interaction triggers to succeed under heavy CPU loads.
 - **Status**: Fixed
@@ -401,6 +431,7 @@
 - **Agent**: Ghost Commander (Orchestrator)
 - **Root Cause**: The Google Cloud project 'portfolio-danilo-novais' has its billing account disabled/delinquent. This causes Cloud Functions deployments to fail with 403, Cloud Build to fail pulls/compilations, prevents Cloud Build log retrieval with a "User project billing account not in good standing" error, and leads to the Firebase Hosting error "The service you requested is not available yet" because the backend Cloud Run service cannot be provisioned or run.
 - **Error Message**:
+
   ```text
   gcloud builds log BUILD_ID:
   ERROR: (gcloud.builds.log) [dannovaisv@gmail.com] does not have permission to access 350817205989.cloudbuild-logs.googleusercontent.com instance [log-xxx.txt]: <?xml version='1.0' encoding='UTF-8'?><Error><Code>UserProjectAccountProblem</Code><Message>User project billing account not in good standing.</Message><Details>The billing account for the owning project is disabled in state delinquent</Details></Error>
@@ -408,6 +439,7 @@
   Firebase Deploy:
   Upload Error: Request to https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-central1/functions:generateUploadUrl had HTTP Error: 403, Write access to project 'portfolio-danilo-novais' was denied: please check billing account associated and retry
   ```
+
 - **Fix Applied**: Identified the billing delinquent state as the single blocker for all GCP/Firebase services (Cloud Build, Cloud Run, Cloud Functions, and Logging). Direct user intervention is required in the Google Cloud Console or Google Billing Console to reactivate or link a valid billing account.
 - **Prevention**: Ensure that the Google Cloud project has an active and valid billing account linked to it, and check billing standing whenever 403 write access errors or log access errors occur.
 - **Status**: Resolved (External Action Required: Reactivate GCP Billing Account)
@@ -422,11 +454,13 @@
 - **Agent**: Antigravity / Ghost Commander / Incident Commander
 - **Root Cause**: Next.js 16 (App Router) bundled with `@opennextjs/cloudflare` produced an uncompressed Worker script `.open-next/server-functions/default/handler.mjs` of 9.8 MiB (+ 1.3 MiB `@vercel/og` WASM binaries). Cloudflare Workers Free Tier enforces a strict 3 MiB limit per Worker script version, causing `npx wrangler deploy` to fail with HTTP 400 (code 10027).
 - **Error Message**:
+
   ```text
   ✘ [ERROR] Your Worker failed validation because it exceeded size limits.
     A request to the Cloudflare API (/accounts/f48c066525478bcaf66928b32ed721d2/workers/scripts/portfolio-danilo-final/versions) failed.
     - Your Worker exceeded the size limit of 3 MiB. Please upgrade to a paid plan to deploy Workers up to 10 MiB.
   ```
+
 - **Fix Applied**:
   1. Synchronized `pnpm` versions in `.github/workflows/cloudflare-deploy.yml` to defer to `package.json` (`pnpm@11.15.1`).
   2. Added `wrangler` (`^3.114.0`) to `devDependencies` in `package.json`.

@@ -9,6 +9,7 @@ import {
   getDefaultMediaFit,
 } from '@/lib/media/media-format';
 import { applyImageFallback, cn, getAssetUrl } from '@/lib/utils';
+import { HTMLVideoBlock } from '@/components/ui/HTMLVideoBlock';
 
 type MediaCardProps = {
   media: ProjectMedia;
@@ -142,15 +143,11 @@ export function MediaCard({
           style={{ objectPosition }}
         />
       ) : media.kind === 'html' ? (
-        // HTML embed thumbnail — sandboxed iframe com IntersectionObserver de pausa
-        <iframe
-          ref={iframeRef}
-          srcDoc={media.src}
-          title={media.alt || 'HTML Thumbnail'}
-          className={cn('border-0', mediaClasses)}
-          sandbox="allow-scripts allow-same-origin"
-          aria-hidden={ariaHidden}
-          loading="lazy"
+        <HTMLVideoBlock
+          html={media.src}
+          title={media.alt || 'HTML Video Thumbnail'}
+          frameless
+          className={cn('h-full w-full', mediaClasses)}
         />
       ) : (
         <Image

@@ -17,6 +17,7 @@ import {
   getAssetUrl,
   supabaseLoader,
 } from '@/lib/utils';
+import { resolveProjectHoverMedia } from '@/lib/portfolio/card-media';
 import type { ProjectMedia } from '@/lib/media/media-format';
 import type { PortfolioProject } from '@/types/project';
 
@@ -59,8 +60,14 @@ export default function FeaturedProjectCardFrame({
     ? `Logo de ${project.client}`
     : `Identidade visual de ${project.title}`;
 
-  // Decide if we should show standard card thumbnails
-  const showThumb = !showLogo && (!!desktopMedia || !!mobileMedia);
+  const hoverMedia = resolveProjectHoverMedia(project, 'landscape', {
+    alt: logoAltText,
+    fit: 'cover',
+  });
+
+  // Decide if we should show standard card thumbnails or video/HTML media
+  const showThumb =
+    !showLogo && (!!desktopMedia || !!mobileMedia || !!hoverMedia);
 
   const baseMediaDiffers =
     !!desktopMedia &&
@@ -107,11 +114,12 @@ export default function FeaturedProjectCardFrame({
     desktopMedia?.kind === 'video' && mobileMedia?.kind === 'video';
 
   const activeSingleMedia =
-    desktopMedia && mobileMedia && baseMediaDiffers
+    hoverMedia ??
+    (desktopMedia && mobileMedia && baseMediaDiffers
       ? isMobile
         ? mobileMedia
         : desktopMedia
-      : (desktopMedia ?? mobileMedia);
+      : (desktopMedia ?? mobileMedia));
 
   return (
     <div

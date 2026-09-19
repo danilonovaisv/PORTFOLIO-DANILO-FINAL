@@ -111,13 +111,53 @@ export function resolveProjectMedia(
   const candidate = getCardMediaCandidateRecords(project, preferredCover)[0];
   if (!candidate) return null;
 
+  const isHtml = Boolean(
+    candidate.src &&
+      (candidate.src.trim().startsWith('<') ||
+        candidate.src.includes('<iframe') ||
+        candidate.src.includes('<video'))
+  );
+
   return {
-    kind: isVideo(candidate.src) ? 'video' : 'image',
+    kind: isHtml ? 'html' : isVideo(candidate.src) ? 'video' : 'image',
     src: candidate.src,
     format: candidate.format,
     fit: options.fit,
     alt: options.alt,
   };
+}
+
+export function resolveProjectHoverMedia(
+  project: PortfolioProject,
+  preferredCover: PreferredCover,
+  options: { alt?: string; fit?: ProjectMedia['fit'] } = {}
+): ProjectMedia | null {
+  if (project.thumbnailHtml) {
+    return {
+      kind: 'html',
+      src: project.thumbnailHtml,
+      format: preferredCover,
+      fit: options.fit ?? 'cover',
+      alt: options.alt,
+    };
+  }
+
+  const hoverVideoCandidate = [project.videoPreview, project.thumbnailMedia].find(
+    (candidate): candidate is string =>
+      !!candidate && isVideo(candidate) && !isLegacyProjectMediaAsset(candidate)
+  );
+
+  if (hoverVideoCandidate) {
+    return {
+      kind: 'video',
+      src: hoverVideoCandidate,
+      format: preferredCover,
+      fit: options.fit ?? 'contain',
+      alt: options.alt,
+    };
+  }
+
+  return null;
 }
 
 export function getPreferredCoverForSlot(

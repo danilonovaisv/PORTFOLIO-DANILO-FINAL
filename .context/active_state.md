@@ -1,18 +1,19 @@
 # Active State: AGENTS ORCHESTRATOR & WIKI-BRAIN AUTO-SYNC ✅
 
 **Phase**: WIKI-BRAIN KNOWLEDGE GRAPH & AGENTS ORCHESTRATION (`/agents-orquestrator`, `/wiki-brain`)
-**Current Focus**: Orquestração agêntica multi-domínio, validação de JSON Canvas, sincronização de Wikilinks e auto-detecção de nós de módulos de `src/` no vault canônico `/Users/danilonovais/OBSIDIAN/Wiki`.
-**Last Update**: 2026-09-16 20:24
+**Current Focus**: Orquestração agêntica multi-domínio, validação de JSON Canvas, sincronização de Wikilinks e manutenção incremental do conhecimento durável.
+**Last Update**: 2026-09-18 23:52
 **Production URL**: https://portfoliodanilo.com
 
-## Maintenance & Knowledge Graph Refresh (2026-09-16 20:24)
+## Maintenance & Knowledge Graph Refresh (2026-09-18 23:52)
 
 > **@orchestrator** & **@obsidian_vault_operator** — Manutenção incremental concluída.
 
-- **`.graphifyignore`**: Adicionado `raw/` para evitar indexação desnecessária de PDFs brutos e benchmarks externos pesados.
-- **Graphify Topology**: Reindexação incremental concluída (`graphify update .`). 15.751 nós, 19.714 arestas, 1.223 comunidades.
-- **Mother Brain Sync**: Registro `/Users/danilonovais/OBSIDIAN/02-projects/portfolio-danilo-final/project.md` atualizado com as novas métricas.
+- **Graphify Topology**: Reindexação incremental concluída (`graphify update .`). 15.751 nós, 19.752 arestas, 1.221 comunidades.
+- **Mother Brain Sync**: Registro `/Users/danilonovais/OBSIDIAN/Wiki/graphify-out/` e `.context/` atualizados com métricas da topologia AST.
+- **Template & Media Architecture**: Introdução do template `MASTER_PROJECT_TEMPLATE_V3_HERO`, suporte a HTML video block frameless e mappers de media polimórficos (`media-1x`, `media-2x`, `media-3x`).
 - **`scripts/wiki-brain-sync.ts`**: Validação JSON Canvas (39 nós, 5 arestas) e integridade de Wikilinks executada com 100% PASS.
+- **Tests Verification**: 43 test suites / 296 unit tests executados com 100% PASS.
 
 > **@orchestrator** & **@obsidian_vault_operator** — ATIVOS em `/Users/danilonovais/OBSIDIAN/Wiki/graphify-out/` e `.context/`
 
