@@ -18,7 +18,7 @@ export type MasterProjectTemplateId =
 export type ProjectTemplateId =
   typeof LEGACY_PROJECT_TEMPLATE | MasterProjectTemplateId;
 
-export type MasterProjectMediaKind = 'image' | 'video';
+export type MasterProjectMediaKind = 'image' | 'video' | 'html';
 
 export type MasterProjectGalleryLayout =
   | 'grid'

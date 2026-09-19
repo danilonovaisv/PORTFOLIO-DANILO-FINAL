@@ -66,6 +66,20 @@ export function ProjectForm({
     initialLandscapeIsHtml ? (project?.url_landscape ?? '') : ''
   );
 
+  const initialSquareIsHtml = Boolean(
+    project?.url_square &&
+    (project.url_square.trim().startsWith('<') ||
+      project.url_square.includes('<iframe') ||
+      project.url_square.includes('<video'))
+  );
+
+  const [squareMode, setSquareMode] = useState<CoverMediaMode>(
+    initialSquareIsHtml ? 'html' : 'file'
+  );
+  const [squareHtml, setSquareHtml] = useState<string>(
+    initialSquareIsHtml ? (project?.url_square ?? '') : ''
+  );
+
   const hasExistingLandscape = Boolean(
     project?.url_landscape ?? project?.thumbnail_path
   );
@@ -196,8 +210,16 @@ export function ProjectForm({
           return;
         }
 
-        if (!squareVariant && !hasExistingSquare) {
-          setError('SYSTEM_ERR: ASSET_1x1_REQUIRED — UPLOAD_BEFORE_SAVE');
+        const hasSquareHtml =
+          squareMode === 'html' && Boolean(squareHtml.trim());
+        const hasSquareFileOrBlob =
+          squareMode === 'file' &&
+          (Boolean(squareVariant) || hasExistingSquare);
+
+        if (!hasSquareHtml && !hasSquareFileOrBlob) {
+          setError(
+            'SYSTEM_ERR: ASSET_1x1_REQUIRED — UPLOAD_OR_HTML_BEFORE_SAVE'
+          );
           return;
         }
 
@@ -205,7 +227,10 @@ export function ProjectForm({
           landscapeMode === 'html'
             ? landscapeHtml.trim()
             : (project?.url_landscape ?? null);
-        let url_square = project?.url_square ?? null;
+        let url_square =
+          squareMode === 'html'
+            ? squareHtml.trim()
+            : (project?.url_square ?? null);
         const galleryEntries: Array<{
           path?: string;
           caption?: string;
@@ -234,7 +259,7 @@ export function ProjectForm({
           );
         }
 
-        if (squareVariant) {
+        if (squareMode === 'file' && squareVariant) {
           url_square = await uploadToBucket(
             'portfolio-media',
             `${clientSlug}/${values.slug}/assets-do-projeto`,
@@ -453,8 +478,12 @@ export function ProjectForm({
           urlSquare={project?.url_square}
           landscapeMode={landscapeMode}
           landscapeHtml={landscapeHtml}
+          squareMode={squareMode}
+          squareHtml={squareHtml}
           onChangeLandscapeMode={setLandscapeMode}
           onChangeLandscapeHtml={setLandscapeHtml}
+          onChangeSquareMode={setSquareMode}
+          onChangeSquareHtml={setSquareHtml}
           onChangeLandscapeFile={setLandscapeVariant}
           onChangeSquareFile={setSquareVariant}
         />

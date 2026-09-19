@@ -23,6 +23,16 @@ type MediaCandidate = {
   explicitFormat?: MediaFormat;
 };
 
+export const isHtmlMedia = (src?: string | null): boolean =>
+  Boolean(
+    src &&
+    (src.trim().startsWith('<') ||
+      src.includes('<iframe') ||
+      src.includes('<video') ||
+      src.includes('<!DOCTYPE') ||
+      src.includes('<html'))
+  );
+
 export function getCardMediaCandidates(
   project: PortfolioProject,
   preferredCover: PreferredCover
@@ -111,12 +121,7 @@ export function resolveProjectMedia(
   const candidate = getCardMediaCandidateRecords(project, preferredCover)[0];
   if (!candidate) return null;
 
-  const isHtml = Boolean(
-    candidate.src &&
-      (candidate.src.trim().startsWith('<') ||
-        candidate.src.includes('<iframe') ||
-        candidate.src.includes('<video'))
-  );
+  const isHtml = isHtmlMedia(candidate.src);
 
   return {
     kind: isHtml ? 'html' : isVideo(candidate.src) ? 'video' : 'image',
@@ -136,6 +141,25 @@ export function resolveProjectHoverMedia(
     return {
       kind: 'html',
       src: project.thumbnailHtml,
+      format: preferredCover,
+      fit: options.fit ?? 'cover',
+      alt: options.alt,
+    };
+  }
+
+  const primaryCover =
+    preferredCover === 'square' ? project.imageSquare : project.imageLandscape;
+  const secondaryCover =
+    preferredCover === 'square' ? project.imageLandscape : project.imageSquare;
+
+  const htmlCover = [primaryCover, secondaryCover].find((candidate) =>
+    isHtmlMedia(candidate)
+  );
+
+  if (htmlCover) {
+    return {
+      kind: 'html',
+      src: htmlCover,
       format: preferredCover,
       fit: options.fit ?? 'cover',
       alt: options.alt,
