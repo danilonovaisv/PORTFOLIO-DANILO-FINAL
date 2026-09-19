@@ -55,4 +55,44 @@ describe('portfolio card media resolver', () => {
       format: 'square',
     });
   });
+
+  it('prioritizes HTML video code in thumbnailHtml over static image fallbacks', () => {
+    const htmlCode = '<!DOCTYPE html><html><body><video src="honda.mp4" autoplay loop muted playsinline></video></body></html>';
+    const media = resolveProjectMedia(
+      {
+        ...baseProject,
+        thumbnailMedia: '/media/fallback-thumb.webp',
+        thumbnailHtml: htmlCode,
+      },
+      'landscape'
+    );
+
+    expect(media).toEqual({
+      kind: 'html',
+      src: htmlCode,
+      format: 'landscape',
+      fit: undefined,
+      alt: undefined,
+    });
+  });
+
+  it('prioritizes HTML video snippet in imageLandscape cover over thumbnailMedia fallback', () => {
+    const htmlSnippet = '<iframe src="https://player.vimeo.com/video/123456" allow="autoplay"></iframe>';
+    const media = resolveProjectMedia(
+      {
+        ...baseProject,
+        thumbnailMedia: '/media/honda-thumb.jpg',
+        imageLandscape: htmlSnippet,
+      },
+      'landscape'
+    );
+
+    expect(media).toEqual({
+      kind: 'html',
+      src: htmlSnippet,
+      format: 'landscape',
+      fit: undefined,
+      alt: undefined,
+    });
+  });
 });
