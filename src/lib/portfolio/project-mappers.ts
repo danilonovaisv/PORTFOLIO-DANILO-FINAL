@@ -517,6 +517,11 @@ export function mapDbProjectToPortfolioProject(
       project.featured_on_home
     ),
     videoPreview,
+    thumbnailHtml:
+      (project as DbProjectWithTags & { thumbnail_html?: string | null })
+        .thumbnail_html ??
+      (project as unknown as { thumbnailHtml?: string | null }).thumbnailHtml ??
+      undefined,
     landingPageSlug: normalizedLandingSlug ?? landingSlugSource,
     destination,
     caseBody: (project as DbProjectWithTags & { case_body?: string | null }).case_body ?? null,
@@ -567,6 +572,10 @@ export function mapStaticProjectToPortfolioProject(
     featuredOnPortfolio: true,
     homeFeatured: normalizeHomeFeaturedConfig(project.homeFeatured, true),
     videoPreview: undefined,
+    thumbnailHtml:
+      (project as unknown as { thumbnailHtml?: string | null }).thumbnailHtml ??
+      (project as unknown as { thumbnail_html?: string | null }).thumbnail_html ??
+      undefined,
     landingPageSlug: normalizedLandingSlug ?? project.landingPageSlug,
     link: project.link,
     destination,
