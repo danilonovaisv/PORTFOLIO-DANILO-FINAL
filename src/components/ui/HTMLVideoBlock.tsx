@@ -74,15 +74,15 @@ export function HTMLVideoBlock({
     if (isFullHtmlDoc) {
       if (frameless) {
         return (
-          <div className={`w-full overflow-hidden ${className}`}>
-            <div className="relative aspect-video w-full overflow-hidden">
-              <iframe
-                srcDoc={html}
-                title={title}
-                className="h-full w-full border-0"
-                sandbox="allow-scripts allow-same-origin allow-popups"
-              />
-            </div>
+          <div
+            className={`relative h-full w-full overflow-hidden ${className}`}
+          >
+            <iframe
+              srcDoc={html}
+              title={title}
+              className="h-full w-full border-0 pointer-events-none"
+              sandbox="allow-scripts allow-same-origin allow-popups"
+            />
           </div>
         );
       }
@@ -115,7 +115,7 @@ export function HTMLVideoBlock({
     if (frameless) {
       return (
         <div
-          className={`w-full overflow-hidden ${className}`}
+          className={`relative h-full w-full overflow-hidden pointer-events-none ${className}`}
           dangerouslySetInnerHTML={{ __html: html }}
         />
       );

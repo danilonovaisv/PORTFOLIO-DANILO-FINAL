@@ -20,7 +20,9 @@ const baseConfig = {
     '^@/(.*)$': '<rootDir>/src/$1',
     'server-only': '<rootDir>/test/__mocks__/serverOnlyMock.js',
   },
-  transformIgnorePatterns: ['node_modules/(?!(framer-motion)/)'],
+  transformIgnorePatterns: [
+    'node_modules/(?!(.*cookie|.*framer-motion|.*@supabase)/)',
+  ],
   modulePathIgnorePatterns: [
     '<rootDir>/.agents/',
     '<rootDir>/functions/',
