@@ -10,7 +10,7 @@ import type { ProjectFormValues } from '@/lib/admin/schemas/project';
 
 interface HomeFeaturedSectionProps {
   logoPath?: string | null;
-  onChangeLogoFile: (file: File | null) => void;
+  onChangeLogoFile: (_file: File | null) => void;
 }
 
 export function HomeFeaturedSection({

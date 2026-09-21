@@ -11,6 +11,7 @@ jest.mock('next/image', () => ({
     className,
     fill: _fill,
     loader: _loader,
+    priority: _priority,
     ...props
   }: any) => (
     <span

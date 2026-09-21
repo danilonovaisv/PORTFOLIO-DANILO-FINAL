@@ -1,5 +1,37 @@
 # Adjustment Log
 
+## [2026-09-21T00:00] Ghost System Agent Architecture v2.0 & Skills Normalization
+
+**Context:** Integração e consolidação da nova arquitetura de agentes do pacote `docs/portfolio-danilo-agent-update` para a IDE Antigravity / Ghost System v2.0, saneamento de referências e ativação do protocolo `/agents-orquestrator`.
+
+**Changes Applied:**
+
+1. **Agentes Canônicos Integrados (`.agents/agents/` e `AGENTS.md`)** ✅
+   - `project-orchestrator.md`: Roteamento determinístico e controle de context-bloat.
+   - `admin-reliability-specialist.md`: Confiabilidade ponta a ponta do painel Admin (App Router, auth continuity, Supabase SSR, storage).
+   - `portfolio-experience-specialist.md`: Experiência visual dos cards de mídia (vídeo/HTML/imagem) e case pages (`/projects/[slug]`).
+   - `quality-verification-specialist.md`: Gatekeeper de testes (Jest, Playwright, typecheck, lint).
+
+2. **Skills Especializadas Normalizadas (`.agents/skills/`)** ✅
+   - `diagnose-admin-flow`: Diagnóstico de sessão, cookies e upload.
+   - `review-project-media-card`: Padronização de viewport e acessibilidade de mídia.
+   - `review-project-case-page`: Integridade de rotas e SEO/metadados de cases.
+   - `verify-portfolio-change`: Validação em cascata antes de release.
+   - Correção e saneamento dos diretórios com leading space (`supabase-auth-storage-realtime-core` e `model-debugging`).
+
+3. **Workflows e Comandos Disponíveis (`.agents/workflows/`)** ✅
+   - Adicionados workflows para execução direta: `admin-bug-fix.md`, `portfolio-media-improvement.md`, `project-case-improvement.md`, `agent-config-update.md`, `fix-admin-bug.md`, `review-media-card.md`, `review-case-page.md`, `verify-change.md` e `audit-agent-config.md`.
+
+**Verification:**
+
+- ✅ `pnpm run typecheck` — 0 erros.
+- ✅ `pnpm run lint` — 0 erros.
+- ✅ Estrutura de diretórios `.agents/skills/` sanitizada.
+
+**Status:** Concluído.
+
+---
+
 ## [2026-09-15T00:46] Video Architecture Audit & Lifecycle Refactoring
 
 **Context:** Auditoria técnica completa e refatoração da arquitetura de elementos `<video>` no portfólio para sanar vazamentos de memória/processamento offscreen, violações de Autoplay Policy dos navegadores (`NotAllowedError`), montagem duplicada de elementos de vídeo em DOM e requisições HTTP redundantes em miniaturas de carrossel.

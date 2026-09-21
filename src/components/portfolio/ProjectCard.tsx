@@ -234,7 +234,14 @@ export const ProjectCard = React.memo(function ProjectCard({
         )}
       </div>
 
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-background/90 p-6 text-center opacity-0 backdrop-blur-md transition-all duration-fast ease-out group-focus-visible:opacity-100 sm:group-hover:opacity-100 max-sm:active:opacity-100 max-sm:focus:opacity-100">
+      <div
+        className={cn(
+          "absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center opacity-0 transition-all duration-fast ease-out group-focus-visible:opacity-100 sm:group-hover:opacity-100 max-sm:active:opacity-100 max-sm:focus:opacity-100",
+          hasVideo || hoverMedia?.kind === 'html' || desktopMedia?.kind === 'html'
+            ? "bg-gradient-to-t from-background/95 via-background/50 to-background/20 backdrop-blur-[2px]"
+            : "bg-background/90 backdrop-blur-md"
+        )}
+      >
         <div className="text-white flex flex-col items-center justify-center text-center w-full h-full">
           <p className="text-[11px] uppercase tracking-[0.22em] text-blueAccent/90 mb-2 font-medium">
             {project.displayCategory}

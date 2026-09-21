@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable @next/next/no-img-element */
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Play, Pause, RotateCcw, Film } from 'lucide-react';
@@ -34,6 +35,19 @@ export function HTMLVideoBlock({
       html.includes('<html') ||
       html.includes('<script'))
   );
+
+  const sanitizedHtmlDoc = React.useMemo(() => {
+    if (!html || !isFullHtmlDoc) return html;
+    const darkInject = `
+<style id="ghost-safe-bg">
+  html, body { background-color: #040013 !important; color-scheme: dark; margin: 0; padding: 0; }
+  .stage { background-color: #040013 !important; opacity: 1 !important; }
+</style>`;
+    if (html.includes('</head>')) {
+      return html.replace('</head>', `${darkInject}</head>`);
+    }
+    return darkInject + html;
+  }, [html, isFullHtmlDoc]);
 
   useEffect(() => {
     if (isFullHtmlDoc || !media || html) return;
@@ -75,12 +89,14 @@ export function HTMLVideoBlock({
       if (frameless) {
         return (
           <div
-            className={`relative h-full w-full overflow-hidden ${className}`}
+            className={`relative h-full w-full overflow-hidden bg-[#040013] ${className}`}
           >
             <iframe
-              srcDoc={html}
+              srcDoc={sanitizedHtmlDoc}
               title={title}
-              className="h-full w-full border-0 pointer-events-none"
+              style={{ backgroundColor: '#040013' }}
+              allow="autoplay"
+              className="h-full w-full border-0 pointer-events-none bg-[#040013]"
               sandbox="allow-scripts allow-same-origin allow-popups"
             />
           </div>
@@ -89,9 +105,9 @@ export function HTMLVideoBlock({
 
       return (
         <div
-          className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0f] shadow-2xl ${className}`}
+          className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-[#040013] shadow-2xl ${className}`}
         >
-          <div className="flex items-center justify-between border-b border-white/10 bg-[#0a0a0f]/90 px-4 py-2 text-xs text-white/70 font-mono">
+          <div className="flex items-center justify-between border-b border-white/10 bg-[#040013]/90 px-4 py-2 text-xs text-white/70 font-mono">
             <span className="flex items-center gap-2">
               <Film size={14} className="text-bluePrimary" />
               {title}
@@ -100,11 +116,13 @@ export function HTMLVideoBlock({
               HTML_VIDEO
             </span>
           </div>
-          <div className="relative aspect-video w-full overflow-hidden">
+          <div className="relative aspect-video w-full overflow-hidden bg-[#040013]">
             <iframe
-              srcDoc={html}
+              srcDoc={sanitizedHtmlDoc}
               title={title}
-              className="h-full w-full border-0"
+              style={{ backgroundColor: '#040013' }}
+              allow="autoplay"
+              className="h-full w-full border-0 bg-[#040013]"
               sandbox="allow-scripts allow-same-origin allow-popups"
             />
           </div>

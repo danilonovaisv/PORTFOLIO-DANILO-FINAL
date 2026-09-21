@@ -11,7 +11,7 @@ import type { ProjectFormValues } from '@/lib/admin/schemas/project';
 interface TagsSectionProps {
   availableTags: DbTag[];
   setAvailableTags: React.Dispatch<React.SetStateAction<DbTag[]>>;
-  onError: (message: string | null) => void;
+  onError: (_message: string | null) => void;
 }
 
 export function TagsSection({

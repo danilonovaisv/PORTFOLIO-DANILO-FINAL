@@ -59,6 +59,15 @@ export function MediaCard({
     media.kind === 'video' ? { isVideo: true } : undefined
   );
 
+  // Autoplay Policy Hardening: sincroniza imperativamente no DOM para evitar bloqueio do browser
+  useEffect(() => {
+    const videoEl = videoRef.current;
+    if (videoEl && media.kind === 'video') {
+      videoEl.defaultMuted = muted;
+      videoEl.muted = muted;
+    }
+  }, [muted, media.kind]);
+
   // Pause video off-screen (IntersectionObserver)
   useEffect(() => {
     const videoEl = videoRef.current;

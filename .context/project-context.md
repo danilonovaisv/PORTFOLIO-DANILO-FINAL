@@ -3,6 +3,7 @@
 **Status:** Confirmado a partir da inspeção do repositório em 2026-09-20.
 
 ## 1. Prioridades Estratégicas Ativas
+
 1. **Restaurar e Garantir a Confiabilidade do ADMIN**:
    - Autenticação e continuidade de sessão (Next.js 16 App Router + Supabase SSR via `src/lib/supabase/middleware.ts` e `src/middleware.ts`).
    - Formulários, mutações de dados e uploads sem falhas silenciosas.
@@ -21,6 +22,7 @@
    - Sem storytelling ou aprovação presumida sem execução de comandos.
 
 ## 2. Mapa do Stack Tecnológico
+
 - **Frontend Core:** Next.js 16.2.2 (App Router, standalone output, Turbopack)
 - **UI & Runtime:** React 19, TypeScript 6.0.2 (strict mode), Tailwind CSS 4
 - **Motion & 3D:** Framer Motion 12, GSAP 3, Lenis 1, React Three Fiber 9, Three.js 0.183
@@ -29,6 +31,7 @@
 - **Qualidade & Testes:** Jest, React Testing Library, Playwright E2E
 
 ## 3. Topologia Arquitetural e Limites de Domínio
+
 - **Public Portfolio:** `src/app/page.tsx`, `src/app/portfolio/page.tsx` -> ProjectCard -> MediaCard -> Media Resolvers.
 - **Project Detail:** `src/app/projects/[slug]/page.tsx` -> templates (`master-v2`, `alpa`) -> blocos de mídia e texto.
 - **Admin Boundary:** `src/app/admin/(auth)` (login) e `src/app/admin/(protected)` (painel, obras, mídias, tags, configurações).

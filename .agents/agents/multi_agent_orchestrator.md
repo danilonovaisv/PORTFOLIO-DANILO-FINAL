@@ -30,13 +30,13 @@ Route code to `executor` (use `model=opus` for complex work). Uncertain SDK usag
 
 <project_domain_routing>
 Domain Specialists for PORTFOLIO-DANILO-FINAL:
+
 - Admin issues (auth, session, CRUD, upload, publishing): admin-reliability-specialist
 - Public UI/Cards (video, HTML, img, touch) & Case pages (/projects/[slug]): portfolio-experience-specialist
 - Supabase schema, RLS policies, storage policies: database-sentinel
 - Three.js, shaders, WebGL, 60FPS: spectral-artist
 - Independent verification & test gates: quality-verification-specialist
 </project_domain_routing>
-
 
 <model_routing>
 `haiku` (quick lookups), `sonnet` (standard), `opus` (architecture, deep analysis).
