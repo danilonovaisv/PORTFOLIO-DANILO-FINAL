@@ -1,5 +1,34 @@
 # Adjustment Log
 
+## [2026-09-21T05:20] Ghost System Full-Stack Audit & Stack Hardening (/agents-orquestrator + /squirrel-audit)
+
+**Context:** Auditoria técnica aprofundada multi-domínio solicitada via `/agents-orquestrator` e `/squirrel-audit`, com atuação conjunta de `@bug_bounty_methodology_orchestrator`, `@quality-verification-specialist`, `@frontend-specialist`, `@spectral-artist` e `@database-sentinel`.
+
+**Changes Applied:**
+
+1. **Correção de Vulnerabilidade P0 de Segurança / HTML Injection (`src/app/api/contact/route.ts`)** ✅
+   - Sanitização com `escapeHtml()` em todas as entradas de usuário (`name`, `email`, `phone`, `message`) antes da injeção no template HTML do e-mail disparado via Resend.
+   - Prevenção contra injeção de HTML/CSS e ataques de phishing através do formulário de contato.
+
+2. **Criação de Rota Canônica com Redirecionamento 307 (`src/app/o-que-me-move/page.tsx`)** ✅
+   - Implementado redirecionamento direto (`redirect('/sobre#o-que-me-move')`) no diretório que anteriormente se encontrava vazio e gerava 404 em acessos diretos.
+
+3. **Auditoria de Conformidade em Rotas Críticas e Admin (`/admin`)** ✅
+   - Confirmada integridade da autenticação de duas camadas (Middleware + Server Component Layout) e Zod validation 100% ativa em Server Actions (`upsertProjectAction`, `togglePublish`, etc.).
+   - Confirmado alinhamento do Bento Grid (`FeaturedProjectsSection.tsx`) e ausência de rotações desnecessárias em `CategoryStripe.tsx`.
+
+4. **Detecção de Arquivos Órfãos & Limpeza de Ecossistema (`scripts/pnpm_deep_clean.py`)** ✅
+   - Intersecção Knip + Unimported executada: zero arquivos mortos/não utilizados detectados.
+
+5. **Smoke Build & Quality Gate de Validação** ✅
+   - `pnpm run build`: 18/18 páginas geradas com sucesso (código 0).
+   - `pnpm run build-check`: Typecheck TypeScript e ESLint aprovados com 100% (código 0).
+   - `pnpm run dev`: Rotas `/` e `/portfolio` servidas com status HTTP 200 OK.
+
+**Status:** Concluído com sucesso.
+
+---
+
 ## [2026-09-21T00:00] Ghost System Agent Architecture v2.0 & Skills Normalization
 
 **Context:** Integração e consolidação da nova arquitetura de agentes do pacote `docs/portfolio-danilo-agent-update` para a IDE Antigravity / Ghost System v2.0, saneamento de referências e ativação do protocolo `/agents-orquestrator`.
@@ -2184,5 +2213,32 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 
 - ✅ Chamada de PATCH na Supabase Management API concluída com sucesso (status 200).
 - ✅ Inclusão de domínio no Cloudflare Pages concluída e no status `initializing`/`pending` aguardando ativação de Nameservers.
+
+**Status:** Concluído.
+
+---
+
+## [2026-09-21T04:55] Agent Architecture Audit & Squirrel-Audit Pipeline Alignment
+
+**Context:** Execução da auditoria de configuração de agentes (`/audit-agent-config`) focada em `portfolio-experience-specialist.md`, `professional_coder.md`, framework `# Superpowers` e saneamento do workflow `/squirrel-audit`.
+
+**Changes Applied:**
+
+1. **Remoção de Bloat e Incoerência (`professional_coder.md`)** ✅
+   - Arquivo `.agents/agents/professional_coder.md` removido.
+   - Motivo: 3 versões conflitantes de prompts genéricos de terceiros, sem frontmatter YAML, referenciando AutoGPT/emojis e com zero referências no ecossistema Ghost.
+
+2. **Evolução do Especialista (`portfolio-experience-specialist.md`)** ✅
+   - Integradas skills de auditoria (`audit-website`) e verificação do framework Superpowers (`superpower:verification-before-completion`, `superpower:systematic-debugging`).
+   - Adicionada responsabilidade explícita para consumo e resolução de relatórios da stack frontend originados pelo `/squirrel-audit`.
+
+3. **Correção de Sintaxe e Roteamento do Workflow (`squirrel-audit.md`)** ✅
+   - Corrigido cabeçalho YAML duplicado e sintaxe corrompida de blocos de script.
+   - Estabelecido roteamento formal de resolução: `portfolio-experience-specialist` (mídia, cards, UI/TBT), `spectral-artist` (R3F/Three.js/FPS) e `database-sentinel` (Storage Supabase).
+   - Integrado o ciclo de verificação sistemática antes do fechamento de tarefas.
+
+**Verification:**
+- ✅ Script Node validou integridade do frontmatter YAML em `.agents/workflows/squirrel-audit.md` e `.agents/agents/portfolio-experience-specialist.md`.
+- ✅ `professional_coder.md` verificado como inexistente no repositório.
 
 **Status:** Concluído.

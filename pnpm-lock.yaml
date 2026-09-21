@@ -5058,8 +5058,8 @@ packages:
     resolution: {integrity: sha512-vKatAh4SlVfgbv+YtmhiRjhEMJsYpsG1Y2rMQtR+SVSbytsSD1YGzDIcrAJmdFec88u/+VoGmxnl+80gL1tRCQ==}
     engines: {node: '>= 6'}
 
-  formatly@0.7.0:
-    resolution: {integrity: sha512-7CXJtIIA0zy/u12StsYk25qVKxvdLA2ep2sTNxK3ov0mGNIIDqIvAXDSgTnAfDJFsPfWjuz0WjfYSdpvnLA5Tg==}
+  formatly@0.7.1:
+    resolution: {integrity: sha512-ESuCEJE0SGgabl9q+zABI8LhJDmF+8nhpuqDzuM48HfJ9QTD5o6PqFJDFZY7w6f8xsh5lixuj5nJsQNvYOWvKQ==}
     engines: {node: '>=18.3.0'}
     hasBin: true
 
@@ -8171,8 +8171,8 @@ packages:
     resolution: {integrity: sha512-GZtjxm/J/4TSxuL3FNYjCmLktBTnIw/rVmKSIyKeYAZpmJB2ig9VauCC5xsa82GNKVKDAqpOn3KVzNt0zmrU0g==}
     engines: {node: '>=12'}
 
-  yargs@18.1.0:
-    resolution: {integrity: sha512-2rAgRKu54VsHkqI0/tYkmluGXHD4KW7yZoycuqDQ15QOTnc2VVfy0nN/1eMhnQLO00A+dwtK20xuCnc1YGeUyg==}
+  yargs@18.2.0:
+    resolution: {integrity: sha512-9OpKOLeaoNFecEp7P6iYbzze/5CqWoH7N3SMs/6y1XF4nMvFMspEGZzJ6uFi9MmQwXhyzqYoSEKO3tvA3Z/o2w==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=23}
 
   yocto-queue@0.1.0:
@@ -10296,7 +10296,7 @@ snapshots:
       next: 16.3.5(@babel/core@7.29.7(supports-color@10.2.2))(@opentelemetry/api@1.9.1)(@playwright/test@1.63.0)(@types/node@26.6.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       ts-tqdm: 0.8.6
       wrangler: 4.135.0(@types/node@26.6.2)
-      yargs: 18.1.0
+      yargs: 18.2.0
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -13364,7 +13364,7 @@ snapshots:
       hasown: 2.0.4
       mime-types: 2.1.35
 
-  formatly@0.7.0:
+  formatly@0.7.1:
     dependencies:
       fd-package-json: 2.0.0
       package-manager-detector: 1.8.0
@@ -14618,7 +14618,7 @@ snapshots:
   knip@6.37.0:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.7)
-      formatly: 0.7.0
+      formatly: 0.7.1
       get-tsconfig: 4.14.3
       jiti: 2.7.0
       oxc-parser: 0.150.0
@@ -17123,7 +17123,7 @@ snapshots:
       y18n: 5.0.8
       yargs-parser: 21.1.1
 
-  yargs@18.1.0:
+  yargs@18.2.0:
     dependencies:
       cliui: 9.0.1
       escalade: 3.2.0

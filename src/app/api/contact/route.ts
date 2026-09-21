@@ -51,6 +51,15 @@ function validatePayload(payload: ContactPayload): string | null {
   return null;
 }
 
+function escapeHtml(unsafe: string): string {
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 async function readPayload(request: NextRequest): Promise<{
   payload: ContactPayload;
   isJson: boolean;
@@ -240,15 +249,15 @@ export async function POST(request: NextRequest) {
         body: JSON.stringify({
           from: `Contato Portfólio <${fromEmail}>`,
           to: [toEmail],
-          subject: `Novo contato: ${normalizedPayload.name}`,
+          subject: `Novo contato: ${escapeHtml(normalizedPayload.name)}`,
           html: `
             <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e4e4e7; border-radius: 8px; color: #18181b;">
               <h2 style="color: #0048ff; margin-top: 0;">Nova mensagem de contato</h2>
-              <p style="margin: 10px 0;"><strong>Nome:</strong> ${normalizedPayload.name}</p>
-              <p style="margin: 10px 0;"><strong>E-mail:</strong> <a href="mailto:${normalizedPayload.email}" style="color: #0048ff; text-decoration: none;">${normalizedPayload.email}</a></p>
-              <p style="margin: 10px 0;"><strong>Telefone:</strong> ${normalizedPayload.phone || 'Não informado'}</p>
+              <p style="margin: 10px 0;"><strong>Nome:</strong> ${escapeHtml(normalizedPayload.name)}</p>
+              <p style="margin: 10px 0;"><strong>E-mail:</strong> <a href="mailto:${encodeURIComponent(normalizedPayload.email)}" style="color: #0048ff; text-decoration: none;">${escapeHtml(normalizedPayload.email)}</a></p>
+              <p style="margin: 10px 0;"><strong>Telefone:</strong> ${escapeHtml(normalizedPayload.phone || 'Não informado')}</p>
               <p style="margin: 20px 0 10px 0;"><strong>Mensagem:</strong></p>
-              <div style="background-color: #f4f4f5; border-left: 4px solid #0048ff; padding: 15px; margin: 10px 0; border-radius: 4px; font-style: italic; white-space: pre-wrap;">${normalizedPayload.message}</div>
+              <div style="background-color: #f4f4f5; border-left: 4px solid #0048ff; padding: 15px; margin: 10px 0; border-radius: 4px; font-style: italic; white-space: pre-wrap;">${escapeHtml(normalizedPayload.message)}</div>
               <hr style="border: 0; border-top: 1px solid #e4e4e7; margin: 20px 0;" />
               <p style="font-size: 12px; color: #71717a; margin-bottom: 0;">Esta mensagem foi enviada a partir do formulário de contato em portfoliodanilo.com.</p>
             </div>
