@@ -1,5 +1,30 @@
 # Adjustment Log
 
+## [2026-09-21T05:55] Wiki-Brain Sync & Karpathy LLM Wiki Graphify Refresh (/wiki-brain, /karpathy-llm-wiki)
+
+**Context:** Sincronização e atualização da base de conhecimento compilada (Wiki-Brain e Karpathy LLM Wiki) e reindexação topológica do grafo de conhecimento Graphify, operados por `@obsidian_vault_operator` e `@orchestrator`.
+
+**Changes & Executions Applied:**
+
+1. **Wiki-Brain Obsidian Canvas Sync (`scripts/wiki-brain-sync.ts --auto`)** ✅
+   - Validação da especificação JSON Canvas 1.0 em `architecture-map.canvas`: aprovado.
+   - Sincronização e mapeamento automático de 11 novos nós de módulos em `src/` (`src/app`, `src/components`, `src/config`, `src/contexts`, `src/data`, `src/hooks`, `src/lib`, `src/store`, `src/styles`, `src/types`, `src/validations`).
+   - Verificação e integridade de Wikilinks em notas OFM: 100% resolvidas.
+
+2. **Reindexação Incremental AST do Graphify (`graphify update .`)** ✅
+   - Reextraídos 1.067 arquivos sem custo de API (AST puro).
+   - Topologia atualizada em `graphify-out/`: **16.135 nós**, **20.124 arestas**, **1.236 comunidades**.
+   - Atualizados `graph.json`, `graph.html` e `GRAPH_REPORT.md`.
+
+3. **Cloudflare Worker Build (`pnpm run cf:build` / OpenNext)** ✅
+   - OpenNext Cloudflare compilou com sucesso em 18.5s com Turbopack.
+   - 18/18 páginas estáticas e dinâmicas geradas.
+   - Worker gerado em `.open-next/worker.js`.
+
+**Status:** Concluído com sucesso.
+
+---
+
 ## [2026-09-21T05:20] Ghost System Full-Stack Audit & Stack Hardening (/agents-orquestrator + /squirrel-audit)
 
 **Context:** Auditoria técnica aprofundada multi-domínio solicitada via `/agents-orquestrator` e `/squirrel-audit`, com atuação conjunta de `@bug_bounty_methodology_orchestrator`, `@quality-verification-specialist`, `@frontend-specialist`, `@spectral-artist` e `@database-sentinel`.
