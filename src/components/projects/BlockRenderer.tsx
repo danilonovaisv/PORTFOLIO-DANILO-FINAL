@@ -124,7 +124,7 @@ export default function BlockRenderer({
         <div className="flex w-full relative items-center justify-center rounded-2xl overflow-hidden bg-transparent border border-white/5">
           <video
             src={resolved.asset.url}
-            className="w-full h-auto object-contain"
+            className="w-full h-auto max-h-full object-contain object-center"
             autoPlay={autoplay}
             muted={autoplay}
             loop={autoplay}

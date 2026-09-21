@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import Image from 'next/image';
 import { HOME_CONTENT } from '@/config/content';
 import { ArrowLeft } from 'lucide-react';
@@ -223,6 +223,22 @@ export default async function ProjectPage({ params }: Props) {
   const project = await getProject(slug);
 
   if (!project) {
+    // Resilience fallback: check if requested slug belongs to a landing page
+    try {
+      const supabase = createStaticClient();
+      const { data: landingPage } = await supabase
+        .from('landing_pages')
+        .select('slug')
+        .or(`slug.eq.${slug},slug.eq.${normalizeSlug(slug)}`)
+        .maybeSingle();
+
+      if (landingPage?.slug) {
+        redirect(`/projects/${landingPage.slug}`);
+      }
+    } catch {
+      // ignore and continue to notFound
+    }
+
     notFound();
   }
 
@@ -360,7 +376,7 @@ export default async function ProjectPage({ params }: Props) {
               playsInline
               preload="metadata"
               poster={DEFAULT_VIDEO_POSTER}
-              className="absolute inset-0 w-full h-full object-contain"
+              className="absolute inset-0 w-full h-full object-contain object-center"
             >
               <track
                 kind="captions"
@@ -463,7 +479,7 @@ export default async function ProjectPage({ params }: Props) {
                     playsInline
                     preload="metadata"
                     poster={DEFAULT_VIDEO_POSTER}
-                    className="absolute inset-0 h-full w-full object-contain"
+                    className="absolute inset-0 h-full w-full object-contain object-center"
                   >
                     <track
                       kind="captions"

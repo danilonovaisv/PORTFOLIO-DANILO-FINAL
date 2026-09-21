@@ -93,7 +93,7 @@ export function AssetLightbox({ asset, onClose }: AssetLightboxProps) {
             />
           </div>
         ) : asset.kind === 'youtube' && asset.youtubeId ? (
-          <div className="aspect-video w-full bg-black">
+          <div className="aspect-video w-full bg-background flex items-center justify-center">
             <iframe
               src={`https://www.youtube.com/embed/${asset.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${asset.youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`}
               title={asset.alt || 'Vídeo do YouTube'}
@@ -104,7 +104,7 @@ export function AssetLightbox({ asset, onClose }: AssetLightboxProps) {
           </div>
         ) : (
           <video
-            className="h-[82vh] w-full object-contain"
+            className="h-[82vh] w-full object-contain object-center"
             src={asset.src}
             poster={asset.poster}
             autoPlay

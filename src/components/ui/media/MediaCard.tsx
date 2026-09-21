@@ -48,16 +48,18 @@ export function MediaCard({
 }: MediaCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const isVideoOrHtml = media.kind === 'video' || media.kind === 'html';
+  const shouldPreserve = preserveVideoFrame && isVideoOrHtml;
   const fit =
-    (preserveVideoFrame && media.kind !== 'image' ? 'contain' : media.fit) ??
+    (shouldPreserve ? 'contain' : media.fit) ??
     getDefaultMediaFit(media.kind === 'html' ? 'image' : media.kind);
+  const cleanedMediaClassName = shouldPreserve
+    ? mediaClassName?.replace(/\bobject-cover\b/g, '').trim()
+    : mediaClassName;
   const mediaClasses = cn(
-    'h-full w-full object-center',
-    MEDIA_FIT_CLASS[fit],
-    mediaClassName,
-    preserveVideoFrame &&
-      media.kind !== 'image' &&
-      'object-contain object-center'
+    'h-full w-full',
+    shouldPreserve ? 'object-contain object-center' : MEDIA_FIT_CLASS[fit],
+    cleanedMediaClassName
   );
   const resolvedSrc = getAssetUrl(
     media.src,
@@ -140,9 +142,7 @@ export function MediaCard({
         'relative overflow-hidden bg-neutral/20',
         MEDIA_FORMAT_CLASS[media.format],
         className,
-        preserveVideoFrame &&
-          media.kind !== 'image' &&
-          'flex items-center justify-center bg-transparent'
+        shouldPreserve && 'flex items-center justify-center bg-transparent'
       )}
     >
       {media.kind === 'video' ? (
@@ -158,7 +158,7 @@ export function MediaCard({
           aria-hidden={ariaHidden}
           className={mediaClasses}
           style={{
-            objectPosition: preserveVideoFrame ? 'center' : objectPosition,
+            objectPosition: shouldPreserve ? 'center' : objectPosition,
           }}
         />
       ) : media.kind === 'html' ? (

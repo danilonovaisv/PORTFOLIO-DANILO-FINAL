@@ -79,7 +79,7 @@ function GalleryMedia({
   if (isVideoAsset(item)) {
     return (
       <video
-        className="h-full w-full rounded-2xl bg-transparent object-contain"
+        className="h-full w-full rounded-2xl bg-transparent object-contain object-center"
         src={src}
         poster={getAssetUrl(item.poster, { width: 1280, quality: 80 })}
         controls
@@ -170,7 +170,7 @@ export default function MasterProjectTemplate({
           >
             {isVideoAsset(project.hero_cover_image) ? (
               <video
-                className="h-full w-full object-contain"
+                className="h-full w-full object-contain object-center"
                 src={heroImage}
                 poster={getAssetUrl(project.hero_cover_image.poster, {
                   width: 1920,

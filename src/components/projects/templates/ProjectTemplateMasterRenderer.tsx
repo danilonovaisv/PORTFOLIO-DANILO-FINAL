@@ -201,7 +201,7 @@ export default function ProjectTemplateMasterRenderer({
               <div className="absolute inset-0 flex items-center justify-center bg-transparent">
                 {isVideoAsset(project.hero_cover_image) ? (
                   <video
-                    className="h-full w-full object-contain"
+                    className="h-full w-full object-contain object-center"
                     src={heroImage}
                     poster={getAssetUrl(project.hero_cover_image.poster)}
                     autoPlay={!prefersReducedMotion}

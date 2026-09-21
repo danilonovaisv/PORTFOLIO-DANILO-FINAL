@@ -99,7 +99,7 @@ export function AlpaBlockMediaText({
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-contain"
+          className="absolute inset-0 w-full h-full object-contain object-center"
         />
       )}
     </m.div>

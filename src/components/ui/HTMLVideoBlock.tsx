@@ -103,7 +103,7 @@ export function HTMLVideoBlock({
         return (
           <div
             className={cn(
-              'relative h-full w-full overflow-hidden bg-background',
+              'relative h-full w-full overflow-hidden bg-background flex items-center justify-center',
               className
             )}
           >
@@ -121,9 +121,9 @@ export function HTMLVideoBlock({
 
       return (
         <div
-          className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-[#040013] shadow-2xl ${className}`}
+          className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-background shadow-2xl ${className}`}
         >
-          <div className="flex items-center justify-between border-b border-white/10 bg-[#040013]/90 px-4 py-2 text-xs text-white/70 font-mono">
+          <div className="flex items-center justify-between border-b border-white/10 bg-background/90 px-4 py-2 text-xs text-white/70 font-mono">
             <span className="flex items-center gap-2">
               <Film size={14} className="text-bluePrimary" />
               {title}
@@ -132,13 +132,13 @@ export function HTMLVideoBlock({
               HTML_VIDEO
             </span>
           </div>
-          <div className="relative aspect-video w-full overflow-hidden bg-[#040013]">
+          <div className="relative aspect-video w-full overflow-hidden bg-background flex items-center justify-center">
             <iframe
               srcDoc={sanitizedHtmlDoc}
               title={title}
               style={{ backgroundColor: COLORS.background }}
               allow="autoplay"
-              className="h-full w-full border-0 bg-[#040013]"
+              className="h-full w-full border-0 bg-background"
               sandbox="allow-scripts allow-same-origin allow-popups"
             />
           </div>
@@ -150,7 +150,7 @@ export function HTMLVideoBlock({
       return (
         <div
           className={cn(
-            'relative h-full w-full overflow-hidden pointer-events-none',
+            'relative h-full w-full overflow-hidden pointer-events-none flex items-center justify-center bg-transparent',
             className,
             embeddedVideoClasses
           )}
@@ -161,10 +161,10 @@ export function HTMLVideoBlock({
 
     return (
       <div
-        className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0f] shadow-2xl ${className}`}
+        className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-background shadow-2xl ${className}`}
       >
         <div
-          className={cn('p-4', embeddedVideoClasses)}
+          className={cn('p-4 flex items-center justify-center bg-transparent', embeddedVideoClasses)}
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>
@@ -176,7 +176,7 @@ export function HTMLVideoBlock({
     if (frameless) {
       return (
         <div
-          className={`group relative w-full overflow-hidden bg-[#0a0a0f] ${className}`}
+          className={`group relative w-full overflow-hidden bg-background ${className}`}
         >
           {/* Video / Scroll Viewport - frameless */}
           <div className="relative aspect-video w-full overflow-hidden bg-[#0a0a0f]">
@@ -193,12 +193,12 @@ export function HTMLVideoBlock({
             </div>
 
             {/* Vignette Gradients */}
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#0a0a0f]/60 to-transparent" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0a0a0f]/60 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background/60 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background/60 to-transparent" />
 
             {/* Progress Bar */}
             <div
-              className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-indigo-500 transition-all duration-75"
+              className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-bluePrimary to-blueAccent transition-all duration-75"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -208,10 +208,10 @@ export function HTMLVideoBlock({
 
     return (
       <div
-        className={`group relative w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0f] shadow-2xl ${className}`}
+        className={`group relative w-full overflow-hidden rounded-2xl border border-white/10 bg-background shadow-2xl ${className}`}
       >
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between border-b border-white/10 bg-[#0a0a0f]/95 px-6 py-3 font-mono text-xs text-white/90">
+        <div className="flex items-center justify-between border-b border-white/10 bg-background/95 px-6 py-3 font-mono text-xs text-white/90">
           <div className="flex items-center gap-2">
             <Film size={14} className="text-bluePrimary" />
             <span className="font-semibold tracking-wider">{title}</span>
@@ -222,7 +222,7 @@ export function HTMLVideoBlock({
         </div>
 
         {/* Video / Scroll Viewport */}
-        <div className="relative aspect-video w-full overflow-hidden bg-[#0a0a0f]">
+        <div className="relative aspect-video w-full overflow-hidden bg-background">
           <div
             ref={trackRef}
             className="absolute left-0 top-0 w-full will-change-transform"
@@ -236,23 +236,23 @@ export function HTMLVideoBlock({
           </div>
 
           {/* Vignette Gradients */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#0a0a0f]/60 to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0a0a0f]/60 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background/60 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background/60 to-transparent" />
 
           {/* Progress Bar */}
           <div
-            className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-indigo-500 transition-all duration-75"
+            className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-bluePrimary to-blueAccent transition-all duration-75"
             style={{ width: `${progress}%` }}
           />
         </div>
 
         {/* Control Bar */}
-        <div className="flex items-center justify-between border-t border-white/10 bg-[#0a0a0f]/95 px-6 py-3 font-mono text-xs">
+        <div className="flex items-center justify-between border-t border-white/10 bg-background/95 px-6 py-3 font-mono text-xs">
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={() => setIsPlaying(!isPlaying)}
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white hover:text-[#0a0a0f]"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white hover:text-background"
               title={isPlaying ? 'Pause' : 'Play'}
             >
               {isPlaying ? (
@@ -301,7 +301,7 @@ export function HTMLVideoBlock({
 
   // Fallback when neither html nor media is provided
   return (
-    <div className="flex min-h-[220px] w-full items-center justify-center rounded-2xl border border-white/10 bg-[#0a0a0f] p-6 text-center font-mono text-xs text-white/60">
+    <div className="flex min-h-[220px] w-full items-center justify-center rounded-2xl border border-white/10 bg-background p-6 text-center font-mono text-xs text-white/60">
       HTML_VIDEO_NODE: No code or media provided
     </div>
   );

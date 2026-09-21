@@ -299,6 +299,26 @@ function resolveCardDestination({
 
   if (!storedDestination) return inferredDestination;
 
+  // When a landing page slug is linked, prioritize opening the internal landing
+  // unless an explicit external URL destination was configured.
+  if (inferredDestination.type === 'internal_landing') {
+    if (storedDestination.type === 'external_url') {
+      return storedDestination;
+    }
+    if (
+      storedDestination.type === 'page' &&
+      storedDestination.url &&
+      !storedDestination.url.startsWith('/portfolio/')
+    ) {
+      return storedDestination;
+    }
+    return {
+      type: 'internal_landing',
+      landingSlug: inferredDestination.landingSlug,
+      openInNewTab: storedDestination.openInNewTab,
+    };
+  }
+
   if (
     storedDestination.type === 'external_url' ||
     storedDestination.type === 'page'
@@ -312,9 +332,7 @@ function resolveCardDestination({
       : inferredDestination;
   }
 
-  return inferredDestination.type === 'internal_landing'
-    ? inferredDestination
-    : storedDestination;
+  return storedDestination;
 }
 
 /**

@@ -48,6 +48,14 @@ const featuredOrderField = z.preprocess((value) => {
   return Number.isNaN(parsed) ? value : parsed;
 }, z.number().int('SYSTEM_ERR: ORDER_MUST_BE_INTEGER').min(0, 'SYSTEM_ERR: ORDER_MUST_BE_NON_NEGATIVE').max(9999, 'SYSTEM_ERR: ORDER_OUT_OF_RANGE').nullable().optional());
 
+export const projectDestinationSchema = z.object({
+  type: z.enum(['modal', 'internal_landing', 'external_url', 'page']),
+  url: z.string().trim().optional(),
+  href: z.string().trim().optional(),
+  landingSlug: z.string().trim().optional(),
+  openInNewTab: z.boolean().optional(),
+});
+
 const projectBaseFieldsSchema = z.object({
   title: z
     .string()
@@ -88,14 +96,7 @@ const projectBaseFieldsSchema = z.object({
     ])
     .optional(),
   tags: z.array(z.string().uuid('SYSTEM_ERR: INVALID_TAG_ID')).optional(),
-  destination: z
-    .object({
-      type: z.enum(['modal', 'internal_landing', 'external_url', 'page']),
-      url: z.string().optional(),
-      landingSlug: z.string().optional(),
-      openInNewTab: z.boolean().optional(),
-    })
-    .optional(),
+  destination: projectDestinationSchema.nullable().optional(),
   case_body: z.string().optional(),
   url_landscape: z.string().trim().nullable().optional(),
   url_square: z.string().trim().nullable().optional(),
@@ -154,7 +155,7 @@ export const projectMutationSchema = z
     hero_image_path: z.string().trim().nullable().optional(),
     url_landscape: z.string().trim().nullable().optional(),
     url_square: z.string().trim().nullable().optional(),
-    destination: z.any().nullable().optional(),
+    destination: projectDestinationSchema.nullable().optional(),
     case_body: z.string().nullable().optional(),
     gallery: z
       .array(

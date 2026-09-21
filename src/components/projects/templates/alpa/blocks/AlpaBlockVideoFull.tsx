@@ -56,7 +56,7 @@ export function AlpaBlockVideoFull({
             loop
             playsInline
             preload="metadata"
-            className="absolute inset-0 w-full h-full object-contain"
+            className="absolute inset-0 w-full h-full object-contain object-center"
           />
         )}
       </div>

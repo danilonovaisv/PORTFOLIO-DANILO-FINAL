@@ -254,11 +254,6 @@ const createNextConfig = (phase) => ({
   async redirects() {
     return [
       {
-        source: '/projects/:slug*',
-        destination: '/portfolio/:slug*',
-        permanent: true,
-      },
-      {
         source: '/portfolio/key_vision',
         destination: '/portfolio/key-vision',
         permanent: true,

@@ -143,7 +143,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
             >
                 <section className="relative w-full group overflow-hidden bg-transparent">
                     {/* HERO MEDIA */}
-                    <div className="relative w-full aspect-video max-h-[70vh] bg-black/40 overflow-hidden flex items-center justify-center">
+                    <div className="relative w-full h-full aspect-video max-h-[70vh] bg-transparent overflow-hidden flex items-center justify-center">
                         {/* Ghost Media Placeholder */}
                         <AnimatePresence>
                             {!isLoaded && !activeYouTubeEmbed && activeMedia && activeMedia !== ASSET_PLACEHOLDER && (
@@ -195,7 +195,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                     controls
                                     preload="metadata"
                                     poster={DEFAULT_VIDEO_POSTER}
-                                    className={`absolute inset-0 w-full h-full object-contain z-0 transition-opacity duration-normal ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+                                    className={`absolute inset-0 w-full h-full object-contain object-center z-0 transition-opacity duration-normal ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
                                     onLoadedData={() => setIsLoaded(true)}
                                     onLoadedMetadata={(event) => {
                                         // Spec: POP-UP DE PROJETO (SEM LANDING PAGE) §6.2

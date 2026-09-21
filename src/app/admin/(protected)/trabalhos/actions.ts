@@ -162,6 +162,7 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
       url_landscape: finalUrlLandscape,
       url_square: finalUrlSquare,
       gallery: finalGallery as unknown as any,
+      destination: (projectData.destination ?? null) as any,
       tagIds: tags,
     });
 

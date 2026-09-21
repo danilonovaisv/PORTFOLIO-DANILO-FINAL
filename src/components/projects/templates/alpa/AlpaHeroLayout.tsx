@@ -79,7 +79,7 @@ export function AlpaHeroLayout({
         >
           <video
             src={videoSrc}
-            className="w-full h-auto block object-contain"
+            className="w-full h-auto max-h-full block object-contain object-center"
             autoPlay
             muted
             loop

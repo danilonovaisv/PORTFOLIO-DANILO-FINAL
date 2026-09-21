@@ -64,7 +64,7 @@ export default function BlockMedia({
         className={`flex w-full items-center justify-center overflow-hidden rounded-2xl bg-transparent ${aspectClassName}`}
       >
         <video
-          className="h-full w-full object-contain"
+          className="h-full w-full object-contain object-center"
           src={resolved.asset.url}
           poster={poster.ok ? poster.asset.url : undefined}
           controls

@@ -354,6 +354,21 @@ export function ProjectForm({
         const landingPageId =
           values.landing_page_id === '' ? null : values.landing_page_id;
 
+        let finalDestination = values.destination;
+        if (landingPageId) {
+          const selectedLp = landingPagesWithTemplate.find(
+            (lp) => lp.id === landingPageId
+          );
+          if (selectedLp?.slug) {
+            finalDestination = {
+              type: 'internal_landing',
+              landingSlug: selectedLp.slug,
+            };
+          }
+        } else if (!finalDestination || finalDestination.type === 'internal_landing') {
+          finalDestination = { type: 'modal' };
+        }
+
         const result = await upsertProjectAction({
           id: project?.id,
           title: values.title,
@@ -381,7 +396,7 @@ export function ProjectForm({
           url_landscape,
           url_square,
           gallery: galleryEntries,
-          destination: values.destination,
+          destination: finalDestination,
           case_body: values.case_body,
         });
 

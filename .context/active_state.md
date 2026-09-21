@@ -1,9 +1,23 @@
 # Active State: GHOST AGENTS ORCHESTRATION & WIKI-BRAIN SYNCHRONIZED ✅
 
-**Phase**: GHOST AGENTS v2.0 FULL-STACK AUDIT, DEEP-CLEAN & WIKI-BRAIN COMPILATION (`/wiki-brain`, `/karpathy-llm-wiki`, `/agents-orquestrator`, `/deep-clean`)
-**Current Focus**: 1) Base de Conhecimento Wiki-Brain & Graphify sincronizados ✅, 2) Cloudflare OpenNext Worker Build verificado ✅, 3) Sanitização de segurança e roteamento concluídos ✅, 4) Qualidade e QA automatizado 100% PASS ✅.
-**Last Update**: 2026-09-21 05:56
+**Phase**: GHOST CMS & VIDEO CONTAINMENT OPTIMIZATION (`@04-TRABALHOS`, `@07-LANDING-PAGES`)
+**Current Focus**: 1) Resolução definitiva de links quebrados 404 e roteamento Next.js ✅, 2) Tipagem e hardening de esquemas no CMS Admin ✅, 3) Renderização integral 100% sem cortes de vídeos HTML/R3F/mídia ✅, 4) 45 test suites e typecheck com 100% PASS ✅.
+**Last Update**: 2026-09-21 17:58
 **Production URL**: https://portfoliodanilo.com
+
+## Conclusão da Otimização de CMS & Renderização de Vídeo (2026-09-21 17:58)
+
+> **@project_orchestrator**, **@admin_reliability**, **@portfolio_experience** & **@spectral_artist**:
+>
+> - **Objetivo 1 (CMS Audit & Roteamento 404)**:
+>   - Removida regra colidente de redirecionamento em `next.config.mjs` (`/projects/:slug*` -> `/portfolio/:slug*`) que desviava indevidamente landing pages públicas.
+>   - Adicionado fallback defensivo em `src/app/portfolio/[slug]/page.tsx` para redirecionar automaticamente para `/projects/[slug]` se o registro residir em `landing_pages`.
+>   - Reforçado `resolveCardDestination` e `ProjectForm.tsx` para conectar nativamente `landing_page_id` ao destino `internal_landing` com validação estrita no Zod (`projectDestinationSchema`).
+> - **Objetivo 2 (Correção de Renderização de Vídeo HTML & Containment)**:
+>   - `HTMLVideoBlock`: removidas cores hardcoded hex, substituídas por tokens semânticos `bg-background` e `bg-neutral/40`, mantendo injeção estrita de preservação de frame.
+>   - `MediaCard`: refinado para garantir `object-contain object-center` em vídeos com `preserveVideoFrame`, com container `flex items-center justify-center bg-transparent` e preservação integral de flags de reprodução (`autoPlay`, `muted`, `loop`, `playsInline`).
+>   - Todos os layouts de templates (`AdaptiveMediaLayout`, `AlpaHeroLayout`, `AlpaBlockVideoFull`, `AlpaBlockMediaText`, `AlpaBlockGrid2Col`, `BlockMedia`, `MasterProjectTemplate`, `ProjectTemplateMasterRenderer`, `BlockRenderer`, `AssetLightbox`, `FeaturedProjectCardFrame`) atualizados para exibir vídeos 100% na íntegra sem cortes (`object-contain`).
+>   - **Validação de Qualidade**: 45/45 test suites (326 testes) aprovados com 100% de sucesso. Typecheck TS verificado com 0 erros.
 
 ## Conclusão do Refresh Wiki-Brain & Karpathy LLM Wiki (2026-09-21 05:56)
 
