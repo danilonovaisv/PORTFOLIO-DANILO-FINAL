@@ -25,7 +25,7 @@ Gerenciar páginas detalhadas de projetos (`/projects/[slug]`) com templates ver
 
 ## 4. Inconformidades observadas
 
-- Inconformidade baixa: reforçar validação de estrutura do campo `content` por template para evitar payload híbrido inválido.
+- A escrita valida a estrutura de `content` por template; a leitura pública mantém os normalizadores tolerantes para registros antigos.
 
 ## 5. Atualização 2026-02-20
 
@@ -109,3 +109,10 @@ Regras:
 - Uploads do Admin para `site-assets` agora são persistidos como URL pública resolvida, não path cru.
 - Links YouTube aceitos (`watch`, `youtu.be`, `embed`, `shorts`, ID direto) são normalizados para `/embed/VIDEO_ID`.
 - Renderers públicos validam mídia antes do render e exibem fallback estável para legado inválido.
+
+## 11. Contrato CMS — 2026-09-21
+
+- `src/lib/admin/schemas/landing-page.ts` valida JSON, blocos legados e variantes V1/V2/V3/hero antes de persistir. Rejeita discriminantes desconhecidos, versões incompatíveis, galerias malformadas, tipos de mídia e layouts inválidos.
+- Campos adicionais JSON são preservados; a validação de escrita não usa os defaults do parser público e não altera flags de reprodução.
+- O serviço de preparação reutiliza os tipos dos drafts e um contrato explícito de upload; assets do draft V3 ainda herdam a tipagem permissiva existente no editor.
+- Upload e persistência continuam operações separadas. Uma falha após upload pode deixar objetos órfãos; não há exclusão automática de assets publicados nem nova política de compensação nesta alteração.

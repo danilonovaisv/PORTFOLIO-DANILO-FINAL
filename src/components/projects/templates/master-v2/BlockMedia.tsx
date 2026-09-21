@@ -60,9 +60,11 @@ export default function BlockMedia({
   if (resolved.asset.type === 'video') {
     const poster = resolveLandingAsset(item.poster, 'image');
     return (
-      <div className={`overflow-hidden rounded-2xl ${aspectClassName}`}>
+      <div
+        className={`flex w-full items-center justify-center overflow-hidden rounded-2xl bg-transparent ${aspectClassName}`}
+      >
         <video
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain"
           src={resolved.asset.url}
           poster={poster.ok ? poster.asset.url : undefined}
           controls

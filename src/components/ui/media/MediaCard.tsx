@@ -25,6 +25,7 @@ type MediaCardProps = {
   pauseOffscreen?: boolean;
   preload?: 'none' | 'metadata' | 'auto';
   objectPosition?: string;
+  preserveVideoFrame?: boolean;
   'aria-hidden'?: boolean | 'true' | 'false';
 };
 
@@ -42,17 +43,21 @@ export function MediaCard({
   pauseOffscreen = true,
   preload = 'metadata',
   objectPosition = 'center',
+  preserveVideoFrame = false,
   'aria-hidden': ariaHidden,
 }: MediaCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const fit =
-    media.fit ??
+    (preserveVideoFrame && media.kind !== 'image' ? 'contain' : media.fit) ??
     getDefaultMediaFit(media.kind === 'html' ? 'image' : media.kind);
   const mediaClasses = cn(
     'h-full w-full object-center',
     MEDIA_FIT_CLASS[fit],
-    mediaClassName
+    mediaClassName,
+    preserveVideoFrame &&
+      media.kind !== 'image' &&
+      'object-contain object-center'
   );
   const resolvedSrc = getAssetUrl(
     media.src,
@@ -134,7 +139,10 @@ export function MediaCard({
       className={cn(
         'relative overflow-hidden bg-neutral/20',
         MEDIA_FORMAT_CLASS[media.format],
-        className
+        className,
+        preserveVideoFrame &&
+          media.kind !== 'image' &&
+          'flex items-center justify-center bg-transparent'
       )}
     >
       {media.kind === 'video' ? (
@@ -149,13 +157,16 @@ export function MediaCard({
           preload={preload}
           aria-hidden={ariaHidden}
           className={mediaClasses}
-          style={{ objectPosition }}
+          style={{
+            objectPosition: preserveVideoFrame ? 'center' : objectPosition,
+          }}
         />
       ) : media.kind === 'html' ? (
         <HTMLVideoBlock
           html={media.src}
           title={media.alt || 'HTML Video Thumbnail'}
           frameless
+          preserveVideoFrame={preserveVideoFrame}
           className={cn('h-full w-full', mediaClasses)}
         />
       ) : (

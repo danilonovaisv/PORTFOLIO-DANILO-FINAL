@@ -3,6 +3,8 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Play, Pause, RotateCcw, Film } from 'lucide-react';
+import { COLORS } from '@/config/colors';
+import { cn } from '@/lib/utils';
 
 interface HTMLVideoBlockProps {
   html?: string;
@@ -11,6 +13,7 @@ interface HTMLVideoBlockProps {
   className?: string;
   /** Quando true, remove o header bar, bordas e sombra — útil em landing pages e thumbnails */
   frameless?: boolean;
+  preserveVideoFrame?: boolean;
 }
 
 export function HTMLVideoBlock({
@@ -19,6 +22,7 @@ export function HTMLVideoBlock({
   title = 'HTML Video Preview',
   className = '',
   frameless = false,
+  preserveVideoFrame = false,
 }: HTMLVideoBlockProps) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [speed, setSpeed] = useState(1);
@@ -30,24 +34,33 @@ export function HTMLVideoBlock({
 
   // If html contains a full HTML document (e.g., <!DOCTYPE html> or <html> tag), render as srcDoc iframe
   const isFullHtmlDoc = Boolean(
-    html &&
-    (html.includes('<!DOCTYPE') ||
-      html.includes('<html') ||
-      html.includes('<script'))
+    html && /<!doctype\b|<html\b|<script\b/i.test(html)
   );
 
   const sanitizedHtmlDoc = React.useMemo(() => {
     if (!html || !isFullHtmlDoc) return html;
     const darkInject = `
 <style id="ghost-safe-bg">
-  html, body { background-color: #040013 !important; color-scheme: dark; margin: 0; padding: 0; }
-  .stage { background-color: #040013 !important; opacity: 1 !important; }
+  html, body { background-color: ${COLORS.background} !important; color-scheme: dark; margin: 0; padding: 0; }
+  .stage { background-color: ${COLORS.background} !important; opacity: 1 !important; }
+  ${
+    preserveVideoFrame
+      ? `
+  html, body { width: 100%; height: 100%; }
+  video { display: block; width: 100% !important; height: 100% !important; max-width: 100% !important; max-height: 100% !important; object-fit: contain !important; object-position: center !important; background: transparent !important; }
+  `
+      : ''
+  }
 </style>`;
-    if (html.includes('</head>')) {
-      return html.replace('</head>', `${darkInject}</head>`);
+    if (/<\/head\s*>/i.test(html)) {
+      return html.replace(/<\/head\s*>/i, `${darkInject}</head>`);
     }
     return darkInject + html;
-  }, [html, isFullHtmlDoc]);
+  }, [html, isFullHtmlDoc, preserveVideoFrame]);
+
+  const embeddedVideoClasses = preserveVideoFrame
+    ? '[&_video]:block [&_video]:h-full! [&_video]:w-full! [&_video]:max-h-full! [&_video]:max-w-full! [&_video]:object-contain! [&_video]:object-center! [&_video]:bg-transparent!'
+    : '';
 
   useEffect(() => {
     if (isFullHtmlDoc || !media || html) return;
@@ -89,14 +102,17 @@ export function HTMLVideoBlock({
       if (frameless) {
         return (
           <div
-            className={`relative h-full w-full overflow-hidden bg-[#040013] ${className}`}
+            className={cn(
+              'relative h-full w-full overflow-hidden bg-background',
+              className
+            )}
           >
             <iframe
               srcDoc={sanitizedHtmlDoc}
               title={title}
-              style={{ backgroundColor: '#040013' }}
+              style={{ backgroundColor: COLORS.background }}
               allow="autoplay"
-              className="h-full w-full border-0 pointer-events-none bg-[#040013]"
+              className="h-full w-full border-0 pointer-events-none bg-background"
               sandbox="allow-scripts allow-same-origin allow-popups"
             />
           </div>
@@ -120,7 +136,7 @@ export function HTMLVideoBlock({
             <iframe
               srcDoc={sanitizedHtmlDoc}
               title={title}
-              style={{ backgroundColor: '#040013' }}
+              style={{ backgroundColor: COLORS.background }}
               allow="autoplay"
               className="h-full w-full border-0 bg-[#040013]"
               sandbox="allow-scripts allow-same-origin allow-popups"
@@ -133,7 +149,11 @@ export function HTMLVideoBlock({
     if (frameless) {
       return (
         <div
-          className={`relative h-full w-full overflow-hidden pointer-events-none ${className}`}
+          className={cn(
+            'relative h-full w-full overflow-hidden pointer-events-none',
+            className,
+            embeddedVideoClasses
+          )}
           dangerouslySetInnerHTML={{ __html: html }}
         />
       );
@@ -143,7 +163,10 @@ export function HTMLVideoBlock({
       <div
         className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0f] shadow-2xl ${className}`}
       >
-        <div className="p-4" dangerouslySetInnerHTML={{ __html: html }} />
+        <div
+          className={cn('p-4', embeddedVideoClasses)}
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
       </div>
     );
   }

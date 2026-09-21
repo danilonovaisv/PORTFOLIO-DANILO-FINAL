@@ -171,6 +171,7 @@ export const ProjectCard = React.memo(function ProjectCard({
         {desktopMedia && mobileMedia && baseMediaDiffers ? (
           <>
             <MediaCard
+              preserveVideoFrame
               media={desktopMedia}
               sizes={sizes}
               priority={priority}
@@ -185,6 +186,7 @@ export const ProjectCard = React.memo(function ProjectCard({
               objectPosition={objectPosition}
             />
             <MediaCard
+              preserveVideoFrame
               media={mobileMedia}
               sizes={sizes}
               priority={priority}
@@ -201,6 +203,7 @@ export const ProjectCard = React.memo(function ProjectCard({
           </>
         ) : desktopMedia ? (
           <MediaCard
+            preserveVideoFrame
             media={desktopMedia}
             sizes={sizes}
             priority={priority}
@@ -219,6 +222,7 @@ export const ProjectCard = React.memo(function ProjectCard({
         {/* Video — lazy-loaded on first hover */}
         {hasVideo && hoverMedia && hasHoverRef.current && (
           <MediaCard
+            preserveVideoFrame
             media={hoverMedia}
             autoPlay={isHovered}
             poster={DEFAULT_VIDEO_POSTER}

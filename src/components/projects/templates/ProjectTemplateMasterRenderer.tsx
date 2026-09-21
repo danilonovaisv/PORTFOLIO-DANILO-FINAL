@@ -198,10 +198,10 @@ export default function ProjectTemplateMasterRenderer({
         <div role="region" aria-label="Conteúdo do projeto">
           <section className="relative flex min-h-[86vh] items-end overflow-hidden pt-20">
             {heroImage ? (
-              <div className="absolute inset-0">
+              <div className="absolute inset-0 flex items-center justify-center bg-transparent">
                 {isVideoAsset(project.hero_cover_image) ? (
                   <video
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain"
                     src={heroImage}
                     poster={getAssetUrl(project.hero_cover_image.poster)}
                     autoPlay={!prefersReducedMotion}

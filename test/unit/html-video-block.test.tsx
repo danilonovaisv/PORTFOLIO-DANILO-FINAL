@@ -52,4 +52,55 @@ describe('HTMLVideoBlock & Preset System', () => {
     render(<HTMLVideoBlock html={htmlSnippet} title="Test Title" />);
     expect(screen.getByTestId('custom-html-node')).toBeInTheDocument();
   });
+
+  it('contains inline videos without rewriting playback attributes', () => {
+    const html =
+      '<video src="/sample.mp4" autoplay muted loop playsinline controls></video>';
+    const { container } = render(
+      <HTMLVideoBlock html={html} frameless preserveVideoFrame />
+    );
+    const video = container.querySelector('video')!;
+    expect(video.parentElement).toHaveClass('[&_video]:object-contain!');
+    for (const attribute of [
+      'autoplay',
+      'muted',
+      'loop',
+      'playsinline',
+      'controls',
+    ]) {
+      expect(video).toHaveAttribute(attribute);
+    }
+  });
+
+  it('injects frame containment into full documents while keeping original markup', () => {
+    const markup =
+      '<video src="/sample.mp4" autoplay muted loop playsinline></video>';
+    const html = `<!doctype html><HTML><HEAD></HEAD><body>${markup}</body></HTML>`;
+    render(
+      <HTMLVideoBlock
+        html={html}
+        title="Document video"
+        frameless
+        preserveVideoFrame
+      />
+    );
+    const iframe = screen.getByTitle('Document video');
+    expect(iframe.getAttribute('srcdoc')).toContain(
+      'object-fit: contain !important'
+    );
+    expect(iframe.getAttribute('srcdoc')).toContain(markup);
+    expect(iframe).toHaveAttribute('allow', 'autoplay');
+  });
+
+  it('does not inject containment for consumers that did not opt in', () => {
+    render(
+      <HTMLVideoBlock
+        html="<!DOCTYPE html><html><body>Scene</body></html>"
+        title="Existing scene"
+      />
+    );
+    expect(
+      screen.getByTitle('Existing scene').getAttribute('srcdoc')
+    ).not.toContain('object-fit: contain');
+  });
 });

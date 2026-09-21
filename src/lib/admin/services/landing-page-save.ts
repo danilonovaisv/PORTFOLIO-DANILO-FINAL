@@ -1,4 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
+import type { LandingPageBlock } from '@/types/landing-page';
+import type { MasterProjectTemplateDraft } from '@/components/admin/MasterProjectTemplateEditor';
+import type { MasterProjectTemplateV2Draft } from '@/components/admin/MasterProjectTemplateV2Editor';
+import type { MasterProjectTemplateV3Draft } from '@/components/admin/MasterProjectTemplateV3Editor';
 import { uploadSiteAsset } from '@/lib/supabase/storage';
 import {
   sanitizeMasterV3BlockContent,
@@ -25,11 +29,13 @@ interface SaveContext {
   cover: File | null;
   initialCover: string | null;
   template: ProjectTemplateId;
-  sections: any[];
-  masterTemplate: any;
-  masterTemplateV2: any;
-  masterTemplateV3: any;
+  sections: LandingPageBlock[];
+  masterTemplate: MasterProjectTemplateDraft;
+  masterTemplateV2: MasterProjectTemplateV2Draft;
+  masterTemplateV3: MasterProjectTemplateV3Draft;
 }
+
+type UploadAsset = (_file: File, _key: string) => Promise<string>;
 
 export async function prepareLandingPageData(ctx: SaveContext) {
   const handleFileUpload = async (file: File, key: string) => {
@@ -46,7 +52,7 @@ export async function prepareLandingPageData(ctx: SaveContext) {
     return url;
   };
 
-  let finalContent: any;
+  let finalContent;
   let finalCover: string | null = ctx.initialCover;
 
   if (ctx.template === MASTER_PROJECT_TEMPLATE) {
@@ -70,7 +76,7 @@ export async function prepareLandingPageData(ctx: SaveContext) {
   return { finalContent, finalCover };
 }
 
-async function saveLegacyContent(ctx: SaveContext, upload: Function) {
+async function saveLegacyContent(ctx: SaveContext, upload: UploadAsset) {
   let coverPath = normalizePersistedAsset(ctx.initialCover, 'image');
   if (ctx.cover) {
     const path = await upload(ctx.cover, `cover-${uuidv4()}`);
@@ -114,7 +120,7 @@ async function saveLegacyContent(ctx: SaveContext, upload: Function) {
   return { coverPath, content: uploadedSections };
 }
 
-async function saveMasterTemplateV1(ctx: SaveContext, upload: Function) {
+async function saveMasterTemplateV1(ctx: SaveContext, upload: UploadAsset) {
   const nextTemplate = {
     ...ctx.masterTemplate,
     project_slug: ctx.slug,
@@ -149,7 +155,7 @@ async function saveMasterTemplateV1(ctx: SaveContext, upload: Function) {
   }
 
   const galleryGrid = await Promise.all(
-    nextTemplate.gallery_grid.map(async (item: any) => {
+    nextTemplate.gallery_grid.map(async (item) => {
       let src = item.src;
       if (item.file) {
         const path = await upload(item.file, `master-grid-${item.id}`);
@@ -188,7 +194,7 @@ async function saveMasterTemplateV1(ctx: SaveContext, upload: Function) {
   return { coverPath: heroCoverSrc, content: cleanTemplate };
 }
 
-async function saveMasterTemplateV2(ctx: SaveContext, upload: Function) {
+async function saveMasterTemplateV2(ctx: SaveContext, upload: UploadAsset) {
   const nextTemplate = {
     ...ctx.masterTemplateV2,
     project_slug: ctx.slug,
@@ -232,7 +238,7 @@ async function saveMasterTemplateV2(ctx: SaveContext, upload: Function) {
   }
 
   const galleryGrid = await Promise.all(
-    nextTemplate.gallery_grid.map(async (item: any) => {
+    nextTemplate.gallery_grid.map(async (item) => {
       let src = item.src;
       if (item.file) {
         const path = await upload(item.file, `master-v2-grid-${item.id}`);
@@ -325,7 +331,7 @@ function normalizeTemplateV3IntroBody(introBody: unknown) {
     );
 }
 
-async function saveMasterTemplateV3(ctx: SaveContext, upload: Function) {
+async function saveMasterTemplateV3(ctx: SaveContext, upload: UploadAsset) {
   const nextTemplate = {
     ...ctx.masterTemplateV3,
     project_slug: ctx.slug,
@@ -361,7 +367,7 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: Function) {
   }
 
   const galleryGrid = await Promise.all(
-    nextTemplate.gallery_grid.map(async (rawBlock: any) => {
+    nextTemplate.gallery_grid.map(async (rawBlock) => {
       const block = {
         ...rawBlock,
         content: sanitizeMasterV3BlockContent(rawBlock.content),

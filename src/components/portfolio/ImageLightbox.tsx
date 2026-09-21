@@ -163,7 +163,7 @@ export function ImageLightbox({
                 <video
                   ref={videoRef}
                   src={src}
-                  className="h-full w-full object-contain"
+                  className="max-h-[85vh] h-auto w-auto max-w-full object-contain object-center"
                   controls
                   muted
                   playsInline

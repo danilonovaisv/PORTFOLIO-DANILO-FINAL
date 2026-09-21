@@ -53,7 +53,7 @@ export function AlpaBlockGrid2Col({
               delay: cIdx * 0.1,
               ease: GHOST_EASE,
             }}
-            className="relative aspect-square md:aspect-auto md:h-[60vh] overflow-hidden rounded-none bg-neutral/20"
+            className={`relative flex aspect-square items-center justify-center md:aspect-auto md:h-[60vh] overflow-hidden rounded-none ${isVid ? 'bg-transparent' : 'bg-neutral/20'}`}
           >
             {!resolved.ok ? (
               <div className="flex h-full w-full items-center justify-center text-sm text-white/55">
@@ -95,7 +95,7 @@ export function AlpaBlockGrid2Col({
                 muted
                 loop
                 playsInline
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-contain"
               />
             ) : null}
           </m.div>

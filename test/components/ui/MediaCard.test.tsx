@@ -71,4 +71,46 @@ describe('MediaCard', () => {
 
     expect(container.querySelector('video')).toHaveClass('object-contain');
   });
+
+  it('preserves the full frame when a portfolio video explicitly requests cover', () => {
+    const { container } = render(
+      <MediaCard
+        preserveVideoFrame
+        media={{
+          kind: 'video',
+          src: '/media/preview.mp4',
+          format: 'square',
+          fit: 'cover',
+        }}
+        mediaClassName="object-cover"
+        autoPlay={false}
+        muted={false}
+        loop={false}
+        playsInline={false}
+        objectPosition="top"
+      />
+    );
+    const video = container.querySelector('video')!;
+    expect(video).toHaveClass('object-contain');
+    expect(video).not.toHaveClass('object-cover');
+    expect(video.style.objectPosition).toBe('center');
+    expect(video.autoplay).toBe(false);
+    expect(video.muted).toBe(false);
+    expect(video.loop).toBe(false);
+    expect(video.playsInline).toBe(false);
+  });
+
+  it('keeps explicit cover available to consumers outside the containment scope', () => {
+    const { container } = render(
+      <MediaCard
+        media={{
+          kind: 'video',
+          src: '/media/preview.mp4',
+          format: 'landscape',
+          fit: 'cover',
+        }}
+      />
+    );
+    expect(container.querySelector('video')).toHaveClass('object-cover');
+  });
 });

@@ -85,6 +85,29 @@ jest.mock('react-markdown', () => (props: any) => (
 process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://localhost:54321';
 
 describe('BlockRenderer Sanitization', () => {
+  it.each([
+    ['video', false],
+    ['video-autoplay', true],
+  ] as const)('preserves playback behavior for %s', (type, autoplay) => {
+    const block: LandingPageBlock = {
+      id: 'video-block',
+      type,
+      content: {
+        media: 'https://example.com/portrait.mp4',
+        mediaType: 'video',
+      },
+    };
+    const { container } = render(<BlockRenderer block={block} index={0} />);
+    const video = container.querySelector('video');
+
+    expect(video).toHaveClass('object-contain', 'h-auto');
+    expect(video?.autoplay).toBe(autoplay);
+    expect(video?.muted).toBe(autoplay);
+    expect(video?.loop).toBe(autoplay);
+    expect(video?.controls).toBe(!autoplay);
+    expect(video?.playsInline).toBe(true);
+  });
+
   const createTextBlock = (text: string): LandingPageBlock => ({
     id: 'test-block',
     type: 'text',

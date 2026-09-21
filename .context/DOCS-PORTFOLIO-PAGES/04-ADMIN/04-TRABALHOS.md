@@ -1,5 +1,14 @@
 # 04-TRABALHOS
 
+## Atualizacao 2026-09-21: enquadramento e auditoria CMS
+
+- Videos dos cards do portfolio usam `preserveVideoFrame` em `MediaCard`, inclusive quando o payload solicita `cover`. Imagens e consumidores externos ao escopo mantem suas politicas.
+- Previews de video em `GalleryManager`, `ProjectsTable` e `MediaAssetField` usam `object-contain`; atributos e controle de reproducao foram preservados.
+- `HTMLVideoBlock` suporta contencao opt-in de videos em markup inline e documentos `srcDoc`. O CSS do documento usa `COLORS.background`; iframes remotos e cortes embutidos no arquivo original nao podem ser corrigidos por object-fit externo.
+- O lightbox limita videos a altura visivel mantendo proporcao intrinseca. Videos da rota `/portfolio/[slug]` tambem recebem contain.
+- Riscos de CMS confirmados e ainda pendentes: `projectMutationSchema.destination` usa `z.any()`; o rename grava caminhos destino antes de confirmar a movimentacao no Storage. Uma falha parcial pode deixar referencias indisponiveis. A correcao desse protocolo exige testes de falha/compensacao e permanece recomendacao da auditoria, sem migracao ou operacao remota nesta entrega.
+- Evidencias e comandos de verificacao estao em `docs/plans/implementation_plan.md`.
+
 ## 0. Estrutura de arquivos da sessão
 
 - `src/app/admin/(protected)/trabalhos/page.tsx`

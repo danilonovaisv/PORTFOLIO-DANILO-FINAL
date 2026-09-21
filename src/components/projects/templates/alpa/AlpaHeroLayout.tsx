@@ -55,6 +55,7 @@ export function AlpaHeroLayout({
           }}
         >
           <HTMLVideoBlock
+            preserveVideoFrame
             html={hero_top_media.html}
             frameless
             className="w-full aspect-video"
@@ -67,7 +68,7 @@ export function AlpaHeroLayout({
       const videoSrc = getAssetUrl(hero_top_media.src, { isVideo: true });
       return (
         <m.div
-          className="w-full max-w-5xl mx-auto mb-8 overflow-hidden"
+          className="flex w-full max-w-5xl mx-auto mb-8 items-center justify-center overflow-hidden bg-transparent"
           initial={revealInitial}
           animate={revealVisible}
           transition={{
@@ -78,7 +79,7 @@ export function AlpaHeroLayout({
         >
           <video
             src={videoSrc}
-            className="w-full h-auto block"
+            className="w-full h-auto block object-contain"
             autoPlay
             muted
             loop

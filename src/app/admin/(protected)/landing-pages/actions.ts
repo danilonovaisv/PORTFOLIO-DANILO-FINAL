@@ -4,23 +4,8 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { logAdminAudit } from '@/lib/admin/audit';
 import { requireAdminAccess } from '@/lib/admin/server-access';
-import type { Json, TablesInsert, TablesUpdate } from '@/lib/supabase.types';
-
-const landingPageMutationSchema = z.object({
-  id: z.string().uuid().optional(),
-  title: z.string().trim().min(3).max(160),
-  slug: z
-    .string()
-    .trim()
-    .min(3)
-    .max(180)
-    .regex(
-      /^[a-z0-9-]+$/,
-      'SYSTEM_ERR: INVALID_SLUG_FORMAT — USE_LOWERCASE_NUMBERS_HYPHEN'
-    ),
-  cover: z.string().trim().max(600).optional(),
-  content: z.custom<Json>((value) => value !== undefined),
-});
+import type { TablesInsert, TablesUpdate } from '@/lib/supabase.types';
+import { landingPageMutationSchema } from '@/lib/admin/schemas/landing-page';
 
 export type SaveLandingPageInput = z.infer<typeof landingPageMutationSchema>;
 

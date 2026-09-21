@@ -230,7 +230,12 @@ export function MediaAssetField({
       {preview && (
         <div className="relative h-56 w-full overflow-hidden border border-white/10 bg-black/40">
           {isHtml ? (
-            <HTMLVideoBlock html={preview} frameless className="h-56 w-full" />
+            <HTMLVideoBlock
+              html={preview}
+              frameless
+              preserveVideoFrame
+              className="h-56 w-full"
+            />
           ) : isYoutube && youtubeId ? (
             <YouTubePlayer
               videoId={youtubeId}
@@ -245,7 +250,7 @@ export function MediaAssetField({
             ) : (
               <video
                 src={preview}
-                className="h-56 w-full object-cover"
+                className="h-56 w-full object-contain object-center bg-transparent"
                 controls
                 playsInline
               />

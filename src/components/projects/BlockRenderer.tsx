@@ -90,6 +90,7 @@ export default function BlockRenderer({
     if (type === 'html') {
       return (
         <HTMLVideoBlock
+          preserveVideoFrame
           html={src}
           frameless
           className="w-full rounded-2xl overflow-hidden"
@@ -120,10 +121,10 @@ export default function BlockRenderer({
 
     if (resolved.asset.type === 'video') {
       return (
-        <div className="w-full relative rounded-2xl overflow-hidden bg-slate-900/50 border border-white/5">
+        <div className="flex w-full relative items-center justify-center rounded-2xl overflow-hidden bg-transparent border border-white/5">
           <video
             src={resolved.asset.url}
-            className="w-full h-auto"
+            className="w-full h-auto object-contain"
             autoPlay={autoplay}
             muted={autoplay}
             loop={autoplay}
@@ -170,6 +171,7 @@ export default function BlockRenderer({
     if (mediaType === 'html' && htmlSrc) {
       return (
         <HTMLVideoBlock
+          preserveVideoFrame
           html={htmlSrc}
           frameless
           title={altSrc || 'HTML Embed'}
@@ -217,6 +219,7 @@ export default function BlockRenderer({
         return (
           <div className="w-full max-w-[1680px] mx-auto px-4 md:px-0">
             <HTMLVideoBlock
+              preserveVideoFrame
               html={content.html}
               media={content.media}
               title={content.text || 'HTML Video Preview'}

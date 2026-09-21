@@ -344,7 +344,13 @@ export default async function ProjectPage({ params }: Props) {
           </div>
         </div>
 
-        <div className="relative w-full aspect-video md:aspect-[2.4/1] rounded-2xl md:rounded-4xl overflow-hidden bg-muted shadow-2xl">
+        <div
+          className={`relative w-full aspect-video rounded-2xl md:rounded-4xl overflow-hidden shadow-2xl ${
+            isVideo(project.image)
+              ? 'flex items-center justify-center bg-transparent'
+              : 'md:aspect-[2.4/1] bg-muted'
+          }`}
+        >
           {isVideo(project.image) ? (
             <video
               src={getAssetUrl(project.image, { isVideo: true })}
@@ -354,7 +360,7 @@ export default async function ProjectPage({ params }: Props) {
               playsInline
               preload="metadata"
               poster={DEFAULT_VIDEO_POSTER}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-contain"
             >
               <track
                 kind="captions"
@@ -442,7 +448,11 @@ export default async function ProjectPage({ params }: Props) {
             {galleryMedia.map((media, index) => (
               <div
                 key={`${project.id}-gallery-${index}`}
-                className="relative overflow-hidden rounded-2xl border border-white/10 bg-muted aspect-video"
+                className={`relative overflow-hidden rounded-2xl border border-white/10 aspect-video ${
+                  isVideo(media)
+                    ? 'flex items-center justify-center bg-transparent'
+                    : 'bg-muted'
+                }`}
               >
                 {isVideo(media) ? (
                   <video
@@ -453,7 +463,7 @@ export default async function ProjectPage({ params }: Props) {
                     playsInline
                     preload="metadata"
                     poster={DEFAULT_VIDEO_POSTER}
-                    className="absolute inset-0 h-full w-full object-cover"
+                    className="absolute inset-0 h-full w-full object-contain"
                   >
                     <track
                       kind="captions"

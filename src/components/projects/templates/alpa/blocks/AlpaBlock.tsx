@@ -90,6 +90,7 @@ export function AlpaBlock({
     case 'html-video':
       return (
         <HTMLVideoBlock
+          preserveVideoFrame
           html={content.html || block.html}
           media={content.media || block.src}
           title={content.text || block.title || 'HTML Video Preview'}

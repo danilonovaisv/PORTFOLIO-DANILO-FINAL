@@ -37,7 +37,7 @@ export function AlpaBlockVideoFull({
       transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
       className="w-full mb-12 md:mb-20 px-4 md:px-0"
     >
-      <div className="relative aspect-video w-full overflow-hidden rounded-none bg-neutral/20">
+      <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-none bg-transparent">
         {!resolved.ok ? (
           <div className="flex h-full w-full items-center justify-center text-sm text-white/55">
             Mídia indisponível
@@ -56,7 +56,7 @@ export function AlpaBlockVideoFull({
             loop
             playsInline
             preload="metadata"
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-contain"
           />
         )}
       </div>

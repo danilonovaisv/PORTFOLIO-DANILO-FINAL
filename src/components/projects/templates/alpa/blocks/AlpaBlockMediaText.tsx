@@ -59,7 +59,7 @@ export function AlpaBlockMediaText({
       whileInView={revealVisible}
       viewport={{ once: true, margin: '-10%' }}
       transition={{ duration: MOTION_TOKENS.duration.normal, ease: GHOST_EASE }}
-      className="relative aspect-square md:aspect-auto md:h-[50vh] overflow-hidden rounded-none bg-neutral/20"
+      className={`relative flex aspect-square items-center justify-center md:aspect-auto md:h-[50vh] overflow-hidden rounded-none ${isVid ? 'bg-transparent' : 'bg-neutral/20'}`}
     >
       {!resolvedMedia.ok ? (
         <div className="flex h-full w-full items-center justify-center text-sm text-white/55">
@@ -99,7 +99,7 @@ export function AlpaBlockMediaText({
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-contain"
         />
       )}
     </m.div>

@@ -79,7 +79,7 @@ function GalleryMedia({
   if (isVideoAsset(item)) {
     return (
       <video
-        className="h-full w-full rounded-2xl object-cover"
+        className="h-full w-full rounded-2xl bg-transparent object-contain"
         src={src}
         poster={getAssetUrl(item.poster, { width: 1280, quality: 80 })}
         controls
@@ -163,12 +163,14 @@ export default function MasterProjectTemplate({
       >
         {heroImage ? (
           <m.div
-            className="absolute inset-0"
-            style={prefersReducedMotion ? undefined : { y: parallaxY }}
+            className="absolute inset-0 flex items-center justify-center bg-transparent"
+            style={
+              prefersReducedMotion || isHeroVideo ? undefined : { y: parallaxY }
+            }
           >
             {isVideoAsset(project.hero_cover_image) ? (
               <video
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain"
                 src={heroImage}
                 poster={getAssetUrl(project.hero_cover_image.poster, {
                   width: 1920,

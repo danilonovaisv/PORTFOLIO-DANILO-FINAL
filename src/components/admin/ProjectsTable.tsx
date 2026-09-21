@@ -397,7 +397,7 @@ function AdminMediaThumb({ path, alt }: { path: string; alt: string }) {
 
   if (isVideo(src)) {
     return (
-      <div className="h-10 w-16 overflow-hidden rounded border border-white/10 bg-black/30">
+      <div className="flex h-10 w-16 items-center justify-center overflow-hidden rounded border border-white/10 bg-transparent">
         <video
           src={src}
           muted
@@ -405,7 +405,7 @@ function AdminMediaThumb({ path, alt }: { path: string; alt: string }) {
           loop
           autoPlay
           poster={DEFAULT_VIDEO_POSTER}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain object-center"
           aria-label={alt}
           onError={() => setHasError(true)}
         />

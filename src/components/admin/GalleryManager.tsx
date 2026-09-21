@@ -158,7 +158,7 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
                 ) : isVid ? (
                   <video
                     src={mediaSrc}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain object-center bg-transparent"
                     muted
                     playsInline
                   />
