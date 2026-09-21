@@ -107,15 +107,28 @@ docs/blueprints_project/ → .agents/rules/ → .agents/workflows/ → .agents/ 
 | `.agents/`  | READ-ONLY  | Antigravity Workspace Customizations Root — Skills, Rules, Workflows, Personas, MCP |
 | `.context/` | READ-WRITE | Source of truth for current project state; sync after every code change             |
 
-### Orchestrated Agents (Ghost System)
+### Orchestrated Agents (Ghost System Architecture v2.0)
 
-| Agent                      | Skill                     | Responsibility                                             |
-| -------------------------- | ------------------------- | ---------------------------------------------------------- |
-| `@ghost_architect`         | `ghost-architect`         | Next.js architecture, folder integrity, TypeScript types   |
-| `@spectral_artist`         | `spectral-artist`         | Ghost Blue shaders, WebGL materials, visual aesthetics     |
-| `@motion_choreographer`    | `motion-choreographer`    | Framer Motion, Lenis, scroll sync                          |
-| `@audit_sentinel`          | `audit-sentinel`          | Grid compliance `.std-grid`, Lighthouse, z-index           |
-| `@obsidian_vault_operator` | `obsidian-vault-operator` | Wiki-Brain management, OFM notes, canvas maps & base views |
+| Agent                           | Skill / Prompt                                             | Responsibility                                                      |
+| ------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------- |
+| `@project_orchestrator`         | `project-orchestrator` / `orchestrator`                    | Read-first router, domain classification, dependency orchestration  |
+| `@admin_reliability`            | `admin-reliability-specialist`, `diagnose-admin-flow`      | Admin auth/session, CRUD, media upload, publishing, Supabase SSR    |
+| `@portfolio_experience`         | `portfolio-experience-specialist`, `review-media-card`     | Cards (video/HTML/img), touch/mobile, case pages `/projects/[slug]` |
+| `@database_sentinel`            | `database-sentinel`, `supabase-auth-storage-realtime-core` | Supabase schema, RLS policies, storage policy, migrations           |
+| `@spectral_artist`              | `spectral-artist`, `ghost-r3f-optimization`                | Ghost Blue shaders, WebGL materials, Three.js 60FPS mandate         |
+| `@quality_verification`         | `quality-verification-specialist`, `verify-change`         | Independent QA gate, Playwright, Jest, visual states, PASS/FAIL     |
+| `@motion_choreographer`         | `motion-choreographer`, `framer-motion`                    | Framer Motion, Lenis, scroll sync                                   |
+| `@audit_sentinel`               | `audit-sentinel`, `web-quality-skills`                     | Grid compliance `.std-grid`, Lighthouse vitals, z-index             |
+| `@obsidian_vault_operator`      | `obsidian-vault-operator`, `wiki-brain-skill`              | Wiki-Brain management, OFM notes, canvas maps & base views          |
+
+### Canonical Target Routing
+
+1. **Admin Issues / Bugs:** `@project_orchestrator` → `@admin_reliability` → `@database_sentinel` (se schema/RLS) → `@quality_verification`
+2. **Card com Vídeo / HTML / Mídia:** `@portfolio_experience` → `@quality_verification`
+3. **Landing / Case Page (`/projects/[slug]`):** `@portfolio_experience` → `@quality_verification`
+4. **Schema / RLS / Storage Policy:** `@database_sentinel` → `@admin_reliability` (se afetar Admin) → `@quality_verification`
+5. **Three.js / Shaders / WebGL:** `@spectral_artist` → `@portfolio_experience` (se afetar layout público) → `@quality_verification`
+
 
 ### Reference Documents (Single Source of Truth)
 
