@@ -177,44 +177,6 @@ export function buildSupabaseStorageUrl(
   return finalUrl;
 }
 
-/**
- * Helper to inject image proxy optimization params into an existing Supabase public URL.
- */
-export function injectSupabaseProxy(
-  url: string,
-  options: StorageUrlOptions
-): string {
-  if (!url || !url.includes('/storage/v1/')) return url;
-
-  const isNonTransformable =
-    /\.(mp4|webm|mov|m4v|ogg|glb|gltf)(#.*|\?.*)?$/i.test(url);
-  if (isNonTransformable) return url;
-
-  try {
-    const parsed = new URL(url);
-    if (parsed.pathname.includes('/object/public/')) {
-      parsed.pathname = parsed.pathname.replace(
-        '/object/public/',
-        '/render/image/public/'
-      );
-    }
-
-    if (options.width)
-      parsed.searchParams.set('width', options.width.toString());
-    if (options.quality)
-      parsed.searchParams.set('quality', options.quality.toString());
-    if (options.format) {
-      parsed.searchParams.set('format', options.format);
-    } else {
-      parsed.searchParams.delete('format');
-    }
-    if (options.resize) parsed.searchParams.set('resize', options.resize);
-
-    return parsed.toString();
-  } catch {
-    return url;
-  }
-}
 
 // Função adicional para validar e construir URLs de links externos
 export function validateExternalUrl(url: string): string | null {

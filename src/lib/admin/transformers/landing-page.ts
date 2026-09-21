@@ -1,5 +1,3 @@
-export const storageMarker = '/site-assets/';
-
 import type {
   MasterProjectTemplateData,
   MasterProjectTemplateV2Data,
@@ -48,19 +46,6 @@ export function sanitizeMasterV3BlockContent(
     poster2,
   };
 }
-
-export const toStoragePath = (value?: string): string => {
-  if (!value) return '';
-
-  if (value.includes(storageMarker)) {
-    return value.split(storageMarker).pop() || '';
-  }
-
-  return value
-    .replace(/^\/?storage\/v1\/object\/public\/site-assets\//, '')
-    .replace(/^\/?site-assets\//, '')
-    .replace(/^\//, '');
-};
 
 export const toMasterDraft = (
   value: MasterProjectTemplateData

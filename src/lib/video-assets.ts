@@ -59,7 +59,3 @@ export const RESPONSIVE_VIDEOS = {
     fitPolicy: 'cover',
   },
 } as const satisfies Record<string, ResponsiveVideoAsset>;
-
-export const CRITICAL_VIDEO_URLS = Object.values(RESPONSIVE_VIDEOS).flatMap(
-  (asset) => [asset.desktop, asset.mobile]
-);

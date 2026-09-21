@@ -1,5 +1,60 @@
 # Adjustment Log
 
+## [2026-09-21T11:58] Ghost System QA Pipeline & Master Audit Sign-off (/qa-pipeline, /audit)
+
+**Context:** Execução combinada dos workflows `/qa-pipeline` e `/audit` para inspeção da camada R3F/Canvas, verificação de memory leaks, conformidade de WebGL fallback, análise estática estrita e execução da suíte completa de testes.
+
+**Actions & Verifications:**
+
+1. **Inspeção de Recursos & Memory Leaks R3F (`src/components/canvas/`)** ✅
+   - Avaliados `GhostScene.tsx`, hooks de animação (`useGhostScene`, `useParticleSystem`, `useGhostAnimate`) e `HeaderGlassCanvas.tsx`.
+   - Verificado o descarte correto de geometrias, materiais, WebGLRenderer, RenderTargets (`EffectComposer`) e instâncias em unmount.
+   - Fortalecido o guardrail em `GhostSceneWrapper.tsx` com `useWebGLSupport()` e fallback HTML gracioso imediato para conformidade com a Constituição Ghost (Zero WebGL Crash).
+
+2. **Novos Testes Unitários de Regressão R3F** ✅
+   - Criado `test/components/canvas/home/GhostSceneWrapper.test.tsx` com 3 testes validando: fallback de WebGL não suportado, desativação de 3D via flag de ambiente e renderização correta em ambiente com aceleração gráfica.
+
+3. **Verificação Estática & Compliance (TypeScript & ESLint)** ✅
+   - `tsc --noEmit --strict --jsx react-jsx`: 0 erros (aprovado com código 0).
+   - `eslint src test`: 0 erros / 0 avisos (aprovado com código 0).
+
+4. **Execução Completa da Suíte de Testes** ✅
+   - `jest`: **44 test suites**, **301 testes** executados e 100% aprovados.
+
+**Status:** APROVADO / CERTIFICADO PARA PRODUÇÃO (Zero Tolerance Gate).
+
+---
+
+## [2026-09-21T09:08] Diagnóstico de Saúde e Limpeza Fallow (/diagnostics, /fallow-cleanup)
+
+**Context:** Execução dos workflows combinados de diagnóstico de saúde do ecossistema e limpeza determinística de dead code (The Prune).
+
+**Changes Applied:**
+
+1. **Arquivamento de Scripts Inoperantes** ✅
+   - `scripts/build-catalog.js` e `scripts/normalize-frontmatter.js` transferidos para `scripts/archive/` (eliminação de dependências órfãs a `../lib/skill-utils`).
+   - `knip.json` atualizado para ignorar a pasta de scripts arquivados.
+
+2. **Poda de Código Morto (The Prune)** ✅
+   - Removidos exports mortos `toStoragePath` e `storageMarker` em `src/lib/admin/transformers/landing-page.ts`.
+   - Removido export morto `extractFirstImageFromHtml` em `src/lib/portfolio/card-media.ts`.
+   - Removida função legada de proxy `injectSupabaseProxy` em `src/lib/supabase/urls.ts`.
+   - Removida constante `CRITICAL_VIDEO_URLS` em `src/lib/video-assets.ts`.
+
+3. **Auditoria de Conformidade Visual & Assets** ✅
+   - Confirmada política de zero placeholders externos (Unsplash, ViaPlaceholder). Todos os assets utilizam o storage do Supabase.
+   - Confirmada conformidade de `ProjectCard.tsx` com o grid responsivo mobile-first e transições 2D suaves, sem 3D parallax/tilt obsoleto.
+
+4. **Validação de Integridade & Testes** ✅
+   - `tsc --noEmit --strict --jsx react-jsx`: 0 erros (código 0).
+   - `eslint src test tailwind.config.ts`: 0 erros / 0 avisos (código 0).
+   - `knip`: 0 dependências ou exports mortos detectados.
+   - `jest`: 43 test suites / 298 testes passaram com 100% de sucesso.
+
+**Status:** Concluído com sucesso.
+
+---
+
 ## [2026-09-21T08:50] AI Agent Configuration Validação & Manifesto — Fase 3 (/audit-agent-config, agent-config-update)
 
 **Context:** Conclusão da Fase 3 do workflow `agent-config-update`: auditoria final de resíduos, padronização YAML estrita, criação do manifesto central de agentes e verificação de integridade de compilação TypeScript.

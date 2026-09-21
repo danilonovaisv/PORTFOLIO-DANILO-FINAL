@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 
 const GhostScene = dynamic(
   () => import('@/components/canvas/home/hero/GhostScene'),
@@ -18,10 +19,15 @@ export default function GhostSceneWrapper({
   onReady?: () => void;
 }) {
   const is3DDisabled = process.env.NEXT_PUBLIC_DISABLE_3D === 'true';
+  const supportsWebGL = useWebGLSupport();
 
-  if (is3DDisabled) {
+  if (is3DDisabled || !supportsWebGL) {
     return (
-      <div className="absolute inset-0 w-full h-full bg-zinc-900 border-dashed border-2 border-zinc-700" />
+      <div
+        className="absolute inset-0 w-full h-full bg-background"
+        aria-hidden="true"
+        role="presentation"
+      />
     );
   }
 

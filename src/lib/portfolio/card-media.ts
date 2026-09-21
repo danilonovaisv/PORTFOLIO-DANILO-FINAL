@@ -33,11 +33,6 @@ export const isHtmlMedia = (src?: string | null): boolean =>
       src.includes('<html'))
   );
 
-export const extractFirstImageFromHtml = (src?: string | null): string | null => {
-  if (!src) return null;
-  const match = src.match(/<img[^>]+src=["']([^"']+)["']/i);
-  return match ? match[1] : null;
-};
 
 export function getCardMediaCandidates(
   project: PortfolioProject,
