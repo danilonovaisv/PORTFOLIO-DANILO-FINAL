@@ -39,10 +39,11 @@ const processEnv = {
   NEXT_PUBLIC_SUPABASE_ANON_KEY:
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || defaultAnonKey,
   NEXT_PUBLIC_SUPABASE_FALLBACK_URL:
-    process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL,
-  NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
-  SUPABASE_URL: process.env.SUPABASE_URL,
-  NODE_ENV: process.env.NODE_ENV,
+    process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL || undefined,
+  NEXT_PUBLIC_SITE_URL:
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://danilonovais.com',
+  SUPABASE_URL: process.env.SUPABASE_URL || undefined,
+  NODE_ENV: process.env.NODE_ENV || 'development',
 };
 
 const parsed = envSchema.safeParse(processEnv);
