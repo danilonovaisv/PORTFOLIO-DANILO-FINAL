@@ -1,6 +1,73 @@
 # Adjustment Log
 
-## [2026-09-21T05:55] Wiki-Brain Sync & Karpathy LLM Wiki Graphify Refresh (/wiki-brain, /karpathy-llm-wiki)
+## [2026-09-21T08:50] AI Agent Configuration Validação & Manifesto — Fase 3 (/audit-agent-config, agent-config-update)
+
+**Context:** Conclusão da Fase 3 do workflow `agent-config-update`: auditoria final de resíduos, padronização YAML estrita, criação do manifesto central de agentes e verificação de integridade de compilação TypeScript.
+
+**Changes & Executions Applied:**
+
+1. **Purga e Arquivamento de Arquivos Residuais Não-Formatados** ✅
+   - Arquivados em `.agents/.archive/`: `agent_cooperation_designer.md`, `agentic_coder.md`, `design_system_spec_architect.md`, `performance_profiler.md`, `refactoring_coach.md` e `obsidian_vault_operator.md`.
+   - Todos os 18 arquivos remanescentes em `.agents/agents/` possuem agora frontmatter YAML 100% válido e identificador `name:` correspondente.
+
+2. **Criação do Catálogo Central de Agentes (`.agents/AGENTS_MANIFEST.md`)** ✅
+   - Documentada a matriz com os 11 agentes canônicos Ghost System v2.0 e os 7 especialistas auxiliares ativos com responsabilidades e skills associadas.
+
+3. **Verificação de Compilação & Type-Safety (`pnpm run typecheck`)** ✅
+   - Executado `NODE_OPTIONS='--max-old-space-size=8192' tsc --noEmit --strict --jsx react-jsx`.
+   - Resultado: 0 erros, código 0 (PASS).
+
+**Status:** Missão concluída com sucesso.
+
+---
+
+## [2026-09-21T08:48] AI Agent Configuration Consolidação — Fase 2 (/audit-agent-config, agent-config-update)
+
+**Context:** Execução da Fase 2 do workflow `agent-config-update`, fundindo regras técnicas de frontend, persistência relacional e testes implacáveis nos agentes canônicos v2.0, e arquivando com segurança as redundâncias legadas.
+
+**Changes & Executions Applied:**
+
+1. **Fusão em `@portfolio_experience` (`.agents/agents/portfolio-experience-specialist.md`)** ✅
+   - Absorvidos princípios de Taste Engineering: estabilidade de viewport (`min-h-[100dvh]`), anti-emoji policy, anti-center bias (layouts assimétricos em `.std-grid`), estados interativos completos (skeletons e empty states) e The Lila Ban.
+
+2. **Fusão em `@database_sentinel` (`.agents/agents/database-sentinel.md`)** ✅
+   - Absorvidas diretrizes de PostgreSQL do `supabase-schema-architect.md`: normalização, constraints de FK, migrações atômicas reversíveis (`up`/`down`), indexação por padrão de acesso e regeneração de tipos TypeScript.
+
+3. **Fusão em `@quality_verification` (`.agents/agents/quality-verification-specialist.md`)** ✅
+   - Absorvidas regras de verificação implacável do `verification_specialist.md`: proibição estrita de "check-skipping" e rationalization ("looks correct"), evidência mandatória de comandos e testes ponta a ponta com Playwright/Jest.
+
+4. **Arquivamento Seguro de Redundâncias Consolidadas** ✅
+   - Movidos para `.agents/.archive/`: `frontend-specialist.md`, `frontend_taste_engineer.md`, `frontend-developer.md`, `supabase-schema-architect.md`, `verification_specialist.md`, `debugger.md`, `orchestrator.md`, `motion.md` e `web_quality_auditor.md`.
+
+**Status:** Concluído com sucesso.
+
+---
+
+## [2026-09-21T08:45] AI Agent Configuration Audit & Reorganization (/audit-agent-config, agent-config-update)
+
+**Context:** Auditoria executada via `/audit-agent-config` e workflow `agent-config-update`, alinhando os arquivos de agentes com a arquitetura canônica Ghost System Architecture v2.0 (`AGENTS.md` e `GEMINI.md`).
+
+**Changes & Executions Applied:**
+
+1. **Expansão de `@spectral_artist` (`.agents/agents/spectral-artist.md`)** ✅
+   - Enriquecido com o playbook técnico completo: 60FPS Mandate, zero alocações dentro de `useFrame`, `InstancedMesh` obrigatório (>10 instâncias), texturas KTX2/WebP, tokens Ghost Blue `#0048ff` / Void Black `#040013`, e protocolo de resiliência com fallback HTML imediato se o WebGL falhar.
+
+2. **Criação dos Perfis Canônicos Faltantes** ✅
+   - Criado `.agents/agents/ghost-architect.md` (`@ghost_architect`) para arquitetura Next.js 16 App Router, TypeScript strict e DDD.
+   - Criado `.agents/agents/devops-engineer.md` (`@devops-engineer`) para pipeline Firebase SSR, `predeploy`, cache CDN e verificação pre-flight.
+   - Criado `.agents/agents/audit-sentinel.md` (`@audit_sentinel`) para conformidade de grid `.std-grid`, CWV e acessibilidade.
+   - Criado `.agents/agents/motion-choreographer.md` (`@motion_choreographer`) para Framer Motion, Lenis scroll sync e Ghost easing `[0.22, 1, 0.36, 1]`.
+
+3. **Padronização de Frontmatter YAML e Aliases Canônicos** ✅
+   - Corrigido cabeçalho de `obsidian_vault_operator.md` com `name: obsidian-vault-operator` e criado alias `obsidian-vault-operator.md`.
+   - Adicionados identificadores `@admin_reliability`, `@portfolio_experience`, `@quality_verification`, `@database_sentinel` e `@project_orchestrator`.
+
+4. **Expurgo Seguro de Context-Bloat (~6.6 MB)** ✅
+   - Movidos com segurança para `.agents/.archive/`: `AGENTS.json` (4.4 MB), `CLAUDE.json` (2.16 MB) e agentes alienígenas/duplicatas obsoletas (`bug_bounty_methodology_orchestrator.md`, `incident_response_commander.md`, `agent-manager-o-que-me-move.md`, `I Agent Knowledge Base.json`, `frontend_developer.md`, `debugging_agent.md`, `debug-performance-react-profiler-devtools.md`).
+
+**Status:** Concluído com sucesso.
+
+---
 
 **Context:** Sincronização e atualização da base de conhecimento compilada (Wiki-Brain e Karpathy LLM Wiki) e reindexação topológica do grafo de conhecimento Graphify, operados por `@obsidian_vault_operator` e `@orchestrator`.
 

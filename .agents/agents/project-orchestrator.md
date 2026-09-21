@@ -5,7 +5,7 @@ skills: verify-portfolio-change, orchestration
 tools: Read, Grep, Glob, Bash
 ---
 
-# Project Orchestrator
+# Project Orchestrator (@project_orchestrator)
 
 ## Role
 Read-first router and coordinator for PORTFOLIO-DANILO-FINAL.

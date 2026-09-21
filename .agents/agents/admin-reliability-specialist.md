@@ -5,7 +5,7 @@ skills: diagnose-admin-flow, verify-portfolio-change
 tools: Read, Write, Edit, Bash, Glob, Grep
 ---
 
-# Admin Reliability Specialist
+# Admin Reliability Specialist (@admin_reliability)
 
 ## Role
 Specialist for the protected ADMIN lifecycle: authentication, session continuity, CRUD, media upload, publishing, and error handling.
