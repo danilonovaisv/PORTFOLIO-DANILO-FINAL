@@ -1,63 +1,130 @@
+# 📊 RELATÓRIO DE AUDITORIA SEMANAL AUTOMATIZADA
+**Data:** 03 de Janeiro de 2026
+**Projeto:** Portfólio Danilo Novais (`portfoliodanilo.com`)
+**Status do Repositório:** Totalmente Tipado (0 Type Errors / 0 Lint Errors)
+
+---
+
 ### 1️⃣ Visão Geral
-A auditoria semanal automatizada varreu os diretórios `src/app` e `src/components`, avaliando as páginas Home, Sobre, Portfolio e a área de Admin do projeto Ghost Era. A estrutura base do Next.js App Router está implementada com páginas e rotas corretas. O roteamento (SPA) está sendo utilizado com `MotionLink`, mas ainda há melhorias necessárias para o design system. A performance está criticamente ameaçada pela ausência do Loader Customizado de Imagens do Supabase. Animações e a integração R3F precisam de ajustes estruturais para se adequarem às diretrizes da arquitetura V3.
+
+O repositório do portfólio de Danilo Novais apresenta uma arquitetura robusta baseada em **Next.js 16 (App Router)**, **React 19**, **TypeScript (Strict Mode)**, **Tailwind CSS v4**, **Framer Motion 12**, **React Three Fiber (WebGL)** e **Supabase Storage**. A suíte de validação automatizada (`pnpm run build-check`) passa sem nenhum erro de tipagem ou linting, indicando um alto nível de higiene no código.
+
+As três páginas principais da aplicação e o módulo Admin mantêm um alinhamento funcional elevado, porém foram identificadas inconsistências pontuais entre o comportamento em tempo de execução e a **Documentação de Referência (Verdade Absoluta)** em `.context/DOCS-PORTFOLIO-PAGES/`:
+
+1. **Home Page (`/`):** A estrutura de empilhamento `z-index` e a transição da miniatura do Manifesto em vídeo na viewport Desktop diferem parcialmente do estado de "Hold de 2 segundos + Unmute" especificado na documentação da seção Hero.
+2. **Sobre Page (`/sobre`):** O layout horizontal da seção "O Que Eu Faço" e a sticky gallery de "Origem Criativa" apresentam comportamentos assíncronos no cálculo de offset e transições de entrada no mobile.
+3. **Portfólio Grid (`/portfolio`):** O cálculo das alturas dos cards em linhas idênticas e o comportamento de troca de vídeo/imagem estática no hover necessitam de padronização estrita de conteinerização flex/grid.
+4. **Painel Admin (`/admin`):** Módulos funcionais e rotas protegidas operam com integridade, necessitando ajuste de alinhamento visual nos cards de mídia e preenchimento responsivo.
+
+---
 
 ### 2️⃣ Diagnóstico por Seção
 
-- **Home Hero:**
-  O Hero implementa o preloader corretamente e renderiza as camadas de z-index conforme o protocolo Ghost. No entanto, a organização de pastas de componentes 3D viola o padrão. O `GhostSceneWrapper` está em `src/components/canvas/home/hero/`, mas a arquitetura estrita exige que esteja em `src/components/home/webgl/`.
+#### 🏠 Home Hero
+- **Z-Index Stack:** No componente `HomeHero.tsx`, as camadas de texto (`HeroCopy`), canvas 3D (`GhostSceneWrapper`) e CTA (`HeroCTA`) utilizam variáveis CSS (`var(--z-layer-content)`, `var(--z-layer-3d)`). A regra da documentação exige a ordem rigorosa: `Preloader (z-50) > ManifestoThumb (z-30) > Ghost WebGL (z-20) > Hero Text (z-10) > Background (z-0)`, garantindo `pointer-events-none` no container 3D.
+- **Scroll Sequence:** No desktop, a transição entre o hero e o manifesto ocorre em dois componentes separados (`HomeHero` e `VideoManifesto`), em vez da transição fluida de miniatura flutuante com trava de scroll (*scroll hold*) descrita na especificação de UX da Home.
 
-- **Manifesto:**
-  O componente `VideoManifesto.tsx` está isolado e bem implementado, com as lógicas de mute e autoplay configuradas. O comportamento de fullscreen no desktop segue a responsividade mobile-first através do fallback para o componente `ResponsiveVideo`.
+#### 🎬 Manifesto
+- **Comportamento de Áudio e Hold:** O `VideoManifesto.tsx` possui alternador de som manual, porém não executa o desmudo automático ao atingir estado fullscreen com travamento de 2s no scroll e retorno ao estado mudo ao sair da viewport no desktop.
+- **Enquadramento Responsivo:** O vídeo utiliza `aspect-square` no mobile e `aspect-[752/423]` no desktop com `object-contain`. Em telas intermediárias (tablets e laptops com aspect ratio diferente), surgem bordas pretas laterais não desejadas.
 
-- **Featured Projects:**
-  A renderização usa a estrutura do Bento Grid com CSS Grid classes do Tailwind. O requisito de que todos os cards na mesma linha tenham a mesma altura vertical está devidamente respeitado pelo uso contínuo de `h-full min-h-0 self-stretch` ao longo das diretivas do `FeaturedProjectsSection.tsx` e `FeaturedProjectCard.tsx`.
+#### 🗂️ Featured Projects
+- **Alinhamento Vertical de Cards (Regra das Alturas Identicas):** Em `FeaturedProjectsSection.tsx`, os cards ocupam um Bento Grid de 12 colunas (`md:col-span-5` + `md:col-span-7` na linha 1; `md:col-span-8` + `md:col-span-4` na linha 3). Embora o container grid utilize `items-stretch`, a variação no número de linhas dos títulos dos projetos faz com que os blocos de metadados (`pt-6 mt-auto`) variem de altura, exigindo um container com `h-full flex flex-col justify-between` unificado.
+- **Transição CTA Project Card:** O card final de CTA possui altura fixa por breakpoint (`min-h-[320px] md:min-h-[360px]`), o que pode causar desalinhamento de 8px a 16px em relação ao Card 4 adjacente.
 
-- **About (Origin/Method/What I Do):**
-  A seção Sobre obedece à semântica geral do Tailwind e à paleta de cores. As hierarquias de fonte seguem a tabela fluid scale estipulada em `GHOST-DESIGN-SYSTEM.md`.
+#### 👤 About (Origin / Method / What I Do)
+- **Origem Criativa (`AboutOrigin.tsx`):** O componente `OriginStickyGallery` realiza o cálculo de offset via GSAP/Framer Motion. Em telas mobile (< 768px), os blocos textuais verticais empilhados acumulam espaço em branco antes do término da galeria sticky.
+- **O Que Eu Faço (`AboutWhatIDo.tsx`):** No desktop, o track horizontal desliza no eixo X (`10%` a `-40%`) baseado no scroll vertical (`180vh`). No mobile, a animação utiliza `useSpring` para cards individuais que entram da direita; em dispositivos de baixo desempenho, pode ocorrer travamento por recalculação de layout no evento de scroll.
+- **Como Eu Trabalho (`AboutMethod.tsx`):** A lista de passos utiliza `border-b border-bluePrimary/30`. O padding dos itens no mobile fica comprimido em telas com largura inferior a 360px.
 
-- **Portfolio Grid:**
-  O grid (`.std-grid`) está bem formatado. A visualização de landing pages via ALPA V3 (em `/portfolio/[slug]`) apresenta integridade com o redirecionamento. O componente `PortfolioHeroNew.tsx` foi migrado para Tailwind e não faz mais uso de CSS Modules legados.
+#### 🖼️ Portfolio Grid
+- **Padronização de Sizing (`ProjectCard.tsx`):** Os tamanhos de card (`sm`, `md`, `lg`, `wide`, `tall`) aplicam proporções `aspect-[4/5]`, `aspect-[8/5]`, `aspect-[16/9]`. Em linhas mistas (ex: dois cards `sm` de 4 colunas + um card de 4 colunas), pequenas diferenças no padding e borda causam variações sutis na altura total renderizada no browser.
+- **Carregamento de Mídia no Hover:** O vídeo no hover é renderizado condicionalmente ao primeiro passe de hover (`hasHoverRef.current`). Quando o cursor passa rapidamente por múltiplos cards, ocorrem chamadas paralelas de prefetch de vídeo sem cancelamento via `AbortController`.
+
+---
 
 ### 3️⃣ Lista de Problemas e Backlog Priorizado
 
-- 🔴 **P0 (Crítico): Ausência do Supabase Image Loader (`src/lib/supabase/image-loader.ts`).**
-  O arquivo não existe, mas está sendo referenciado nas memórias do projeto e configurações essenciais. O Firebase Hosting falhará ao otimizar imagens, necessitando da declaração no `next.config.mjs`.
+| ID | Severidade | Seção | Descrição do Problema | Impacto |
+| :--- | :--- | :--- | :--- | :--- |
+| **P0-1** | 🔴 P0 (Crítico) | Featured Projects | Desalinhamento na altura vertical dos cards e do CTA card em linhas compartilhadas do Bento Grid devido a variações na quantidade de linhas de título. | Violação direta da Regra Absoluta do projeto (Cards na mesma linha devem ter altura idêntica). |
+| **P0-2** | 🔴 P0 (Crítico) | Home Hero / WebGL | Divergência na hierarquia de `z-index` do `HomeHero.tsx` em relação à especificação da documentação e `AGENTS.md` (WebGL layer cobrindo interatividade de texto). | Risco de bloquear eventos de clique/hover nos links de CTA e títulos do Hero. |
+| **P1-1** | 🟡 P1 (Estrutural) | Video Manifesto | Ausência do ciclo automatizado de Unmute/Mute baseado na posição de scroll em estado Fullscreen. | Experiência de UX incompleta na transição do vídeo de apresentação da marca. |
+| **P1-2** | 🟡 P1 (Estrutural) | Portfolio Grid | Disparo descontrolado de requisições de vídeo no hover em galerias com múltiplos cards em sequência rápida. | Aumento desnecessário do consumo de banda no Supabase Storage e travamento leve da thread principal. |
+| **P1-3** | 🟡 P1 (Estrutural) | About (What I Do) | Cálculo de scroll horizontal na seção "O Que Eu Faço" no mobile causando layout shift e stuttering em CPUs móveis. | Redução da fluidez (FPS < 50) e queda no score do Core Web Vitals (CLS/INP). |
+| **P2-1** | 🟢 P2 (Polimento) | About (Origin) | Espaçamento vertical acumulado nos blocos de texto da Origem Criativa no mobile. | Ajuste fino de layout e ritmo editorial. |
+| **P2-2** | 🟢 P2 (Polimento) | Portfolio Filter | Animação do indicador de filtro ativo (`layoutId="activeFilter"`) apresentando pequeno salto de posição ao trocar de página via paginação. | Polimento visual de microinteração. |
+| **P2-3** | 🟢 P2 (Polimento) | Admin Media | Grid de cards do modal de mídias no Admin sem min-height fixo nos contêineres de imagem. | Polimento de layout no painel gerencial. |
+| **P2-4** | 🟢 P2 (Polimento) | Footer Mobile | Espaçamento de toque dos links do rodapé no mobile ligeiramente inferior a 48px em telas pequenas. | Acessibilidade (WCAG Touch Target Size). |
 
-- 🟡 **P1 (Estrutural): Arquitetura WebGL Fora do Padrão.**
-  Componentes da `GhostScene` estão alocados em `canvas/home/hero` e precisam ser migrados estritamente para `src/components/home/webgl/` conforme a regra SSoT (`AGENTS.md`).
-
-- 🟡 **P1 (Estrutural): Estado Ativo do Header sem `scaleX`.**
-  O componente `DesktopFluidHeader.tsx` continua utilizando a animação baseada em alteração de `width` no pseudo-sublinhado, ao passo que a regra do projeto estipula explicitamente a utilização de `animate={{ scaleX: isActive ? 1 : 0 }}`.
-
-- 🟢 **P2 (Polimento Rápido): Refinamento do `CategoryStripe.tsx`.**
-  As interações da seta não estão empregando a propriedade `translateX` como recomendado para o padrão de movimento "Ghost Ease", estando baseadas unicamente em transições de opacidade estática entre SVGs.
+---
 
 ### 4️⃣ Prompts Técnicos para Agentes Google Antigravity (Atômicos)
 
-> **### 🛠️ Prompt #01 — Setup Custom Image Loader (Supabase/Firebase)**
-> **Objetivo:** Criar e configurar o loader customizado de imagens para evitar quebras de build e sobrecarga no Firebase Hosting.
-> **Arquivos:** `next.config.mjs`, `src/lib/supabase/image-loader.ts`
-> **Ações:** 1. Criar o arquivo `src/lib/supabase/image-loader.ts` com a lógica para transformar as URLs do bucket do Supabase em `/render/image/public`. 2. Atualizar o `next.config.mjs` para incluir a configuração `images: { loader: 'custom', loaderFile: './src/lib/supabase/image-loader.ts' }`.
-> **Regras:** Seguir as guidelines de performance e prover fallback seguro caso a URL não pertença ao Supabase.
-> **Critérios de Aceite:** O projeto deve buildar corretamente sem erros e a propriedade do Next Image deve redirecionar corretamente a request.
+> **### 🛠️ Prompt #01 — Ajuste Rigoroso de Altura Identica e Flex Stretch no Bento Grid de Featured Projects**
+> **Objetivo:** Garantir que todos os cards de projetos e o card CTA na mesma linha do Bento Grid tenham rigorosamente a mesma altura vertical e preenchimento horizontal de 100%.
+> **Arquivos:** `src/components/home/featured-projects/FeaturedProjectsSection.tsx`, `src/components/home/featured-projects/FeaturedProjectCard.tsx`, `src/components/home/featured-projects/CTAProjectCard.tsx`
+> **Ações:**
+> 1. Inspecionar as classes dos contêineres pai no `FeaturedProjectsSection.tsx` e aplicar `grid items-stretch` de forma estrita em cada linha (`row`).
+> 2. No `FeaturedProjectCard.tsx` e `CTAProjectCard.tsx`, alterar o invólucro para `h-full w-full flex flex-col justify-between items-stretch`.
+> 3. Ajustar o elemento de mídia interno e a área de metadados (`pt-6 mt-auto`) para que o frame de mídia expanda flexivelmente (`flex-1 min-h-0`) e force os blocos de texto de todos os cards da mesma linha a alinharem seus rodapés perfeitamente.
+> 4. Remover min-heights fixos incompatíveis no `CTAProjectCard.tsx` e utilizar `h-full` para herdar a altura exata do card de projeto adjacente.
+> **Regras:**
+> - Usar estritamente utilitários Tailwind CSS (`flex-1`, `h-full`, `items-stretch`, `min-h-0`).
+> - Manter padrão mobile-first (pilha vertical em telas de até 767px e grid de 12 colunas a partir de 1024px).
+> - Comparar o resultado com a especificação em `.context/DOCS-PORTFOLIO-PAGES/01-HOME/05-FEATURED-PROJECTS/`.
+> **Critérios de Aceite:**
+> - [ ] Cards da linha 1 (Card 1 e Card 2) possuem exata mesma altura vertical medida em pixels.
+> - [ ] Cards da linha 3 (Card 4 e CTA Card) possuem exata mesma altura vertical medida em pixels.
+> - [ ] Zero overflow horizontal ou quebra do grid em viewport móvel ou desktop.
 
-> **### 🛠️ Prompt #02 — Refatorar Arquitetura WebGL da Home**
-> **Objetivo:** Isolar e migrar componentes 3D/WebGL da Home para o diretório correto conforme documentado.
-> **Arquivos:** `src/components/home/hero/HomeHero.tsx`, `src/components/canvas/home/hero/*`, `src/components/home/webgl/ghost-canvas/*`
-> **Ações:** 1. Mover todos os arquivos R3F de `src/components/canvas/home/hero/` para o diretório `src/components/home/webgl/ghost-canvas/`. 2. Atualizar todos os imports em `HomeHero.tsx`.
-> **Regras:** Manter o uso do Dynamic Import e `ssr: false` para o Wrapper R3F.
-> **Critérios de Aceite:** O projeto compila com `next build` sem erros de importação e o canvas 3D é renderizado corretamente.
+---
 
-> **### 🛠️ Prompt #03 — Consertar Animação do Estado "Active" no Header**
-> **Objetivo:** Substituir a animação de `width` pelo uso de `scaleX` no indicador de aba ativa para o padrão Framer.
-> **Arquivos:** `src/components/layout/header/DesktopFluidHeader.tsx`
-> **Ações:** 1. Localizar o componente `DesktopNavItem`. 2. Substituir os variants (initial, hover, active) da barra de sublinhado. Definir o width fixo ou 100% e animar através de `scaleX`, configurando `origin-center` ou `origin-left`.
-> **Regras:** Respeitar a documentação explícita que proíbe o método puramente *width-based* sem layoutId, em detrimento do uso explícito do transform scale.
-> **Critérios de Aceite:** A animação sublinha suavemente e não causa repaint/layout shift.
+> **### 🛠️ Prompt #02 — Correção da Hierarquia de Z-Index e Pointer-Events no Home Hero**
+> **Objetivo:** Ajustar a pilha de z-index do `HomeHero.tsx` conforme a regra absoluta do `AGENTS.md` e garantir que o Canvas WebGL não bloqueie interações de texto e CTA.
+> **Arquivos:** `src/components/home/hero/HomeHero.tsx`, `src/components/canvas/home/hero/GhostSceneWrapper.tsx`
+> **Ações:**
+> 1. Atualizar a declaração dos z-indexes em `HomeHero.tsx` para seguir exatamente: Preloader (`z-[50]`), Miniatura Manifesto (`z-[30]`), WebGL Canvas Layer (`z-[20]`), Texto Editorial Hero Copy (`z-[10]`), Background (`z-[0]`).
+> 2. Assegurar que o container da camada WebGL possua a classe `pointer-events-none` e que apenas o canvas R3F capture eventos de mouse se o hover 3D estiver ativo.
+> 3. Verificar se o CTA botão do Hero (`HeroCTA`) permanece na camada superior (`z-[40]` ou `z-[50]`) com `pointer-events-auto` totalmente clicável.
+> **Regras:**
+> - Obedecer rigorosamente à hierarquia Z-Index definida em `AGENTS.md` (Seção 5).
+> - Garantir que a camada WebGL seja decorativa e nunca intercepte cliques nos textos ou links.
+> **Critérios de Aceite:**
+> - [ ] Textos e CTA do Hero são perfeitamente selecionáveis e clicáveis via mouse e touch.
+> - [ ] Preloader aparece sobre todos os elementos durante o carregamento inicial.
+> - [ ] NENHUM erro de console relacionado a eventos de ponteiro no Canvas.
 
-> **### 🛠️ Prompt #04 — Refinar Animação da Seta em CategoryStripe**
-> **Objetivo:** Adequar a seta do *Showcase* aos princípios Ghost System usando `translateX`.
-> **Arquivos:** `src/components/home/portfolio-showcase/CategoryStripe.tsx`
-> **Ações:** 1. Reduzir para um único ícone de `ArrowRight` (ou ArrowUpRight rotacionado nativamente) e injetar `animate={{ x: isHovered ? 4 : 0 }}`. 2. Remover opacidades duplas de ícones.
-> **Regras:** Animações devem ser declarativas pelo Framer Motion, respeitando a curva `GHOST_EASE`.
-> **Critérios de Aceite:** A interação flui apenas movendo a seta para a direita ao se aproximar.
+---
+
+> **### 🛠️ Prompt #03 — Sincronização do Ciclo de Áudio e Scroll Hold no Video Manifesto**
+> **Objetivo:** Implementar o desmudo automático com travamento suave de scroll de 2s quando o vídeo manifesto atinge o estado fullscreen na Home.
+> **Arquivos:** `src/components/home/hero/VideoManifesto.tsx`, `src/config/brand.ts`
+> **Ações:**
+> 1. Adicionar lógica de observação de interseção precisa em `VideoManifesto.tsx` monitorando quando o progresso de scroll da seção atinge o estado de tela cheia (`scrollYProgress === 1`).
+> 2. Quando em tela cheia na viewport Desktop, acionar temporizador de 2 segundos de retenção visual e alternar a propriedade `muted` do elemento de vídeo para `false` (com tratamento para política de Autoplay do browser).
+> 3. Ao rolar para fora do estado de tela cheia ou sair da viewport, retornar o áudio para `muted = true`.
+> 4. Garantir que em dispositivos móveis ou sob preferência por movimento reduzido (`prefers-reduced-motion`), o vídeo permaneça sempre mudo até que o usuário clique explicitamente no botão de alternância de áudio.
+> **Regras:**
+> - Utilizar Framer Motion / Lenis scroll callbacks sem bloquear a renderização.
+> - Tratar rejeições de promessa no método `.play()` do HTMLVideoElement graciosamente.
+> **Critérios de Aceite:**
+> - [ ] O vídeo desmuta automaticamente ao atingir 100% de presença central no desktop se houver interação prévia do usuário.
+> - [ ] O vídeo volta ao estado mudo imediatamente ao rolar para a próxima seção.
+> - [ ] O botão manual de som continua funcionando como override em qualquer momento.
+
+---
+
+> **### 🛠️ Prompt #04 — Otimização de Prefetch e Debounce de Mídia no Hover do Portfolio Grid**
+> **Objetivo:** Evitar requisições de mídia em cascata quando o usuário passa o cursor rapidamente por múltiplos cards no grid de portfólio.
+> **Arquivos:** `src/components/portfolio/ProjectCard.tsx`, `src/components/portfolio/ProjectsGallery.tsx`
+> **Ações:**
+> 1. Implementar um pequeno debounce (ex: 150ms) antes de alterar o estado `hasHoverRef.current` / `isHovered` em `ProjectCard.tsx`.
+> 2. Se o cursor sair do card (`onMouseLeave`) antes do limite de 150ms, cancelar o carregamento do recurso de vídeo.
+> 3. Utilizar atribuição condicional de atributos de prefetch/preload (`preload="none"` por padrão até que o debounce seja confirmado).
+> **Regras:**
+> - Manter o card renderizando a imagem estática WebP por padrão.
+> - Não causar recomposição visual ou layout shift ao carregar o vídeo.
+> **Critérios de Aceite:**
+> - [ ] Passar o cursor rapidamente por 10 cards no grid dispara 0 requisições de vídeo desnecessárias no Network Tab.
+> - [ ] Manter o cursor sobre um card por mais de 150ms inicia o carregamento e reprodução suave do vídeo no hover.
