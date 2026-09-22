@@ -4,10 +4,10 @@ packages:
 allowBuilds:
   '@firebase/util': false
   '@parcel/watcher': false
-  esbuild: false
+  esbuild: true
   protobufjs: false
   re2: false
-  sharp: false
+  sharp: true
   unrs-resolver: false
   workerd: true
 
