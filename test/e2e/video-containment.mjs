@@ -74,6 +74,7 @@ try {
         await page.route('**/*', route => new URL(route.request().url()).hostname === '127.0.0.1' || route.request().url().startsWith('about:') ? route.continue() : route.abort());
         await page.goto(`http://127.0.0.1:${server.address().port}`);
         await page.waitForFunction(() => document.querySelectorAll('section').length === 4);
+        // eslint-disable-next-line no-console
         console.log('Rendered', name, viewport.width, await page.locator('video').count(), await page.locator('body').innerText());
         for (const frame of page.frames()) {
           for (const video of await frame.locator('video').all()) {
@@ -100,5 +101,6 @@ try {
 } finally {
   server.close();
   await writeFile(path.join(output, 'results.json'), JSON.stringify(results,null,2));
+  // eslint-disable-next-line no-console
   console.log(JSON.stringify(results,null,2));
 }
