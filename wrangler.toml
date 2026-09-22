@@ -4,7 +4,10 @@ compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
 
 [build]
-command = "pnpm run build:cloudflare"
+command = "VALIDATE_ENV_WARN_ONLY=1 npx @opennextjs/cloudflare build"
+
+[vars]
+VALIDATE_ENV_WARN_ONLY = "1"
 
 [assets]
 directory = ".open-next/assets"
