@@ -96,7 +96,6 @@ test-results/
 # AI/Agent System (.agents)
 .agents_backup*/
 .agents/broken_links_report.json
-.agents/skills/
 .agents/skills-archive/
 .agents/.shared/
 .agents/data/
