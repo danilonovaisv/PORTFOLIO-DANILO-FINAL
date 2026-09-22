@@ -2389,3 +2389,37 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 - ✅ `professional_coder.md` verificado como inexistente no repositório.
 
 **Status:** Concluído.
+
+---
+
+## [2026-09-22T06:05] Organização e Padronização Completa de Skills (.agents/skills)
+
+**Context:** Execução combinada dos workflows `/plano-ajuste-orchestration` e `/agent-config-update` para auditoria, saneamento, desduplicação e organização estrutural de todas as skills do repositório em `.agents/skills`.
+
+**Changes Applied:**
+
+1. **Saneamento e Conformidade de Skills Críticas** ✅
+   - `orchestration`: Gerado `SKILL.md` canônico a partir de `orquestration-agent.md`, corrigindo o carregamento nativo pela IDE Antigravity.
+   - `antigravity-health-check`: Gerado `SKILL.md` canônico a partir de `antigravity-health-check.md`.
+   - `debugging-strategies`: Gerado `SKILL.md` canônico a partir de `SKILL_debugging-strategies.md`.
+   - `api-design-principles`: Diretório vazio populado com o acervo completo de assets, references e `SKILL.md` do plugin Ghost Design System.
+   - `framer-motion` e `ui-ux-pro-max`: Linhas convertidas de CRLF (Windows) para LF (Unix), prevenindo erros de parsing.
+
+2. **Promoção de Skills do Ghost System para 1º Nível** ✅
+   - Promovidas diretamente para `.agents/skills/`: `ghost-architect`, `ghost-r3f-optimization`, `ghost-firebase-deploy`, `caveman`, `claude-design-auditor`, `tailwind-motion-choreography`, `3d-web-experience`, `3d-webgl-scene`, suíte GSAP (`gsap-core`, `gsap-scrolltrigger`, etc.) e suíte Three.js (`threejs-shaders`, `threejs-materials`, etc.).
+
+3. **Promoção e Higienização do Superpowers Suite** ✅
+   - Promovidas para 1º nível: `writing-plans`, `using-superpowers`, `brainstorming`, `subagent-driven-development`, `test-driven-development`, `executing-plans`, `verification-before-completion`, etc.
+   - Criados aliases de compatibilidade para workflows legados (`using-superpowers/write-plan` e `wiki-brain`).
+   - Removido repositório `.git` interno órfão em `.agents/skills/superpower/.git` e metadados `.DS_Store`.
+   - Criado `SKILL.md` canônico para o meta-framework `superpower`.
+
+4. **Sincronização de Manifestos e Catálogos** ✅
+   - `AGENTS_MANIFEST.md`: Atualizada coluna de skills dos agentes canônicos (`@spectral_artist`, `@motion_choreographer`, `@audit_sentinel`, etc.) apontando para skills reais e ativas.
+   - `.context/knowledge/knowledge_skills.json`: Catálogo JSON regenerado contendo 131 skills ativas, categorizadas e com paths padronizados.
+
+**Verification:**
+- ✅ Script de auditoria Node validou 131 de 131 skills em `.agents/skills/` com `SKILL.md` canônico, frontmatter YAML válido (`name`, `description`) e zero CRLF.
+- ✅ Zero erros ou anomalias estruturais remanescentes.
+
+**Status:** Concluído com 100% de conformidade.

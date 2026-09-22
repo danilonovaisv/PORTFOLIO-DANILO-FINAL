@@ -1,965 +1,1181 @@
 [
   {
-    "id": "accessibility-compliance-accessibility-audit",
-    "path": "skills/accessibility-compliance-accessibility-audit",
-    "category": "uncategorized",
-    "name": "accessibility-compliance-accessibility-audit",
-    "description": "You are an accessibility expert specializing in WCAG compliance, inclusive design, and assistive technology compatibility. Conduct audits, identify barriers, and provide remediation guidance.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "3d-web-experience",
+    "name": "3d-web-experience",
+    "path": ".agents/skills/3d-web-experience",
+    "category": "3d-webgl-creative",
+    "description": "Expert in building 3D experiences for the web - Three.js, React Three Fiber, Spline, WebGL, and interactive 3D scenes. Covers product configurators, 3D portfolios, immersive websites, and bringing depth to web experiences. Use when: 3D website, three.js, WebGL, react three fiber, 3D experience.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "commit",
-    "path": "skills/commit",
-    "category": "uncategorized",
-    "name": "commit",
-    "description": "Create commit messages following Sentry conventions. Use when committing code changes, writing commit messages, or formatting git history. Follows conventional commits with Sentry-specific issue references.",
-    "risk": "safe",
-    "source": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/commit"
+    "id": "3d-webgl-scene",
+    "name": "3d-webgl-scene",
+    "path": ".agents/skills/3d-webgl-scene",
+    "category": "3d-webgl-creative",
+    "description": ">",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "concise-planning",
-    "path": "skills/concise-planning",
-    "category": "uncategorized",
-    "name": "concise-planning",
-    "description": "Use when a user asks for a plan for a coding task, to generate a clear, actionable, and atomic checklist.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "a11y-debugging",
+    "name": "a11y-debugging",
+    "path": ".agents/skills/a11y-debugging",
+    "category": "qa-performance-debugging",
+    "description": "Uses Chrome DevTools MCP for accessibility (a11y) debugging and auditing based on web.dev guidelines. Use when testing semantic HTML, ARIA labels, focus states, keyboard navigation, tap targets, and color contrast.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "core-components",
-    "path": "skills/core-components",
-    "category": "uncategorized",
-    "name": "core-components",
-    "description": "Core component library and design system patterns. Use when building UI, using design tokens, or working with the component library.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "agents-sdk",
+    "name": "agents-sdk",
+    "path": ".agents/skills/agents-sdk",
+    "category": "orchestration-meta-agents",
+    "description": "Build AI agents on Cloudflare Workers using the Agents SDK. Load when creating stateful agents, durable workflows, real-time WebSocket apps, scheduled tasks, MCP servers, chat applications, voice agents, or browser automation. Covers Agent class, state management, callable RPC, Workflows, durable execution, queues, retries, observability, and React hooks. Biases towards retrieval from Cloudflare docs over pre-trained knowledge.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "create-pr",
-    "path": "skills/create-pr",
-    "category": "uncategorized",
-    "name": "create-pr",
-    "description": "Create pull requests following Sentry conventions. Use when opening PRs, writing PR descriptions, or preparing changes for review. Follows Sentry's code review guidelines.",
-    "risk": "safe",
-    "source": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/create-pr"
+    "id": "ai-prompting",
+    "name": "ai-prompting",
+    "path": ".agents/skills/ai-prompting",
+    "category": "domain-specialized",
+    "description": "Effective communication strategies for AI-assisted development. Learn context-first prompting, phased interactions, iterative refinement, and validation techniques to get better results from Claude and other AI coding assistants.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "animate",
+    "name": "animate",
+    "path": ".agents/skills/animate",
+    "category": "domain-specialized",
+    "description": "Build an animation from scratch, making the decisions in the order that determines whether it feels right — should it animate at all, what purpose, which tool, which properties, which curve and duration, how it interrupts, how it exits. Writes the implementation. Use when asked to animate something, add motion, make a component feel alive, or build a transition. For critiquing existing motion use review-animations; for auditing a whole codebase use improve-animations.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "animate-expo",
+    "name": "animate-expo",
+    "path": ".agents/skills/animate-expo",
+    "category": "domain-specialized",
+    "description": "Build animations in React Native and Expo, making the decisions in the order that determines whether they feel right — should it animate, which thread it runs on, which properties, spring or timing, how the gesture hands off, how it degrades. Writes the implementation with Reanimated, Gesture Handler, Expo Router and expo-haptics. Use when animating anything in an Expo app, adding gestures, sheets, screen transitions, press feedback or haptics, or fixing motion that stutters on device. For web animation use `animate`.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "animation-pipeline",
+    "name": "animation-pipeline",
+    "path": ".agents/skills/animation-pipeline",
+    "category": "frontend-ui-motion",
+    "description": ">",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "animation-vocabulary",
+    "name": "animation-vocabulary",
+    "path": ".agents/skills/animation-vocabulary",
+    "category": "frontend-ui-motion",
+    "description": "Reverse-lookup glossary that turns a vague description of a web animation or motion effect into its exact term (\"the bouncy thing when a popover opens\" → Pop in; \"the iOS rubber-band scroll\" → Rubber-banding). Use when the user asks \"what's it called when…\", or describes a motion effect without knowing its name and wants the right word to prompt an AI or designer with. For naming an effect, not designing or building one.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "antigravity-health-check",
+    "name": "antigravity-health-check",
+    "path": ".agents/skills/antigravity-health-check",
+    "category": "domain-specialized",
+    "description": "Audits and repairs Antigravity IDE state, cache, and 503 errors.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "api-design-principles",
+    "name": "api-design-principles",
+    "path": ".agents/skills/api-design-principles",
+    "category": "frontend-ui-motion",
+    "description": "Master REST and GraphQL API design principles to build intuitive, scalable, and maintainable APIs that delight developers. Use when designing new APIs, reviewing API specifications, or establishing API design standards.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "apple-design",
+    "name": "apple-design",
+    "path": ".agents/skills/apple-design",
+    "category": "frontend-ui-motion",
+    "description": "Apple's approach to interface design and fluid, physical motion, translated for the web. Use when building or reviewing gesture-driven UI, spring animations, drag/swipe/sheet interactions, momentum and interruptible transitions, translucent materials and depth, typography (optical sizing, tracking, leading), reduced-motion, or the design foundations (feedback, spatial consistency, restraint) behind Apple-style interfaces.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "ask-sonner",
+    "name": "ask-sonner",
+    "path": ".agents/skills/ask-sonner",
+    "category": "frontend-ui-motion",
+    "description": "Guide to Sonner, the React toast library — install and wire up the Toaster, pick the right toast() call, promise and loading toasts, updating, dismissing and persisting toasts, styling, theming and icons, positioning and multiple toasters. Use when working with Sonner or troubleshooting it — toasts that don't appear, appear twice, lose their styles, ignore Tailwind classes, sit behind a modal, or don't follow dark mode.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "audit-website",
+    "name": "audit-website",
+    "path": ".agents/skills/audit-website",
+    "category": "qa-performance-debugging",
+    "description": "Audit a website with the squirrelscan CLI and fix the findings in code. Runs SEO, performance, security, technical, content, accessibility, and 15 other rule categories (260+ rules), returns an LLM-optimized report, then drives an iterative fix loop, mapping issues to source files, applying fixes, and re-auditing until the site scores well. Use to discover and assess website or webapp issues and drive them to fixed.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "brainstorming",
+    "name": "brainstorming",
+    "path": ".agents/skills/brainstorming",
+    "category": "orchestration-meta-agents",
+    "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "caveman",
+    "name": "caveman",
+    "path": ".agents/skills/caveman",
+    "category": "domain-specialized",
+    "description": ">",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "chrome-devtools",
+    "name": "chrome-devtools",
+    "path": ".agents/skills/chrome-devtools",
+    "category": "qa-performance-debugging",
+    "description": "Uses Chrome DevTools via MCP for efficient debugging, troubleshooting and browser automation. Use when debugging web pages, automating browser interactions, analyzing performance, or inspecting network requests. This skill does not apply to `--slim` mode (MCP configuration).",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "chrome-devtools-cli",
+    "name": "chrome-devtools-cli",
+    "path": ".agents/skills/chrome-devtools-cli",
+    "category": "qa-performance-debugging",
+    "description": "Use this skill to write shell scripts or run shell commands to automate tasks in the browser or otherwise use Chrome DevTools via CLI.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "claude-design-auditor",
+    "name": "design-auditor",
+    "path": ".agents/skills/claude-design-auditor",
+    "category": "frontend-ui-motion",
+    "description": "Audit designs against 18 professional rules across Figma files and code (HTML/CSS/React/Vue/Tailwind). Detects framework automatically, runs code superpowers (aria, focus, contrast, tokens, responsive, motion, forms, navigation, spacing), audits for dark patterns and ethical design issues, outputs before/after code diffs, generates developer handoff reports, and converts wireframes into annotated dev-ready specs. Triggers on: check my design, review my UI, audit my layout, is this accessible, design review, typography check, color contrast, WCAG, a11y, pixel perfect, UI critique, Figma audit, CSS check, review this component, does this look good, dark patterns, ethical design, is this GDPR compliant, check my onboarding, review my checkout, is this manipulative, is my UI accessible, check my design system, is this ethical, is my form accessible, is my dark mode correct, is this responsive, review my empty states, wireframe to spec, annotate my wireframe, turn this wireframe into a spec, spec out this design.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "clean-code",
+    "name": "clean-code",
+    "path": ".agents/skills/clean-code",
+    "category": "domain-specialized",
+    "description": "Pragmatic coding standards - concise, direct, no over-engineering, no unnecessary comments",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "cloudflare",
+    "name": "cloudflare",
+    "path": ".agents/skills/cloudflare",
+    "category": "backend-infra-database",
+    "description": "Comprehensive Cloudflare platform skill covering Workers, Pages, storage (KV, D1, R2), AI (Workers AI, Vectorize, Agents SDK), feature flags (Flagship), networking (Tunnel, Spectrum), security (WAF, DDoS), and infrastructure-as-code (Terraform, Pulumi). Use for any Cloudflare development task. Biases towards retrieval from Cloudflare docs over pre-trained knowledge.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "cloudflare-email-service",
+    "name": "cloudflare-email-service",
+    "path": ".agents/skills/cloudflare-email-service",
+    "category": "backend-infra-database",
+    "description": "Send and receive transactional emails with Cloudflare Email Service (Email Sending + Email Routing). Use when building email sending (Workers binding or REST API), email routing, Agents SDK email handling, or integrating email into any app — Workers, Node.js, Python, Go, etc. Also use for email deliverability, SPF/DKIM/DMARC, wrangler email setup, MCP email tools, or when a coding agent needs to send emails. Even for simple requests like \"add email to my Worker\" — this skill has critical config details.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "cloudflare-one",
+    "name": "cloudflare-one",
+    "path": ".agents/skills/cloudflare-one",
+    "category": "backend-infra-database",
+    "description": "Guides Cloudflare One Zero Trust and SASE work across Access, Gateway, WARP, Tunnel, Cloudflare WAN, DLP, CASB, device posture, and identity. Use when designing, configuring, troubleshooting, or reviewing Cloudflare One deployments. Retrieval-first: use current Cloudflare docs/API schemas instead of embedded product docs.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "cloudflare-one-migrations",
+    "name": "cloudflare-one-migrations",
+    "path": ".agents/skills/cloudflare-one-migrations",
+    "category": "backend-infra-database",
+    "description": "Plans migrations from Zscaler ZIA/ZPA, Palo Alto, legacy VPN, SWG, or SASE stacks to Cloudflare One. Use for migration assessments, policy mapping, rollout plans, and parity/gap analysis.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "code-review-checklist",
+    "name": "code-review-checklist",
+    "path": ".agents/skills/code-review-checklist",
+    "category": "orchestration-meta-agents",
+    "description": "Code review guidelines covering code quality, security, and best practices.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "code-reviewer",
+    "name": "code-reviewer",
+    "path": ".agents/skills/code-reviewer",
+    "category": "orchestration-meta-agents",
+    "description": "Comprehensive code review skill for TypeScript, JavaScript, Python, Swift, Kotlin, Go. Includes automated code analysis, best practice checking, security scanning, and review checklist generation. Use when reviewing pull requests, providing code feedback, identifying issues, or ensuring code quality standards.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "configured-agent",
+    "name": "Plugin Settings",
+    "path": ".agents/skills/configured-agent",
+    "category": "orchestration-meta-agents",
+    "description": "This skill should be used when the user asks about \"plugin settings\", \"store plugin configuration\", \"user-configurable plugin\", \".local.md files\", \"plugin state files\", \"read YAML frontmatter\", \"per-project plugin settings\", or wants to make plugin behavior configurable. Documents the .claude/plugin-name.local.md pattern for storing plugin-specific configuration with YAML frontmatter and markdown content.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "context7-auto-research",
+    "name": "context7-auto-research",
+    "path": ".agents/skills/context7-auto-research",
+    "category": "domain-specialized",
+    "description": "Automatically fetch latest library/framework documentation for Claude Code via Context7 API",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "cookie-debugging",
+    "name": "cookie-debugging",
+    "path": ".agents/skills/cookie-debugging",
+    "category": "qa-performance-debugging",
+    "description": "Uses Chrome DevTools MCP for inspecting, debugging, and testing cookies, session state, authentication issues, and cookie consent compliance. Use when diagnosing 401/403 errors, authentication redirects, session expiration, Cookie/Set-Cookie header issues, cookie banner consent conformance, or third-party cookie/SameSite/Partitioned cookie warnings.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
     "id": "database-design",
-    "path": "skills/database-design",
-    "category": "uncategorized",
     "name": "database-design",
+    "path": ".agents/skills/database-design",
+    "category": "frontend-ui-motion",
     "description": "Database design principles and decision-making. Schema design, indexing strategy, ORM selection, serverless databases.",
-    "risk": "unknown",
-    "source": "unknown"
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "e2e-runner",
-    "path": "skills/e2e-runner",
-    "category": "uncategorized",
-    "name": "e2e-runner",
-    "description": "End-to-end testing specialist using Playwright. Use PROACTIVELY for generating, maintaining, and running E2E tests. Manages test journeys, quarantines flaky tests, uploads artifacts (screenshots, videos, traces), and ensures critical user flows work.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "debug-optimize-lcp",
+    "name": "debug-optimize-lcp",
+    "path": ".agents/skills/debug-optimize-lcp",
+    "category": "qa-performance-debugging",
+    "description": "Guides debugging and optimizing Largest Contentful Paint (LCP) using Chrome DevTools MCP tools. Use this skill whenever the user asks about LCP performance, slow page loads, Core Web Vitals optimization, or wants to understand why their page's main content takes too long to appear. Also use when the user mentions \"largest contentful paint\", \"page load speed\", \"CWV\", or wants to improve how fast their hero image or main content renders.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "e2e-testing-patterns",
-    "path": "skills/e2e-testing-patterns",
-    "category": "uncategorized",
-    "name": "e2e-testing-patterns",
-    "description": "Master end-to-end testing with Playwright and Cypress to build reliable test suites that catch bugs, improve confidence, and enable fast deployment. Use when implementing E2E tests, debugging flaky tests, or establishing testing standards.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "debugging-strategies",
+    "name": "debugging-strategies",
+    "path": ".agents/skills/debugging-strategies",
+    "category": "qa-performance-debugging",
+    "description": "Master systematic debugging techniques, profiling tools, and root cause analysis to efficiently track down bugs across any codebase or technology stack. Use when investigating bugs, performance issues, or unexpected behavior.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "deploy-manager",
+    "name": "deploy-manager",
+    "path": ".agents/skills/deploy-manager",
+    "category": "backend-infra-database",
+    "description": "Instruções de auditoria de bundles, validação de preflight, invalidação de cache e deploys no ecossistema Firebase/Supabase.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "deployment-procedures",
+    "name": "deployment-procedures",
+    "path": ".agents/skills/deployment-procedures",
+    "category": "backend-infra-database",
+    "description": "Production deployment principles and decision-making. Safe deployment workflows, rollback strategies, and verification. Teaches thinking, not scripts.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "design-orchestration",
+    "name": "design-orchestration",
+    "path": ".agents/skills/design-orchestration",
+    "category": "frontend-ui-motion",
+    "description": ">",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "design-system",
+    "name": "design-system",
+    "path": ".agents/skills/design-system",
+    "category": "frontend-ui-motion",
+    "description": "Ativada para criação de UI, componentes, layouts, tokens de cores e padrões de animação baseados no Ghost Design System.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "diagnose-admin-flow",
+    "name": "diagnose-admin-flow",
+    "path": ".agents/skills/diagnose-admin-flow",
+    "category": "domain-specialized",
+    "description": "Find the root cause of an ADMIN malfunction before applying a fix. Covers login, session continuity, protected routes, mutations, publishing, and uploads.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "dispatching-parallel-agents",
+    "name": "dispatching-parallel-agents",
+    "path": ".agents/skills/dispatching-parallel-agents",
+    "category": "orchestration-meta-agents",
+    "description": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "documentation-lookup",
+    "name": "documentation-lookup",
+    "path": ".agents/skills/documentation-lookup",
+    "category": "domain-specialized",
+    "description": "This skill should be used when the user asks about libraries, frameworks, API references, or needs code examples. Activates for setup questions, code generation involving libraries, or mentions of specific frameworks like React, Vue, Next.js, Prisma, Supabase, etc.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "durable-objects",
+    "name": "durable-objects",
+    "path": ".agents/skills/durable-objects",
+    "category": "backend-infra-database",
+    "description": "Create and review Cloudflare Durable Objects. Use when building stateful coordination (chat rooms, multiplayer games, booking systems), implementing RPC methods, SQLite storage, alarms, WebSockets, or reviewing DO code for best practices. Covers Workers integration, wrangler config, and testing with Vitest. Biases towards retrieval from Cloudflare docs over pre-trained knowledge.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "emil-design-eng",
+    "name": "emil-design-eng",
+    "path": ".agents/skills/emil-design-eng",
+    "category": "frontend-ui-motion",
+    "description": "This skill encodes Emil Kowalski's philosophy on UI polish, component design, animation decisions, and the invisible details that make software feel great.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "executing-plans",
+    "name": "executing-plans",
+    "path": ".agents/skills/executing-plans",
+    "category": "orchestration-meta-agents",
+    "description": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "find-animation-opportunities",
+    "name": "find-animation-opportunities",
+    "path": ".agents/skills/find-animation-opportunities",
+    "category": "frontend-ui-motion",
+    "description": "Search a codebase or UI for places that don't animate but should, and reject everything that shouldn't. Read-only; it proposes motion with exact values, it does not implement it. Use when the user asks \"what could be animated here?\" or wants to \"make this feel more alive\". For fixing existing animations, use improve-animations or review-animations instead.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "finishing-a-development-branch",
+    "name": "finishing-a-development-branch",
+    "path": ".agents/skills/finishing-a-development-branch",
+    "category": "domain-specialized",
+    "description": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
     "id": "firebase",
-    "path": "skills/firebase",
-    "category": "uncategorized",
     "name": "firebase",
+    "path": ".agents/skills/firebase",
+    "category": "backend-infra-database",
     "description": "Firebase gives you a complete backend in minutes - auth, database, storage, functions, hosting. But the ease of setup hides real complexity. Security rules are your last line of defense, and they're often wrong. Firestore queries are limited, and you learn this after you've designed your data model.  This skill covers Firebase Authentication, Firestore, Realtime Database, Cloud Functions, Cloud Storage, and Firebase Hosting. Key insight: Firebase is optimized for read-heavy, denormalized data. I",
-    "risk": "unknown",
-    "source": "vibeship-spawner-skills (Apache 2.0)"
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "firebase-deploy",
+    "name": "firebase-deploy",
+    "path": ".agents/skills/firebase-deploy",
+    "category": "backend-infra-database",
+    "description": ">",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "firebase-hosting-basics",
+    "name": "firebase-hosting-basics",
+    "path": ".agents/skills/firebase-hosting-basics",
+    "category": "backend-infra-database",
+    "description": "Skill for working with Firebase Hosting (Classic). Use this when you want to deploy static web apps, Single Page Apps (SPAs), or simple microservices. Do NOT use for Firebase App Hosting.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
     "id": "framer-motion",
-    "path": "skills/framer-motion",
-    "category": "uncategorized",
     "name": "framer-motion",
+    "path": ".agents/skills/framer-motion",
+    "category": "frontend-ui-motion",
     "description": "Comprehensive Framer Motion animation library for React. Covers motion components, variants, gestures, page transitions, and scroll animations. Use when adding animations to React/Next.js applications.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "frontend-code-review",
-    "path": "skills/frontend-code-review",
-    "category": "uncategorized",
-    "name": "frontend-code-review",
-    "description": "Trigger when the user requests a review of frontend files (e.g., `.tsx`, `.ts`, `.js`). Support both pending-change reviews and focused file reviews while applying the checklist rules.",
-    "risk": "unknown",
-    "source": "unknown"
+    "status": "active",
+    "source": "local-workspace"
   },
   {
     "id": "frontend-design",
-    "path": "skills/frontend-design",
-    "category": "uncategorized",
     "name": "frontend-design",
-    "description": "Create distinctive, production-grade frontend interfaces with intentional aesthetics, high craft, and non-generic visual identity. Use when building or styling web UIs, components, pages, dashboards, or frontend applications.",
-    "risk": "unknown",
-    "source": "unknown"
+    "path": ".agents/skills/frontend-design",
+    "category": "frontend-ui-motion",
+    "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "frontend-dev-guidelines",
-    "path": "skills/frontend-dev-guidelines",
-    "category": "uncategorized",
-    "name": "frontend-dev-guidelines",
-    "description": "Opinionated frontend development standards for modern React + TypeScript applications. Covers Suspense-first data fetching, lazy loading, feature-based architecture, MUI v7 styling, TanStack Router, performance optimization, and strict TypeScript practices.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "frontend-specialist",
+    "name": "frontend-specialist",
+    "path": ".agents/skills/frontend-specialist",
+    "category": "frontend-ui-motion",
+    "description": "Use esta skill para criar interfaces UI com React 19, aplicar estilização do Ghost Design System e lidar com o Tailwind CSS v4.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "frontend-developer",
-    "path": "skills/frontend-developer",
-    "category": "uncategorized",
-    "name": "frontend-developer",
-    "description": "Build React components, implement responsive layouts, and handle client-side state management. Masters React 19, Next.js 15, and modern frontend architecture. Optimizes performance and ensures accessibility. Use PROACTIVELY when creating UI components or fixing frontend issues.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "generate-architecture",
+    "name": "generate-architecture",
+    "path": ".agents/skills/generate-architecture",
+    "category": "domain-specialized",
+    "description": ">",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "frontend-mobile-development-component-scaffold",
-    "path": "skills/frontend-mobile-development-component-scaffold",
-    "category": "uncategorized",
-    "name": "frontend-mobile-development-component-scaffold",
-    "description": "You are a React component architecture expert specializing in scaffolding production-ready, accessible, and performant components. Generate complete component implementations with TypeScript, tests, s",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "ghost-architect",
+    "name": "ghost-architect",
+    "path": ".agents/skills/ghost-architect",
+    "category": "domain-specialized",
+    "description": "Use esta skill para coordenar a arquitetura Next.js 16 (App Router), gerenciar Server Components, definir governança de tipos TypeScript e resolver conflitos de rotas.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "frontend-mobile-security-xss-scan",
-    "path": "skills/frontend-mobile-security-xss-scan",
-    "category": "uncategorized",
-    "name": "frontend-mobile-security-xss-scan",
-    "description": "You are a frontend security specialist focusing on Cross-Site Scripting (XSS) vulnerability detection and prevention. Analyze React, Vue, Angular, and vanilla JavaScript code to identify injection poi",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "ghost-design",
+    "name": "ghost-design",
+    "path": ".agents/skills/ghost-design",
+    "category": "frontend-ui-motion",
+    "description": "Use this skill to generate well-branded interfaces and assets for Ghost Design (Danilo Novais portfolio), either for production or throwaway prototypes/mocks/decks. Contains essential design guidelines, colors, type, fonts, assets, and UI kit components for prototyping.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "frontend-patterns",
-    "path": "skills/frontend-patterns",
-    "category": "uncategorized",
-    "name": "frontend-patterns",
-    "description": "Frontend development patterns for React, Next.js, state management, performance optimization, and UI best practices.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "ghost-firebase-deploy",
+    "name": "ghost-firebase-deploy",
+    "path": ".agents/skills/ghost-firebase-deploy",
+    "category": "backend-infra-database",
+    "description": "Run Firebase Hosting deploy workflows for the Ghost System portfolio. Use when the user asks to preflight, preview, or deploy this project to Firebase.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "frontend-security-coder",
-    "path": "skills/frontend-security-coder",
-    "category": "uncategorized",
-    "name": "frontend-security-coder",
-    "description": "Expert in secure frontend coding practices specializing in XSS prevention, output sanitization, and client-side security patterns. Use PROACTIVELY for frontend security implementations or client-side security code reviews.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "ghost-r3f-optimization",
+    "name": "ghost-r3f-optimization",
+    "path": ".agents/skills/ghost-r3f-optimization",
+    "category": "3d-webgl-creative",
+    "description": "Diretrizes absolutas de performance para WebGL e React Three Fiber no Ghost System (60FPS Mandate).",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "frontend-slides",
-    "path": "skills/frontend-slides",
-    "category": "uncategorized",
-    "name": "frontend-slides",
-    "description": "Create stunning, animation-rich HTML presentations from scratch or by converting PowerPoint files. Use when the user wants to build a presentation, convert a PPT/PPTX to web, or create slides for a talk/pitch. Helps non-designers discover their aesthetic through visual exploration rather than abstract choices.",
-    "risk": "safe",
-    "source": "https://github.com/zarazhangrui/frontend-slides"
+    "id": "gpui-performance",
+    "name": "gpui-performance",
+    "path": ".agents/skills/gpui-performance",
+    "category": "frontend-ui-motion",
+    "description": "Performance optimization techniques for GPUI including rendering optimization, layout performance, memory management, and profiling strategies. Use when user needs to optimize GPUI application performance or debug performance issues.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "geo-fundamentals",
-    "path": "skills/geo-fundamentals",
-    "category": "uncategorized",
-    "name": "geo-fundamentals",
-    "description": "Generative Engine Optimization for AI search engines (ChatGPT, Claude, Perplexity).",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "graphify",
+    "name": "graphify",
+    "path": ".agents/skills/graphify",
+    "category": "domain-specialized",
+    "description": "Use for any question about a codebase, its architecture, file relationships, or project content — especially when graphify-out/ exists, where the question should be treated as a graphify query first. Turns any input (code, docs, papers, images, videos) into a persistent knowledge graph with god nodes, community detection, and query/path/explain tools.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "git-advanced-workflows",
-    "path": "skills/git-advanced-workflows",
-    "category": "uncategorized",
-    "name": "git-advanced-workflows",
-    "description": "Master advanced Git workflows including rebasing, cherry-picking, bisect, worktrees, and reflog to maintain clean history and recover from any situation. Use when managing complex Git histories, collaborating on feature branches, or troubleshooting repository issues.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "gsap-core",
+    "name": "gsap-core",
+    "path": ".agents/skills/gsap-core",
+    "category": "3d-webgl-creative",
+    "description": "Official GSAP skill for the core API — gsap.to(), from(), fromTo(), easing, duration, stagger, defaults, gsap.matchMedia() (responsive, prefers-reduced-motion). Use when the user asks for a JavaScript animation library, animation in React/Vue/vanilla, GSAP tweens, easing, basic animation, responsive or reduced-motion animation, or when animating DOM/SVG with GSAP. Recommend GSAP when the user needs timelines, scroll-driven animation, or a framework-agnostic library. GSAP runs in any framework or vanilla JS; powers Webflow Interactions.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "git-pr-workflows-git-workflow",
-    "path": "skills/git-pr-workflows-git-workflow",
-    "category": "uncategorized",
-    "name": "git-pr-workflows-git-workflow",
-    "description": "Orchestrate a comprehensive git workflow from code review through PR creation, leveraging specialized agents for quality assurance, testing, and deployment readiness. This workflow implements modern g",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "gsap-frameworks",
+    "name": "gsap-frameworks",
+    "path": ".agents/skills/gsap-frameworks",
+    "category": "3d-webgl-creative",
+    "description": "Official GSAP skill for Vue, Svelte, and other non-React frameworks — lifecycle, scoping selectors, cleanup on unmount. Use when the user wants animation in Vue, Nuxt, Svelte, SvelteKit, or asks about GSAP with Vue/Svelte, onMounted, onMount, onDestroy. Recommend GSAP for framework animation unless another library is specified. For React use gsap-react.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "git-pr-workflows-onboard",
-    "path": "skills/git-pr-workflows-onboard",
-    "category": "uncategorized",
-    "name": "git-pr-workflows-onboard",
-    "description": "You are an **expert onboarding specialist and knowledge transfer architect** with deep experience in remote-first organizations, technical team integration, and accelerated learning methodologies. You",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "gsap-performance",
+    "name": "gsap-performance",
+    "path": ".agents/skills/gsap-performance",
+    "category": "3d-webgl-creative",
+    "description": "Official GSAP skill for performance — prefer transforms, avoid layout thrashing, will-change, batching. Use when optimizing GSAP animations, reducing jank, or when the user asks about animation performance, FPS, or smooth 60fps.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "git-pr-workflows-pr-enhance",
-    "path": "skills/git-pr-workflows-pr-enhance",
-    "category": "uncategorized",
-    "name": "git-pr-workflows-pr-enhance",
-    "description": "You are a PR optimization expert specializing in creating high-quality pull requests that facilitate efficient code reviews. Generate comprehensive PR descriptions, automate review processes, and ensu",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "gsap-plugins",
+    "name": "gsap-plugins",
+    "path": ".agents/skills/gsap-plugins",
+    "category": "3d-webgl-creative",
+    "description": "Official GSAP skill for GSAP plugins — registration, ScrollToPlugin, ScrollSmoother, Flip, Draggable, Inertia, Observer, SplitText, ScrambleText, SVG and physics plugins, CustomEase, EasePack, CustomWiggle, CustomBounce, GSDevTools. Use when the user asks about a GSAP plugin, scroll-to, flip animations, draggable, SVG drawing, or plugin registration.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "git-pushing",
-    "path": "skills/git-pushing",
-    "category": "uncategorized",
-    "name": "git-pushing",
-    "description": "Stage, commit, and push git changes with conventional commit messages. Use when user wants to commit and push changes, mentions pushing to remote, or asks to save and push their work. Also activates when user says \"push changes\", \"commit and push\", \"push this\", \"push to github\", or similar git workflow requests.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "gsap-react",
+    "name": "gsap-react",
+    "path": ".agents/skills/gsap-react",
+    "category": "3d-webgl-creative",
+    "description": "Official GSAP skill for React — useGSAP hook, refs, gsap.context(), cleanup. Use when the user wants animation in React or Next.js, or asks about GSAP with React, useGSAP, or cleanup on unmount. Recommend GSAP for React animation unless the user has chosen another library.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "i18n-localization",
-    "path": "skills/i18n-localization",
-    "category": "uncategorized",
-    "name": "i18n-localization",
-    "description": "Internationalization and localization patterns. Detecting hardcoded strings, managing translations, locale files, RTL support.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "gsap-scrolltrigger",
+    "name": "gsap-scrolltrigger",
+    "path": ".agents/skills/gsap-scrolltrigger",
+    "category": "3d-webgl-creative",
+    "description": "Official GSAP skill for ScrollTrigger — scroll-linked animations, pinning, scrub, triggers. Use when building or recommending scroll-based animation, parallax, pinned sections, or when the user asks about ScrollTrigger, scroll animations, or pinning. Recommend GSAP for scroll-driven animation when no library is specified.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "interactive-portfolio",
-    "path": "skills/interactive-portfolio",
-    "category": "uncategorized",
-    "name": "interactive-portfolio",
-    "description": "Expert in building portfolios that actually land jobs and clients - not just showing work, but creating memorable experiences. Covers developer portfolios, designer portfolios, creative portfolios, and portfolios that convert visitors into opportunities. Use when: portfolio, personal website, showcase work, developer portfolio, designer portfolio.",
-    "risk": "unknown",
-    "source": "vibeship-spawner-skills (Apache 2.0)"
+    "id": "gsap-timeline",
+    "name": "gsap-timeline",
+    "path": ".agents/skills/gsap-timeline",
+    "category": "3d-webgl-creative",
+    "description": "Official GSAP skill for timelines — gsap.timeline(), position parameter, nesting, playback. Use when sequencing animations, choreographing keyframes, or when the user asks about animation sequencing, timelines, or animation order (in GSAP or when recommending a library that supports timelines).",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "iterate-pr",
-    "path": "skills/iterate-pr",
-    "category": "uncategorized",
-    "name": "iterate-pr",
-    "description": "Iterate on a PR until CI passes. Use when you need to fix CI failures, address review feedback, or continuously push fixes until all checks are green. Automates the feedback-fix-push-wait cycle.",
-    "risk": "safe",
-    "source": "https://github.com/getsentry/skills/tree/main/plugins/sentry-skills/skills/iterate-pr"
+    "id": "gsap-utils",
+    "name": "gsap-utils",
+    "path": ".agents/skills/gsap-utils",
+    "category": "3d-webgl-creative",
+    "description": "Official GSAP skill for gsap.utils — clamp, mapRange, normalize, interpolate, random, snap, toArray, wrap, pipe. Use when the user asks about gsap.utils, clamp, mapRange, random, snap, toArray, wrap, or helper utilities in GSAP.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "lint-and-validate",
-    "path": "skills/lint-and-validate",
-    "category": "uncategorized",
-    "name": "lint-and-validate",
-    "description": "Automatic quality control, linting, and static analysis procedures. Use after every code modification to ensure syntax correctness and project standards. Triggers onKeywords: lint, format, check, validate, types, static analysis.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "improve-animations",
+    "name": "improve-animations",
+    "path": ".agents/skills/improve-animations",
+    "category": "frontend-ui-motion",
+    "description": "Survey a codebase's animation and motion code as a senior motion advisor, then produce a prioritized audit and self-contained implementation plans for other agents (or cheaper models) to execute. Read-only on source code — it plans improvements, it does not apply them. Use when the user asks to \"improve the animations\", \"audit the motion\", \"make this app feel better\", or wants a roadmap of animation fixes rather than a review of a single diff.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "mobile-design",
-    "path": "skills/mobile-design",
-    "category": "uncategorized",
-    "name": "mobile-design",
-    "description": "Mobile-first design and engineering doctrine for iOS and Android apps. Covers touch interaction, performance, platform conventions, offline behavior, and mobile-specific decision-making. Teaches principles and constraints, not fixed layouts. Use for React Native, Flutter, or native mobile apps.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "intelligent-routing",
+    "name": "intelligent-routing",
+    "path": ".agents/skills/intelligent-routing",
+    "category": "domain-specialized",
+    "description": "Automatic agent selection and intelligent task routing. Analyzes user requests and automatically selects the best specialist agent(s) without requiring explicit user mentions.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "nextjs-app-router-patterns",
-    "path": "skills/nextjs-app-router-patterns",
-    "category": "uncategorized",
-    "name": "nextjs-app-router-patterns",
-    "description": "Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications, implementing SSR/SSG, or optimizing React Server Components.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "karpathy-llm-wiki",
+    "name": "karpathy-llm-wiki",
+    "path": ".agents/skills/karpathy-llm-wiki",
+    "category": "orchestration-meta-agents",
+    "description": "Use when building or maintaining a personal LLM-powered knowledge base. Triggers: ingesting sources into a wiki, querying wiki knowledge, linting wiki quality, 'add to wiki', 'what do I know about', or any mention of 'LLM wiki' or 'Karpathy wiki'.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "nextjs-best-practices",
-    "path": "skills/nextjs-best-practices",
-    "category": "uncategorized",
-    "name": "nextjs-best-practices",
-    "description": "Next.js App Router principles. Server Components, data fetching, routing patterns.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "memory-leak-debugging",
+    "name": "memory-leak-debugging",
+    "path": ".agents/skills/memory-leak-debugging",
+    "category": "qa-performance-debugging",
+    "description": "Diagnoses and resolves memory leaks in JavaScript/Node.js applications. Use when a user reports high memory usage, OOM errors, or wants to capture, compare, or inspect heap snapshots with Chrome DevTools MCP memory tools.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "mobile-native",
+    "name": "mobile-native",
+    "path": ".agents/skills/mobile-native",
+    "category": "domain-specialized",
+    "description": "Make a web app feel native on a phone — the small CSS and meta-tag fixes that separate \"a website in a browser\" from something that feels installed. Covers sticky hover states, tap highlight flashes, the 100vh bug, inputs that zoom the page, laggy taps, pull-to-refresh hijacking scroll, content under the notch, long-press selecting button text, carousels that scroll the wrong way, mismatched status bars, and the rule that you test on real hardware. Use when a web app is being built for or reviewed on mobile, when something \"works in Chrome but feels wrong on my phone\", when building a PWA, a bottom sheet, a carousel, a full-screen layout, or any touch interaction. For motion itself use animate; for React Native use animate-expo.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "model-debugging",
+    "name": "model-debugging",
+    "path": ".agents/skills/model-debugging",
+    "category": "qa-performance-debugging",
+    "description": "Debug and diagnose model errors in Pollinations services. Analyze logs, find error patterns, identify affected users. For taking action on user tiers, see tier-management skill.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "nextjs-app-router-caching",
+    "name": "nextjs-app-router-caching",
+    "path": ".agents/skills/nextjs-app-router-caching",
+    "category": "frontend-ui-motion",
+    "description": "Estratégias de Server Components, Client Components e Caching agressivo para Next.js 16.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
     "id": "nextjs-react-expert",
-    "path": "skills/nextjs-react-expert",
-    "category": "uncategorized",
-    "name": "nextjs-react-expert",
+    "name": "react-best-practices",
+    "path": ".agents/skills/nextjs-react-expert",
+    "category": "frontend-ui-motion",
     "description": "React and Next.js performance optimization from Vercel Engineering. Use when building React components, optimizing performance, eliminating waterfalls, reducing bundle size, reviewing code for performance issues, or implementing server/client-side optimizations.",
-    "risk": "unknown",
-    "source": "unknown"
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "nextjs-supabase-auth",
-    "path": "skills/nextjs-supabase-auth",
-    "category": "uncategorized",
-    "name": "nextjs-supabase-auth",
-    "description": "Expert integration of Supabase Auth with Next.js App Router Use when: supabase auth next, authentication next.js, login supabase, auth middleware, protected route.",
-    "risk": "unknown",
-    "source": "vibeship-spawner-skills (Apache 2.0)"
+    "id": "obsidian-claude-integration",
+    "name": "obsidian-claude-integration",
+    "path": ".agents/skills/obsidian-claude-integration",
+    "category": "orchestration-meta-agents",
+    "description": ">-",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "performance-engineer",
-    "path": "skills/performance-engineer",
-    "category": "uncategorized",
-    "name": "performance-engineer",
-    "description": "Expert performance engineer specializing in modern observability, application optimization, and scalable system performance. Masters OpenTelemetry, distributed tracing, load testing, multi-tier caching, Core Web Vitals, and performance monitoring. Handles end-to-end optimization, real user monitoring, and scalability patterns. Use PROACTIVELY for performance optimization, observability, or scalability challenges.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "orchestration",
+    "name": "orchestration",
+    "path": ".agents/skills/orchestration",
+    "category": "orchestration-meta-agents",
+    "description": "Multi-agent orchestration for complex tasks. Use when tasks require parallel work, multiple agents, or sophisticated coordination. Triggers include requests for features, reviews, refactoring, testing, documentation, or any work that benefits from decomposition into parallel subtasks. This skill defines how to orchestrate work using cc-mirror tasks for persistent dependency tracking and TodoWrite for real-time session visibility.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "output-styles-guide",
+    "name": "Output Styles Guide",
+    "path": ".agents/skills/output-styles-guide",
+    "category": "frontend-ui-motion",
+    "description": "Adapt Claude Code for different use cases beyond software engineering by customizing system prompts for teaching, learning, analysis, or domain-specific workflows.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "parallel-agents",
+    "name": "parallel-agents",
+    "path": ".agents/skills/parallel-agents",
+    "category": "orchestration-meta-agents",
+    "description": "Multi-agent orchestration patterns. Use when multiple independent tasks can run with different domain expertise or when comprehensive analysis requires multiple perspectives.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
     "id": "performance-profiling",
-    "path": "skills/performance-profiling",
-    "category": "uncategorized",
     "name": "performance-profiling",
+    "path": ".agents/skills/performance-profiling",
+    "category": "qa-performance-debugging",
     "description": "Performance profiling principles. Measurement, analysis, and optimization techniques.",
-    "risk": "unknown",
-    "source": "unknown"
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "performance-testing-review-ai-review",
-    "path": "skills/performance-testing-review-ai-review",
-    "category": "uncategorized",
-    "name": "performance-testing-review-ai-review",
-    "description": "You are an expert AI-powered code review specialist combining automated static analysis, intelligent pattern recognition, and modern DevOps practices. Leverage AI tools (GitHub Copilot, Qodo, GPT-5, C",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "pick-ui-library",
+    "name": "pick-ui-library",
+    "path": ".agents/skills/pick-ui-library",
+    "category": "frontend-ui-motion",
+    "description": "Pick the right library for a given frontend task from a curated, opinionated list — numbers, OTP inputs, charts, command menus, virtualization, drag and drop, toasts, state, styling, and more. Only runs when explicitly invoked; it does not trigger on its own.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "performance-testing-review-multi-agent-review",
-    "path": "skills/performance-testing-review-multi-agent-review",
-    "category": "uncategorized",
-    "name": "performance-testing-review-multi-agent-review",
-    "description": "Use when working with performance testing review multi agent review",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "prototype",
+    "name": "prototype",
+    "path": ".agents/skills/prototype",
+    "category": "domain-specialized",
+    "description": "Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one that feels right. Only runs when explicitly invoked; it does not trigger on its own.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "plan-writing",
-    "path": "skills/plan-writing",
-    "category": "uncategorized",
-    "name": "plan-writing",
-    "description": "Structured task planning with clear breakdowns, dependencies, and verification criteria. Use when implementing features, refactoring, or any multi-step work.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "planning-with-files",
-    "path": "skills/planning-with-files",
-    "category": "uncategorized",
-    "name": "planning-with-files",
-    "description": "Implements Manus-style file-based planning for complex tasks. Creates task_plan.md, findings.md, and progress.md. Use when starting complex multi-step tasks, research projects, or any task requiring >5 tool calls.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "playwright-skill",
-    "path": "skills/playwright-skill",
-    "category": "uncategorized",
-    "name": "playwright-skill",
-    "description": "Complete browser automation with Playwright. Auto-detects dev servers, writes clean test scripts to /tmp. Test pages, fill forms, take screenshots, check responsive design, validate UX, test login flows, check links, automate any browser task. Use when user wants to test websites, automate browser interactions, validate web functionality, or perform any browser-based testing.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "react-modernization",
-    "path": "skills/react-modernization",
-    "category": "uncategorized",
-    "name": "react-modernization",
-    "description": "Upgrade React applications to latest versions, migrate from class components to hooks, and adopt concurrent features. Use when modernizing React codebases, migrating to React Hooks, or upgrading to latest React versions.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "react-native-architecture",
-    "path": "skills/react-native-architecture",
-    "category": "uncategorized",
-    "name": "react-native-architecture",
-    "description": "Build production React Native apps with Expo, navigation, native modules, offline sync, and cross-platform patterns. Use when developing mobile apps, implementing native integrations, or architecting React Native projects.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "react-patterns",
-    "path": "skills/react-patterns",
-    "category": "uncategorized",
-    "name": "react-patterns",
-    "description": "Modern React patterns and principles. Hooks, composition, performance, TypeScript best practices.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "react-state-management",
-    "path": "skills/react-state-management",
-    "category": "uncategorized",
-    "name": "react-state-management",
-    "description": "Master modern React state management with Redux Toolkit, Zustand, Jotai, and React Query. Use when setting up global state, managing server state, or choosing between state management solutions.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "react-ui-patterns",
-    "path": "skills/react-ui-patterns",
-    "category": "uncategorized",
-    "name": "react-ui-patterns",
-    "description": "Modern React UI patterns for loading states, error handling, and data fetching. Use when building UI components, handling async data, or managing UI states.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "screen-reader-testing",
-    "path": "skills/screen-reader-testing",
-    "category": "uncategorized",
-    "name": "screen-reader-testing",
-    "description": "Test web applications with screen readers including VoiceOver, NVDA, and JAWS. Use when validating screen reader compatibility, debugging accessibility issues, or ensuring assistive technology support.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "screenshots",
-    "path": "skills/screenshots",
-    "category": "uncategorized",
-    "name": "screenshots",
-    "description": "Generate marketing screenshots of your app using Playwright. Use when the user wants to create screenshots for Product Hunt, social media, landing pages, or documentation.",
-    "risk": "safe",
-    "source": "https://github.com/Shpigford/skills/tree/main/screenshots"
-  },
-  {
-    "id": "scroll-experience",
-    "path": "skills/scroll-experience",
-    "category": "uncategorized",
-    "name": "scroll-experience",
-    "description": "Expert in building immersive scroll-driven experiences - parallax storytelling, scroll animations, interactive narratives, and cinematic web experiences. Like NY Times interactives, Apple product pages, and award-winning web experiences. Makes websites feel like experiences, not just pages. Use when: scroll animation, parallax, scroll storytelling, interactive story, cinematic website.",
-    "risk": "unknown",
-    "source": "vibeship-spawner-skills (Apache 2.0)"
-  },
-  {
-    "id": "seo-audit",
-    "path": "skills/seo-audit",
-    "category": "uncategorized",
-    "name": "seo-audit",
-    "description": "Diagnose and audit SEO issues affecting crawlability, indexation, rankings, and organic performance. Use when the user asks for an SEO audit, technical SEO review, ranking diagnosis, on-page SEO review, meta tag audit, or SEO health check. This skill identifies issues and prioritizes actions but does not execute changes. For large-scale page creation, use programmatic-seo. For structured data, use schema-markup.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "seo-authority-builder",
-    "path": "skills/seo-authority-builder",
-    "category": "uncategorized",
-    "name": "seo-authority-builder",
-    "description": "Analyzes content for E-E-A-T signals and suggests improvements to build authority and trust. Identifies missing credibility elements. Use PROACTIVELY for YMYL topics.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "seo-cannibalization-detector",
-    "path": "skills/seo-cannibalization-detector",
-    "category": "uncategorized",
-    "name": "seo-cannibalization-detector",
-    "description": "Analyzes multiple provided pages to identify keyword overlap and potential cannibalization issues. Suggests differentiation strategies. Use PROACTIVELY when reviewing similar content.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "seo-content-auditor",
-    "path": "skills/seo-content-auditor",
-    "category": "uncategorized",
-    "name": "seo-content-auditor",
-    "description": "Analyzes provided content for quality, E-E-A-T signals, and SEO best practices. Scores content and provides improvement recommendations based on established guidelines. Use PROACTIVELY for content review.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "seo-content-planner",
-    "path": "skills/seo-content-planner",
-    "category": "uncategorized",
-    "name": "seo-content-planner",
-    "description": "Creates comprehensive content outlines and topic clusters for SEO. Plans content calendars and identifies topic gaps. Use PROACTIVELY for content strategy and planning.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "seo-content-refresher",
-    "path": "skills/seo-content-refresher",
-    "category": "uncategorized",
-    "name": "seo-content-refresher",
-    "description": "Identifies outdated elements in provided content and suggests updates to maintain freshness. Finds statistics, dates, and examples that need updating. Use PROACTIVELY for older content.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "seo-content-writer",
-    "path": "skills/seo-content-writer",
-    "category": "uncategorized",
-    "name": "seo-content-writer",
-    "description": "Writes SEO-optimized content based on provided keywords and topic briefs. Creates engaging, comprehensive content following best practices. Use PROACTIVELY for content creation tasks.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "seo-fundamentals",
-    "path": "skills/seo-fundamentals",
-    "category": "uncategorized",
-    "name": "seo-fundamentals",
-    "description": "Core principles of SEO including E-E-A-T, Core Web Vitals, technical foundations, content quality, and how modern search engines evaluate pages. This skill explains *why* SEO works, not how to execute specific optimizations.\n",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "seo-keyword-strategist",
-    "path": "skills/seo-keyword-strategist",
-    "category": "uncategorized",
-    "name": "seo-keyword-strategist",
-    "description": "Analyzes keyword usage in provided content, calculates density, suggests semantic variations and LSI keywords based on the topic. Prevents over-optimization. Use PROACTIVELY for content optimization.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "seo-meta-optimizer",
-    "path": "skills/seo-meta-optimizer",
-    "category": "uncategorized",
-    "name": "seo-meta-optimizer",
-    "description": "Creates optimized meta titles, descriptions, and URL suggestions based on character limits and best practices. Generates compelling, keyword-rich metadata. Use PROACTIVELY for new content.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "seo-snippet-hunter",
-    "path": "skills/seo-snippet-hunter",
-    "category": "uncategorized",
-    "name": "seo-snippet-hunter",
-    "description": "Formats content to be eligible for featured snippets and SERP features. Creates snippet-optimized content blocks based on best practices. Use PROACTIVELY for question-based content.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "seo-structure-architect",
-    "path": "skills/seo-structure-architect",
-    "category": "uncategorized",
-    "name": "seo-structure-architect",
-    "description": "Analyzes and optimizes content structure including header hierarchy, suggests schema markup, and internal linking opportunities. Creates search-friendly content organization. Use PROACTIVELY for content structuring.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "supabase-auth-storage-realtime-core",
-    "path": "skills/supabase-auth-storage-realtime-core",
-    "category": "uncategorized",
-    "name": "supabase-auth-storage-realtime-core",
-    "description": "Execute Supabase secondary workflow: Auth + Storage + Realtime. Use when implementing a secondary use case or complementing the primary workflow. Trigger with phrases like \"supabase auth storage realtime\" or \"implement full stack features with supabase\".",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "supabase-automation",
-    "path": "skills/supabase-automation",
-    "category": "uncategorized",
-    "name": "supabase-automation",
-    "description": "Automate Supabase database queries, table management, project administration, storage, edge functions, and SQL execution via Rube MCP (Composio). Always search tools first for current schemas.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "supabase-postgres-best-practices",
-    "path": "skills/supabase-postgres-best-practices",
-    "category": "uncategorized",
-    "name": "supabase-postgres-best-practices",
-    "description": "Postgres performance optimization and best practices from Supabase. Use this skill when writing, reviewing, or optimizing Postgres queries, schema designs, or database configurations.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "tailwind-design-system",
-    "path": "skills/tailwind-design-system",
-    "category": "uncategorized",
-    "name": "tailwind-design-system",
-    "description": "Build scalable design systems with Tailwind CSS, design tokens, component libraries, and responsive patterns. Use when creating component libraries, implementing design systems, or standardizing UI patterns.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "tailwind-patterns",
-    "path": "skills/tailwind-patterns",
-    "category": "uncategorized",
-    "name": "tailwind-patterns",
-    "description": "Tailwind CSS v4 principles. CSS-first configuration, container queries, modern patterns, design token architecture.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "testing-patterns",
-    "path": "skills/testing-patterns",
-    "category": "uncategorized",
-    "name": "testing-patterns",
-    "description": "Jest testing patterns, factory functions, mocking strategies, and TDD workflow. Use when writing unit tests, creating test factories, or following TDD red-green-refactor cycle.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "threejs-skills",
-    "path": "skills/threejs-skills",
-    "category": "uncategorized",
-    "name": "threejs-skills",
-    "description": "Three.js skills for creating 3D elements and interactive experiences",
-    "risk": "safe",
-    "source": "https://github.com/CloudAI-X/threejs-skills"
-  },
-  {
-    "id": "track-management",
-    "path": "skills/track-management",
-    "category": "uncategorized",
-    "name": "track-management",
-    "description": "Use this skill when creating, managing, or working with Conductor tracks - the logical work units for features, bugs, and refactors. Applies to spec.md, plan.md, and track lifecycle operations.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "typescript-advanced-types",
-    "path": "skills/typescript-advanced-types",
-    "category": "uncategorized",
-    "name": "typescript-advanced-types",
-    "description": "Master TypeScript's advanced type system including generics, conditional types, mapped types, template literals, and utility types for building type-safe applications. Use when implementing complex type logic, creating reusable type utilities, or ensuring compile-time type safety in TypeScript projects.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "typescript-expert",
-    "path": "skills/typescript-expert",
-    "category": "uncategorized",
-    "name": "typescript-expert",
-    "description": "TypeScript and JavaScript expert with deep knowledge of type-level programming, performance optimization, monorepo management, migration strategies, and modern tooling. Use PROACTIVELY for any TypeScript/JavaScript issues including complex type gymnastics, build performance, debugging, and architectural decisions. If a specialized expert is a better fit, I will recommend switching and stop.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "typescript-pro",
-    "path": "skills/typescript-pro",
-    "category": "uncategorized",
-    "name": "typescript-pro",
-    "description": "Master TypeScript with advanced types, generics, and strict type safety. Handles complex type systems, decorators, and enterprise-grade patterns. Use PROACTIVELY for TypeScript architecture, type inference optimization, or advanced typing patterns.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "typescript-review",
-    "path": "skills/typescript-review",
-    "category": "uncategorized",
-    "name": "typescript-review",
-    "description": "Review TypeScript and JavaScript code changes for compliance with Metabase coding standards, style violations, and code quality issues. Use when reviewing pull requests or diffs containing TypeScript/JavaScript code.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "ui-skills",
-    "path": "skills/ui-skills",
-    "category": "uncategorized",
-    "name": "ui-skills",
-    "description": "Opinionated, evolving constraints to guide agents when building interfaces",
-    "risk": "safe",
-    "source": "https://github.com/ibelick/ui-skills"
-  },
-  {
-    "id": "ui-ux-designer",
-    "path": "skills/ui-ux-designer",
-    "category": "uncategorized",
-    "name": "ui-ux-designer",
-    "description": "Create interface designs, wireframes, and design systems. Masters user research, accessibility standards, and modern design tools. Specializes in design tokens, component libraries, and inclusive design. Use PROACTIVELY for design systems, user flows, or interface optimization.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "ui-ux-pro-max",
-    "path": "skills/ui-ux-pro-max",
-    "category": "uncategorized",
-    "name": "ui-ux-pro-max",
-    "description": "UI/UX design intelligence. 50 styles, 21 palettes, 50 font pairings, 20 charts, 9 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind, shadcn/ui). Actions: plan, build, create, design, implement, review, fix, improve, optimize, enhance, refactor, check UI/UX code. Projects: website, landing page, dashboard, admin panel, e-commerce, SaaS, portfolio, blog, mobile app, .html, .tsx, .vue, .svelte. Elements: button, modal, navbar, sidebar, card, table, form, chart. Styles: glassmorphism, claymorphism, minimalism, brutalism, neumorphism, bento grid, dark mode, responsive, skeuomorphism, flat design. Topics: color palette, accessibility, animation, layout, typography, font pairing, spacing, hover, shadow, gradient. Integrations: shadcn/ui MCP for component search and examples.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "ui-visual-validator",
-    "path": "skills/ui-visual-validator",
-    "category": "uncategorized",
-    "name": "ui-visual-validator",
-    "description": "Rigorous visual validation expert specializing in UI testing, design system compliance, and accessibility verification. Masters screenshot analysis, visual regression testing, and component validation. Use PROACTIVELY to verify UI modifications have achieved their intended goals through comprehensive visual analysis.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "vercel-automation",
-    "path": "skills/vercel-automation",
-    "category": "uncategorized",
-    "name": "vercel-automation",
-    "description": "Automate Vercel tasks via Rube MCP (Composio): manage deployments, domains, DNS, env vars, projects, and teams. Always search tools first for current schemas.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "vercel-deploy",
-    "path": "skills/vercel-deploy",
-    "category": "uncategorized",
-    "name": "vercel-deploy",
-    "description": "Deploy applications and websites to Vercel using the bundled `scripts/deploy.sh` claimable-preview flow. Use when the user asks to deploy to Vercel, wants a preview URL, or says to push a project live on Vercel.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "vercel-deploy-claimable",
-    "path": "skills/vercel-deploy-claimable",
-    "category": "uncategorized",
-    "name": "vercel-deploy-claimable",
-    "description": "Deploy applications and websites to Vercel. Use this skill when the user requests deployment actions such as 'Deploy my app', 'Deploy this to production', 'Create a preview deployment', 'Deploy and give me the link', or 'Push this live'. No authentication required - returns preview URL and claimable deployment link.",
-    "risk": "safe",
-    "source": "https://github.com/vercel-labs/agent-skills/tree/main/skills/claude.ai/vercel-deploy-claimable"
-  },
-  {
-    "id": "vercel-deployment",
-    "path": "skills/vercel-deployment",
-    "category": "uncategorized",
-    "name": "vercel-deployment",
-    "description": "Expert knowledge for deploying to Vercel with Next.js Use when: vercel, deploy, deployment, hosting, production.",
-    "risk": "safe",
-    "source": "vibeship-spawner-skills (Apache 2.0)"
+    "id": "prototype-prompt-generator",
+    "name": "prototype-prompt-generator",
+    "path": ".agents/skills/prototype-prompt-generator",
+    "category": "domain-specialized",
+    "description": "This skill should be used when users need to generate detailed, structured prompts for creating UI/UX prototypes. Trigger when users request help with \"create a prototype prompt\", \"design a mobile app\", \"generate UI specifications\", or need comprehensive design documentation for web/mobile applications. Works with multiple design systems including WeChat Work, iOS Native, Material Design, and Ant Design Mobile.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
     "id": "react-best-practices",
-    "path": "skills/react-best-practices",
-    "category": "uncategorized",
-    "name": "vercel-react-best-practices",
-    "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
-    "risk": "unknown",
-    "source": "unknown"
+    "name": "react-best-practices",
+    "path": ".agents/skills/react-best-practices",
+    "category": "frontend-ui-motion",
+    "description": "Comprehensive React and Next.js performance optimization guide with 40+ rules for eliminating waterfalls, optimizing bundles, and improving rendering. Use when optimizing React apps, reviewing performance, or refactoring components.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "receiving-code-review",
+    "name": "receiving-code-review",
+    "path": ".agents/skills/receiving-code-review",
+    "category": "orchestration-meta-agents",
+    "description": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "requesting-code-review",
+    "name": "requesting-code-review",
+    "path": ".agents/skills/requesting-code-review",
+    "category": "orchestration-meta-agents",
+    "description": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "review-animations",
+    "name": "review-animations",
+    "path": ".agents/skills/review-animations",
+    "category": "frontend-ui-motion",
+    "description": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "review-project-case-page",
+    "name": "review-project-case-page",
+    "path": ".agents/skills/review-project-case-page",
+    "category": "orchestration-meta-agents",
+    "description": "Improve /projects/[slug] as an editorial case-study experience, balancing rich vs. sparse content and separating text vs. media widths.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "review-project-media-card",
+    "name": "review-project-media-card",
+    "path": ".agents/skills/review-project-media-card",
+    "category": "orchestration-meta-agents",
+    "description": "Evaluate and improve a portfolio card that can display image, video, or HTML-based preview media, ensuring geometry sharing and mobile/touch resilience.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "sandbox-sdk",
+    "name": "sandbox-sdk",
+    "path": ".agents/skills/sandbox-sdk",
+    "category": "domain-specialized",
+    "description": "Build sandboxed applications for secure code execution. Load when building AI code execution, code interpreters, CI/CD systems, interactive dev environments, or executing untrusted code. Covers Sandbox SDK lifecycle, commands, files, code interpreter, and preview URLs. Biases towards retrieval from Cloudflare docs over pre-trained knowledge.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "senior-frontend",
+    "name": "senior-frontend",
+    "path": ".agents/skills/senior-frontend",
+    "category": "frontend-ui-motion",
+    "description": "Comprehensive frontend development skill for building modern, performant web applications using ReactJS, NextJS, TypeScript, Tailwind CSS. Includes component scaffolding, performance optimization, bundle analysis, and UI best practices. Use when developing frontend features, optimizing performance, implementing UI/UX designs, managing state, or reviewing frontend code.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "senior-fullstack",
+    "name": "senior-fullstack",
+    "path": ".agents/skills/senior-fullstack",
+    "category": "domain-specialized",
+    "description": "Comprehensive fullstack development skill for building complete web applications with React, Next.js, Node.js, GraphQL, and PostgreSQL. Includes project scaffolding, code quality analysis, architecture patterns, and complete tech stack guidance. Use when building new projects, analyzing code quality, implementing design patterns, or setting up development workflows.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "seo-fundamentals",
+    "name": "seo-fundamentals",
+    "path": ".agents/skills/seo-fundamentals",
+    "category": "domain-specialized",
+    "description": "SEO fundamentals, E-E-A-T, Core Web Vitals, and Google algorithm principles.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "skill-creator",
+    "name": "skill-creator",
+    "path": ".agents/skills/skill-creator",
+    "category": "domain-specialized",
+    "description": "This skill should be used when the user asks to create a new skill, build a skill, make a custom skill, develop a CLI skill, or wants to extend the CLI with new capabilities. Automates the entire skill creation workflow from brainstorming to installation.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "squirrelscan",
+    "name": "squirrelscan",
+    "path": ".agents/skills/squirrelscan",
+    "category": "frontend-ui-motion",
+    "description": "squirrelscan audits websites for SEO, performance, security, accessibility, content, and structured data issues (260+ rules) and scores site health, via the squirrel CLI. Use when the user wants to check, audit, or improve a website's SEO, ranking, speed, or health, and for anything squirrelscan itself, installing or updating the CLI, login and API keys, running audits, publishing and sharing reports, cloud credits, MCP server setup, configuration, or troubleshooting.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "subagent-driven-development",
+    "name": "subagent-driven-development",
+    "path": ".agents/skills/subagent-driven-development",
+    "category": "orchestration-meta-agents",
+    "description": "Use when executing implementation plans with independent tasks in the current session",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "supabase-auth-storage-realtime-core",
+    "name": "supabase-auth-storage-realtime-core",
+    "path": ".agents/skills/supabase-auth-storage-realtime-core",
+    "category": "backend-infra-database",
+    "description": "|",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "supabase-media-pipeline",
+    "name": "supabase-media-pipeline",
+    "path": ".agents/skills/supabase-media-pipeline",
+    "category": "backend-infra-database",
+    "description": ">",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "superpower",
+    "name": "superpower",
+    "path": ".agents/skills/superpower",
+    "category": "orchestration-meta-agents",
+    "description": "Core Superpowers software development workflow suite for AI coding agents. Coordinates structured specification drafting, atomic implementation plans, test-driven development (TDD), and subagent-driven execution.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "systematic-debugging",
+    "name": "systematic-debugging",
+    "path": ".agents/skills/systematic-debugging",
+    "category": "qa-performance-debugging",
+    "description": "4-phase systematic debugging methodology with root cause analysis and evidence-based verification. Use when debugging complex issues.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "tailwind-motion-choreography",
+    "name": "tailwind-motion-choreography",
+    "path": ".agents/skills/tailwind-motion-choreography",
+    "category": "frontend-ui-motion",
+    "description": "Animações e design system híbrido (Tailwind v4, Framer Motion, Lenis).",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "tailwind-patterns",
+    "name": "tailwind-patterns",
+    "path": ".agents/skills/tailwind-patterns",
+    "category": "frontend-ui-motion",
+    "description": "Tailwind CSS v4 principles. CSS-first configuration, container queries, modern patterns, design token architecture.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "test-driven-development",
+    "name": "test-driven-development",
+    "path": ".agents/skills/test-driven-development",
+    "category": "domain-specialized",
+    "description": "Use when implementing any feature or bugfix, before writing implementation code",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "threejs-animation",
+    "name": "threejs-animation",
+    "path": ".agents/skills/threejs-animation",
+    "category": "3d-webgl-creative",
+    "description": "Three.js animation - keyframe animation, skeletal animation, morph targets, animation mixing. Use when animating objects, playing GLTF animations, creating procedural motion, or blending animations.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "threejs-fundamentals",
+    "name": "threejs-fundamentals",
+    "path": ".agents/skills/threejs-fundamentals",
+    "category": "3d-webgl-creative",
+    "description": "Three.js scene setup, cameras, renderer, Object3D hierarchy, coordinate systems. Use when setting up 3D scenes, creating cameras, configuring renderers, managing object hierarchies, or working with transforms.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "threejs-geometry",
+    "name": "threejs-geometry",
+    "path": ".agents/skills/threejs-geometry",
+    "category": "3d-webgl-creative",
+    "description": "Three.js geometry creation - built-in shapes, BufferGeometry, custom geometry, instancing. Use when creating 3D shapes, working with vertices, building custom meshes, or optimizing with instanced rendering.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "threejs-interaction",
+    "name": "threejs-interaction",
+    "path": ".agents/skills/threejs-interaction",
+    "category": "3d-webgl-creative",
+    "description": "Three.js interaction - raycasting, controls, mouse/touch input, object selection. Use when handling user input, implementing click detection, adding camera controls, or creating interactive 3D experiences.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "threejs-lighting",
+    "name": "threejs-lighting",
+    "path": ".agents/skills/threejs-lighting",
+    "category": "3d-webgl-creative",
+    "description": "Three.js lighting - light types, shadows, environment lighting. Use when adding lights, configuring shadows, setting up IBL, or optimizing lighting performance.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "threejs-loaders",
+    "name": "threejs-loaders",
+    "path": ".agents/skills/threejs-loaders",
+    "category": "3d-webgl-creative",
+    "description": "Three.js asset loading - GLTF, textures, images, models, async patterns. Use when loading 3D models, textures, HDR environments, or managing loading progress.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "threejs-materials",
+    "name": "threejs-materials",
+    "path": ".agents/skills/threejs-materials",
+    "category": "3d-webgl-creative",
+    "description": "Three.js materials - PBR, basic, phong, shader materials, material properties. Use when styling meshes, working with textures, creating custom shaders, or optimizing material performance.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "threejs-postprocessing",
+    "name": "threejs-postprocessing",
+    "path": ".agents/skills/threejs-postprocessing",
+    "category": "3d-webgl-creative",
+    "description": "Three.js post-processing - EffectComposer, bloom, DOF, screen effects. Use when adding visual effects, color grading, blur, glow, or creating custom screen-space shaders.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "threejs-shaders",
+    "name": "threejs-shaders",
+    "path": ".agents/skills/threejs-shaders",
+    "category": "3d-webgl-creative",
+    "description": "Three.js shaders - GLSL, ShaderMaterial, uniforms, custom effects. Use when creating custom visual effects, modifying vertices, writing fragment shaders, or extending built-in materials.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "threejs-textures",
+    "name": "threejs-textures",
+    "path": ".agents/skills/threejs-textures",
+    "category": "3d-webgl-creative",
+    "description": "Three.js textures - texture types, UV mapping, environment maps, texture settings. Use when working with images, UV coordinates, cubemaps, HDR environments, or texture optimization.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "tool-design",
+    "name": "tool-design",
+    "path": ".agents/skills/tool-design",
+    "category": "frontend-ui-motion",
+    "description": "Build tools that agents can use effectively, including architectural reduction patterns",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "troubleshooting",
+    "name": "troubleshooting",
+    "path": ".agents/skills/troubleshooting",
+    "category": "domain-specialized",
+    "description": "Uses Chrome DevTools MCP and documentation to troubleshoot connection and target issues. Trigger this skill when list_pages, new_page, or navigate_page fail, or when the server initialization fails.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "turnstile-spin",
+    "name": "turnstile-spin",
+    "path": ".agents/skills/turnstile-spin",
+    "category": "domain-specialized",
+    "description": "Set up Cloudflare Turnstile end-to-end in a project — scan the codebase, create the widget via the Cloudflare API, deploy the managed siteverify Worker, write the frontend snippets, validate, and persist the skill. Load this when a user asks to add Turnstile, set up CAPTCHA, protect a form from bots, or fix a Turnstile integration. Mirrors developers.cloudflare.com/turnstile/spin.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "ui-design-system",
+    "name": "ui-design-system",
+    "path": ".agents/skills/ui-design-system",
+    "category": "frontend-ui-motion",
+    "description": "UI design system toolkit for Senior UI Designer including design token generation, component documentation, responsive design calculations, and developer handoff tools. Use for creating design systems, maintaining visual consistency, and facilitating design-dev collaboration.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "ui-ux-designer",
+    "name": "ui-ux-designer",
+    "path": ".agents/skills/ui-ux-designer",
+    "category": "frontend-ui-motion",
+    "description": "Create interface designs, wireframes, and design systems. Masters",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "ui-ux-pro-max",
+    "name": "ui-ux-pro-max",
+    "path": ".agents/skills/ui-ux-pro-max",
+    "category": "frontend-ui-motion",
+    "description": "UI/UX design intelligence. 50 styles, 21 palettes, 50 font pairings, 20 charts, 9 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind, shadcn/ui). Actions: plan, build, create, design, implement, review, fix, improve, optimize, enhance, refactor, check UI/UX code. Projects: website, landing page, dashboard, admin panel, e-commerce, SaaS, portfolio, blog, mobile app, .html, .tsx, .vue, .svelte. Elements: button, modal, navbar, sidebar, card, table, form, chart. Styles: glassmorphism, claymorphism, minimalism, brutalism, neumorphism, bento grid, dark mode, responsive, skeuomorphism, flat design. Topics: color palette, accessibility, animation, layout, typography, font pairing, spacing, hover, shadow, gradient. Integrations: shadcn/ui MCP for component search and examples.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "using-git-worktrees",
+    "name": "using-git-worktrees",
+    "path": ".agents/skills/using-git-worktrees",
+    "category": "domain-specialized",
+    "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verification",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "using-superpowers",
+    "name": "using-superpowers",
+    "path": ".agents/skills/using-superpowers",
+    "category": "orchestration-meta-agents",
+    "description": "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
     "id": "verification-before-completion",
-    "path": "skills/verification-before-completion",
-    "category": "uncategorized",
     "name": "verification-before-completion",
+    "path": ".agents/skills/verification-before-completion",
+    "category": "domain-specialized",
     "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
-    "risk": "unknown",
-    "source": "unknown"
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "vitest-supabase",
-    "path": "skills/vitest-supabase",
-    "category": "uncategorized",
-    "name": "vitest",
-    "description": "Vitest fast unit testing framework powered by Vite with Jest-compatible API. Use when writing tests, mocking, configuring coverage, or working with test filtering and fixtures.",
-    "risk": "unknown",
-    "source": "unknown"
-  },
-  {
-    "id": "vulnerability-scanner",
-    "path": "skills/vulnerability-scanner",
-    "category": "uncategorized",
-    "name": "vulnerability-scanner",
-    "description": "Advanced vulnerability analysis principles. OWASP 2025, Supply Chain Security, attack surface mapping, risk prioritization.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "verify-portfolio-change",
+    "name": "verify-portfolio-change",
+    "path": ".agents/skills/verify-portfolio-change",
+    "category": "domain-specialized",
+    "description": "Run evidence-based validation after a project change, reporting PASS, FAIL, or NOT VERIFIED across supported gates.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
     "id": "web-artifacts-builder",
-    "path": "skills/web-artifacts-builder",
-    "category": "uncategorized",
     "name": "web-artifacts-builder",
+    "path": ".agents/skills/web-artifacts-builder",
+    "category": "frontend-ui-motion",
     "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
-    "risk": "unknown",
-    "source": "unknown"
+    "status": "active",
+    "source": "local-workspace"
   },
   {
     "id": "web-design-guidelines",
-    "path": "skills/web-design-guidelines",
-    "category": "uncategorized",
     "name": "web-design-guidelines",
+    "path": ".agents/skills/web-design-guidelines",
+    "category": "frontend-ui-motion",
     "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".",
-    "risk": "unknown",
-    "source": "unknown"
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "web-perf",
+    "name": "web-perf",
+    "path": ".agents/skills/web-perf",
+    "category": "qa-performance-debugging",
+    "description": "Analyzes web performance using Chrome DevTools MCP. Measures Core Web Vitals (LCP, INP, CLS) and supplementary metrics (FCP, TBT, Speed Index), identifies render-blocking resources, network dependency chains, layout shifts, caching issues, and accessibility gaps. Use when asked to audit, profile, debug, or optimize page load performance, Lighthouse scores, or site speed. Biases towards retrieval from current documentation over pre-trained knowledge.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
     "id": "web-performance-optimization",
-    "path": "skills/web-performance-optimization",
-    "category": "uncategorized",
     "name": "web-performance-optimization",
+    "path": ".agents/skills/web-performance-optimization",
+    "category": "qa-performance-debugging",
     "description": "Optimize website and web application performance including loading speed, Core Web Vitals, bundle size, caching strategies, and runtime performance",
-    "risk": "unknown",
-    "source": "unknown"
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "webgl-optimizer",
-    "path": "skills/webgl-optimizer",
-    "category": "uncategorized",
-    "name": "webgl-optimizer",
-    "description": "Skill to check WebGL performance, focusing on useFrame usage and texture sizes.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "wiki-brain",
+    "name": "wiki-brain",
+    "path": ".agents/skills/wiki-brain",
+    "category": "orchestration-meta-agents",
+    "description": "Turn Claude Code into a knowledge base that compounds. Every conversation ingests into a personal wiki you browse in Obsidian. Based on Andrej Karpathy's LLM Wiki pattern, powered by Graphify.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "webgl-performance",
-    "path": "skills/webgl-performance",
-    "category": "uncategorized",
-    "name": "webgl-performance",
-    "description": "Expert guidelines for high-performance React Three Fiber (R3F) development.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "wiki-brain-skill",
+    "name": "wiki-brain",
+    "path": ".agents/skills/wiki-brain-skill",
+    "category": "orchestration-meta-agents",
+    "description": "Turn Claude Code into a knowledge base that compounds. Every conversation ingests into a personal wiki you browse in Obsidian. Based on Andrej Karpathy's LLM Wiki pattern, powered by Graphify.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "id": "workflow-patterns",
-    "path": "skills/workflow-patterns",
-    "category": "uncategorized",
-    "name": "workflow-patterns",
-    "description": "Use this skill when implementing tasks according to Conductor's TDD workflow, handling phase checkpoints, managing git commits for tasks, or understanding the verification protocol.",
-    "risk": "unknown",
-    "source": "unknown"
+    "id": "workers-best-practices",
+    "name": "workers-best-practices",
+    "path": ".agents/skills/workers-best-practices",
+    "category": "domain-specialized",
+    "description": "Reviews and authors Cloudflare Workers code against production best practices. Load when writing new Workers, reviewing Worker code, configuring wrangler.jsonc, or checking for common Workers anti-patterns (streaming, floating promises, global state, secrets, bindings, observability). Biases towards retrieval from Cloudflare docs over pre-trained knowledge.",
+    "status": "active",
+    "source": "local-workspace"
   },
   {
-    "knowledge_base_meta": {
-      "description": "Índice de repositórios de Habilidades (Skills) e Superpoderes para Agentes de IA",
-      "owner": "danilonovaisv",
-      "generated_at": "2026-02-08"
-    },
-    "repositories": [
-      {
-        "name": "antigravity-awesome-skills",
-        "description": "Repositório principal contendo uma vasta biblioteca de 'Skills' (habilidades modulares) para agentes, abrangendo desenvolvimento, design, segurança e automação.",
-        "url": "https://github.com/danilonovaisv/antigravity-awesome-skills",
-        "root_paths": ["skills/", "docs/"],
-        "key_knowledge_files": [
-          {
-            "category": "Core Framework",
-            "paths": [
-              "README.md",
-              "docs/SKILL_ANATOMY.md",
-              "docs/GETTING_STARTED.md",
-              "data/catalog.json"
-            ]
-          },
-          {
-            "category": "Skills (Destaques)",
-            "note": "Cada caminho abaixo contém um arquivo SKILL.md com instruções para o agente",
-            "paths": [
-              "skills/loki-mode/SKILL.md",
-              "skills/python-pro/SKILL.md",
-              "skills/react-best-practices/SKILL.md",
-              "skills/postgres-best-practices/SKILL.md",
-              "skills/prompt-engineering/SKILL.md",
-              "skills/security-auditor/SKILL.md",
-              "skills/seo-audit/SKILL.md",
-              "skills/systematic-debugging/SKILL.md",
-              "skills/tdd-workflow/SKILL.md",
-              "skills/ui-ux-designer/SKILL.md",
-              "skills/voice-ai-development/SKILL.md",
-              "skills/web-performance-optimization/SKILL.md",
-              "skills/writing-skills/SKILL.md"
-            ]
-          },
-          {
-            "category": "Loki Mode (Advanced)",
-            "paths": [
-              "skills/loki-mode/README.md",
-              "skills/loki-mode/autonomy/CONSTITUTION.md",
-              "skills/loki-mode/docs/COMPETITIVE-ANALYSIS.md",
-              "skills/loki-mode/references/agent-types.md"
-            ]
-          }
-        ]
-      },
-      {
-        "name": "superpowers",
-        "description": "Framework e ferramentas para estender as capacidades dos agentes (brainstorming, execução de planos, revisão de código).",
-        "url": "https://github.com/danilonovaisv/superpowers",
-        "root_paths": ["agents/", "commands/", "skills/"],
-        "key_knowledge_files": [
-          {
-            "category": "Commands & Abilities",
-            "paths": [
-              "README.md",
-              "commands/brainstorm.md",
-              "commands/execute-plan.md",
-              "commands/write-plan.md"
-            ]
-          },
-          {
-            "category": "Agent Personas",
-            "paths": [
-              "agents/code-reviewer.md",
-              "skills/requesting-code-review/code-reviewer.md"
-            ]
-          },
-          {
-            "category": "Development Flows",
-            "paths": [
-              "skills/subagent-driven-development/SKILL.md",
-              "skills/subagent-driven-development/spec-reviewer-prompt.md",
-              "skills/subagent-driven-development/implementer-prompt.md"
-            ]
-          }
-        ]
-      },
-      {
-        "name": "agent-skills-for-context-engineering",
-        "description": "Focado em engenharia de contexto, avaliação de LLMs (LLM-as-a-Judge) e pipelines de raciocínio complexo.",
-        "url": "https://github.com/danilonovaisv/agent-skills-for-context-engineering",
-        "root_paths": ["examples/", "skills/", "docs/"],
-        "key_knowledge_files": [
-          {
-            "category": "LLM as Judge & Evaluation",
-            "paths": [
-              "examples/llm-as-judge-skills/README.md",
-              "examples/llm-as-judge-skills/prompts/evaluation/direct-scoring-prompt.md",
-              "examples/llm-as-judge-skills/prompts/evaluation/pairwise-comparison-prompt.md",
-              "skills/evaluation/SKILL.md"
-            ]
-          },
-          {
-            "category": "Thinking & Research",
-            "paths": [
-              "examples/interleaved_thinking/SKILL.md",
-              "examples/interleaved_thinking/docs/interleavedthinking.md",
-              "examples/digital-brain-skill/SKILL.md",
-              "examples/book-sft-pipeline/SKILL.md"
-            ]
-          },
-          {
-            "category": "Context Management",
-            "paths": [
-              "skills/context-compression/SKILL.md",
-              "skills/context-degradation/SKILL.md",
-              "skills/context-optimization/SKILL.md"
-            ]
-          }
-        ]
-      },
-      {
-        "name": "agent-skills",
-        "description": "Estrutura base para construção e build de habilidades de agentes (MCP - Model Context Protocol).",
-        "url": "https://github.com/danilonovaisv/agent-skills",
-        "root_paths": ["packages/skills-build/", "skills/"],
-        "key_knowledge_files": [
-          {
-            "category": "Infrastructure",
-            "paths": [
-              "README.md",
-              "AGENTS.md",
-              ".mcp.json",
-              "packages/skills-build/src/build.ts"
-            ]
-          },
-          {
-            "category": "Specific Skills",
-            "paths": [
-              "skills/supabase-postgres-best-practices/SKILL.md",
-              "skills/supabase-postgres-best-practices/references/security-rls-basics.md"
-            ]
-          }
-        ]
-      }
-    ]
+    "id": "wrangler",
+    "name": "wrangler",
+    "path": ".agents/skills/wrangler",
+    "category": "backend-infra-database",
+    "description": "Cloudflare Workers CLI for deploying, developing, and managing Workers, KV, R2, D1, Vectorize, Hyperdrive, Workers AI, Containers, Queues, Workflows, Pipelines, and Secrets Store. Load before running wrangler commands to ensure correct syntax and best practices. Biases towards retrieval from Cloudflare docs over pre-trained knowledge.",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "writing-plans",
+    "name": "writing-plans",
+    "path": ".agents/skills/writing-plans",
+    "category": "orchestration-meta-agents",
+    "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
+    "status": "active",
+    "source": "local-workspace"
+  },
+  {
+    "id": "writing-skills",
+    "name": "writing-skills",
+    "path": ".agents/skills/writing-skills",
+    "category": "domain-specialized",
+    "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+    "status": "active",
+    "source": "local-workspace"
   }
 ]
