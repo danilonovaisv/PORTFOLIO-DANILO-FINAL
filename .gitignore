@@ -184,3 +184,4 @@ google-cloud-sdk/
 raw/micrograd
 raw/minGPT
 raw/nanoGPT
+.agents/skills/wiki-brain-skill
