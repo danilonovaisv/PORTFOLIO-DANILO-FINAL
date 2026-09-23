@@ -43,6 +43,8 @@ export function AlpaBlockImageFull({
         </div>
       ) : (
         <button
+          type="button"
+          aria-label={`Ampliar imagem: ${alt || caption || 'Visualização do projeto'}`}
           onClick={(e) =>
             openAsset(
               {
@@ -53,7 +55,7 @@ export function AlpaBlockImageFull({
               e
             )
           }
-          className="group relative block w-full overflow-hidden rounded-none bg-neutral/20"
+          className="group relative block w-full overflow-hidden rounded-none bg-neutral/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
         >
           <Image
             src={resolved.asset.url}

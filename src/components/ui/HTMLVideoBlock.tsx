@@ -73,11 +73,19 @@ export function HTMLVideoBlock({
     align-items: center;
     justify-content: center;
   }
-  .stage { background-color: ${COLORS.background} !important; opacity: 1 !important; }
+  .stage {
+    background-color: ${COLORS.background} !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
   ${
     preserveVideoFrame || isFullscreen
       ? `
-  video {
+  video, iframe, canvas {
     display: block !important;
     width: 100% !important;
     height: 100% !important;
@@ -100,7 +108,7 @@ export function HTMLVideoBlock({
 
   const embeddedVideoClasses =
     preserveVideoFrame || isFullscreen
-      ? '[&_video]:block [&_video]:h-full! [&_video]:w-full! [&_video]:max-h-full! [&_video]:max-w-full! [&_video]:object-contain! [&_video]:object-center! [&_video]:bg-transparent! [&_video]:m-auto!'
+      ? '[&_video]:block [&_video]:h-full! [&_video]:w-full! [&_video]:max-h-full! [&_video]:max-w-full! [&_video]:object-contain! [&_video]:object-center! [&_video]:bg-transparent! [&_video]:m-auto! [&_iframe]:w-full! [&_iframe]:h-full! [&_iframe]:border-0!'
       : '';
 
   useEffect(() => {
@@ -187,11 +195,17 @@ export function HTMLVideoBlock({
   if (html) {
     if (isFullHtmlDoc) {
       if (frameless) {
+        const hasExplicitHeightOrAspect =
+          className.includes('aspect-') ||
+          className.includes('h-') ||
+          className.includes('min-h-') ||
+          className.includes('max-h-');
         return (
           <>
             <div
               className={cn(
-                'group relative h-full w-full overflow-hidden bg-background flex items-center justify-center',
+                'group relative w-full overflow-hidden bg-background flex items-center justify-center',
+                hasExplicitHeightOrAspect ? 'h-full' : 'aspect-video',
                 className
               )}
             >
@@ -266,11 +280,17 @@ export function HTMLVideoBlock({
     }
 
     if (frameless) {
+      const hasExplicitHeightOrAspect =
+        className.includes('aspect-') ||
+        className.includes('h-') ||
+        className.includes('min-h-') ||
+        className.includes('max-h-');
       return (
         <>
           <div
             className={cn(
-              'group relative h-full w-full overflow-hidden flex items-center justify-center bg-transparent',
+              'group relative w-full overflow-hidden flex items-center justify-center bg-transparent',
+              hasExplicitHeightOrAspect ? 'h-full' : 'aspect-video',
               className,
               embeddedVideoClasses
             )}

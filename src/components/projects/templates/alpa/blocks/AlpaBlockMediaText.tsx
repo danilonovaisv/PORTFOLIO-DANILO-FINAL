@@ -72,6 +72,8 @@ export function AlpaBlockMediaText({
         />
       ) : resolvedMedia.asset.type === 'image' ? (
         <button
+          type="button"
+          aria-label={`Ampliar imagem: ${alt || 'Mídia do projeto'}`}
           onClick={(e) =>
             openAsset(
               {
@@ -82,7 +84,7 @@ export function AlpaBlockMediaText({
               e
             )
           }
-          className="group relative h-full w-full overflow-hidden"
+          className="group relative h-full w-full overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
         >
           <Image
             src={resolvedMedia.asset.url}

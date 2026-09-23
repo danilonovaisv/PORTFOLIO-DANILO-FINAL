@@ -59,7 +59,7 @@ export function AlpaHeroLayout({
             html={hero_top_media.html}
             frameless
             allowFullscreenToggle
-            className="w-full max-h-[85vh] flex items-center justify-center"
+            className="w-full aspect-video max-h-[85vh] flex items-center justify-center"
           />
         </m.div>
       );

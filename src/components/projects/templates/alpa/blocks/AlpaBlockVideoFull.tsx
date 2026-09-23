@@ -9,6 +9,9 @@ import {
 } from '@/lib/media/asset-contract';
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 
+import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
+import { DEFAULT_CAPTIONS } from '@/lib/video';
+
 interface AlpaBlockVideoFullProps {
   src: string;
   poster?: string;
@@ -57,7 +60,9 @@ export function AlpaBlockVideoFull({
             playsInline
             preload="metadata"
             className="absolute inset-0 w-full h-full object-contain object-center"
-          />
+          >
+            <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
+          </video>
         )}
       </div>
     </m.div>

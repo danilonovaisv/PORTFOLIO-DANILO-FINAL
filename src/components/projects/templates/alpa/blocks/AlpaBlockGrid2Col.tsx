@@ -66,6 +66,8 @@ export function AlpaBlockGrid2Col({
               />
             ) : isImage ? (
               <button
+                type="button"
+                aria-label={`Ampliar imagem: ${col.alt || 'Mídia do projeto'}`}
                 onClick={(e) =>
                   openAsset(
                     {
@@ -76,7 +78,7 @@ export function AlpaBlockGrid2Col({
                     e
                   )
                 }
-                className="group relative h-full w-full overflow-hidden"
+                className="group relative h-full w-full overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
               >
                 <Image
                   src={resolved.asset.url}

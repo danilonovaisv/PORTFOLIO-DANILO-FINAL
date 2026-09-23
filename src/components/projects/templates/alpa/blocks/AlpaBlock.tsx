@@ -4,6 +4,9 @@ import React from 'react';
 import type { ZoomAsset } from '../../types';
 import { HTMLVideoBlock } from '@/components/ui/HTMLVideoBlock';
 
+import { m } from 'motion/react';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
+
 // Specialized Blocks
 import { AlpaBlockTitle } from './AlpaBlockTitle';
 import { AlpaBlockTextFull } from './AlpaBlockTextFull';
@@ -89,13 +92,27 @@ export function AlpaBlock({
 
     case 'html-video':
       return (
-        <HTMLVideoBlock
-          preserveVideoFrame
-          html={content.html || block.html}
-          media={content.media || block.src}
-          title={content.text || block.title || 'HTML Video Preview'}
-          frameless
-        />
+        <m.div
+          initial={revealInitial}
+          whileInView={revealVisible}
+          viewport={{ once: true, margin: '-10%' }}
+          transition={{
+            duration: MOTION_TOKENS.duration.normal,
+            ease: GHOST_EASE,
+          }}
+          className="w-full mb-12 md:mb-20 px-4 md:px-0"
+        >
+          <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-none bg-transparent">
+            <HTMLVideoBlock
+              preserveVideoFrame
+              html={content.html || block.html}
+              media={content.media || block.src}
+              title={content.text || block.title || 'HTML Video Preview'}
+              frameless
+              className="w-full h-full"
+            />
+          </div>
+        </m.div>
       );
 
     case 'image-image':
