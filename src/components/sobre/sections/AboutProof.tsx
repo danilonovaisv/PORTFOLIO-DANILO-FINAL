@@ -43,7 +43,7 @@ export function AboutProof() {
       <div className="std-grid py-16 md:py-24">
         {/* Header */}
         <m.div {...reveal} className="mb-12 text-center md:mb-16">
-          <p className="mb-3 text-small font-medium uppercase tracking-[0.2em] text-bluePrimary">
+          <p className="mb-3 text-small font-medium uppercase tracking-[0.2em] text-blueAccent">
             {PROOF.eyebrow}
           </p>
           <h2

@@ -77,27 +77,29 @@ export function AboutWhatIDo() {
       aria-labelledby="what-i-do-heading"
     >
       {/* ============================================
-          DESKTOP LAYOUT (≥ 1024px)
-          Sticky container with horizontal scroll-driven animation
+          SHARED SECTION HEADER (Single semantic source of truth)
           ============================================ */}
-      <div className="hidden lg:block lg:h-[180vh]">
-        <div className="sticky top-0 flex h-screen min-h-[620px] w-full flex-col items-center justify-center overflow-hidden">
-          {/* Header */}
-          <div className="absolute top-0 z-[var(--z-layer-content)] flex w-full justify-center pt-20">
-            <div className="max-w-[960px] text-center">
-              <h2
-                id="what-i-do-heading"
-                className="text-h1 font-black tracking-tight text-text"
-              >
-                Do <span className="text-bluePrimary">insight</span> ao{' '}
-                <span className="text-bluePrimary">impacto</span>.
-              </h2>
-              <p className="mt-3 text-h2 font-black tracking-tight text-text/90">
-                Mesmo quando você não percebe.
-              </p>
-            </div>
-          </div>
+      <div className="w-full text-center pt-16 md:pt-24 pb-8 md:pb-12 px-4">
+        <div className="max-w-[960px] mx-auto text-center">
+          <h2
+            id="what-i-do-heading"
+            className="text-h2 md:text-h1 font-black tracking-tight text-text text-balance"
+          >
+            Do <span className="text-bluePrimary">insight</span> ao{' '}
+            <span className="text-bluePrimary">impacto</span>.
+          </h2>
+          <p className="mt-2 md:mt-3 text-h3 md:text-h2 font-black tracking-tight text-text/90 text-balance">
+            Mesmo quando você não percebe.
+          </p>
+        </div>
+      </div>
 
+      {/* ============================================
+          DESKTOP LAYOUT (≥ 1024px)
+          Sticky horizontal scroll-driven track
+          ============================================ */}
+      <div className="hidden lg:block lg:h-[130vh]">
+        <div className="sticky top-28 flex min-h-[420px] w-full flex-col items-center justify-center overflow-hidden">
           {/* Horizontal Track - Cards sliding right→left */}
           <m.ul
             aria-labelledby="what-i-do-heading"
@@ -141,31 +143,15 @@ export function AboutWhatIDo() {
 
       {/* ============================================
           MOBILE LAYOUT (< 1024px)
-          Vertical stack with viewport-triggered horizontal entrance
+          Vertical stack with viewport-triggered entrance
           ============================================ */}
-      <div className="block py-16 lg:hidden">
+      <div className="block pb-16 lg:hidden">
         <div className="std-grid">
-          {/* Header */}
-          <header className="mb-10 text-center px-4">
-            <h2
-              id="what-i-do-heading-mobile"
-              className="text-h2 font-black tracking-tight text-text text-balance"
-            >
-              Do <span className="text-bluePrimary">insight</span> ao{' '}
-              <span className="text-bluePrimary">impacto</span>.
-            </h2>
-            <p className="mt-2 text-h3 font-black tracking-tight text-text/90 text-balance">
-              Mesmo quando você não percebe.
-            </p>
-          </header>
-
-          {/* Mobile Cards - Horizontal entrance from right */}
           <ul
             className="flex flex-col gap-3 p-0"
-            aria-labelledby="what-i-do-heading-mobile"
+            aria-labelledby="what-i-do-heading"
           >
             {SERVICES.map((service, index) => {
-              // Calculate specific scroll trigger points for each card
               const start = 0.1 + index * 0.05;
               const end = start + 0.15;
 

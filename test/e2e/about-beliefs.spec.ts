@@ -153,7 +153,12 @@ for (const route of ROUTES) {
       const section = page.locator('[data-testid="beliefs-section"]');
       await expect(section).toBeVisible({ timeout: 15000 });
 
-      // Se o WebGL falhar, o container do shader e o restante da UI devem continuar estáveis
+      // Se o WebGL falhar, o container de fallback e o restante da UI devem continuar estáveis
+      const fallback = section.locator(
+        '[data-testid="shader-lines-fallback"], [data-testid="what-moves-me-background"]'
+      );
+      await expect(fallback.first()).toBeAttached();
+
       const liveRegion = section.locator('#manifesto-phrase-live');
       await expect(liveRegion).toHaveText(
         `${PHRASES[0].line1} ${PHRASES[0].line2}`

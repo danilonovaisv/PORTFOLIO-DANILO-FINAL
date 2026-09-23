@@ -4,7 +4,6 @@ import { RefObject } from 'react';
 import { m } from 'motion/react';
 import type { OriginBlock } from '@/components/sobre/origin/data';
 import { DynamicAssetImage } from '@/components/ui/shared/DynamicAssetImage';
-import { TextReveal } from '@/components/ui/motion/TextReveal';
 import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
@@ -41,47 +40,45 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 
   return (
     <div
-      className={`min-h-[65vh] flex flex-col justify-start pt-16 pb-20 lg:min-h-screen lg:justify-end lg:items-end lg:text-right ${
+      className={`min-h-[60vh] flex flex-col justify-start pt-12 pb-16 lg:min-h-screen lg:justify-end lg:items-end ${
         isRightAligned
           ? 'lg:items-end lg:justify-start lg:text-right'
           : 'lg:items-end lg:justify-start lg:text-left'
       }`}
       data-origin-block={block.id}
     >
-      {/* Mobile: Stack vertical intercalado - Texto primeiro, depois Imagem */}
-      <div className="space-y-6 lg:hidden">
-        {/* Text Content - Mobile */}
-        <div className="text-center px-4">
-          <m.h2
-            initial={
-              prefersReducedMotion
-                ? { opacity: 0 }
-                : {
-                    opacity: 0,
-                    y: MOTION_TOKENS.offset.standard,
-                    filter: 'blur(8px)',
-                  }
-            }
-            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            viewport={viewportConfig}
-            transition={{
-              duration: MOTION_TOKENS.duration.GHOST_EXIT,
-              delay: 0.2,
-              ease: GHOST_EASE,
-            }}
-            className="text-h2 font-bold text-bluePrimary mb-4"
-          >
-            {block.title}
-          </m.h2>
+      <div className="w-full lg:max-w-md text-center lg:text-left relative z-[var(--z-layer-content)] px-4 lg:px-0">
+        <m.h2
+          data-origin-title
+          initial={
+            prefersReducedMotion
+              ? { opacity: 0 }
+              : {
+                  opacity: 0,
+                  y: MOTION_TOKENS.offset.standard,
+                  filter: 'blur(8px)',
+                }
+          }
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={viewportConfig}
+          transition={{
+            duration: MOTION_TOKENS.duration.GHOST_EXIT,
+            delay: 0.1,
+            ease: GHOST_EASE,
+          }}
+          className="text-h2 font-bold text-bluePrimary mb-4 lg:mb-6 tracking-wide"
+        >
+          {block.title}
+        </m.h2>
 
-          <TextReveal
-            text={block.paragraph}
-            highlight={block.highlight}
-            className="text-h3 font-medium text-white/88 leading-relaxed text-pretty"
-          />
-        </div>
+        <p
+          data-origin-copy
+          className="text-h3 lg:text-body font-medium lg:font-normal text-white/88 leading-relaxed whitespace-pre-line text-pretty"
+        >
+          {renderParagraph(block.paragraph, block.highlight)}
+        </p>
 
-        {/* Image - Mobile (400px dimensions per spec) */}
+        {/* Mobile Inline Image (Only displayed on mobile where sticky gallery is hidden) */}
         <m.div
           initial={
             prefersReducedMotion
@@ -95,7 +92,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
             delay: MOTION_TOKENS.stagger.normal,
             ease: GHOST_EASE,
           }}
-          className="relative w-full aspect-square min-h-[240px] rounded-[1.5rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] lg:hidden"
+          className="mt-6 relative w-full aspect-square min-h-[240px] rounded-[1.5rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] lg:hidden"
         >
           <DynamicAssetImage
             assetKey={block.assetKey}
@@ -108,23 +105,6 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
             sizes="(max-width: 1024px) 92vw, 0px"
           />
         </m.div>
-      </div>
-
-      {/* Desktop: Text Content Only (controlled by native scroll) */}
-      <div className="hidden lg:block lg:max-w-md relative z-[var(--z-layer-content)] transition-opacity duration-modal">
-        <h2
-          data-origin-title
-          className="text-h2 font-bold text-bluePrimary mb-6 tracking-wide translate-y-0 opacity-100"
-        >
-          {block.title}
-        </h2>
-
-        <p
-          data-origin-copy
-          className="text-body font-normal text-white/88 leading-relaxed whitespace-pre-line text-pretty translate-y-0 opacity-100"
-        >
-          {renderParagraph(block.paragraph, block.highlight)}
-        </p>
       </div>
     </div>
   );

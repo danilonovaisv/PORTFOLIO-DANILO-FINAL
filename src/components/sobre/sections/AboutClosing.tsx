@@ -80,7 +80,7 @@ export function AboutClosing() {
             <span className="text-bluePrimary">Diretor de Criação</span>,
             <br />
             com mais de{' '}
-            <span className="text-bluePrimary">10 anos de estrada.</span>
+            <span className="text-bluePrimary">12 anos de estrada.</span>
           </h2>
           <div className="mt-10 h-px w-full bg-blueAccent/30" />
         </div>

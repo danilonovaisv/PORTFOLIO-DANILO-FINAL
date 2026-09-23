@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { ShaderAnimation } from '@/components/ui/shader-lines';
 import { WhatMovesMeBackground } from '@/components/sobre/beliefs/WhatMovesMeBackground';
 import { useMotionGate } from '@/hooks/useMotionGate';
+import { Pause, Play } from 'lucide-react';
 
 // ─── Content ──────────────────────────────────────────────────────────────────
 
@@ -18,19 +19,23 @@ export function ManifestoScrollSection() {
   const prefersReducedMotion = useMotionGate();
   const [activeIndex, setActiveIndex] = useState(0);
   const [displayIndex, setDisplayIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [announcementText, setAnnouncementText] = useState('');
 
-  // Separate visual states for each text line to eliminate dynamic inline animation-delay rewrites
+  // Separate visual states for each text line
   const [line1Status, setLine1Status] = useState<'active' | 'exit'>('active');
-  const [line2Status, setLine2Status] = useState<
-    'inactive' | 'active' | 'exit'
-  >('inactive');
+  const [line2Status, setLine2Status] = useState<'inactive' | 'active' | 'exit'>('inactive');
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const line2TimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const transitionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
   // Transition engine mapping the exact behavior of the prototype
-  const transitionTo = (nextIndex: number) => {
+  const transitionTo = useCallback((nextIndex: number, manual = false) => {
+    // Immediately update active tab indicator for responsive UI feedback
+    setActiveIndex(nextIndex);
+
     // 1. Immediately trigger exit stagger animations for both lines
     setLine1Status('exit');
     setLine2Status('exit');
@@ -39,13 +44,17 @@ export function ManifestoScrollSection() {
     if (line2TimeoutRef.current) clearTimeout(line2TimeoutRef.current);
 
     // 2. Wait for the exit animation (350ms + small buffer = 450ms) to complete
-    if (transitionTimeoutRef.current)
-      clearTimeout(transitionTimeoutRef.current);
+    if (transitionTimeoutRef.current) clearTimeout(transitionTimeoutRef.current);
     transitionTimeoutRef.current = setTimeout(() => {
       // 3. Switch the active text phrase and mount the new content
       setDisplayIndex(nextIndex);
       setLine1Status('active');
       setLine2Status('inactive');
+
+      // Update screen reader live text ONLY on manual action
+      if (manual) {
+        setAnnouncementText(`${PHRASES[nextIndex].line1} ${PHRASES[nextIndex].line2}`);
+      }
 
       // 4. Stagger reveal line 2 immediately after line 1 completes
       const line1Length = PHRASES[nextIndex].line1.length;
@@ -54,41 +63,56 @@ export function ManifestoScrollSection() {
       line2TimeoutRef.current = setTimeout(() => {
         setLine2Status('active');
       }, delayTime);
-    }, 450);
-  };
+    }, prefersReducedMotion ? 50 : 450);
+  }, [prefersReducedMotion]);
 
-  // Dynamic interval/autoplay loop aligning with transition engine
+  // Autoplay loop — strictly paused when reduced motion or user paused
   useEffect(() => {
-    // Initialize first phrase line 2 stagger delay on mount
-    const initialLine1Length = PHRASES[displayIndex].line1.length;
-    line2TimeoutRef.current = setTimeout(
-      () => {
-        setLine2Status('active');
-      },
-      prefersReducedMotion ? 0 : initialLine1Length * 30 + 150
-    );
+    // If reduced motion or user paused, do not run interval
+    if (prefersReducedMotion || isPaused) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      return;
+    }
 
     timerRef.current = setInterval(() => {
       const nextIndex = (displayIndex + 1) % PHRASES.length;
-      setActiveIndex(nextIndex);
-      transitionTo(nextIndex);
-    }, 4500);
+      transitionTo(nextIndex, false);
+    }, 5000);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
       if (line2TimeoutRef.current) clearTimeout(line2TimeoutRef.current);
-      if (transitionTimeoutRef.current)
-        clearTimeout(transitionTimeoutRef.current);
+      if (transitionTimeoutRef.current) clearTimeout(transitionTimeoutRef.current);
     };
-  }, [displayIndex, prefersReducedMotion]);
+  }, [displayIndex, prefersReducedMotion, isPaused, transitionTo]);
 
   // Dot navigation handler with safe loop reset
   const handleDotClick = (index: number) => {
-    if (index === displayIndex) return;
+    if (index === activeIndex) return;
+    transitionTo(index, true);
+  };
 
-    if (timerRef.current) clearInterval(timerRef.current);
-    setActiveIndex(index);
-    transitionTo(index);
+  // Keyboard navigation for WAI-ARIA tablist
+  const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
+    let targetIndex = -1;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      targetIndex = (index + 1) % PHRASES.length;
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      targetIndex = (index - 1 + PHRASES.length) % PHRASES.length;
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      targetIndex = 0;
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      targetIndex = PHRASES.length - 1;
+    }
+
+    if (targetIndex !== -1) {
+      tabsRef.current[targetIndex]?.focus();
+      handleDotClick(targetIndex);
+    }
   };
 
   const currentPhrase = PHRASES[displayIndex];
@@ -171,25 +195,25 @@ export function ManifestoScrollSection() {
         }
       `}</style>
 
-      {/* Global background shader — absolute positioned within local section */}
+      {/* Global background shader with built-in boundary and fallback */}
       <ShaderAnimation className="absolute inset-0 z-0 pointer-events-none overflow-hidden bg-[#040013]" />
 
       {/* Radial overlay layers for depth */}
       <WhatMovesMeBackground />
 
-      {/* Safe screen-reader announcement wrapper (WCAG compliant) */}
+      {/* Safe screen-reader announcement wrapper (WCAG 2.2 compliant) */}
       <div
         className="sr-only"
         id="manifesto-phrase-live"
         aria-live="polite"
         aria-atomic="true"
       >
-        {`${PHRASES[activeIndex].line1} ${PHRASES[activeIndex].line2}`}
+        {announcementText || `${PHRASES[0].line1} ${PHRASES[0].line2}`}
       </div>
 
-      <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-10">
-        {/* Category Label */}
-        <p className="text-[0.75rem] font-medium tracking-[0.18em] uppercase text-white/35">
+      <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-8 md:gap-10">
+        {/* Category Label with enhanced contrast (text-white/70 > 7:1 ratio) */}
+        <p className="text-[0.75rem] font-medium tracking-[0.18em] uppercase text-white/70">
           Direção Criativa
         </p>
 
@@ -198,7 +222,6 @@ export function ManifestoScrollSection() {
           aria-hidden="true"
           className="flex max-w-[95vw] flex-col items-center justify-center gap-[0.4rem] px-6 text-center select-none"
         >
-          {/* Key sets unique context per index to ensure React unmounts/remounts elements on phrase change */}
           <div
             key={`phrase-${displayIndex}`}
             id="manifesto-phrase-panel"
@@ -260,7 +283,7 @@ export function ManifestoScrollSection() {
               })()}
             </div>
 
-            {/* Line 2 Stagger Reveal (Chained immediately after Line 1 ends) */}
+            {/* Line 2 Stagger Reveal */}
             <div
               className={`text-line-wrapper flex flex-wrap justify-center min-h-[1.4em] ${line2Status}`}
             >
@@ -315,28 +338,49 @@ export function ManifestoScrollSection() {
           </div>
         </div>
 
-        {/* Navigation Indicator Dots */}
-        <div
-          role="tablist"
-          aria-label="Controle de frases do manifesto"
-          className="flex items-center gap-[0.6rem]"
-        >
-          {PHRASES.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleDotClick(idx)}
-              role="tab"
-              aria-selected={idx === activeIndex ? 'true' : 'false'}
-              aria-controls="manifesto-phrase-panel"
-              tabIndex={idx === activeIndex ? 0 : -1}
-              className={`dot h-[0.35rem] rounded-full border-none cursor-pointer transition-all duration-350 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-                idx === activeIndex
-                  ? 'bg-white w-[1.8rem]'
-                  : 'bg-white/15 w-[0.35rem] hover:bg-white/40 hover:scale-125'
-              }`}
-              aria-label={`Ver manifesto ${idx + 1}`}
-            />
-          ))}
+        {/* Navigation Indicator Dots & Pause/Play Control */}
+        <div className="flex items-center gap-3">
+          {/* Pause / Play Accessible Toggle */}
+          <button
+            type="button"
+            onClick={() => setIsPaused((prev) => !prev)}
+            aria-label={isPaused ? 'Reproduzir troca automática de manifesto' : 'Pausar troca automática de manifesto'}
+            className="flex h-11 w-11 items-center justify-center rounded-full text-white/50 hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bluePrimary cursor-pointer"
+          >
+            {isPaused ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
+          </button>
+
+          {/* Tablist with 44x44px touch targets and full keyboard arrow navigation */}
+          <div
+            role="tablist"
+            aria-label="Controle de frases do manifesto"
+            className="flex items-center gap-1"
+          >
+            {PHRASES.map((_, idx) => (
+              <button
+                key={idx}
+                ref={(el) => {
+                  tabsRef.current[idx] = el;
+                }}
+                onClick={() => handleDotClick(idx)}
+                onKeyDown={(e) => handleKeyDown(e, idx)}
+                role="tab"
+                aria-selected={idx === activeIndex ? 'true' : 'false'}
+                aria-controls="manifesto-phrase-panel"
+                tabIndex={idx === activeIndex ? 0 : -1}
+                className="flex h-11 min-w-11 items-center justify-center p-2 rounded-full border-none bg-transparent cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bluePrimary"
+                aria-label={`Ver manifesto ${idx + 1}`}
+              >
+                <span
+                  className={`block h-[0.35rem] rounded-full transition-all duration-350 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                    idx === activeIndex
+                      ? 'bg-white w-[1.8rem]'
+                      : 'bg-white/20 w-[0.35rem] hover:bg-white/60 hover:scale-125'
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>

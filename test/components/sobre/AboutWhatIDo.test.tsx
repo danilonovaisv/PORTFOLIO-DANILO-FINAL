@@ -80,14 +80,12 @@ describe('AboutWhatIDo typography hierarchy', () => {
       name: /Do\s+insight\s+ao\s+impacto\s*\./i,
     });
 
-    expect(headings).toHaveLength(2);
-    expect(headings[0]).toHaveClass('text-h1');
-    expect(headings[1]).toHaveClass('text-h2');
+    expect(headings).toHaveLength(1);
+    expect(headings[0]).toHaveClass('text-h2');
 
     const subtitles = screen.getAllByText(/Mesmo quando você não percebe\./i);
-    expect(subtitles).toHaveLength(2);
-    expect(subtitles[0]).toHaveClass('text-h2');
-    expect(subtitles[1]).toHaveClass('text-h3');
+    expect(subtitles).toHaveLength(1);
+    expect(subtitles[0]).toHaveClass('text-h3');
   });
 
   it('renders all 7 service cards for desktop and mobile', () => {

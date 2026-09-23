@@ -128,10 +128,23 @@ export const HOME_CONTENT = {
 
   clients: {
     title: 'marcas com as quais já trabalhei',
-    logos: Array.from({ length: 12 }, (_, i) => ({
+    logos: [
+      'Swift',
+      'Nestlé',
+      'Nivea',
+      'Ambev',
+      'Zé Delivery',
+      'Pernod Ricard',
+      'Algar Telecom',
+      'Mapfre',
+      'AON',
+      'O Boticário',
+      'Grupo Iguatemi',
+      'Unilever',
+    ].map((brand, i) => ({
       id: i + 1,
       src: siteAsset(`clients/clients.strip.${i + 1}.svg`),
-      alt: `Logo do cliente ${i + 1}`, // Otimizado: Português para consistência
+      alt: `Logo da marca ${brand}`,
     })),
   },
 
@@ -285,9 +298,9 @@ export const ABOUT_CONTENT = {
     eyebrow: 'PROVA',
     title: ['Marcas que', 'confiaram no processo.'],
     metrics: [
-      { value: '12 anos', label: 'de mercado' },
-      { value: '+14 marcas', label: 'atendidas' },
-      { value: '+100 mil', label: 'peças por ano' },
+      { value: '12+ anos', label: 'de liderança criativa' },
+      { value: '+14 marcas', label: 'líderes atendidas' },
+      { value: '+3.500', label: 'peças e campanhas/ano' },
     ] as Array<{ value: string; label: string }>,
     testimonials: [] as Array<{
       quote: string;
@@ -296,7 +309,7 @@ export const ABOUT_CONTENT = {
     }>,
   },
   closing: {
-    title: 'Hoje sou Diretor de Criação, com mais de 10 anos de estrada.',
+    title: 'Hoje sou Diretor de Criação, com mais de 12 anos de estrada.',
     text: [
       'Já liderei marcas, agências, eventos e criei experiências para todos os canais.',
       'Agora, quero criar algo que permaneça — com você.',
@@ -308,7 +321,7 @@ export const ABOUT_CONTENT = {
     ctas: [
       { label: 'fale comigo', href: '#contact', variant: 'primary' },
       {
-        label: 'baixar apresentação',
+        label: 'baixar currículo',
         href: '/cv-danilo-novais.pdf',
         variant: 'secondary',
         external: true,

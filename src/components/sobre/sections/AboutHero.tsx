@@ -6,7 +6,6 @@ import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ABOUT_CONTENT } from '@/config/content';
 import {
-  MOTION_TOKENS,
   titleLineVariants,
   subtitleVariants,
   staggerContainer,
@@ -29,7 +28,6 @@ export function AboutHero() {
   const blur = useTransform(scrollYProgress, [0, 0.3], [0, 8]);
 
   const prefersReducedMotion = useMotionGate();
-
   const shouldPlayVideo = !prefersReducedMotion;
 
   const activePosterDesk = getAssetUrl(DEFAULT_VIDEO_POSTER, {
@@ -86,57 +84,60 @@ export function AboutHero() {
           />
         </div>
 
-        {/* Desktop Content - 12 Column Grid Concept */}
-        <div className="hidden md:flex relative z-[var(--z-layer-content)] h-screen items-center overflow-hidden w-full">
+        {/* Gradient Bottom Decay */}
+        <div className="absolute bottom-0 left-0 w-full h-[25vh] md:h-[40vh] bg-linear-to-t from-background via-background/80 to-transparent pointer-events-none z-[var(--z-layer-content)]" />
+
+        {/* Unified Semantic Content Tree (Single source of truth, responsive via CSS) */}
+        <div className="relative z-[var(--z-layer-content)] flex min-h-[70vh] md:min-h-screen items-center w-full pt-10 pb-20 md:py-0">
           <div className="std-grid w-full">
-            <div className="grid grid-cols-12 w-full gap-8">
-              {/* Columns 1-6: Empty Space / Negative Space for Video Presence */}
+            <div className="grid grid-cols-1 md:grid-cols-12 w-full gap-8">
+              {/* Negative space for desktop video composition */}
               <div
-                className="col-span-4 lg:col-span-5 xl:col-span-6"
+                className="hidden md:block col-span-4 lg:col-span-5 xl:col-span-6"
                 aria-hidden="true"
               />
 
-              {/* Columns 7-12: Content Block */}
+              {/* Content block: centered on mobile, right-aligned on desktop */}
               <m.div
                 style={
                   prefersReducedMotion
                     ? {}
                     : { opacity, y, filter: `blur(${blur}px)` }
                 }
-                className="col-span-8 lg:col-span-7 xl:col-span-6 flex flex-col items-end text-right -translate-y-[10%]"
+                className="col-span-1 md:col-span-8 lg:col-span-7 xl:col-span-6 flex flex-col items-center md:items-end text-center md:text-right md:-translate-y-[10%]"
               >
                 <m.div
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   animate="visible"
                   variants={staggerContainer(0.08, 0.2)}
-                  className="w-full flex flex-col items-end max-w-[750px] ml-auto"
+                  className="w-full flex flex-col items-center md:items-end max-w-[750px] md:ml-auto"
                 >
-                  {/* Intro & Manifesto - Unified for natural wrapping */}
-                  <div className="mb-12 flex flex-col items-end gap-1">
+                  {/* Intro & Manifesto */}
+                  <div className="mb-8 md:mb-12 flex flex-col items-center md:items-end gap-1">
                     <div className="overflow-hidden">
                       <m.div
                         variants={titleLineVariants}
-                        className="text-[clamp(44px,4.5vw,64px)] font-medium leading-[1.08] tracking-[-0.02em] text-textSecondary text-right"
+                        className="text-[clamp(32px,4.5vw,64px)] font-medium leading-[1.08] tracking-[-0.02em] text-textSecondary text-center md:text-right"
                       >
                         {ABOUT_CONTENT.hero.title.text}
                         {ABOUT_CONTENT.hero.title.highlight && (
-                          <span className="text-bluePrimary font-black ml-2">
+                          <span className="text-bluePrimary font-black ml-1 md:ml-2">
                             {ABOUT_CONTENT.hero.title.highlight}
                           </span>
                         )}
                       </m.div>
                     </div>
 
-                    <div className="flex flex-col items-end" aria-hidden="true">
+                    <div className="flex flex-col items-center md:items-end" aria-hidden="true">
                       {ABOUT_CONTENT.hero.manifesto.map((item, index) => (
                         <div key={index} className="overflow-hidden">
                           <m.p
                             variants={titleLineVariants}
-                            className="text-[clamp(44px,4.5vw,64px)] font-bold leading-[1.08] tracking-[-0.02em] text-bold text-right"
+                            className="text-[clamp(32px,4.5vw,64px)] font-bold leading-[1.08] tracking-[-0.02em] text-text text-center md:text-right"
                           >
                             {item.text}
                             {item.highlight && (
-                              <span className="text-bluePrimary font-black ml-2">
+                              <span className="text-bluePrimary font-black ml-1 md:ml-2">
                                 {item.highlight}
                               </span>
                             )}
@@ -147,24 +148,24 @@ export function AboutHero() {
                     </div>
                   </div>
 
-                  {/* Description - Responsive line breaks */}
+                  {/* Description */}
                   <m.div variants={subtitleVariants}>
-                    <p className="text-h3 text-text text-right font-medium max-w-[520px]">
+                    <p className="text-body md:text-h3 text-text/90 text-center md:text-right font-medium max-w-[540px] leading-relaxed">
                       {ABOUT_CONTENT.hero.description.join(' ')}
                     </p>
                   </m.div>
 
-                  {/* Functional subline + micro-CTA (clareza em <5s) */}
+                  {/* Executive Credential Line (<5s clarity of seniority and scope) */}
                   <m.div
                     variants={subtitleVariants}
-                    className="mt-6 flex flex-col items-end gap-3"
+                    className="mt-6 flex flex-col items-center md:items-end gap-3 pt-2"
                   >
-                    <p className="text-small font-medium uppercase tracking-[0.18em] text-textSecondary">
-                      Direção de criação · Branding · Design estratégico
+                    <p className="text-small font-medium uppercase tracking-[0.16em] md:tracking-[0.18em] text-blueAccent">
+                      Diretor de Criação · 12+ anos · Liderança criativa, branding & IA
                     </p>
                     <a
                       href="#04-o-que-eu-faco"
-                      className="group inline-flex items-center gap-1.5 text-small font-medium text-text/70 transition-colors hover:text-bluePrimary focus-visible:outline-none focus-visible:text-bluePrimary"
+                      className="group inline-flex items-center gap-1.5 text-small font-medium text-text/70 transition-colors hover:text-bluePrimary focus-visible:outline-none focus-visible:text-bluePrimary cursor-pointer"
                     >
                       ver como trabalho
                       <span
@@ -179,77 +180,6 @@ export function AboutHero() {
               </m.div>
             </div>
           </div>
-        </div>
-
-        {/* Gradient Bottom Decay - Suaviza transição para próxima sessão */}
-        <div className="absolute bottom-0 left-0 w-full h-[30vh] md:h-[40vh] bg-linear-to-t from-background via-background/80 to-transparent pointer-events-none z-[var(--z-layer-content)]" />
-
-        {/* Mobile Content */}
-        <div className="md:hidden std-grid relative z-[var(--z-layer-content)] pt-10 pb-20 text-center">
-          <m.div
-            initial={prefersReducedMotion ? 'visible' : 'hidden'}
-            animate="visible"
-            variants={staggerContainer(MOTION_TOKENS.stagger.normal, 0.2)}
-            className="space-y-6"
-          >
-            <div className="space-y-4">
-              <div
-                aria-hidden="true"
-                className="text-h1 text-[clamp(1.75rem,4vw+1rem,3.25rem)] font-bold text-text leading-[1.1] flex flex-col gap-0.5 text-balance"
-              >
-                <div className="overflow-hidden">
-                  <m.span className="inline-block" variants={titleLineVariants}>
-                    Sou <span className="text-bluePrimary">Danilo Novais.</span>
-                  </m.span>
-                </div>
-                <div className="overflow-hidden">
-                  <m.span className="inline-block" variants={titleLineVariants}>
-                    Você <span className="text-bluePrimary">não vê tudo</span>{' '}
-                    <span>o que eu faço.</span>
-                  </m.span>
-                </div>
-                <div className="overflow-hidden">
-                  <m.span className="inline-block" variants={titleLineVariants}>
-                    Mas sente quando{' '}
-                    <span className="text-bluePrimary">funciona.</span>
-                  </m.span>
-                </div>
-              </div>
-            </div>
-
-            <m.div
-              variants={subtitleVariants}
-              className="text-[clamp(1.35rem,4.8vw,1.62rem)] text-text/95 leading-snug tracking-tight max-w-[99%] mx-auto font-medium"
-            >
-              {ABOUT_CONTENT.hero.description.map((line, index) => (
-                <span key={index} className="block">
-                  {line}
-                </span>
-              ))}
-            </m.div>
-
-            {/* Functional subline + micro-CTA (mobile) */}
-            <m.div
-              variants={subtitleVariants}
-              className="flex flex-col items-center gap-3 pt-2"
-            >
-              <p className="text-small font-medium uppercase tracking-[0.16em] text-textSecondary">
-                Direção · Branding · Design estratégico
-              </p>
-              <a
-                href="#04-o-que-eu-faco"
-                className="group inline-flex items-center gap-1.5 text-small font-medium text-text/70 transition-colors hover:text-bluePrimary"
-              >
-                ver como trabalho
-                <span
-                  aria-hidden="true"
-                  className="transition-transform duration-fast group-hover:translate-y-0.5"
-                >
-                  ↓
-                </span>
-              </a>
-            </m.div>
-          </m.div>
         </div>
       </div>
     </section>

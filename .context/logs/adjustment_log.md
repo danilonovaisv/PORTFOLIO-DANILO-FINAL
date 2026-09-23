@@ -1,5 +1,50 @@
 # Adjustment Log
 
+## [2026-09-22T21:45] Ghost System /sobre Route Hardening, A11y WCAG 2.2, WebGL Fallback & Release (/plano-ajuste-orchestration)
+
+**Context:** Auditoria integral e execução do plano de ajuste da rota `/sobre` sob governança de `@project_orchestrator` e `@multi_agent_orchestrator`, mitigando P0 WebGL crash, P1 A11y/WCAG 2.2 AA, e P2 DOM deduplication e precisão de credenciais.
+
+**Changes Applied & Verified:**
+
+1. **Mitigação Crítica de WebGL Crash (P0) (`src/components/ui/shader-lines.tsx`, `src/hooks/useWebGLSupport.ts`)** ✅
+   - Implementado helper `isWebGLAvailable()` com detecção de contexto segura e sem efeitos colaterais.
+   - Dynamic import sob demanda do Three.js apenas em clients com suporte confirmado via `useEffect`.
+   - Fallback gracioso imediato para `WhatMovesMeBackground` com visual estético Ghost Blue.
+   - Adicionados listeners `webglcontextlost` (prevenção de loop) e `webglcontextrestored`.
+   - Implementado `ShaderErrorBoundary` para capturar exceções de GPU sem derrubar a árvore React.
+   - Sanitizado `src/app/sobre/error.tsx` para não expor stack traces ou strings de erro cruas na UI.
+
+2. **Acessibilidade WCAG 2.2 AA & Interatividade (P1) (`src/components/sobre/sections/ManifestoScrollSection.tsx`)** ✅
+   - Hit targets de paginação expandidos para 44 × 44 px com `min-h-[44px] min-w-[44px]` e `aria-label` descritivo.
+   - Suporte completo a teclado (`ArrowRight`, `ArrowLeft`, `Home`, `End`).
+   - Botão acessível de alternância Reproduzir/Pausar para controle de movimento.
+   - Região `aria-live="polite"` não intrusiva com `sr-only` para anunciar o slide ativo a leitores de tela.
+   - Contraste de cores corrigido com `text-blueAccent` (`#4fe6ff`) e `text-white/70`.
+
+3. **Deduplicação de DOM & Refinamento de Credenciais (P2)** ✅
+   - Unificados nós DOM duplicados em desktop/mobile em `AboutHero.tsx`, `OriginComponents.tsx` e `AboutWhatIDo.tsx`.
+   - Credencial executiva posicionada no primeiro viewport: `Diretor de Criação · 12+ anos`.
+   - Mapeados 12 clientes reais (`Swift`, `Nestlé`, `Ambev`, etc.) no alt text dos logos em `AboutProof.tsx`.
+   - Métrica de entrega normalizada para `+3.500 peças e campanhas/ano` em `src/config/content.ts`.
+   - CTA de encerramento alinhado para `baixar currículo` com visual Ghost System em `AboutClosing.tsx`.
+
+4. **Quality Gates & Testes Automatizados** ✅
+   - Typecheck (`tsc --noEmit --strict`): 0 erros.
+   - Lint (`eslint src test tailwind.config.ts`): 0 erros.
+   - Unit Tests (`jest`): 46 test suites, 329 testes 100% aprovados (incluindo novo teste `ManifestoScrollSection.test.tsx`).
+   - E2E Tests (`playwright`): 12/12 aprovados em Chromium, Firefox e WebKit (`test/e2e/about-beliefs.spec.ts`).
+   - Production Build (`next build`): compilado com sucesso no Next.js 16.3.6 Turbopack.
+   - Teste visual local: validado sem erros no browser (`HTTP 200 OK`).
+
+5. **Deploy & Backup Cleanup** ✅
+   - Backup temporário `.backup/` excluído com segurança.
+   - Mudanças comitadas, unificadas na branch `main` e enviadas ao repositório remoto via `git push origin main`.
+   - Pipeline de deploy disparada no Cloudflare Workers via GitHub Actions.
+
+**Status:** CONCLUÍDO COM SUCESSO / DEPLOYED.
+
+---
+
 ## [2026-09-21T11:58] Ghost System QA Pipeline & Master Audit Sign-off (/qa-pipeline, /audit)
 
 **Context:** Execução combinada dos workflows `/qa-pipeline` e `/audit` para inspeção da camada R3F/Canvas, verificação de memory leaks, conformidade de WebGL fallback, análise estática estrita e execução da suíte completa de testes.
