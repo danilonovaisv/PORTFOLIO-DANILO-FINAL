@@ -144,13 +144,11 @@ export function AboutWhatIDo() {
       {/* ============================================
           MOBILE LAYOUT (< 1024px)
           Vertical stack with viewport-triggered entrance
+          Oculto da árvore de acessibilidade para evitar duplicação semântica da lista
           ============================================ */}
-      <div className="block pb-16 lg:hidden">
+      <div className="block pb-16 lg:hidden" aria-hidden="true">
         <div className="std-grid">
-          <ul
-            className="flex flex-col gap-3 p-0"
-            aria-labelledby="what-i-do-heading"
-          >
+          <ul className="flex flex-col gap-3 p-0">
             {SERVICES.map((service, index) => {
               const start = 0.1 + index * 0.05;
               const end = start + 0.15;

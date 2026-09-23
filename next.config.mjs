@@ -29,7 +29,9 @@ const buildSupabaseHosts = () => {
     .map((h) => h.trim())
     .filter(Boolean);
 
-  return Array.from(new Set([primaryHost, ...extraHosts]));
+  return Array.from(
+    new Set([DEFAULT_SUPABASE_HOST, primaryHost, ...extraHosts])
+  );
 };
 
 const supabaseHosts = buildSupabaseHosts().join(' ');

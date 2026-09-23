@@ -18,14 +18,16 @@ const TWO_PI = Math.PI * 2;
 
 /**
  * OriginParallaxScene
- * High-performance 4-layer parallax scene engine.
+ * High-performance 4-layer parallax scene engine adhering to Ghost System & Apple Design principles.
  *
- * Performance Contract:
+ * Performance & Resilience Contract:
+ * - Recalculates all dimension metrics (width, height, maxSide, scaledSide, layer amplitudes)
+ *   on window resize, orientation change and container ResizeObserver without triggering React re-renders.
  * - Single RAF loop per active scene.
- * - Auto-pauses on document.hidden, out-of-viewport, or reduced-motion.
- * - Direct DOM manipulation on transforms (ZERO React re-renders during 60FPS animation).
- * - Safe overscan (scale 1.12x - 1.16x) prevents border exposure.
- * - Graceful fallback to consolidated image if any remote layer fails.
+ * - Auto-pauses immediately on document.hidden, out-of-viewport, reduced-motion, or when inactive.
+ * - Smooth resumption on visibilitychange with no visual jumps.
+ * - Zero querySelector DOM lookup for fallbacks: each layer handles error states independently.
+ * - Full reduced-motion accessibility: stops all parallax transforms and uses gentle cross-fade.
  */
 export function OriginParallaxScene({
   config,
@@ -36,6 +38,7 @@ export function OriginParallaxScene({
 }: OriginParallaxSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const amplitudesRef = useRef<number[]>([]);
   const prefersReducedMotion = useMotionGate();
 
   const [isInViewport, setIsInViewport] = useState(false);
@@ -43,6 +46,16 @@ export function OriginParallaxScene({
     new Array(config.layers.length).fill(false)
   );
   const [hasLayerError, setHasLayerError] = useState(false);
+  const [layerSources, setLayerSources] = useState<string[]>(() =>
+    config.layers.map((l) => l.src)
+  );
+
+  // Sync layer sources if config changes
+  useEffect(() => {
+    setLayerSources(config.layers.map((l) => l.src));
+    setLayersLoaded(new Array(config.layers.length).fill(false));
+    setHasLayerError(false);
+  }, [config.layers]);
 
   // Guard trackRefs array length
   trackRefs.current = trackRefs.current.slice(0, config.layers.length);
@@ -63,27 +76,89 @@ export function OriginParallaxScene({
     return () => observer.disconnect();
   }, []);
 
+  // Recalculate dimension-dependent metrics (amplitudes, sides)
+  const recalculateMetrics = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const width = container.clientWidth || 500;
+    const height = container.clientHeight || 500;
+    const maxSide = Math.max(width, height);
+    const scaledSide = maxSide * config.scale;
+
+    amplitudesRef.current = config.layers.map(
+      (layer) => scaledSide * layer.depth
+    );
+  }, [config.scale, config.layers]);
+
+  // Dynamic Resize & Orientation Observer (P0 Fix)
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    recalculateMetrics();
+
+    let resizeRafId: number | null = null;
+    const scheduleRecalculate = () => {
+      if (resizeRafId !== null) cancelAnimationFrame(resizeRafId);
+      resizeRafId = requestAnimationFrame(() => {
+        recalculateMetrics();
+        resizeRafId = null;
+      });
+    };
+
+    const resizeObserver = new ResizeObserver(scheduleRecalculate);
+    resizeObserver.observe(container);
+
+    window.addEventListener('resize', scheduleRecalculate, { passive: true });
+    window.addEventListener('orientationchange', scheduleRecalculate, {
+      passive: true,
+    });
+
+    return () => {
+      if (resizeRafId !== null) cancelAnimationFrame(resizeRafId);
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', scheduleRecalculate);
+      window.removeEventListener('orientationchange', scheduleRecalculate);
+    };
+  }, [recalculateMetrics]);
+
   const handleLayerLoad = useCallback((index: number) => {
     setLayersLoaded((prev) => {
+      if (prev[index]) return prev;
       const next = [...prev];
       next[index] = true;
       return next;
     });
   }, []);
 
-  const handleLayerError = useCallback(() => {
-    // If a layer fails to load, gracefully fall back to single consolidated image
-    setHasLayerError(true);
-  }, []);
+  // Safe fallback without any querySelector DOM lookups (P0 Fix)
+  const handleLayerError = useCallback(
+    (index: number) => {
+      const layer = config.layers[index];
+      setLayerSources((prev) => {
+        const currentSrc = prev[index];
+        // If remote URL failed, try the local fallbackUrl if available
+        if (layer?.fallbackUrl && currentSrc !== layer.fallbackUrl) {
+          const next = [...prev];
+          next[index] = layer.fallbackUrl;
+          return next;
+        }
+        // If fallbackUrl also failed or is unavailable, fallback to consolidated image
+        setHasLayerError(true);
+        return prev;
+      });
+    },
+    [config.layers]
+  );
 
-  // Parallax RAF Loop
+  // Parallax RAF Loop (P0 Fix: Single loop per active scene, tab hidden pause & restart)
   useEffect(() => {
-    // Only animate if scene is active, in viewport, and user allows motion
     const shouldAnimate =
       isActive && isInViewport && !prefersReducedMotion && !hasLayerError;
 
     if (!shouldAnimate) {
-      // Reset layers to neutral position
+      // Reset layers to neutral transform when not animating
       trackRefs.current.forEach((track) => {
         if (track) {
           track.style.transform = 'translate3d(0px, 0px, 0px)';
@@ -96,35 +171,6 @@ export function OriginParallaxScene({
     let startTimestamp: number | null = null;
     let isTabVisible = !document.hidden;
 
-    const onVisibilityChange = () => {
-      isTabVisible = !document.hidden;
-      if (!isTabVisible && rafId !== null) {
-        cancelAnimationFrame(rafId);
-        rafId = null;
-        startTimestamp = null;
-      } else if (isTabVisible && rafId === null) {
-        rafId = requestAnimationFrame(tick);
-      }
-    };
-
-    document.addEventListener('visibilitychange', onVisibilityChange);
-
-    const container = containerRef.current;
-    let containerWidth = container?.clientWidth || 500;
-    let containerHeight = container?.clientHeight || 500;
-    const maxSide = Math.max(containerWidth, containerHeight);
-    const scaledSide = maxSide * config.scale;
-
-    // Precalculate amplitude per layer
-    const amplitudes = config.layers.map((layer) => scaledSide * layer.depth);
-
-    const onResize = () => {
-      if (!container) return;
-      containerWidth = container.clientWidth;
-      containerHeight = container.clientHeight;
-    };
-    window.addEventListener('resize', onResize);
-
     const tick = (now: number) => {
       if (!isTabVisible) return;
       if (startTimestamp === null) {
@@ -132,7 +178,7 @@ export function OriginParallaxScene({
       }
 
       const elapsed = now - startTimestamp;
-      const cycle = config.cycleMs || 4000;
+      const cycle = config.cycleMs || 6000;
       const phase = (elapsed % cycle) / cycle;
 
       // Wave calculation
@@ -142,12 +188,13 @@ export function OriginParallaxScene({
           : Math.sin(phase * TWO_PI);
 
       const secondaryWaveVal = Math.cos(phase * TWO_PI);
+      const amps = amplitudesRef.current;
 
       for (let i = 0; i < config.layers.length; i++) {
         const track = trackRefs.current[i];
         if (!track) continue;
 
-        const amp = amplitudes[i] || 0;
+        const amp = amps[i] ?? 0;
         const x = Math.round(amp * waveVal * 100) / 100;
         const y =
           config.motionMode === 'diagonal' && config.verticalRatio > 0
@@ -161,14 +208,31 @@ export function OriginParallaxScene({
       rafId = requestAnimationFrame(tick);
     };
 
+    const onVisibilityChange = () => {
+      isTabVisible = !document.hidden;
+      if (!isTabVisible) {
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      } else {
+        if (rafId === null) {
+          // Restart smoothly without frame jump
+          startTimestamp = null;
+          rafId = requestAnimationFrame(tick);
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
     rafId = requestAnimationFrame(tick);
 
     return () => {
       if (rafId !== null) {
         cancelAnimationFrame(rafId);
+        rafId = null;
       }
       document.removeEventListener('visibilitychange', onVisibilityChange);
-      window.removeEventListener('resize', onResize);
     };
   }, [
     isActive,
@@ -176,11 +240,10 @@ export function OriginParallaxScene({
     prefersReducedMotion,
     hasLayerError,
     config.cycleMs,
-    config.scale,
     config.wave,
     config.motionMode,
     config.verticalRatio,
-    config.layers,
+    config.layers.length,
   ]);
 
   const allLayersReady = layersLoaded.every(Boolean);
@@ -189,7 +252,7 @@ export function OriginParallaxScene({
     <div
       ref={containerRef}
       role="img"
-      aria-label={`Composição visual ${config.name}`}
+      aria-label={config.description || `Composição visual ${config.name}`}
       className={cn(
         'relative w-full h-full overflow-hidden select-none pointer-events-none rounded-[1.5rem]',
         className
@@ -198,16 +261,18 @@ export function OriginParallaxScene({
       {/* Consolidated Fallback Image (shown if any layer fails or while loading) */}
       <div
         className={cn(
-          'absolute inset-0 w-full h-full transition-opacity duration-700 ease-out z-[1]',
+          'absolute inset-0 w-full h-full transition-opacity duration-500 ease-out z-[1]',
           hasLayerError || !allLayersReady ? 'opacity-100' : 'opacity-0'
         )}
       >
         <Image
           src={fallbackImage}
-          alt={`Composição visual consolidada ${config.name}`}
+          alt=""
+          aria-hidden="true"
           fill
           sizes="(max-width: 1024px) 92vw, 40vw"
-          priority={priority}
+          preload={priority}
+          loading={priority ? 'eager' : 'lazy'}
           className="object-cover rounded-[1.5rem]"
         />
       </div>
@@ -216,7 +281,7 @@ export function OriginParallaxScene({
       {!hasLayerError && (
         <div
           className={cn(
-            'absolute inset-0 w-full h-full z-[2] transition-opacity duration-700 ease-out',
+            'absolute inset-0 w-full h-full z-[2] transition-opacity duration-500 ease-out',
             allLayersReady ? 'opacity-100' : 'opacity-0'
           )}
         >
@@ -239,27 +304,15 @@ export function OriginParallaxScene({
                 }}
               >
                 <Image
-                  src={layer.src}
+                  src={layerSources[index] || layer.src}
                   alt=""
                   aria-hidden="true"
                   fill
-                  priority={priority && index <= 1}
+                  preload={priority && index <= 1}
+                  loading={priority && index <= 1 ? 'eager' : 'lazy'}
                   sizes="(max-width: 1024px) 92vw, 40vw"
                   onLoad={() => handleLayerLoad(index)}
-                  onError={() => {
-                    // Try local fallback if remote failed
-                    const img =
-                      containerRef.current?.querySelectorAll('img')[index];
-                    if (
-                      img &&
-                      layer.fallbackUrl &&
-                      img.src !== layer.fallbackUrl
-                    ) {
-                      img.src = layer.fallbackUrl;
-                    } else {
-                      handleLayerError();
-                    }
-                  }}
+                  onError={() => handleLayerError(index)}
                   className="object-cover pointer-events-none user-select-none"
                   draggable={false}
                 />

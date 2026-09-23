@@ -20,12 +20,12 @@ export interface OriginParallaxLayerConfig {
   src: string;
   fallbackUrl: string;
   depth: number;
-  alt?: string;
 }
 
 export interface OriginSceneConfig {
   id: number;
   name: string;
+  description: string;
   layers: OriginParallaxLayerConfig[];
   scale: number;
   cycleMs: number;
@@ -71,6 +71,8 @@ export const ORIGIN_SCENES: Record<number, OriginSceneConfig> = {
   1: {
     id: 1,
     name: 'SENSIBILIDADE',
+    description:
+      'Retrato em ambiente criativo representando sensibilidade e observação.',
     scale: 1.12,
     cycleMs: 8000,
     verticalRatio: 0,
@@ -81,7 +83,6 @@ export const ORIGIN_SCENES: Record<number, OriginSceneConfig> = {
         src: `${SUPABASE_BASE_STORAGE}/about/origin/ANIMA-FOTO/CAMADA-0.webp`,
         fallbackUrl: '/site.assets/about/origin/cena-1/CAMADA-0.webp',
         depth: 0.006,
-        alt: 'Camada de fundo da composição Sensibilidade',
       },
       {
         src: `${SUPABASE_BASE_STORAGE}/about/origin/ANIMA-FOTO/CAMADA-1.webp`,
@@ -103,96 +104,99 @@ export const ORIGIN_SCENES: Record<number, OriginSceneConfig> = {
   2: {
     id: 2,
     name: 'CRIAÇÃO',
+    description:
+      'Composição de sketches e formas que evoluem do gesto para a estrutura.',
     scale: 1.16,
-    cycleMs: 4000,
-    verticalRatio: 0.35,
+    cycleMs: 6000,
+    verticalRatio: 0.28,
     motionMode: 'diagonal',
     wave: 'sine',
     layers: [
       {
         src: `${SUPABASE_BASE_STORAGE}/about/origin/02-criacao/camada-0.webp`,
         fallbackUrl: '/site.assets/about/origin/cena-2/camada-0.webp',
-        depth: 0.006,
-        alt: 'Camada de fundo da composição Criação',
+        depth: 0.005,
       },
       {
         src: `${SUPABASE_BASE_STORAGE}/about/origin/02-criacao/camada-1.webp`,
         fallbackUrl: '/site.assets/about/origin/cena-2/camada-1.webp',
-        depth: 0.014,
+        depth: 0.012,
       },
       {
         src: `${SUPABASE_BASE_STORAGE}/about/origin/02-criacao/camada-2.webp`,
         fallbackUrl: '/site.assets/about/origin/cena-2/camada-2.webp',
-        depth: 0.028,
+        depth: 0.024,
       },
       {
         src: `${SUPABASE_BASE_STORAGE}/about/origin/02-criacao/camada-3.webp`,
         fallbackUrl: '/site.assets/about/origin/cena-2/camada-3.webp',
-        depth: 0.048,
+        depth: 0.042,
       },
     ],
   },
   3: {
     id: 3,
     name: 'DESIGN',
+    description:
+      'Composição abstrata sobre design, profundidade e estruturas invisíveis.',
     scale: 1.16,
-    cycleMs: 4000,
-    verticalRatio: 0.35,
+    cycleMs: 6500,
+    verticalRatio: 0.24,
     motionMode: 'diagonal',
     wave: 'sine',
     layers: [
       {
         src: `${SUPABASE_BASE_STORAGE}/about/origin/03-design/camada-0.webp`,
         fallbackUrl: '/site.assets/about/origin/cena-3/camada-0.webp',
-        depth: 0.006,
-        alt: 'Camada de fundo da composição Design',
+        depth: 0.0045,
       },
       {
         src: `${SUPABASE_BASE_STORAGE}/about/origin/03-design/camada-1.webp`,
         fallbackUrl: '/site.assets/about/origin/cena-3/camada-1.webp',
-        depth: 0.014,
+        depth: 0.01,
       },
       {
         src: `${SUPABASE_BASE_STORAGE}/about/origin/03-design/camada-2.webp`,
         fallbackUrl: '/site.assets/about/origin/cena-3/camada-2.webp',
-        depth: 0.028,
+        depth: 0.02,
       },
       {
         src: `${SUPABASE_BASE_STORAGE}/about/origin/03-design/camada-3.webp`,
         fallbackUrl: '/site.assets/about/origin/cena-3/camada-3.webp',
-        depth: 0.048,
+        depth: 0.035,
       },
     ],
   },
   4: {
     id: 4,
     name: 'EXPANSÃO',
+    description:
+      'Composição expansiva representando integração entre estratégia, tecnologia e criação.',
     scale: 1.16,
-    cycleMs: 4000,
-    verticalRatio: 0.35,
+    cycleMs: 6000,
+    verticalRatio: 0.28,
     motionMode: 'diagonal',
     wave: 'sine',
     layers: [
       {
         src: `${SUPABASE_BASE_STORAGE}/about/origin/04-expansao/camada-0.webp`,
         fallbackUrl: '/site.assets/about/origin/cena-4/camada-0.webp',
-        depth: 0.006,
-        alt: 'Camada de fundo da composição Expansão',
+        depth: 0.005,
       },
       {
         src: `${SUPABASE_BASE_STORAGE}/about/origin/04-expansao/camada-1.webp`,
         fallbackUrl: '/site.assets/about/origin/cena-4/camada-1.webp',
-        depth: 0.014,
+        depth: 0.011,
       },
       {
         src: `${SUPABASE_BASE_STORAGE}/about/origin/04-expansao/camada-2.webp`,
         fallbackUrl: '/site.assets/about/origin/cena-4/camada-2.webp',
-        depth: 0.028,
+        depth: 0.023,
       },
       {
         src: `${SUPABASE_BASE_STORAGE}/about/origin/04-expansao/camada-3.webp`,
         fallbackUrl: '/site.assets/about/origin/cena-4/camada-3.webp',
-        depth: 0.048,
+        depth: 0.039,
       },
     ],
   },

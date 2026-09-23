@@ -1,6 +1,7 @@
 'use client';
 
 import { RefObject } from 'react';
+import Image from 'next/image';
 import { m, AnimatePresence } from 'motion/react';
 import type { OriginBlock } from '@/components/sobre/origin/data';
 import { OriginParallaxScene } from '@/components/sobre/origin/OriginParallaxScene';
@@ -143,7 +144,7 @@ export function OriginStickyGallery({
         {/* Glow effect behind images */}
         <div className="origin-glow" />
 
-        {/* Desktop Stage HUD / Progress Indicator */}
+        {/* Desktop Stage HUD / Minimalist Editorial Indicator */}
         <div className="absolute -top-12 left-0 right-0 flex items-center justify-between z-20 px-2 pointer-events-auto select-none">
           <div className="flex items-center gap-3">
             <span className="font-mono text-sm font-bold text-bluePrimary tracking-wider">
@@ -155,26 +156,20 @@ export function OriginStickyGallery({
             </span>
           </div>
 
-          {/* Progress bar ticks */}
-          <div className="flex gap-1.5">
-            {blocks.map((_, i) => (
-              <div
-                key={i}
-                className={`h-1 rounded-full transition-all duration-500 ${
-                  i === activeSceneIndex
-                    ? 'w-6 bg-bluePrimary'
-                    : i < activeSceneIndex
-                      ? 'w-2 bg-white/40'
-                      : 'w-2 bg-white/15'
-                }`}
-              />
-            ))}
+          {/* Minimalist Editorial Progress Bar */}
+          <div className="w-24 h-[2px] bg-white/10 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-bluePrimary transition-all duration-500 ease-out"
+              style={{ width: `${((activeSceneIndex + 1) / total) * 100}%` }}
+            />
           </div>
         </div>
 
-        {/* 4 Multi-depth Parallax Scenes */}
+        {/* 4 Multi-depth Parallax Scenes - Mount active and adjacent scenes for optimal performance */}
         {blocks.map((block, index) => {
           const isActive = activeSceneIndex === index;
+          const isAdjacentOrActive = Math.abs(index - activeSceneIndex) <= 1;
+
           return (
             <div
               key={block.id}
@@ -182,12 +177,33 @@ export function OriginStickyGallery({
               data-img-index={index}
               data-z-index={index + 1}
             >
-              <OriginParallaxScene
-                config={block.scene}
-                isActive={isActive}
-                fallbackImage={block.img || `/site.assets/${block.fallback}`}
-                priority={block.priority}
-              />
+              {isAdjacentOrActive ? (
+                <OriginParallaxScene
+                  config={block.scene}
+                  isActive={isActive}
+                  fallbackImage={block.img || `/site.assets/${block.fallback}`}
+                  priority={block.priority}
+                />
+              ) : (
+                <div
+                  role="img"
+                  aria-label={
+                    block.scene.description ||
+                    `Composição visual ${block.scene.name}`
+                  }
+                  className="relative w-full h-full"
+                >
+                  <Image
+                    src={block.img || `/site.assets/${block.fallback}`}
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    sizes="(max-width: 1024px) 92vw, 40vw"
+                    loading="lazy"
+                    className="object-cover rounded-[1.5rem]"
+                  />
+                </div>
+              )}
               {/* Mask overlay for legacy reveal effect compatibility */}
               <div className="origin-mask absolute inset-0 bg-background z-[var(--z-layer-glass)] origin-top opacity-0 pointer-events-none" />
             </div>
