@@ -2,6 +2,7 @@ import {
   buildSupabaseStorageUrl,
   normalizeStoragePath,
 } from '@/lib/supabase/urls';
+import { isHtmlMedia } from '@/lib/portfolio/card-media';
 
 export type Asset = {
   type: 'image' | 'video';
@@ -154,6 +155,15 @@ export function resolveLandingAsset(
   if (!value?.trim()) return { ok: false, reason: 'empty' };
 
   const trimmed = value.trim();
+
+  if (typeHint === 'html' || isHtmlMedia(trimmed)) {
+    return {
+      ok: true,
+      source: 'new',
+      asset: { type: 'video', url: trimmed, provider: undefined },
+    };
+  }
+
   const youtubeUrl = normalizeYoutubeUrl(trimmed);
   if (typeHint === 'youtube') {
     if (!youtubeUrl) return { ok: false, reason: 'invalid-youtube' };

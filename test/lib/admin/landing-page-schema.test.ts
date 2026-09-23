@@ -23,6 +23,10 @@ import {
   MASTER_PROJECT_TEMPLATE_V3,
   MASTER_PROJECT_TEMPLATE_V3_HERO,
 } from '@/types/project-template';
+import {
+  resolveLandingAsset,
+  requireResolvedAsset,
+} from '@/lib/media/asset-contract';
 
 describe('landing page write contract', () => {
   it('accepts real default templates after draft serialization', () => {
@@ -233,6 +237,50 @@ describe('landing page write contract', () => {
       ],
     };
     expect(landingPageContentSchema.parse(payload)).toEqual(payload);
+  });
+
+  it('accepts and preserves HTML video in hero_top_media and grid blocks without requiring external src URL', () => {
+    const htmlSnippet =
+      '<video src="https://example.com/video.mp4" autoplay loop muted playsinline></video>';
+    const payloadV3Hero = {
+      template: MASTER_PROJECT_TEMPLATE_V3_HERO,
+      gallery_grid: [
+        {
+          id: 'html-block-1',
+          type: 'html-video',
+          content: {
+            html: htmlSnippet,
+            mediaType: 'html',
+          },
+        },
+      ],
+      hero_top_media: {
+        kind: 'html',
+        html: htmlSnippet,
+        alt: 'HTML Video Hero',
+      },
+    };
+    const parsed = landingPageContentSchema.parse(payloadV3Hero) as any;
+    expect(parsed.hero_top_media.html).toBe(htmlSnippet);
+    expect(parsed.hero_top_media.kind).toBe('html');
+    expect(parsed.hero_top_media.src ?? '').toBe('');
+    expect(parsed.gallery_grid[0].content.html).toBe(htmlSnippet);
+
+    const stripped = stripMasterV3Draft(payloadV3Hero as any);
+    expect(stripped.hero_top_media?.src).toBe('');
+    expect(stripped.hero_top_media?.html).toBe(htmlSnippet);
+  });
+
+  it('resolves and normalizes HTML media without invalid-url persistence errors', () => {
+    const htmlVideo =
+      '<iframe src="https://player.vimeo.com/video/12345" allowfullscreen></iframe>';
+    const resolved = resolveLandingAsset(htmlVideo, 'html');
+    expect(resolved.ok).toBe(true);
+    if (resolved.ok) {
+      expect(resolved.asset.url).toBe(htmlVideo);
+    }
+    expect(requireResolvedAsset(htmlVideo, 'html')).toBe(htmlVideo);
+    expect(requireResolvedAsset(htmlVideo)).toBe(htmlVideo);
   });
 
   it.each([

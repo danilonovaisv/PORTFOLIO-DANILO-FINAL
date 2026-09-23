@@ -10,7 +10,7 @@ import {
 const mediaKind = z.enum(['image', 'video', 'youtube', 'html']);
 const asset = z
   .object({
-    src: z.string(),
+    src: z.string().optional().default(''),
     kind: z.enum(['image', 'video', 'html']).optional(),
     alt: z.string().optional(),
     poster: z.string().optional(),
@@ -69,6 +69,9 @@ const common = {
 const v3 = {
   ...common,
   schema_version: z.literal('3.0').optional(),
+  hero_top_media: asset
+    .extend({ html: z.string().optional() })
+    .optional(),
   gallery_grid: z.array(block),
   intro_body: z
     .array(
@@ -151,9 +154,6 @@ const contentShape = z.union([
       .object({
         ...v3,
         template: z.literal(MASTER_PROJECT_TEMPLATE_V3_HERO),
-        hero_top_media: asset
-          .extend({ html: z.string().optional() })
-          .optional(),
       })
       .passthrough(),
   ]),

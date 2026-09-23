@@ -147,11 +147,12 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
     options?: {
       secondary?: boolean;
       tertiary?: boolean;
-      kind?: 'image' | 'video' | 'youtube';
+      kind?: 'image' | 'video' | 'youtube' | 'html';
     }
   ) => {
     const slotNum = options?.tertiary ? '3' : options?.secondary ? '2' : '';
     const mediaKey = slotNum ? `media${slotNum}` : 'media';
+    const htmlKey = slotNum ? `html${slotNum}` : 'html';
     const altKey = slotNum ? `alt${slotNum}` : 'alt';
     const posterKey = slotNum ? `poster${slotNum}` : 'poster';
     const mediaTypeKey = slotNum ? `mediaType${slotNum}` : 'mediaType';
@@ -163,10 +164,15 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
         ? 'youtube'
         : block.content[mediaTypeKey] === 'video'
           ? 'video'
-          : 'image');
+          : block.content[mediaTypeKey] === 'html'
+            ? 'html'
+            : 'image');
 
     const value = {
-      src: block.content[mediaKey] || '',
+      src:
+        (kind === 'html'
+          ? block.content[htmlKey] || block.content[mediaKey]
+          : block.content[mediaKey]) || '',
       alt: block.content[altKey] || '',
       kind: kind === 'youtube' ? 'video' : kind,
       poster: block.content[posterKey] || '',
@@ -181,6 +187,14 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
         mode={kind}
         allowYouTube
         onChange={(next, nextMode = kind) => {
+          const resolvedMode =
+            nextMode === 'youtube'
+              ? 'youtube'
+              : nextMode === 'video'
+                ? 'video'
+                : nextMode === 'html'
+                  ? 'html'
+                  : 'image';
           onChange({
             [fileKey]: next.file ?? null,
             [previewKey]: next.previewUrl || '',
@@ -189,12 +203,8 @@ export function BlockEditorV3({ block, onChange }: BlockEditorV3Props) {
               [mediaKey]: next.src,
               [altKey]: next.alt,
               [posterKey]: next.poster,
-              [mediaTypeKey]:
-                nextMode === 'youtube'
-                  ? 'youtube'
-                  : nextMode === 'video'
-                    ? 'video'
-                    : 'image',
+              [mediaTypeKey]: resolvedMode,
+              ...(resolvedMode === 'html' ? { [htmlKey]: next.src } : {}),
             },
           });
         }}

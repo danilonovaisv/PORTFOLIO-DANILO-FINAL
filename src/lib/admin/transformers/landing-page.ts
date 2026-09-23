@@ -243,7 +243,7 @@ export const stripMasterV3Draft = (
       : undefined,
     hero_top_media: value.hero_top_media
       ? {
-          src: value.hero_top_media.src,
+          src: value.hero_top_media.src ?? '',
           alt: value.hero_top_media.alt,
           kind: value.hero_top_media.kind,
           poster: value.hero_top_media.poster,

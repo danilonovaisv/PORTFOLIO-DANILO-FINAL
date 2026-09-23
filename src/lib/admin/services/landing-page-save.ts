@@ -15,6 +15,7 @@ import {
   requireResolvedAsset,
   resolveSupabaseUrl,
 } from '@/lib/media/asset-contract';
+import { isHtmlMedia } from '@/lib/portfolio/card-media';
 import {
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
@@ -366,6 +367,43 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: UploadAsset) {
     };
   }
 
+  let heroTopMedia = nextTemplate.hero_top_media;
+  if (heroTopMedia?.file) {
+    const path = await upload(
+      heroTopMedia.file,
+      `master-v3-hero-top-${uuidv4()}`
+    );
+    if (path) {
+      heroTopMedia = {
+        ...heroTopMedia,
+        src: path,
+        file: null,
+        previewUrl: '',
+      };
+    }
+  } else if (heroTopMedia) {
+    const isHtml =
+      heroTopMedia.kind === 'html' ||
+      Boolean(heroTopMedia.html) ||
+      isHtmlMedia(heroTopMedia.src);
+
+    heroTopMedia = {
+      ...heroTopMedia,
+      src: isHtml
+        ? (heroTopMedia.src || '')
+        : (heroTopMedia.src
+            ? normalizePersistedAsset(
+                heroTopMedia.src,
+                heroTopMedia.kind as any
+              )
+            : ''),
+      kind: isHtml ? 'html' : (heroTopMedia.kind || 'image'),
+      html: heroTopMedia.html || (isHtml ? heroTopMedia.src : undefined),
+      file: null,
+      previewUrl: '',
+    };
+  }
+
   const galleryGrid = await Promise.all(
     nextTemplate.gallery_grid.map(async (rawBlock) => {
       const block = {
@@ -375,17 +413,28 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: UploadAsset) {
       let mediaPath = block.content.media;
       let media2Path = block.content.media2;
 
+      const isBlockHtml1 =
+        block.type === 'html-video' ||
+        block.content.mediaType === 'html' ||
+        Boolean(block.content.html) ||
+        isHtmlMedia(mediaPath);
+
       if (block.file) {
         const path = await upload(block.file, `master-v3-grid-${block.id}-m1`);
         if (path) mediaPath = path;
-      } else if (mediaPath) {
+      } else if (mediaPath && !isBlockHtml1) {
         mediaPath = normalizePersistedAsset(mediaPath, block.content.mediaType);
       }
+
+      const isBlockHtml2 =
+        block.content.mediaType2 === 'html' ||
+        Boolean(block.content.html2) ||
+        isHtmlMedia(media2Path);
 
       if (block.file2) {
         const path = await upload(block.file2, `master-v3-grid-${block.id}-m2`);
         if (path) media2Path = path;
-      } else if (media2Path) {
+      } else if (media2Path && !isBlockHtml2) {
         media2Path = normalizePersistedAsset(
           media2Path,
           block.content.mediaType2
@@ -399,12 +448,21 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: UploadAsset) {
         ? normalizePersistedAsset(block.content.poster2, 'image')
         : '';
 
+      const finalHtml1 =
+        block.content.html || (isBlockHtml1 ? mediaPath : undefined);
+      const finalHtml2 =
+        block.content.html2 || (isBlockHtml2 ? media2Path : undefined);
+
       return {
         ...block,
         content: sanitizeMasterV3BlockContent({
           ...block.content,
           media: mediaPath,
           media2: media2Path,
+          html: finalHtml1,
+          html2: finalHtml2,
+          mediaType: isBlockHtml1 ? 'html' : block.content.mediaType,
+          mediaType2: isBlockHtml2 ? 'html' : block.content.mediaType2,
           poster: posterPath,
           poster2: poster2Path,
         }),
@@ -427,6 +485,7 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: UploadAsset) {
         }
       : undefined,
     hero_logo_image: heroLogo,
+    hero_top_media: heroTopMedia,
     gallery_grid: galleryGrid,
     seo: {
       ...nextTemplate.seo,
@@ -444,5 +503,6 @@ function normalizePersistedAsset(
   hint?: AssetTypeHint | 'image' | 'video'
 ) {
   if (!value?.trim()) return '';
+  if (hint === 'html' || isHtmlMedia(value)) return value.trim();
   return requireResolvedAsset(value, hint as AssetTypeHint | undefined);
 }

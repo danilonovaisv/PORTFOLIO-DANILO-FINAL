@@ -1,5 +1,40 @@
 # Adjustment Log
 
+## [2026-09-23T18:35] Resolução de Persistência de Vídeos HTML em Landing Pages & Auditoria de Agente (/audit /audit-agent-config)
+
+**Context:** Auditoria de configuração do agente `@portfolio_experience` ([`.agents/agents/portfolio-experience-specialist.md`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/agents/portfolio-experience-specialist.md)) e resolução da falha que impedia o salvamento de vídeos HTML nos projetos de landing pages no `/admin`.
+
+**Changes Applied & Verified:**
+
+1. **Validação de Asset Contract (`src/lib/media/asset-contract.ts`)** ✅
+   - Adicionada detecção antecipada para `typeHint === 'html'` e marcações HTML via `isHtmlMedia` em `resolveLandingAsset`.
+   - Impede que código HTML (`<video>`, `<iframe>`) seja tratado como URL e lance `SYSTEM_ERR: INVALID_ASSET_SOURCE (invalid-url)`.
+
+2. **Editor de Blocos V3 (`src/components/admin/templates/v3/BlockEditorV3.tsx`)** ✅
+   - Corrigido o ternário de `[mediaTypeKey]` em `renderMediaField` para preservar `nextMode === 'html' ? 'html'`.
+   - Garante que a chave `html` receba o snippet HTML inserido no campo de mídia.
+
+3. **Schema Zod de Landing Page (`src/lib/admin/schemas/landing-page.ts`)** ✅
+   - Atualizado o schema `asset` tornando `src` opcional com default vazio (`src: z.string().optional().default('')`) para acomodar mídias que utilizam apenas código `html`.
+   - Adicionado `hero_top_media` no template V3 padrão (`MASTER_PROJECT_TEMPLATE_V3`) e V3_HERO.
+
+4. **Pipeline de Salvamento & Transformers (`landing-page-save.ts`, `transformers/landing-page.ts`)** ✅
+   - Em `saveMasterTemplateV3`: implementada a normalização de `hero_top_media` (com suporte a upload de arquivo e preservação de HTML).
+   - Nos blocos da grid (`gallery_grid`), contorna validação de URL quando o bloco for `html-video` ou `mediaType === 'html'`, garantindo a integridade dos dados.
+   - Adicionada guarda em `normalizePersistedAsset` para retornar o valor bruto caso seja HTML.
+   - Em `stripMasterV3Draft`: fallback seguro `src: value.hero_top_media.src ?? ''`.
+
+5. **Governança do Agente (`.agents/agents/portfolio-experience-specialist.md`)** ✅
+   - Normalizados nomes canônicos de skills (`verification-before-completion`, `systematic-debugging`).
+   - Expandido o escopo operacional para validação de contratos de mídia (`asset-contract`) em conjunto com `@admin_reliability`.
+
+6. **Testes Automatizados & Qualidade** ✅
+   - Criados testes unitários para persistência de vídeo HTML em `test/lib/admin/landing-page-schema.test.ts`.
+   - Testes unitários Jest: 46/46 suites (335 testes) PASS (100%).
+   - `build-check` (typecheck + eslint): 100% limpo, código 0.
+
+---
+
 ## [2026-09-23T14:55] Evolução Editorial e Paralaxe Multicamada da Seção Origem (`/sobre`) (/plano-ajuste-orchestration /enhance)
 
 **Context:** Implementação da evolução da seção `ORIGEM` da página `/sobre` com base no prompt operacional (`reports/PROMPT_OPERACIONAL_PARA_AGENT_IDE.md`), auditoria da seção (`reports/Auditoria_da_seção_Origem.md`) e documentação canônica em `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/03-ORIGEM-CRIATIVA/`.
