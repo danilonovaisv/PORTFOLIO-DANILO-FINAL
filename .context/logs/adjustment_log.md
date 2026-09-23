@@ -1,5 +1,29 @@
 # Adjustment Log
 
+## [2026-09-23T00:19] Ghost System Behavioral Guidelines (LLM Mistake Reduction Protocol) (/agent-config-update)
+
+**Context:** Implementação das diretrizes comportamentais universais de redução de erros em modelos de linguagem nos arquivos de governança do projeto (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`).
+
+**Changes Applied & Verified:**
+
+1. **Protocolo de Cautela e Tomada de Decisão (Think Before Coding)** ✅
+   - Proibição de assumir premissas frágeis em silêncio. Explicitação mandatória de suposições e trade-offs antes da implementação.
+
+2. **Simplicidade Radical (Simplicity First)** ✅
+   - Código mínimo para resolver o problema, sem funcionalidades extras, abstrações especulativas ou flexibilidades desnecessárias.
+
+3. **Alterações Cirúrgicas (Surgical Changes)** ✅
+   - Proibição de mexer em código adjacente não relacionado, formatações desnecessárias ou refatorações não solicitadas. Remoção apenas de código tornado órfão pela própria alteração.
+
+4. **Execução Orientada por Metas (Goal-Driven Execution)** ✅
+   - Definição de critérios claros de sucesso com loop autônomo de verificação empírica antes da entrega final.
+
+5. **Verificação & Compliance** ✅
+   - Integrado cirurgicamente em `AGENTS.md`, `CLAUDE.md` e `GEMINI.md`.
+   - Lint (`pnpm run lint`): 0 erros, 0 avisos.
+
+---
+
 ## [2026-09-22T21:45] Ghost System /sobre Route Hardening, A11y WCAG 2.2, WebGL Fallback & Release (/plano-ajuste-orchestration)
 
 **Context:** Auditoria integral e execução do plano de ajuste da rota `/sobre` sob governança de `@project_orchestrator` e `@multi_agent_orchestrator`, mitigando P0 WebGL crash, P1 A11y/WCAG 2.2 AA, e P2 DOM deduplication e precisão de credenciais.
