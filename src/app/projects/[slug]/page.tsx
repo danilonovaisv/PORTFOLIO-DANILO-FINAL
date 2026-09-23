@@ -19,6 +19,7 @@ import {
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
   MASTER_PROJECT_TEMPLATE_V3,
+  MASTER_PROJECT_TEMPLATE_V3_HERO,
 } from '@/types/project-template';
 import JsonLd from '@/components/ui/JsonLd';
 
@@ -149,7 +150,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const parsedMaster =
     parsed.template === MASTER_PROJECT_TEMPLATE ||
     parsed.template === MASTER_PROJECT_TEMPLATE_V2 ||
-    parsed.template === MASTER_PROJECT_TEMPLATE_V3
+    parsed.template === MASTER_PROJECT_TEMPLATE_V3 ||
+    parsed.template === MASTER_PROJECT_TEMPLATE_V3_HERO
       ? parsed.data
       : null;
 

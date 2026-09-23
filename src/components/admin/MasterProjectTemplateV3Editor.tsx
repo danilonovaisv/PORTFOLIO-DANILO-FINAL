@@ -17,6 +17,7 @@ import type { MasterProjectTemplateV3Data } from '@/types/project-template';
 import { MediaAssetField } from './templates/MediaAssetField';
 import { CommonProjectMetadataFields } from './templates/CommonProjectMetadataFields';
 import { CommonSEOAndNavFields } from './templates/CommonSEOAndNavFields';
+import { HTMLVideoBlock } from '@/components/ui/HTMLVideoBlock';
 // V3 specific sub-components (could be further extracted if needed)
 import { BlockEditorV3 } from './templates/v3/BlockEditorV3';
 import {
@@ -83,10 +84,13 @@ export type MasterProjectV3GalleryDraft = LandingPageBlock;
 
 export type MasterProjectTemplateV3Draft = Omit<
   MasterProjectTemplateV3Data,
-  'hero_cover_image' | 'hero_logo_image' | 'gallery_grid'
+  'hero_cover_image' | 'hero_logo_image' | 'client_logo_image' | 'hero_top_media' | 'gallery_grid'
 > & {
   hero_cover_image?: any;
   hero_logo_image?: any;
+  client_logo_image?: any;
+  hero_top_media?: any;
+  hero_media_type?: 'none' | 'image' | 'video' | 'html';
   gallery_grid: MasterProjectV3GalleryDraft[];
 };
 
@@ -108,6 +112,14 @@ export default function MasterProjectTemplateV3Editor({
   const update = (updates: Partial<MasterProjectTemplateV3Draft>) => {
     onChange({ ...value, ...updates });
   };
+
+  const currentHeroMediaType =
+    value.hero_media_type ||
+    (value.hero_top_media?.kind
+      ? value.hero_top_media.kind === 'html' || value.hero_top_media.kind === 'video'
+        ? value.hero_top_media.kind
+        : 'image'
+      : 'none');
 
   const updateBlock = (id: string, updates: Partial<LandingPageBlock>) => {
     update({
@@ -144,6 +156,28 @@ export default function MasterProjectTemplateV3Editor({
     });
   };
 
+  const handleHeroLogoChange = (next: any) => {
+    update({
+      hero_logo_image: next,
+      client_logo_image: next,
+    });
+  };
+
+  const handleHeroMediaTypeChange = (type: 'none' | 'image' | 'video' | 'html') => {
+    update({
+      hero_media_type: type,
+      template: type !== 'none' ? 'master-project-v3-alpa-hero' : 'master-project-v3-alpa',
+      hero_top_media:
+        type === 'none'
+          ? undefined
+          : {
+              ...(value.hero_top_media || {}),
+              kind: type,
+              alt: value.hero_top_media?.alt || `Hero media de ${value.project_title || 'projeto'}`,
+            },
+    });
+  };
+
   return (
     <div className="space-y-6">
       <header className="flex items-center justify-between">
@@ -160,31 +194,33 @@ export default function MasterProjectTemplateV3Editor({
         />
       </section>
 
+      {/* Seção de Logo do Cliente */}
       <section className="space-y-4">
         <h3 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-blue-500/80">
-          Static_Hero_Assets
+          Client_Identity_Assets (Logo do Cliente)
         </h3>
         <div className="grid gap-4 xl:grid-cols-2">
           <MediaAssetField
-            label="Hero_Logo_Asset"
+            label="Client_Logo_Asset (Logo do Cliente / Marca)"
             value={
+              value.client_logo_image ||
               value.hero_logo_image || {
                 src: '',
-                alt: '',
+                alt: value.project_client ? `Logo de ${value.project_client}` : 'Logo do cliente',
                 kind: 'image',
                 poster: '',
               }
             }
-            onChange={(next) => update({ hero_logo_image: next })}
+            onChange={handleHeroLogoChange}
             requireAlt
           />
 
           <MediaAssetField
-            label="SEO_Cover_Asset (Optional_No_Hero_Display)"
+            label="SEO_Cover_Asset (Fallback OpenGraph / Social)"
             value={
               value.hero_cover_image || {
                 src: '',
-                alt: '',
+                alt: `Capa de ${value.project_title || 'projeto'}`,
                 kind: 'image',
                 poster: '',
               }
@@ -192,6 +228,148 @@ export default function MasterProjectTemplateV3Editor({
             onChange={(next) => update({ hero_cover_image: next })}
           />
         </div>
+      </section>
+
+      {/* Seção de Mídia da Hero: Imagem ou Vídeo HTML */}
+      <section className="space-y-4 rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h3 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-blue-500/80">
+              Hero_Media_Configuration (Mídia da Hero)
+            </h3>
+            <p className="font-mono text-[11px] text-white/60">
+              Escolha se a hero exibe imagem de destaque, vídeo HTML embed ou cabeçalho minimalista.
+            </p>
+          </div>
+
+          {/* Seletor de Formato */}
+          <div className="inline-flex rounded-lg border border-white/10 bg-background p-1 font-mono text-[11px]">
+            <button
+              type="button"
+              onClick={() => handleHeroMediaTypeChange('none')}
+              className={`rounded px-3 py-1.5 transition-all ${
+                currentHeroMediaType === 'none'
+                  ? 'bg-bluePrimary text-white shadow-sm'
+                  : 'text-white/60 hover:text-white'
+              }`}
+            >
+              Sem Mídia
+            </button>
+            <button
+              type="button"
+              onClick={() => handleHeroMediaTypeChange('image')}
+              className={`rounded px-3 py-1.5 transition-all ${
+                currentHeroMediaType === 'image'
+                  ? 'bg-bluePrimary text-white shadow-sm'
+                  : 'text-white/60 hover:text-white'
+              }`}
+            >
+              Imagem
+            </button>
+            <button
+              type="button"
+              onClick={() => handleHeroMediaTypeChange('html')}
+              className={`rounded px-3 py-1.5 transition-all ${
+                currentHeroMediaType === 'html' || currentHeroMediaType === 'video'
+                  ? 'bg-bluePrimary text-white shadow-sm'
+                  : 'text-white/60 hover:text-white'
+              }`}
+            >
+              Vídeo HTML
+            </button>
+          </div>
+        </div>
+
+        {/* Configuração de Imagem */}
+        {currentHeroMediaType === 'image' && (
+          <div className="mt-4 space-y-4">
+            <MediaAssetField
+              label="Hero_Image_Asset (Exibição no topo da landing page)"
+              value={
+                value.hero_top_media || {
+                  src: '',
+                  alt: `Hero media de ${value.project_title || 'projeto'}`,
+                  kind: 'image',
+                  poster: '',
+                }
+              }
+              onChange={(next) =>
+                update({
+                  hero_top_media: {
+                    ...next,
+                    kind: 'image',
+                  },
+                })
+              }
+              requireAlt
+            />
+          </div>
+        )}
+
+        {/* Configuração de Vídeo HTML */}
+        {(currentHeroMediaType === 'html' || currentHeroMediaType === 'video') && (
+          <div className="mt-4 space-y-4">
+            <div className="space-y-2">
+              <label className="block font-mono text-xs font-semibold text-white/80">
+                Código HTML do Vídeo (Embed iframe ou tag &lt;video&gt;)
+              </label>
+              <textarea
+                value={value.hero_top_media?.html || ''}
+                onChange={(e) =>
+                  update({
+                    hero_top_media: {
+                      ...(value.hero_top_media || {}),
+                      kind: 'html',
+                      html: e.target.value,
+                      alt: value.hero_top_media?.alt || `Vídeo do projeto ${value.project_title || ''}`,
+                    },
+                  })
+                }
+                placeholder="Cole aqui o código HTML, tag <video src='...'> ou iframe embed..."
+                rows={4}
+                className="w-full rounded-lg border border-white/10 bg-background/80 p-3 font-mono text-xs text-white placeholder-white/30 focus:border-bluePrimary focus:outline-none"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block font-mono text-xs font-semibold text-white/80">
+                Texto Alternativo / Título do Vídeo (Acessibilidade)
+              </label>
+              <input
+                type="text"
+                value={value.hero_top_media?.alt || ''}
+                onChange={(e) =>
+                  update({
+                    hero_top_media: {
+                      ...(value.hero_top_media || {}),
+                      alt: e.target.value,
+                    },
+                  })
+                }
+                placeholder="Ex: Demonstração em vídeo da interface responsiva"
+                className="w-full rounded-lg border border-white/10 bg-background/80 p-2.5 font-mono text-xs text-white placeholder-white/30 focus:border-bluePrimary focus:outline-none"
+              />
+            </div>
+
+            {/* Live Preview de Vídeo HTML com Tela Cheia */}
+            {value.hero_top_media?.html && (
+              <div className="mt-4 space-y-2 rounded-xl border border-white/10 bg-black/40 p-4">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-blue-400">
+                  Preview do Vídeo HTML (Com suporte a tela cheia sem cortes)
+                </span>
+                <div className="max-h-[360px] overflow-hidden rounded-lg">
+                  <HTMLVideoBlock
+                    html={value.hero_top_media.html}
+                    preserveVideoFrame
+                    frameless
+                    allowFullscreenToggle
+                    className="max-h-[340px]"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </section>
 
       <CommonSEOAndNavFields

@@ -96,7 +96,12 @@ export function ShaderAnimation() {
     onWindowResize();
     window.addEventListener('resize', onWindowResize, false);
 
+    let isPaused = false;
+    let isIntersecting = false;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const animate = () => {
+      if (isPaused || !isIntersecting) return;
       const animationId = requestAnimationFrame(animate);
       uniforms.time.value += 0.05;
       renderer.render(scene, camera);
@@ -106,6 +111,50 @@ export function ShaderAnimation() {
       }
     };
 
+    const startAnimation = () => {
+      if (prefersReduced) {
+        // Renderiza apenas um frame calmo sem loop
+        uniforms.time.value = 1.0;
+        renderer.render(scene, camera);
+        return;
+      }
+      if (!isPaused && isIntersecting && sceneRef.current) {
+        cancelAnimationFrame(sceneRef.current.animationId);
+        sceneRef.current.animationId = requestAnimationFrame(animate);
+      }
+    };
+
+    const stopAnimation = () => {
+      if (sceneRef.current) {
+        cancelAnimationFrame(sceneRef.current.animationId);
+      }
+    };
+
+    // Pausar quando sair da viewport
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(container);
+
+    // Pausar quando aba estiver em background
+    const handleVisibilityChange = () => {
+      isPaused = document.hidden;
+      if (isPaused) {
+        stopAnimation();
+      } else if (isIntersecting) {
+        startAnimation();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     sceneRef.current = {
       camera,
       scene,
@@ -114,9 +163,13 @@ export function ShaderAnimation() {
       animationId: 0,
     };
 
-    animate();
+    if (prefersReduced) {
+      renderer.render(scene, camera);
+    }
 
     return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('resize', onWindowResize);
 
       if (sceneRef.current) {

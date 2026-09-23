@@ -97,21 +97,18 @@ import { preload } from 'react-dom';
 import { getAssetUrl } from '@/lib/utils';
 
 export default async function HomePage() {
-  for (const poster of SITE_ASSET_PRELOADS.homeHero.posters) {
-    preload(getAssetUrl(poster, { width: 1920, quality: 60 }), {
+  // Preload apenas do poster primário essencial ao LCP visual inicial
+  const primaryPoster = SITE_ASSET_PRELOADS.homeHero.posters[0];
+  if (primaryPoster) {
+    preload(getAssetUrl(primaryPoster, { width: 1920, quality: 60 }), {
       as: 'image',
       fetchPriority: 'high',
     });
   }
 
-  for (const video of SITE_ASSET_PRELOADS.homeHero.videos) {
-    preload(video, {
-      as: 'video',
-    });
-  }
-
   let featuredProjects: PortfolioProject[] = [];
-  const shuffleSeed = new Date().getTime();
+  // Seed determinística para estabilidade editorial e SEO entre renderizações e crawlers
+  const deterministicSeed = 42;
 
   try {
     const supabase = createStaticClient();
@@ -119,11 +116,11 @@ export default async function HomePage() {
     const mapped = dbProjects.map((project: DbProjectWithTags, index: number) =>
       mapDbProjectToPortfolioProject(project, index)
     );
-    featuredProjects = shuffleProjects(mapped, shuffleSeed);
+    featuredProjects = shuffleProjects(mapped, deterministicSeed);
 
     if (featuredProjects.length === 0) {
       console.warn('[Home] No projects returned, using fallback projects.');
-      featuredProjects = shuffleProjects(buildFallbackProjects(), shuffleSeed);
+      featuredProjects = shuffleProjects(buildFallbackProjects(), deterministicSeed);
     }
   } catch (error: any) {
     const cause = (error as any)?.cause ?? (error as any)?.errors?.[0];
@@ -139,7 +136,7 @@ export default async function HomePage() {
       causeMsg ? `(cause: ${causeMsg})` : ''
     );
 
-    featuredProjects = shuffleProjects(buildFallbackProjects(), shuffleSeed);
+    featuredProjects = shuffleProjects(buildFallbackProjects(), deterministicSeed);
   }
 
   const siteUrl = toCanonicalUrl('/');
@@ -163,7 +160,7 @@ export default async function HomePage() {
       <PortfolioShowcase />
       <FeaturedProjectsRealtime
         initialProjects={featuredProjects}
-        shuffleSeed={typeof shuffleSeed === 'number' ? shuffleSeed : undefined}
+        shuffleSeed={deterministicSeed}
       />
       <ShaderSection />
       <SiteClosure />

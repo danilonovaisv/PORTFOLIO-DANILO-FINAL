@@ -159,10 +159,19 @@ export interface MasterProjectTemplateV3Data extends Omit<
   'slug' | 'title' | 'subtitle' | 'client' | 'year' | 'tags' | 'summary'
 > {
   schema_version: '3.0';
-  template: typeof MASTER_PROJECT_TEMPLATE_V3;
+  template: typeof MASTER_PROJECT_TEMPLATE_V3 | typeof MASTER_PROJECT_TEMPLATE_V3_HERO;
   project_slug: string;
   hero_cover_image?: MasterProjectAsset;
   hero_logo_image?: MasterProjectAsset;
+  /** Logo oficial do cliente (com fallback para hero_logo_image) */
+  client_logo_image?: MasterProjectAsset;
+  /** Tipo de mídia a ser exibida na hero */
+  hero_media_type?: 'none' | 'image' | 'video' | 'html';
+  /** Mídia exibida na seção hero — imagem, vídeo ou HTML embed */
+  hero_top_media?: MasterProjectAsset & {
+    kind?: 'image' | 'video' | 'html';
+    html?: string;
+  };
   project_title: string;
   project_subtitle?: string;
   project_client?: string;

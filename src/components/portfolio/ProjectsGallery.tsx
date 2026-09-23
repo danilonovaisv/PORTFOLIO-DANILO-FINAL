@@ -253,7 +253,7 @@ export const ProjectsGallery = ({
                 type="button"
                 role="tab"
                 aria-controls="portfolio-filter-panel"
-                aria-selected={activeFilter === pillar.id ? 'true' : 'false'}
+                aria-selected={activeFilter === pillar.id}
                 tabIndex={activeFilter === pillar.id ? 0 : -1}
                 onClick={() => handleFilterChange(pillar.id)}
                 onKeyDown={(event) =>
@@ -290,7 +290,7 @@ export const ProjectsGallery = ({
       >
         <Container>
           <div className="sr-only" aria-live="polite" role="status">
-            {pageAnnouncement}
+            {pageAnnouncement}. {filteredProjects.length} {filteredProjects.length === 1 ? 'projeto encontrado' : 'projetos encontrados'}.
           </div>
           {items.length === 0 ? (
             <div className="relative rounded-2xl border border-white/10 bg-neutral/40 p-8 text-center">

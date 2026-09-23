@@ -89,6 +89,7 @@ pentest-workflow.yaml
 project_truth.json
 test-results/
 .deploy_config/
+.backup/
 
 # AI/Agent Tooling
 .ai/

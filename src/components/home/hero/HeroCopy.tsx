@@ -69,14 +69,14 @@ export default function HeroCopy({
       className={
         isMask
           ? 'text-white [text-shadow:0_0_8px_rgba(255,255,255,0.9),0_0_20px_rgba(255,255,255,0.7),0_0_40px_rgba(79,230,255,0.5),0_0_80px_rgba(0,72,255,0.4)]'
-          : 'text-white/85'
+          : 'text-white'
       }
     >
       <div className="flex flex-col items-center">
         {/* Editorial Tag */}
         {HOME_CONTENT.hero.tag && (
           <m.span
-            className="hero-line mb-4 md:mb-6 block text-white text-[clamp(0.9rem,1.3vw,2rem)] tracking-[0.25em] uppercase font-semibold opacity-70"
+            className="hero-line mb-4 md:mb-6 block text-white text-[clamp(0.9rem,1.3vw,2rem)] tracking-[0.25em] uppercase font-semibold opacity-90"
             style={initialStyles}
             aria-hidden="true"
           >
@@ -116,7 +116,7 @@ export default function HeroCopy({
 
         {/* Subheading */}
         <m.p
-          className={`hero-subtitle font-h2 type-h2 mt-6 lg:mt-9 text-textSecondary ${isMask ? '' : 'opacity-80'} text-[clamp(1.25rem,4.6vw,2rem)] md:text-[clamp(1.125rem,3vw,2.5rem)] font-medium leading-[1.4] md:leading-[1.2] opacity-60 tracking-[0.02em] md:tracking-[0.03em] max-w-full px-6 md:px-0 md:max-w-none mx-auto`}
+          className={`hero-subtitle font-h2 type-h2 mt-6 lg:mt-9 ${isMask ? 'text-white' : 'text-white/90'} text-[clamp(1.25rem,4.6vw,2rem)] md:text-[clamp(1.125rem,3vw,2.5rem)] font-medium leading-[1.4] md:leading-[1.2] tracking-[0.02em] md:tracking-[0.03em] max-w-full px-6 md:px-0 md:max-w-none mx-auto`}
           style={initialStyles}
         >
           {HOME_CONTENT.hero.subtitle}

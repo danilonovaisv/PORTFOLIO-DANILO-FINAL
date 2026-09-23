@@ -165,57 +165,96 @@ export const stripMasterV2Draft = (
 
 export const toMasterV3Draft = (
   value: MasterProjectTemplateV3Data
-): MasterProjectTemplateV3Draft => ({
-  ...value,
-  hero_cover_image: value.hero_cover_image
-    ? {
-        ...value.hero_cover_image,
-        file: null,
-        previewUrl: '',
-      }
-    : undefined,
-  hero_logo_image: value.hero_logo_image
-    ? {
-        ...value.hero_logo_image,
-        file: null,
-        previewUrl: '',
-      }
-    : undefined,
-  gallery_grid: value.gallery_grid.map((block, index) => ({
-    ...block,
-    content: sanitizeMasterV3BlockContent(block.content),
-    order: block.order ?? index,
-    file: null,
-    file2: null,
-    previewUrl: '',
-    previewUrl2: '',
-  })),
-});
+): MasterProjectTemplateV3Draft => {
+  const clientLogo = value.client_logo_image ?? value.hero_logo_image;
+  return {
+    ...value,
+    hero_cover_image: value.hero_cover_image
+      ? {
+          ...value.hero_cover_image,
+          file: null,
+          previewUrl: '',
+        }
+      : undefined,
+    hero_logo_image: value.hero_logo_image
+      ? {
+          ...value.hero_logo_image,
+          file: null,
+          previewUrl: '',
+        }
+      : undefined,
+    client_logo_image: clientLogo
+      ? {
+          ...clientLogo,
+          file: null,
+          previewUrl: '',
+        }
+      : undefined,
+    hero_top_media: value.hero_top_media
+      ? {
+          ...value.hero_top_media,
+          file: null,
+          previewUrl: '',
+        }
+      : undefined,
+    gallery_grid: value.gallery_grid.map((block, index) => ({
+      ...block,
+      content: sanitizeMasterV3BlockContent(block.content),
+      order: block.order ?? index,
+      file: null,
+      file2: null,
+      previewUrl: '',
+      previewUrl2: '',
+    })),
+  };
+};
 
 export const stripMasterV3Draft = (
   value: MasterProjectTemplateV3Draft
-): MasterProjectTemplateV3Data => ({
-  ...value,
-  hero_cover_image: value.hero_cover_image
-    ? {
-        src: value.hero_cover_image.src,
-        alt: value.hero_cover_image.alt,
-        kind: value.hero_cover_image.kind,
-        poster: value.hero_cover_image.poster,
-      }
-    : undefined,
-  hero_logo_image: value.hero_logo_image
-    ? {
-        src: value.hero_logo_image.src,
-        alt: value.hero_logo_image.alt,
-        kind: value.hero_logo_image.kind,
-        poster: value.hero_logo_image.poster,
-      }
-    : undefined,
-  gallery_grid: value.gallery_grid.map((block, index) => ({
-    id: block.id,
-    type: block.type,
-    content: sanitizeMasterV3BlockContent(block.content),
-    order: block.order ?? index,
-  })),
-});
+): MasterProjectTemplateV3Data => {
+  const clientLogo = value.client_logo_image ?? value.hero_logo_image;
+  const heroLogo = value.hero_logo_image ?? value.client_logo_image;
+
+  return {
+    ...value,
+    hero_cover_image: value.hero_cover_image
+      ? {
+          src: value.hero_cover_image.src,
+          alt: value.hero_cover_image.alt,
+          kind: value.hero_cover_image.kind,
+          poster: value.hero_cover_image.poster,
+        }
+      : undefined,
+    hero_logo_image: heroLogo
+      ? {
+          src: heroLogo.src,
+          alt: heroLogo.alt,
+          kind: heroLogo.kind,
+          poster: heroLogo.poster,
+        }
+      : undefined,
+    client_logo_image: clientLogo
+      ? {
+          src: clientLogo.src,
+          alt: clientLogo.alt,
+          kind: clientLogo.kind,
+          poster: clientLogo.poster,
+        }
+      : undefined,
+    hero_top_media: value.hero_top_media
+      ? {
+          src: value.hero_top_media.src,
+          alt: value.hero_top_media.alt,
+          kind: value.hero_top_media.kind,
+          poster: value.hero_top_media.poster,
+          html: value.hero_top_media.html,
+        }
+      : undefined,
+    gallery_grid: value.gallery_grid.map((block, index) => ({
+      id: block.id,
+      type: block.type,
+      content: sanitizeMasterV3BlockContent(block.content),
+      order: block.order ?? index,
+    })),
+  };
+};

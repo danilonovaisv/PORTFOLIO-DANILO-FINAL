@@ -75,7 +75,7 @@ export function MediaCard({
     }
   }, [muted, media.kind]);
 
-  // Pause video off-screen (IntersectionObserver)
+  // Pause video off-screen (IntersectionObserver) e controle de autoplay responsável
   useEffect(() => {
     const videoEl = videoRef.current;
     if (
@@ -87,6 +87,10 @@ export function MediaCard({
       return;
     }
 
+    const prefersReduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) {
@@ -94,12 +98,13 @@ export function MediaCard({
             videoEl.pause();
           }
         } else {
-          if (videoEl.paused && autoPlay) {
+          // Só toca automaticamente se permitido, se não for reduced-motion e se estiver bem visível
+          if (videoEl.paused && autoPlay && !prefersReduced) {
             videoEl.play().catch(() => {});
           }
         }
       },
-      { threshold: 0.05 }
+      { threshold: 0.25 }
     );
 
     observer.observe(videoEl);

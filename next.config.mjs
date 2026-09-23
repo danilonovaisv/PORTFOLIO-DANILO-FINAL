@@ -276,21 +276,35 @@ const createNextConfig = (phase) => ({
    * Mantida INTACTA
    */
   images: {
-    // Hosts dinâmicos com base na URL do Supabase configurada no ambiente
-    remotePatterns: buildSupabaseHosts().flatMap((hostname) => [
+    // Hosts dinâmicos com base na URL do Supabase configurada no ambiente + provedores externos aprovados
+    remotePatterns: [
+      ...buildSupabaseHosts().flatMap((hostname) => [
+        {
+          protocol: 'https',
+          hostname,
+          port: '',
+          pathname: '/storage/v1/object/public/**',
+        },
+        {
+          protocol: 'https',
+          hostname,
+          port: '',
+          pathname: '/storage/v1/render/image/public/**',
+        },
+      ]),
       {
         protocol: 'https',
-        hostname,
+        hostname: 'img.youtube.com',
         port: '',
-        pathname: '/storage/v1/object/public/**',
+        pathname: '/vi/**',
       },
       {
         protocol: 'https',
-        hostname,
+        hostname: 'i.ytimg.com',
         port: '',
-        pathname: '/storage/v1/render/image/public/**',
+        pathname: '/vi/**',
       },
-    ]),
+    ],
 
     // Lista de qualidades de compressão aceitas e validadas pelo compilador do Next.js 16
     qualities: [25, 50, 60, 70, 75, 80, 90, 100],

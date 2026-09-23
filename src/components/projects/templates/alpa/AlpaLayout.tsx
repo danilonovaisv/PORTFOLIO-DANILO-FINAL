@@ -108,9 +108,18 @@ export function AlpaLayout({
     ? buildEtherPalette(accentColor)
     : DEFAULT_ETHER_COLORS;
 
-  const heroLogo = project.hero_logo_image?.src
-    ? getAssetUrl(project.hero_logo_image.src, { width: 400 })
+  const clientLogoAsset =
+    project.client_logo_image?.src
+      ? project.client_logo_image
+      : project.hero_logo_image;
+  const heroLogo = clientLogoAsset?.src
+    ? getAssetUrl(clientLogoAsset.src, { width: 400 })
     : '';
+  const heroLogoAlt =
+    clientLogoAsset?.alt?.trim() ||
+    (project.project_client
+      ? `Logo de ${project.project_client}`
+      : `Logo de ${project.project_title}`);
 
   return (
     <article className="template-alpa relative min-h-screen bg-background text-text">
@@ -160,16 +169,14 @@ export function AlpaLayout({
                 }}
               >
                 {heroLogo ? (
-                  <div className="relative h-20 w-40 md:h-28 md:w-64">
+                  <div className="relative flex items-center justify-center h-16 w-36 sm:h-20 sm:w-48 md:h-24 md:w-60 max-w-full">
                     <Image
                       src={heroLogo}
-                      alt={
-                        project.hero_logo_image?.alt ||
-                        `Logo de ${project.project_title}`
-                      }
+                      alt={heroLogoAlt}
                       fill
-                      sizes="256px"
-                      className="object-contain"
+                      sizes="(max-width: 768px) 180px, 240px"
+                      className="object-contain drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]"
+                      priority
                     />
                   </div>
                 ) : null}

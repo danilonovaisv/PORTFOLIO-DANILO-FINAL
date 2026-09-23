@@ -223,10 +223,24 @@ function normalizeMasterTemplateV3(
   if (!hasMasterFields) return null;
 
   const defaults = createDefaultMasterProjectTemplateV3(fallback);
-  const fallbackAlt = `Capa do projeto ${fallback.title ?? defaults.project_title}`;
+  const projectTitle =
+    asString(record.project_title) ??
+    fallback.title ??
+    defaults.project_title;
+  const fallbackAlt = `Capa de ${projectTitle}`;
+  const logoFallbackAlt = `Logo de ${projectTitle}`;
+
   const heroCoverRecord = asRecord(record.hero_cover_image);
-  const heroLogoRecord = asRecord(record.hero_logo_image);
+  const heroLogoRecord = asRecord(record.hero_logo_image ?? record.client_logo_image);
+  const clientLogoRecord = asRecord(record.client_logo_image ?? record.hero_logo_image);
   const heroTopMediaRecord = asRecord(record.hero_top_media);
+
+  const heroLogoAsset = heroLogoRecord
+    ? normalizeAsset(heroLogoRecord, logoFallbackAlt)
+    : defaults.hero_logo_image;
+  const clientLogoAsset = clientLogoRecord
+    ? normalizeAsset(clientLogoRecord, logoFallbackAlt)
+    : defaults.client_logo_image ?? heroLogoAsset;
 
   const galleryGrid = Array.isArray(record.gallery_grid)
     ? record.gallery_grid
@@ -237,6 +251,13 @@ function normalizeMasterTemplateV3(
   const navigationRecord = asRecord(record.navigation);
   const ctaRecord = asRecord(record.cta);
   const seoRecord = asRecord(record.seo);
+
+  const rawHeroMediaType = asString(record.hero_media_type);
+  const heroMediaType = (['none', 'image', 'video', 'html'].includes(rawHeroMediaType ?? '')
+    ? rawHeroMediaType
+    : heroTopMediaRecord
+      ? (asString(heroTopMediaRecord.kind) as 'image' | 'video' | 'html') || 'image'
+      : 'none') as 'none' | 'image' | 'video' | 'html';
 
   const baseV3 = {
     schema_version: '3.0' as const,
@@ -252,15 +273,15 @@ function normalizeMasterTemplateV3(
           fallback.cover ?? defaults.hero_cover_image?.src
         )
       : defaults.hero_cover_image,
-    hero_logo_image: heroLogoRecord
-      ? normalizeAsset(heroLogoRecord, `${defaults.project_title} logo`)
-      : defaults.hero_logo_image,
+    hero_logo_image: heroLogoAsset,
+    client_logo_image: clientLogoAsset,
+    hero_media_type: heroMediaType,
     ...(heroTopMediaRecord
       ? {
           hero_top_media: {
             ...normalizeAsset(
               heroTopMediaRecord,
-              `${defaults.project_title} hero media`
+              `${projectTitle} hero media`
             ),
             kind:
               (asString(heroTopMediaRecord.kind) as
@@ -269,10 +290,7 @@ function normalizeMasterTemplateV3(
           },
         }
       : {}),
-    project_title:
-      asString(record.project_title) ??
-      fallback.title ??
-      defaults.project_title,
+    project_title: projectTitle,
     project_subtitle:
       asString(record.project_subtitle) ?? defaults.project_subtitle,
     project_client: asString(record.project_client) ?? defaults.project_client,

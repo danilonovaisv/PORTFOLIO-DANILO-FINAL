@@ -1,4 +1,4 @@
-import { notFound, redirect } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import Image from 'next/image';
 import { HOME_CONTENT } from '@/config/content';
 import { ArrowLeft } from 'lucide-react';
@@ -26,7 +26,7 @@ import RotatingHighlights from '@/components/portfolio/RotatingHighlights';
 import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 import { extractYoutubeId as extractYoutubeIdFromContract } from '@/lib/media/asset-contract';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 
 type PortfolioBodyBlock = {
@@ -233,7 +233,7 @@ export default async function ProjectPage({ params }: Props) {
         .maybeSingle();
 
       if (landingPage?.slug) {
-        redirect(`/projects/${landingPage.slug}`);
+        permanentRedirect(`/projects/${landingPage.slug}`);
       }
     } catch {
       // ignore and continue to notFound

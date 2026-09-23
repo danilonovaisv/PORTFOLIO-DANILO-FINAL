@@ -84,4 +84,14 @@ describe('getModalHeroMedia', () => {
 
     expect(getModalHeroMedia(project)).toBeUndefined();
   });
+
+  it('extrai corretamente URL de thumbnail do YouTube para posters do modal', () => {
+    const { getYouTubeThumbnailUrl, isYouTubeUrl } = require('@/lib/utils');
+    const ytUrl = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+    expect(isYouTubeUrl(ytUrl)).toBe(true);
+    expect(getYouTubeThumbnailUrl(ytUrl)).toBe(
+      'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'
+    );
+  });
 });
+

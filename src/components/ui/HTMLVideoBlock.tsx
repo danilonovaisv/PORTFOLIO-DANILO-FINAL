@@ -1,8 +1,8 @@
 'use client';
 /* eslint-disable @next/next/no-img-element */
 
-import React, { useEffect, useRef, useState } from 'react';
-import { Play, Pause, RotateCcw, Film } from 'lucide-react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { Play, Pause, RotateCcw, Film, Maximize2, X } from 'lucide-react';
 import { COLORS } from '@/config/colors';
 import { cn } from '@/lib/utils';
 
@@ -14,6 +14,8 @@ interface HTMLVideoBlockProps {
   /** Quando true, remove o header bar, bordas e sombra — útil em landing pages e thumbnails */
   frameless?: boolean;
   preserveVideoFrame?: boolean;
+  /** Permite alternância explícita de tela cheia sem cortes */
+  allowFullscreenToggle?: boolean;
 }
 
 export function HTMLVideoBlock({
@@ -23,14 +25,32 @@ export function HTMLVideoBlock({
   className = '',
   frameless = false,
   preserveVideoFrame = false,
+  allowFullscreenToggle = true,
 }: HTMLVideoBlockProps) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [speed, setSpeed] = useState(1);
   const [progress, setProgress] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const animRef = useRef<number | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const offsetRef = useRef(0);
   const lastTimeRef = useRef<number>(0);
+
+  // Close fullscreen on ESC key
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsFullscreen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isFullscreen]);
+
+  const toggleFullscreen = useCallback(() => {
+    setIsFullscreen((prev) => !prev);
+  }, []);
 
   // If html contains a full HTML document (e.g., <!DOCTYPE html> or <html> tag), render as srcDoc iframe
   const isFullHtmlDoc = Boolean(
@@ -41,13 +61,33 @@ export function HTMLVideoBlock({
     if (!html || !isFullHtmlDoc) return html;
     const darkInject = `
 <style id="ghost-safe-bg">
-  html, body { background-color: ${COLORS.background} !important; color-scheme: dark; margin: 0; padding: 0; }
+  html, body {
+    background-color: ${COLORS.background} !important;
+    color-scheme: dark;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .stage { background-color: ${COLORS.background} !important; opacity: 1 !important; }
   ${
-    preserveVideoFrame
+    preserveVideoFrame || isFullscreen
       ? `
-  html, body { width: 100%; height: 100%; }
-  video { display: block; width: 100% !important; height: 100% !important; max-width: 100% !important; max-height: 100% !important; object-fit: contain !important; object-position: center !important; background: transparent !important; }
+  video {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    margin: auto !important;
+    background: transparent !important;
+  }
   `
       : ''
   }
@@ -56,10 +96,10 @@ export function HTMLVideoBlock({
       return html.replace(/<\/head\s*>/i, `${darkInject}</head>`);
     }
     return darkInject + html;
-  }, [html, isFullHtmlDoc, preserveVideoFrame]);
+  }, [html, isFullHtmlDoc, preserveVideoFrame, isFullscreen]);
 
-  const embeddedVideoClasses = preserveVideoFrame
-    ? '[&_video]:block [&_video]:h-full! [&_video]:w-full! [&_video]:max-h-full! [&_video]:max-w-full! [&_video]:object-contain! [&_video]:object-center! [&_video]:bg-transparent!'
+  const embeddedVideoClasses = preserveVideoFrame || isFullscreen
+    ? '[&_video]:block [&_video]:h-full! [&_video]:w-full! [&_video]:max-h-full! [&_video]:max-w-full! [&_video]:object-contain! [&_video]:object-center! [&_video]:bg-transparent! [&_video]:m-auto!'
     : '';
 
   useEffect(() => {
@@ -96,30 +136,170 @@ export function HTMLVideoBlock({
     };
   }, [isPlaying, speed, media, html, isFullHtmlDoc]);
 
+  // Fullscreen Overlay View
+  const renderFullscreenOverlay = () => {
+    if (!isFullscreen) return null;
+
+    return (
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Visualização em tela cheia do vídeo"
+        className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black/95 p-3 sm:p-6 backdrop-blur-2xl"
+      >
+        <button
+          type="button"
+          onClick={toggleFullscreen}
+          className="absolute right-4 top-4 z-50 flex items-center gap-2 rounded-full border border-white/20 bg-black/80 px-4 py-2 font-mono text-xs text-white shadow-2xl transition-all hover:border-bluePrimary hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-bluePrimary"
+          aria-label="Sair da tela cheia"
+        >
+          <X size={16} />
+          <span>Fechar</span>
+        </button>
+
+        <div className="relative flex h-full w-full max-h-[92vh] max-w-[96vw] items-center justify-center overflow-hidden">
+          {isFullHtmlDoc ? (
+            <iframe
+              srcDoc={sanitizedHtmlDoc}
+              title={`${title} (Tela cheia)`}
+              style={{ backgroundColor: COLORS.background }}
+              allow="autoplay"
+              allowFullScreen
+              className="h-full w-full border-0 bg-background"
+              sandbox="allow-scripts allow-same-origin allow-popups allow-fullscreen"
+            />
+          ) : (
+            <div
+              className={cn(
+                'flex h-full w-full items-center justify-center bg-transparent',
+                embeddedVideoClasses
+              )}
+              dangerouslySetInnerHTML={{ __html: html || '' }}
+            />
+          )}
+        </div>
+      </div>
+    );
+  };
+
   // Case 1: Full HTML document or custom embed markup provided
   if (html) {
     if (isFullHtmlDoc) {
       if (frameless) {
         return (
-          <div
-            className={cn(
-              'relative h-full w-full overflow-hidden bg-background flex items-center justify-center',
-              className
-            )}
-          >
-            <iframe
-              srcDoc={sanitizedHtmlDoc}
-              title={title}
-              style={{ backgroundColor: COLORS.background }}
-              allow="autoplay"
-              className="h-full w-full border-0 pointer-events-none bg-background"
-              sandbox="allow-scripts allow-same-origin allow-popups"
-            />
-          </div>
+          <>
+            <div
+              className={cn(
+                'group relative h-full w-full overflow-hidden bg-background flex items-center justify-center',
+                className
+              )}
+            >
+              {allowFullscreenToggle && (
+                <button
+                  type="button"
+                  onClick={toggleFullscreen}
+                  className="absolute right-3 top-3 z-30 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white/70 opacity-0 shadow-lg backdrop-blur-sm transition-all group-hover:opacity-100 hover:border-bluePrimary hover:bg-white hover:text-black focus:opacity-100 focus:outline-none"
+                  aria-label="Visualizar em tela cheia"
+                  title="Tela cheia"
+                >
+                  <Maximize2 size={14} />
+                </button>
+              )}
+              <iframe
+                srcDoc={sanitizedHtmlDoc}
+                title={title}
+                style={{ backgroundColor: COLORS.background }}
+                allow="autoplay"
+                allowFullScreen
+                className="h-full w-full border-0 bg-background"
+                sandbox="allow-scripts allow-same-origin allow-popups allow-fullscreen"
+              />
+            </div>
+            {renderFullscreenOverlay()}
+          </>
         );
       }
 
       return (
+        <>
+          <div
+            className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-background shadow-2xl ${className}`}
+          >
+            <div className="flex items-center justify-between border-b border-white/10 bg-background/90 px-4 py-2 text-xs text-white/70 font-mono">
+              <span className="flex items-center gap-2">
+                <Film size={14} className="text-bluePrimary" />
+                {title}
+              </span>
+              <div className="flex items-center gap-2">
+                <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-white/60">
+                  HTML_VIDEO
+                </span>
+                {allowFullscreenToggle && (
+                  <button
+                    type="button"
+                    onClick={toggleFullscreen}
+                    className="flex items-center gap-1 rounded bg-white/5 px-2 py-0.5 text-[10px] text-white/70 transition-all hover:bg-white/20 hover:text-white"
+                    title="Tela cheia"
+                  >
+                    <Maximize2 size={12} />
+                    <span className="hidden sm:inline">FULLSCREEN</span>
+                  </button>
+                )}
+              </div>
+            </div>
+            <div className="relative aspect-video w-full overflow-hidden bg-background flex items-center justify-center">
+              <iframe
+                srcDoc={sanitizedHtmlDoc}
+                title={title}
+                style={{ backgroundColor: COLORS.background }}
+                allow="autoplay"
+                allowFullScreen
+                className="h-full w-full border-0 bg-background"
+                sandbox="allow-scripts allow-same-origin allow-popups allow-fullscreen"
+              />
+            </div>
+          </div>
+          {renderFullscreenOverlay()}
+        </>
+      );
+    }
+
+    if (frameless) {
+      return (
+        <>
+          <div
+            className={cn(
+              'group relative h-full w-full overflow-hidden flex items-center justify-center bg-transparent',
+              className,
+              embeddedVideoClasses
+            )}
+          >
+            {allowFullscreenToggle && (
+              <button
+                type="button"
+                onClick={toggleFullscreen}
+                className="absolute right-3 top-3 z-30 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white/70 opacity-0 shadow-lg backdrop-blur-sm transition-all group-hover:opacity-100 hover:border-bluePrimary hover:bg-white hover:text-black focus:opacity-100 focus:outline-none"
+                aria-label="Visualizar em tela cheia"
+                title="Tela cheia"
+              >
+                <Maximize2 size={14} />
+              </button>
+            )}
+            <div
+              className={cn(
+                'flex h-full w-full items-center justify-center bg-transparent',
+                embeddedVideoClasses
+              )}
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+          </div>
+          {renderFullscreenOverlay()}
+        </>
+      );
+    }
+
+    return (
+      <>
         <div
           className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-background shadow-2xl ${className}`}
         >
@@ -128,49 +308,28 @@ export function HTMLVideoBlock({
               <Film size={14} className="text-bluePrimary" />
               {title}
             </span>
-            <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-white/60">
-              HTML_VIDEO
-            </span>
+            {allowFullscreenToggle && (
+              <button
+                type="button"
+                onClick={toggleFullscreen}
+                className="flex items-center gap-1 rounded bg-white/5 px-2 py-0.5 text-[10px] text-white/70 transition-all hover:bg-white/20 hover:text-white"
+                title="Tela cheia"
+              >
+                <Maximize2 size={12} />
+                <span className="hidden sm:inline">FULLSCREEN</span>
+              </button>
+            )}
           </div>
-          <div className="relative aspect-video w-full overflow-hidden bg-background flex items-center justify-center">
-            <iframe
-              srcDoc={sanitizedHtmlDoc}
-              title={title}
-              style={{ backgroundColor: COLORS.background }}
-              allow="autoplay"
-              className="h-full w-full border-0 bg-background"
-              sandbox="allow-scripts allow-same-origin allow-popups"
-            />
-          </div>
+          <div
+            className={cn(
+              'p-4 flex items-center justify-center bg-transparent',
+              embeddedVideoClasses
+            )}
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
         </div>
-      );
-    }
-
-    if (frameless) {
-      return (
-        <div
-          className={cn(
-            'relative h-full w-full overflow-hidden pointer-events-none flex items-center justify-center bg-transparent',
-            className,
-            embeddedVideoClasses
-          )}
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      );
-    }
-
-    return (
-      <div
-        className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-background shadow-2xl ${className}`}
-      >
-        <div
-          className={cn(
-            'p-4 flex items-center justify-center bg-transparent',
-            embeddedVideoClasses
-          )}
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      </div>
+        {renderFullscreenOverlay()}
+      </>
     );
   }
 

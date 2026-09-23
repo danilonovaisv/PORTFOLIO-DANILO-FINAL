@@ -45,7 +45,7 @@ export function AlpaHeroLayout({
     if (mediaKind === 'html' && hero_top_media.html) {
       return (
         <m.div
-          className="w-full max-w-5xl mx-auto mb-8"
+          className="w-full max-w-5xl mx-auto mb-8 sm:mb-12 flex items-center justify-center"
           initial={revealInitial}
           animate={revealVisible}
           transition={{
@@ -58,7 +58,8 @@ export function AlpaHeroLayout({
             preserveVideoFrame
             html={hero_top_media.html}
             frameless
-            className="w-full aspect-video"
+            allowFullscreenToggle
+            className="w-full max-h-[85vh] flex items-center justify-center"
           />
         </m.div>
       );
@@ -68,7 +69,7 @@ export function AlpaHeroLayout({
       const videoSrc = getAssetUrl(hero_top_media.src, { isVideo: true });
       return (
         <m.div
-          className="flex w-full max-w-5xl mx-auto mb-8 items-center justify-center overflow-hidden bg-transparent"
+          className="flex w-full max-w-5xl mx-auto mb-8 sm:mb-12 items-center justify-center overflow-hidden bg-transparent"
           initial={revealInitial}
           animate={revealVisible}
           transition={{
@@ -79,7 +80,7 @@ export function AlpaHeroLayout({
         >
           <video
             src={videoSrc}
-            className="w-full h-auto max-h-full block object-contain object-center"
+            className="w-full h-auto max-h-[85vh] block object-contain object-center"
             autoPlay
             muted
             loop
@@ -91,10 +92,10 @@ export function AlpaHeroLayout({
     }
 
     if (hero_top_media.src) {
-      const imageSrc = getAssetUrl(hero_top_media.src, { width: 1400 });
+      const imageSrc = getAssetUrl(hero_top_media.src, { width: 1600 });
       return (
         <m.div
-          className="relative w-full max-w-5xl mx-auto mb-8 overflow-hidden"
+          className="relative w-full max-w-5xl mx-auto mb-8 sm:mb-12 flex items-center justify-center overflow-hidden"
           initial={revealInitial}
           animate={revealVisible}
           transition={{
@@ -106,11 +107,11 @@ export function AlpaHeroLayout({
           <Image
             src={imageSrc}
             alt={hero_top_media.alt || `Hero media de ${project.project_title}`}
-            width={1400}
-            height={787}
-            quality={80}
-            sizes="(max-width: 768px) 100vw, 80vw"
-            className="w-full h-auto object-cover block"
+            width={1600}
+            height={900}
+            quality={85}
+            sizes="(max-width: 1024px) 100vw, 1200px"
+            className="w-full h-auto max-h-[85vh] object-contain block mx-auto"
             priority
           />
         </m.div>

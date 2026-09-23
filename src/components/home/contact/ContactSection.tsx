@@ -113,41 +113,46 @@ export default function ContactSection() {
               </p>
             </div>
 
-            {/* Direct Channels */}
-            <div className="flex flex-col space-y-6">
+            {/* Direct Channels - Lista semântica para indexação e leitores de tela */}
+            <ul
+              role="list"
+              aria-label="Canais diretos de contato"
+              className="flex flex-col space-y-6 list-none p-0 m-0"
+            >
               {contactLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  target={link.href.startsWith('http') ? '_blank' : undefined}
-                  rel={
-                    link.href.startsWith('http')
-                      ? 'noopener noreferrer'
-                      : undefined
-                  }
-                  aria-label={link.ariaLabel}
-                  className="flex items-center gap-3 sm:gap-4 group w-fit py-2 active:opacity-80 transition-opacity"
-                >
-                  {/* Touch target: 48px minimum */}
-                  <span
-                    className="flex h-12 w-12 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-transparent border-2 border-bluePrimary text-bluePrimary will-change-transform group-hover:bg-bluePrimary group-hover:text-white group-active:bg-bluePrimary group-active:text-white group-active:translate-y-px"
-                    style={{
-                      transition: `all ${MOTION_TOKENS.duration.fast}s var(--ease-ghost)`,
-                    }}
+                <li key={link.href} role="listitem">
+                  <a
+                    href={link.href}
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={
+                      link.href.startsWith('http')
+                        ? 'noopener noreferrer'
+                        : undefined
+                    }
+                    aria-label={link.ariaLabel}
+                    className="flex items-center gap-3 sm:gap-4 group w-fit py-2 active:opacity-80 transition-opacity"
                   >
-                    {link.icon}
-                  </span>
-                  <span
-                    className="text-base sm:text-lg md:text-xl font-semibold text-textInverse group-hover:text-bluePrimary group-hover:underline group-hover:underline-offset-4"
-                    style={{
-                      transition: `all ${MOTION_TOKENS.duration.fast}s var(--ease-ghost)`,
-                    }}
-                  >
-                    {link.label}
-                  </span>
-                </a>
+                    {/* Touch target: 48px minimum */}
+                    <span
+                      className="flex h-12 w-12 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-transparent border-2 border-bluePrimary text-bluePrimary will-change-transform group-hover:bg-bluePrimary group-hover:text-white group-active:bg-bluePrimary group-active:text-white group-active:translate-y-px"
+                      style={{
+                        transition: `all ${MOTION_TOKENS.duration.fast}s var(--ease-ghost)`,
+                      }}
+                    >
+                      {link.icon}
+                    </span>
+                    <span
+                      className="text-base sm:text-lg md:text-xl font-semibold text-textInverse group-hover:text-bluePrimary group-hover:underline group-hover:underline-offset-4"
+                      style={{
+                        transition: `all ${MOTION_TOKENS.duration.fast}s var(--ease-ghost)`,
+                      }}
+                    >
+                      {link.label}
+                    </span>
+                  </a>
+                </li>
               ))}
-            </div>
+            </ul>
 
             {/* Social Icons (Desktop) */}
             <div className="hidden lg:flex flex-wrap items-center gap-4 pt-10 border-t border-textInverse/20">

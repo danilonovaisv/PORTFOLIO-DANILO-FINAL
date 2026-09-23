@@ -240,17 +240,19 @@ export const ProjectCard = React.memo(function ProjectCard({
 
       <div
         className={cn(
-          "absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center opacity-0 transition-all duration-fast ease-out group-focus-visible:opacity-100 sm:group-hover:opacity-100 max-sm:active:opacity-100 max-sm:focus:opacity-100",
+          "absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center transition-all duration-fast ease-out",
+          "opacity-0 group-focus-visible:opacity-100 sm:group-hover:opacity-100",
+          "max-sm:opacity-100 max-sm:justify-end max-sm:p-4 max-sm:bg-gradient-to-t max-sm:from-background/95 max-sm:via-background/60 max-sm:to-transparent",
           hasVideo || hoverMedia?.kind === 'html' || desktopMedia?.kind === 'html'
-            ? "bg-gradient-to-t from-background/95 via-background/50 to-background/20 backdrop-blur-[2px]"
-            : "bg-background/90 backdrop-blur-md"
+            ? "sm:bg-gradient-to-t sm:from-background/95 sm:via-background/50 sm:to-background/20 sm:backdrop-blur-[2px]"
+            : "sm:bg-background/90 sm:backdrop-blur-md"
         )}
       >
-        <div className="text-white flex flex-col items-center justify-center text-center w-full h-full">
-          <p className="text-[11px] uppercase tracking-[0.22em] text-blueAccent/90 mb-2 font-medium">
+        <div className="text-white flex flex-col items-center justify-center text-center w-full h-full max-sm:h-auto max-sm:justify-end">
+          <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-blueAccent/90 mb-1 sm:mb-2 font-medium">
             {project.displayCategory}
           </p>
-          <h3 id={headingId} className="text-2xl md:text-3xl font-black leading-[1.1] mb-3 text-balance tracking-tight">
+          <h3 id={headingId} className="text-xl sm:text-2xl md:text-3xl font-black leading-[1.1] mb-2 sm:mb-3 text-balance tracking-tight">
             {project.title}
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-medium text-white/70">

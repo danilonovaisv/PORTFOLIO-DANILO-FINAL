@@ -103,4 +103,35 @@ describe('HTMLVideoBlock & Preset System', () => {
       screen.getByTitle('Existing scene').getAttribute('srcdoc')
     ).not.toContain('object-fit: contain');
   });
+
+  it('renders fullscreen button and opens uncropped overlay on click', () => {
+    const { fireEvent } = require('@testing-library/react');
+    render(
+      <HTMLVideoBlock
+        html="<video src='/glad.mp4' autoplay></video>"
+        title="Glad Video"
+        frameless
+        allowFullscreenToggle
+      />
+    );
+
+    const fullscreenButton = screen.getByLabelText('Visualizar em tela cheia');
+    expect(fullscreenButton).toBeInTheDocument();
+
+    fireEvent.click(fullscreenButton);
+
+    const dialog = screen.getByRole('dialog', {
+      name: 'Visualização em tela cheia do vídeo',
+    });
+    expect(dialog).toBeInTheDocument();
+    expect(screen.getByLabelText('Sair da tela cheia')).toBeInTheDocument();
+
+    // Closes on ESC
+    fireEvent.keyDown(window, { key: 'Escape', code: 'Escape' });
+    expect(
+      screen.queryByRole('dialog', {
+        name: 'Visualização em tela cheia do vídeo',
+      })
+    ).not.toBeInTheDocument();
+  });
 });

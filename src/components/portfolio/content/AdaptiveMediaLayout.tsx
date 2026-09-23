@@ -251,42 +251,56 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                         ? getYouTubeThumbnailUrl(media)
                                         : null;
 
+                                    const isVideoMedia = Boolean(youtubeThumb || isThumbVid);
+                                    const actionLabel = isVideoMedia
+                                        ? `Reproduzir vídeo ${idx + 1}`
+                                        : `Visualizar imagem ${idx + 1}`;
+
                                     return (
                                         <button
                                             key={`${media}-${idx}`}
                                             onClick={() => setActiveMedia(media)}
-                                            aria-label={`Visualizar miniatura ${idx + 1}`}
+                                            aria-label={actionLabel}
                                             className={`relative w-32 md:w-48 aspect-video flex-shrink-0 rounded-lg overflow-hidden border-2 cursor-pointer transition-colors outline-none
                                                 ${isActive ? 'border-blueAccent ring-4 ring-blueAccent/20 z-10' : 'border-white/20 hover:border-white/50 opacity-70 hover:opacity-100'}
                                             `}
                                         >
                                             {youtubeThumb ? (
                                                 <div className="relative w-full h-full">
-                                                    <Image src={youtubeThumb} alt={`Thumbnail ${idx}`} fill className="object-cover" sizes="200px" />
+                                                    <Image
+                                                        src={youtubeThumb}
+                                                        alt=""
+                                                        fill
+                                                        className="object-cover"
+                                                        sizes="200px"
+                                                        onError={applyImageFallback}
+                                                    />
                                                     <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-                                                        <Play className="w-6 h-6 text-white fill-current opacity-90" />
+                                                        <Play className="w-6 h-6 text-white fill-current opacity-90" aria-hidden="true" />
                                                     </div>
                                                 </div>
                                             ) : isThumbVid ? (
                                                 <div className="relative w-full h-full bg-[#0a0f1c]">
                                                     <Image
                                                         src={DEFAULT_VIDEO_POSTER}
-                                                        alt={`Video thumbnail ${idx + 1}`}
+                                                        alt=""
                                                         fill
                                                         className="object-cover"
                                                         sizes="200px"
+                                                        onError={applyImageFallback}
                                                     />
                                                     <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/50 transition-colors">
-                                                        <Play className="w-6 h-6 text-white fill-current opacity-90" />
+                                                        <Play className="w-6 h-6 text-white fill-current opacity-90" aria-hidden="true" />
                                                     </div>
                                                 </div>
                                             ) : (
                                                 <Image
                                                     src={getAssetUrl(media, { width: 400, quality: 70 })}
-                                                    alt={`Thumbnail ${idx}`}
+                                                    alt=""
                                                     fill
                                                     className="object-cover"
                                                     sizes="200px"
+                                                    onError={applyImageFallback}
                                                 />
                                             )}
                                         </button>

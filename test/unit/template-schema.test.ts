@@ -54,3 +54,53 @@ describe('getAssetUrl', () => {
     );
   });
 });
+
+import {
+  createDefaultMasterProjectTemplateV3,
+  parseLandingPageContent,
+} from '@/lib/projects/template-schema';
+
+describe('Master Project Template V3 Schema & Defaults', () => {
+  it('generates client logo alt using provided project title instead of generic fallback', () => {
+    const defaults = createDefaultMasterProjectTemplateV3({
+      slug: 'glad',
+      title: 'GLAD Smart Living',
+    });
+
+    expect(defaults.client_logo_image?.alt).toBe('Logo de GLAD Smart Living');
+    expect(defaults.hero_logo_image?.alt).toBe('Logo de GLAD Smart Living');
+    expect(defaults.hero_cover_image?.alt).toBe('Capa de GLAD Smart Living');
+    expect(defaults.client_logo_image?.alt).not.toContain('Novo Projeto');
+  });
+
+  it('normalizes client_logo_image and hero_top_media when parsing content', () => {
+    const rawContent = {
+      template: 'master-project-v3-alpa-hero',
+      project_title: 'GLAD Smart Living',
+      client_logo_image: {
+        src: 'landing-pages/glad/logo.png',
+        alt: 'Logo GLAD',
+      },
+      hero_top_media: {
+        kind: 'html',
+        html: '<video src="https://example.com/glad.mp4"></video>',
+        alt: 'GLAD Hero Video',
+      },
+      gallery_grid: [],
+    };
+
+    const parsed = parseLandingPageContent(rawContent, {
+      title: 'GLAD Smart Living',
+      slug: 'glad',
+    });
+
+    expect(parsed.template).toBe('master-project-v3-alpa-hero');
+    if (parsed.template === 'master-project-v3-alpa-hero') {
+      expect(parsed.data.client_logo_image?.src).toContain(
+        'landing-pages/glad/logo.png'
+      );
+      expect(parsed.data.hero_top_media?.kind).toBe('html');
+      expect(parsed.data.hero_top_media?.html).toContain('glad.mp4');
+    }
+  });
+});
