@@ -98,9 +98,10 @@ export function HTMLVideoBlock({
     return darkInject + html;
   }, [html, isFullHtmlDoc, preserveVideoFrame, isFullscreen]);
 
-  const embeddedVideoClasses = preserveVideoFrame || isFullscreen
-    ? '[&_video]:block [&_video]:h-full! [&_video]:w-full! [&_video]:max-h-full! [&_video]:max-w-full! [&_video]:object-contain! [&_video]:object-center! [&_video]:bg-transparent! [&_video]:m-auto!'
-    : '';
+  const embeddedVideoClasses =
+    preserveVideoFrame || isFullscreen
+      ? '[&_video]:block [&_video]:h-full! [&_video]:w-full! [&_video]:max-h-full! [&_video]:max-w-full! [&_video]:object-contain! [&_video]:object-center! [&_video]:bg-transparent! [&_video]:m-auto!'
+      : '';
 
   useEffect(() => {
     if (isFullHtmlDoc || !media || html) return;

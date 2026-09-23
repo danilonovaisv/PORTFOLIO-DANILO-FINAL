@@ -159,7 +159,8 @@ export interface MasterProjectTemplateV3Data extends Omit<
   'slug' | 'title' | 'subtitle' | 'client' | 'year' | 'tags' | 'summary'
 > {
   schema_version: '3.0';
-  template: typeof MASTER_PROJECT_TEMPLATE_V3 | typeof MASTER_PROJECT_TEMPLATE_V3_HERO;
+  template:
+    typeof MASTER_PROJECT_TEMPLATE_V3 | typeof MASTER_PROJECT_TEMPLATE_V3_HERO;
   project_slug: string;
   hero_cover_image?: MasterProjectAsset;
   hero_logo_image?: MasterProjectAsset;

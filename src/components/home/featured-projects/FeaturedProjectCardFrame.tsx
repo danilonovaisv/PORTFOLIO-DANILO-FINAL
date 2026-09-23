@@ -62,7 +62,7 @@ export default function FeaturedProjectCardFrame({
 
   const hoverMedia = resolveProjectHoverMedia(project, 'landscape', {
     alt: logoAltText,
-    fit: 'contain',
+    fit: 'cover',
   });
 
   // Decide if we should show standard card thumbnails or video/HTML media
@@ -154,7 +154,7 @@ export default function FeaturedProjectCardFrame({
                 playsInline
                 pauseOffscreen
                 className={cn(
-                  'absolute inset-0 h-full w-full object-contain object-center',
+                  'absolute inset-0 h-full w-full object-cover',
                   commonMediaClasses
                 )}
                 aria-hidden
@@ -165,7 +165,6 @@ export default function FeaturedProjectCardFrame({
                 sizes={cardMediaSizes}
                 priority={priority}
                 poster={DEFAULT_VIDEO_POSTER}
-                preserveVideoFrame
                 className="absolute inset-0 h-full w-full"
                 mediaClassName={commonMediaClasses}
                 aria-hidden

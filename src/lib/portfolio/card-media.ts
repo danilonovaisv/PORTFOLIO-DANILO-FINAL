@@ -215,7 +215,7 @@ export function resolveProjectHoverMedia(
       kind: 'video',
       src: hoverVideoCandidate,
       format: preferredCover,
-      fit: options.fit ?? 'contain',
+      fit: options.fit ?? 'cover',
       alt: options.alt,
     };
   }

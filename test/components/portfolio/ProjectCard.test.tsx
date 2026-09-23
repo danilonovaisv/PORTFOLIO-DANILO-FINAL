@@ -126,7 +126,7 @@ describe('ProjectCard', () => {
         expect(screen.getByRole('img')).toBeInTheDocument();
     });
 
-    it('should render base video thumbnails without cropping the frame', () => {
+    it('should render base video thumbnails covering the card area per media contract', () => {
         const videoProject: PortfolioProject = {
             ...mockProject,
             image: '/test-video.mp4',
@@ -134,7 +134,7 @@ describe('ProjectCard', () => {
 
         const { container } = render(<ProjectCard project={videoProject} index={0} />);
 
-        expect(container.querySelector('video')).toHaveClass('object-contain');
+        expect(container.querySelector('video')).toHaveClass('object-cover');
     });
 
 

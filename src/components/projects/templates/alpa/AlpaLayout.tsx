@@ -108,10 +108,9 @@ export function AlpaLayout({
     ? buildEtherPalette(accentColor)
     : DEFAULT_ETHER_COLORS;
 
-  const clientLogoAsset =
-    project.client_logo_image?.src
-      ? project.client_logo_image
-      : project.hero_logo_image;
+  const clientLogoAsset = project.client_logo_image?.src
+    ? project.client_logo_image
+    : project.hero_logo_image;
   const heroLogo = clientLogoAsset?.src
     ? getAssetUrl(clientLogoAsset.src, { width: 400 })
     : '';

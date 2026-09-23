@@ -103,8 +103,12 @@ export function createDefaultMasterProjectTemplateV3(
 ): MasterProjectTemplateV3Data {
   const title = fallback.title?.trim() || 'Novo Projeto';
   const hasCustomTitle = Boolean(fallback.title?.trim());
-  const logoAlt = hasCustomTitle ? `Logo de ${fallback.title}` : 'Logo do cliente';
-  const coverAlt = hasCustomTitle ? `Capa de ${fallback.title}` : 'Capa do projeto';
+  const logoAlt = hasCustomTitle
+    ? `Logo de ${fallback.title}`
+    : 'Logo do cliente';
+  const coverAlt = hasCustomTitle
+    ? `Capa de ${fallback.title}`
+    : 'Capa do projeto';
 
   return {
     schema_version: '3.0',
@@ -128,7 +132,9 @@ export function createDefaultMasterProjectTemplateV3(
     hero_media_type: 'none',
     hero_top_media: {
       src: '',
-      alt: hasCustomTitle ? `Hero media de ${fallback.title}` : 'Hero media do projeto',
+      alt: hasCustomTitle
+        ? `Hero media de ${fallback.title}`
+        : 'Hero media do projeto',
       kind: 'image',
       html: '',
     },

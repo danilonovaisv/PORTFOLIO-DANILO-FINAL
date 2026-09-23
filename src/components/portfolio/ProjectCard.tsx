@@ -71,7 +71,7 @@ export const ProjectCard = React.memo(function ProjectCard({
     desktopMedia?.format ?? desktopPreferredCover,
     {
       alt: visualAltText,
-      fit: project.thumbnailHtml ? 'cover' : 'contain',
+      fit: 'cover',
     }
   );
 
@@ -169,73 +169,69 @@ export const ProjectCard = React.memo(function ProjectCard({
       <div className="absolute inset-0 h-full z-0">
         {/* Static image — always visible by default */}
         {desktopMedia && mobileMedia && baseMediaDiffers ? (
-          <>
-            <MediaCard
-              preserveVideoFrame
-              media={desktopMedia}
-              sizes={sizes}
-              priority={priority}
-              poster={DEFAULT_VIDEO_POSTER}
-              className="absolute inset-0 hidden h-full w-full md:block"
-              mediaClassName={cn(
-                'transition-opacity duration-modal',
-                hasVideo && isHovered
-                  ? 'opacity-0'
-                  : 'opacity-95 group-hover:opacity-100'
-              )}
-              objectPosition={objectPosition}
-            />
-            <MediaCard
-              preserveVideoFrame
-              media={mobileMedia}
-              sizes={sizes}
-              priority={priority}
-              poster={DEFAULT_VIDEO_POSTER}
-              className="absolute inset-0 block h-full w-full md:hidden"
-              mediaClassName={cn(
-                'transition-opacity duration-modal',
-                hasVideo && isHovered
-                  ? 'opacity-0'
-                  : 'opacity-95 group-hover:opacity-100'
-              )}
-              objectPosition={objectPosition}
-            />
-          </>
-        ) : desktopMedia ? (
-          <MediaCard
-            preserveVideoFrame
-            media={desktopMedia}
-            sizes={sizes}
-            priority={priority}
-            poster={DEFAULT_VIDEO_POSTER}
-            className="absolute inset-0 h-full w-full"
-            mediaClassName={cn(
-              'transition-opacity duration-modal',
-              hasVideo && isHovered
-                ? 'opacity-0'
-                : 'opacity-95 group-hover:opacity-100'
-            )}
-            objectPosition={objectPosition}
-          />
-        ) : null}
+           <>
+             <MediaCard
+               media={desktopMedia}
+               sizes={sizes}
+               priority={priority}
+               poster={DEFAULT_VIDEO_POSTER}
+               className="absolute inset-0 hidden h-full w-full md:block"
+               mediaClassName={cn(
+                 'transition-opacity duration-modal',
+                 hasVideo && isHovered
+                   ? 'opacity-0'
+                   : 'opacity-95 group-hover:opacity-100'
+               )}
+               objectPosition={objectPosition}
+             />
+             <MediaCard
+               media={mobileMedia}
+               sizes={sizes}
+               priority={priority}
+               poster={DEFAULT_VIDEO_POSTER}
+               className="absolute inset-0 block h-full w-full md:hidden"
+               mediaClassName={cn(
+                 'transition-opacity duration-modal',
+                 hasVideo && isHovered
+                   ? 'opacity-0'
+                   : 'opacity-95 group-hover:opacity-100'
+               )}
+               objectPosition={objectPosition}
+             />
+           </>
+         ) : desktopMedia ? (
+           <MediaCard
+             media={desktopMedia}
+             sizes={sizes}
+             priority={priority}
+             poster={DEFAULT_VIDEO_POSTER}
+             className="absolute inset-0 h-full w-full"
+             mediaClassName={cn(
+               'transition-opacity duration-modal',
+               hasVideo && isHovered
+                 ? 'opacity-0'
+                 : 'opacity-95 group-hover:opacity-100'
+             )}
+             objectPosition={objectPosition}
+           />
+         ) : null}
 
-        {/* Video — lazy-loaded on first hover */}
-        {hasVideo && hoverMedia && hasHoverRef.current && (
-          <MediaCard
-            preserveVideoFrame
-            media={hoverMedia}
-            autoPlay={isHovered}
-            poster={DEFAULT_VIDEO_POSTER}
-            preload="none"
-            className="absolute inset-0 h-full w-full"
-            mediaClassName={cn(
-              'transition-opacity duration-modal',
-              isHovered ? 'opacity-100' : 'opacity-0'
-            )}
-            objectPosition={objectPosition}
-            aria-hidden
-          />
-        )}
+         {/* Video — lazy-loaded on first hover */}
+         {hasVideo && hoverMedia && hasHoverRef.current && (
+           <MediaCard
+             media={hoverMedia}
+             autoPlay={isHovered}
+             poster={DEFAULT_VIDEO_POSTER}
+             preload="none"
+             className="absolute inset-0 h-full w-full"
+             mediaClassName={cn(
+               'transition-opacity duration-modal',
+               isHovered ? 'opacity-100' : 'opacity-0'
+             )}
+             objectPosition={objectPosition}
+             aria-hidden
+           />
+         )}
       </div>
 
       <div

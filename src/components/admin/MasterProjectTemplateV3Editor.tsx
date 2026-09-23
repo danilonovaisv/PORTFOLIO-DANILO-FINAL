@@ -84,7 +84,11 @@ export type MasterProjectV3GalleryDraft = LandingPageBlock;
 
 export type MasterProjectTemplateV3Draft = Omit<
   MasterProjectTemplateV3Data,
-  'hero_cover_image' | 'hero_logo_image' | 'client_logo_image' | 'hero_top_media' | 'gallery_grid'
+  | 'hero_cover_image'
+  | 'hero_logo_image'
+  | 'client_logo_image'
+  | 'hero_top_media'
+  | 'gallery_grid'
 > & {
   hero_cover_image?: any;
   hero_logo_image?: any;
@@ -116,7 +120,8 @@ export default function MasterProjectTemplateV3Editor({
   const currentHeroMediaType =
     value.hero_media_type ||
     (value.hero_top_media?.kind
-      ? value.hero_top_media.kind === 'html' || value.hero_top_media.kind === 'video'
+      ? value.hero_top_media.kind === 'html' ||
+        value.hero_top_media.kind === 'video'
         ? value.hero_top_media.kind
         : 'image'
       : 'none');
@@ -163,17 +168,24 @@ export default function MasterProjectTemplateV3Editor({
     });
   };
 
-  const handleHeroMediaTypeChange = (type: 'none' | 'image' | 'video' | 'html') => {
+  const handleHeroMediaTypeChange = (
+    type: 'none' | 'image' | 'video' | 'html'
+  ) => {
     update({
       hero_media_type: type,
-      template: type !== 'none' ? 'master-project-v3-alpa-hero' : 'master-project-v3-alpa',
+      template:
+        type !== 'none'
+          ? 'master-project-v3-alpa-hero'
+          : 'master-project-v3-alpa',
       hero_top_media:
         type === 'none'
           ? undefined
           : {
               ...(value.hero_top_media || {}),
               kind: type,
-              alt: value.hero_top_media?.alt || `Hero media de ${value.project_title || 'projeto'}`,
+              alt:
+                value.hero_top_media?.alt ||
+                `Hero media de ${value.project_title || 'projeto'}`,
             },
     });
   };
@@ -206,7 +218,9 @@ export default function MasterProjectTemplateV3Editor({
               value.client_logo_image ||
               value.hero_logo_image || {
                 src: '',
-                alt: value.project_client ? `Logo de ${value.project_client}` : 'Logo do cliente',
+                alt: value.project_client
+                  ? `Logo de ${value.project_client}`
+                  : 'Logo do cliente',
                 kind: 'image',
                 poster: '',
               }
@@ -238,7 +252,8 @@ export default function MasterProjectTemplateV3Editor({
               Hero_Media_Configuration (Mídia da Hero)
             </h3>
             <p className="font-mono text-[11px] text-white/60">
-              Escolha se a hero exibe imagem de destaque, vídeo HTML embed ou cabeçalho minimalista.
+              Escolha se a hero exibe imagem de destaque, vídeo HTML embed ou
+              cabeçalho minimalista.
             </p>
           </div>
 
@@ -270,7 +285,8 @@ export default function MasterProjectTemplateV3Editor({
               type="button"
               onClick={() => handleHeroMediaTypeChange('html')}
               className={`rounded px-3 py-1.5 transition-all ${
-                currentHeroMediaType === 'html' || currentHeroMediaType === 'video'
+                currentHeroMediaType === 'html' ||
+                currentHeroMediaType === 'video'
                   ? 'bg-bluePrimary text-white shadow-sm'
                   : 'text-white/60 hover:text-white'
               }`}
@@ -307,7 +323,8 @@ export default function MasterProjectTemplateV3Editor({
         )}
 
         {/* Configuração de Vídeo HTML */}
-        {(currentHeroMediaType === 'html' || currentHeroMediaType === 'video') && (
+        {(currentHeroMediaType === 'html' ||
+          currentHeroMediaType === 'video') && (
           <div className="mt-4 space-y-4">
             <div className="space-y-2">
               <label className="block font-mono text-xs font-semibold text-white/80">
@@ -321,7 +338,9 @@ export default function MasterProjectTemplateV3Editor({
                       ...(value.hero_top_media || {}),
                       kind: 'html',
                       html: e.target.value,
-                      alt: value.hero_top_media?.alt || `Vídeo do projeto ${value.project_title || ''}`,
+                      alt:
+                        value.hero_top_media?.alt ||
+                        `Vídeo do projeto ${value.project_title || ''}`,
                     },
                   })
                 }

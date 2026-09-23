@@ -67,9 +67,18 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* Camada: Ghost WebGL (Atmosfera 3D — abaixo do texto editorial) */}
+        {/* Camada: Texto Editorial (z-layer-content — abaixo do WebGL) */}
+        <div className="absolute inset-0 z-[var(--z-layer-content)] pointer-events-none">
+          <div className="flex items-center justify-center w-full h-[100svh] md:h-screen md:sticky md:top-0">
+            <div className="w-full pointer-events-auto pb-32 md:pb-0">
+              <HeroCopy isLoaded={isLoaded || shouldReduceMotion} />
+            </div>
+          </div>
+        </div>
+
+        {/* Camada: Ghost WebGL (z-layer-3d — atmosfera 3D e Ghost visualmente ACIMA do texto) */}
         <div
-          className="absolute inset-0 z-[15] pointer-events-none overflow-hidden"
+          className="absolute inset-0 z-[var(--z-layer-3d)] pointer-events-none overflow-hidden"
           aria-hidden="true"
           role="presentation"
         >
@@ -85,19 +94,12 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* Camada: Texto Editorial (z-[25] — acima do WebGL para legibilidade e contraste absolutos) */}
-        <div className="absolute inset-0 z-[25] pointer-events-none">
-          <div className="flex items-center justify-center w-full h-[100svh] md:h-screen md:sticky md:top-0">
-            <div className="w-full pointer-events-auto pb-32 md:pb-0">
-              <HeroCopy isLoaded={isLoaded || shouldReduceMotion} />
-            </div>
-          </div>
-        </div>
-
         {/* Camada: CTA (z-layer-cta — acima de TODOS) */}
         <div className="absolute inset-0 z-[var(--z-layer-cta)] pointer-events-none">
           <div className="relative h-full w-full flex items-end justify-center pb-[5%]">
-            <div className="pointer-events-auto">{(isLoaded || shouldReduceMotion) && <HeroCTA />}</div>
+            <div className="pointer-events-auto">
+              {(isLoaded || shouldReduceMotion) && <HeroCTA />}
+            </div>
           </div>
         </div>
 

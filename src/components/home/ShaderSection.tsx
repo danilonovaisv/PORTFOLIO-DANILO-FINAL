@@ -98,7 +98,9 @@ export function ShaderAnimation() {
 
     let isPaused = false;
     let isIntersecting = false;
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
 
     const animate = () => {
       if (isPaused || !isIntersecting) return;
