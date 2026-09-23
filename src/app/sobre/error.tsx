@@ -26,8 +26,8 @@ export default function SobreError({ error, reset }: ErrorProps) {
         </h1>
 
         <p className="text-body text-textSecondary leading-relaxed">
-          Tivemos uma oscilação temporária ao carregar a página. Você pode tentar
-          novamente ou continuar navegando pelas outras áreas.
+          Tivemos uma oscilação temporária ao carregar a página. Você pode
+          tentar novamente ou continuar navegando pelas outras áreas.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4 pt-2">

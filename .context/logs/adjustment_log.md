@@ -2430,6 +2430,7 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
    - Integrado o ciclo de verificação sistemática antes do fechamento de tarefas.
 
 **Verification:**
+
 - ✅ Script Node validou integridade do frontmatter YAML em `.agents/workflows/squirrel-audit.md` e `.agents/agents/portfolio-experience-specialist.md`.
 - ✅ `professional_coder.md` verificado como inexistente no repositório.
 
@@ -2464,6 +2465,7 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
    - `.context/knowledge/knowledge_skills.json`: Catálogo JSON regenerado contendo 131 skills ativas, categorizadas e com paths padronizados.
 
 **Verification:**
+
 - ✅ Script de auditoria Node validou 131 de 131 skills em `.agents/skills/` com `SKILL.md` canônico, frontmatter YAML válido (`name`, `description`) e zero CRLF.
 - ✅ Zero erros ou anomalias estruturais remanescentes.
 

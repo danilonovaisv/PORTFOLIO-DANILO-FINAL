@@ -365,7 +365,10 @@ export function ProjectForm({
               landingSlug: selectedLp.slug,
             };
           }
-        } else if (!finalDestination || finalDestination.type === 'internal_landing') {
+        } else if (
+          !finalDestination ||
+          finalDestination.type === 'internal_landing'
+        ) {
           finalDestination = { type: 'modal' };
         }
 

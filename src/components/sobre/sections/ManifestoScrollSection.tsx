@@ -24,7 +24,9 @@ export function ManifestoScrollSection() {
 
   // Separate visual states for each text line
   const [line1Status, setLine1Status] = useState<'active' | 'exit'>('active');
-  const [line2Status, setLine2Status] = useState<'inactive' | 'active' | 'exit'>('inactive');
+  const [line2Status, setLine2Status] = useState<
+    'inactive' | 'active' | 'exit'
+  >('inactive');
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const line2TimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -32,39 +34,48 @@ export function ManifestoScrollSection() {
   const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
   // Transition engine mapping the exact behavior of the prototype
-  const transitionTo = useCallback((nextIndex: number, manual = false) => {
-    // Immediately update active tab indicator for responsive UI feedback
-    setActiveIndex(nextIndex);
+  const transitionTo = useCallback(
+    (nextIndex: number, manual = false) => {
+      // Immediately update active tab indicator for responsive UI feedback
+      setActiveIndex(nextIndex);
 
-    // 1. Immediately trigger exit stagger animations for both lines
-    setLine1Status('exit');
-    setLine2Status('exit');
+      // 1. Immediately trigger exit stagger animations for both lines
+      setLine1Status('exit');
+      setLine2Status('exit');
 
-    // Clean up any pending entry delays
-    if (line2TimeoutRef.current) clearTimeout(line2TimeoutRef.current);
+      // Clean up any pending entry delays
+      if (line2TimeoutRef.current) clearTimeout(line2TimeoutRef.current);
 
-    // 2. Wait for the exit animation (350ms + small buffer = 450ms) to complete
-    if (transitionTimeoutRef.current) clearTimeout(transitionTimeoutRef.current);
-    transitionTimeoutRef.current = setTimeout(() => {
-      // 3. Switch the active text phrase and mount the new content
-      setDisplayIndex(nextIndex);
-      setLine1Status('active');
-      setLine2Status('inactive');
+      // 2. Wait for the exit animation (350ms + small buffer = 450ms) to complete
+      if (transitionTimeoutRef.current)
+        clearTimeout(transitionTimeoutRef.current);
+      transitionTimeoutRef.current = setTimeout(
+        () => {
+          // 3. Switch the active text phrase and mount the new content
+          setDisplayIndex(nextIndex);
+          setLine1Status('active');
+          setLine2Status('inactive');
 
-      // Update screen reader live text ONLY on manual action
-      if (manual) {
-        setAnnouncementText(`${PHRASES[nextIndex].line1} ${PHRASES[nextIndex].line2}`);
-      }
+          // Update screen reader live text ONLY on manual action
+          if (manual) {
+            setAnnouncementText(
+              `${PHRASES[nextIndex].line1} ${PHRASES[nextIndex].line2}`
+            );
+          }
 
-      // 4. Stagger reveal line 2 immediately after line 1 completes
-      const line1Length = PHRASES[nextIndex].line1.length;
-      const delayTime = prefersReducedMotion ? 0 : line1Length * 30 + 150;
+          // 4. Stagger reveal line 2 immediately after line 1 completes
+          const line1Length = PHRASES[nextIndex].line1.length;
+          const delayTime = prefersReducedMotion ? 0 : line1Length * 30 + 150;
 
-      line2TimeoutRef.current = setTimeout(() => {
-        setLine2Status('active');
-      }, delayTime);
-    }, prefersReducedMotion ? 50 : 450);
-  }, [prefersReducedMotion]);
+          line2TimeoutRef.current = setTimeout(() => {
+            setLine2Status('active');
+          }, delayTime);
+        },
+        prefersReducedMotion ? 50 : 450
+      );
+    },
+    [prefersReducedMotion]
+  );
 
   // Autoplay loop — strictly paused when reduced motion or user paused
   useEffect(() => {
@@ -82,7 +93,8 @@ export function ManifestoScrollSection() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
       if (line2TimeoutRef.current) clearTimeout(line2TimeoutRef.current);
-      if (transitionTimeoutRef.current) clearTimeout(transitionTimeoutRef.current);
+      if (transitionTimeoutRef.current)
+        clearTimeout(transitionTimeoutRef.current);
     };
   }, [displayIndex, prefersReducedMotion, isPaused, transitionTo]);
 
@@ -344,10 +356,18 @@ export function ManifestoScrollSection() {
           <button
             type="button"
             onClick={() => setIsPaused((prev) => !prev)}
-            aria-label={isPaused ? 'Reproduzir troca automática de manifesto' : 'Pausar troca automática de manifesto'}
+            aria-label={
+              isPaused
+                ? 'Reproduzir troca automática de manifesto'
+                : 'Pausar troca automática de manifesto'
+            }
             className="flex h-11 w-11 items-center justify-center rounded-full text-white/50 hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bluePrimary cursor-pointer"
           >
-            {isPaused ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
+            {isPaused ? (
+              <Play size={14} aria-hidden="true" />
+            ) : (
+              <Pause size={14} aria-hidden="true" />
+            )}
           </button>
 
           {/* Tablist with 44x44px touch targets and full keyboard arrow navigation */}

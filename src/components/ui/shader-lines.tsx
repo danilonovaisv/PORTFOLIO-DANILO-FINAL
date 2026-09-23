@@ -1,6 +1,12 @@
 'use client';
 
-import React, { Component, useEffect, useRef, useState, type ReactNode } from 'react';
+import React, {
+  Component,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import { m } from 'motion/react';
 import type { MotionValue } from 'motion/react';
 import { isWebGLAvailable } from '@/hooks/useWebGLSupport';
@@ -42,7 +48,10 @@ export class ShaderErrorBoundary extends Component<
 
   componentDidCatch(error: Error) {
     if (process.env.NODE_ENV !== 'production') {
-      console.warn('ShaderErrorBoundary: WebGL capturado silenciosamente', error);
+      console.warn(
+        'ShaderErrorBoundary: WebGL capturado silenciosamente',
+        error
+      );
     }
   }
 
@@ -162,7 +171,10 @@ function ShaderAnimationInternal({ opacity, className }: ShaderAnimationProps) {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
       } catch (err) {
         if (process.env.NODE_ENV !== 'production') {
-          console.warn('ShaderAnimation: WebGLRenderer falhou na inicialização, usando fallback', err);
+          console.warn(
+            'ShaderAnimation: WebGLRenderer falhou na inicialização, usando fallback',
+            err
+          );
         }
         if (!isCancelled) setHasError(true);
         geometry.dispose();
@@ -214,7 +226,11 @@ function ShaderAnimationInternal({ opacity, className }: ShaderAnimationProps) {
       };
 
       canvas.addEventListener('webglcontextlost', handleContextLost, false);
-      canvas.addEventListener('webglcontextrestored', handleContextRestored, false);
+      canvas.addEventListener(
+        'webglcontextrestored',
+        handleContextRestored,
+        false
+      );
 
       // Animation Loop Control
       const stopAnimation = () => {
@@ -279,7 +295,9 @@ function ShaderAnimationInternal({ opacity, className }: ShaderAnimationProps) {
           startAnimation();
         }
       };
-      document.addEventListener('visibilitychange', handleVisibilityChange, { passive: true });
+      document.addEventListener('visibilitychange', handleVisibilityChange, {
+        passive: true,
+      });
 
       // If reduced motion: render static frame without RAF loop
       if (prefersReducedMotion) {
@@ -292,10 +310,16 @@ function ShaderAnimationInternal({ opacity, className }: ShaderAnimationProps) {
       cleanupFn = () => {
         stopAnimation();
         window.removeEventListener('resize', onResize);
-        document.removeEventListener('visibilitychange', handleVisibilityChange);
+        document.removeEventListener(
+          'visibilitychange',
+          handleVisibilityChange
+        );
         observer?.disconnect();
         canvas.removeEventListener('webglcontextlost', handleContextLost);
-        canvas.removeEventListener('webglcontextrestored', handleContextRestored);
+        canvas.removeEventListener(
+          'webglcontextrestored',
+          handleContextRestored
+        );
         if (container.contains(canvas)) {
           container.removeChild(canvas);
         }

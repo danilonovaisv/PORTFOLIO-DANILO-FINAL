@@ -177,7 +177,6 @@ export function buildSupabaseStorageUrl(
   return finalUrl;
 }
 
-
 // Função adicional para validar e construir URLs de links externos
 export function validateExternalUrl(url: string): string | null {
   if (!url) return null;

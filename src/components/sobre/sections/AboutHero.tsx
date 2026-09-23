@@ -128,7 +128,10 @@ export function AboutHero() {
                       </m.div>
                     </div>
 
-                    <div className="flex flex-col items-center md:items-end" aria-hidden="true">
+                    <div
+                      className="flex flex-col items-center md:items-end"
+                      aria-hidden="true"
+                    >
                       {ABOUT_CONTENT.hero.manifesto.map((item, index) => (
                         <div key={index} className="overflow-hidden">
                           <m.p
@@ -161,7 +164,8 @@ export function AboutHero() {
                     className="mt-6 flex flex-col items-center md:items-end gap-3 pt-2"
                   >
                     <p className="text-small font-medium uppercase tracking-[0.16em] md:tracking-[0.18em] text-blueAccent">
-                      Diretor de Criação · 12+ anos · Liderança criativa, branding & IA
+                      Diretor de Criação · 12+ anos · Liderança criativa,
+                      branding & IA
                     </p>
                     <a
                       href="#04-o-que-eu-faco"

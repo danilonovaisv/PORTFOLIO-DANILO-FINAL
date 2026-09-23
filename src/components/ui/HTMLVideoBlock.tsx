@@ -164,7 +164,10 @@ export function HTMLVideoBlock({
         className={`w-full overflow-hidden rounded-2xl border border-white/10 bg-background shadow-2xl ${className}`}
       >
         <div
-          className={cn('p-4 flex items-center justify-center bg-transparent', embeddedVideoClasses)}
+          className={cn(
+            'p-4 flex items-center justify-center bg-transparent',
+            embeddedVideoClasses
+          )}
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>

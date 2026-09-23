@@ -5,7 +5,9 @@ import * as webglHook from '@/hooks/useWebGLSupport';
 
 // Mock dynamic import
 jest.mock('next/dynamic', () => () => {
-  const DynamicMock = () => <div data-testid="mock-ghost-scene">Ghost Scene 3D</div>;
+  const DynamicMock = () => (
+    <div data-testid="mock-ghost-scene">Ghost Scene 3D</div>
+  );
   DynamicMock.displayName = 'DynamicGhostSceneMock';
   return DynamicMock;
 });

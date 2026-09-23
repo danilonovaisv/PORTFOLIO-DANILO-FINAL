@@ -2,7 +2,13 @@
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "entry": ["src/app/**/*.{js,jsx,ts,tsx}", "scripts/**/*.{js,ts,cjs,mjs}"],
   "project": ["src/**/*.{js,jsx,ts,tsx}", "scripts/**/*.{js,ts,cjs,mjs}"],
-  "ignore": ["src/components/ui/**", "src/lib/motion/**", "src/lib/supabase.types.ts", "src/lib/antigravity/**", "scripts/archive/**"],
+  "ignore": [
+    "src/components/ui/**",
+    "src/lib/motion/**",
+    "src/lib/supabase.types.ts",
+    "src/lib/antigravity/**",
+    "scripts/archive/**"
+  ],
   "ignoreExportsUsedInFile": true,
   "ignoreDependencies": ["sharp", "esbuild"]
 }
