@@ -1,5 +1,37 @@
 # Adjustment Log
 
+## [2026-09-23T14:55] Evolução Editorial e Paralaxe Multicamada da Seção Origem (`/sobre`) (/plano-ajuste-orchestration /enhance)
+
+**Context:** Implementação da evolução da seção `ORIGEM` da página `/sobre` com base no prompt operacional (`reports/PROMPT_OPERACIONAL_PARA_AGENT_IDE.md`), auditoria da seção (`reports/Auditoria_da_seção_Origem.md`) e documentação canônica em `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/03-ORIGEM-CRIATIVA/`.
+
+**Changes Applied & Verified:**
+
+1. **Narrativa Editorial & Storytelling (`src/components/sobre/origin/data.ts`, `AboutOrigin.tsx`)** ✅
+   - Inserida introdução editorial (`ORIGEM` + "Da intuição ao método" + orientação).
+   - 4 capítulos com cadência equilibrada entre sensibilidade, gesto, descoberta e expansão.
+   - Adicionada ponte de continuidade ("O que começou como olhar virou método") conectando à seção "Do insight ao impacto".
+
+2. **Paralaxe Multicamada de Alta Performance (`OriginParallaxScene.tsx`)** ✅
+   - Componente modular único com Single RAF engine: loop roda apenas na cena ativa.
+   - Auto-pausa em segundo plano (`document.hidden`), fora do viewport e sob `prefers-reduced-motion`.
+   - Manipulação direta de `translate3d` via DOM refs (zero React re-render por frame a 60FPS).
+   - Escalonamento de overscan (1.12x - 1.16x) para prevenção de bordas vazias.
+   - Fallback gracioso para a imagem consolidada em caso de falha de carregamento de layer.
+
+3. **Media Stage & Sincronização de Scroll (`OriginComponents.tsx`, `useOriginAnimations.ts`)** ✅
+   - Palco sticky no desktop com cross-fade suave e HUD de progresso (`01 / 04`, microtag da fase, barra de progresso em ticks e caption contextual).
+   - Layout mobile linear editorial sem transbordamento horizontal.
+   - Conexão do callback `onActiveSceneChange` ao GSAP ScrollTrigger para transições bidirecionais.
+
+4. **Verificação & Compliance** ✅
+   - TypeScript strict (`tsc --noEmit`): 0 erros.
+   - ESLint: 0 erros, 0 warnings.
+   - Testes unitários Jest: 46/46 suites (333 testes) passando.
+   - Build de produção Next.js: gerada com sucesso (`○ /sobre` estática).
+   - Teste Playwright criado em `test/e2e/about-origin.spec.ts`.
+
+---
+
 ## [2026-09-23T00:19] Ghost System Behavioral Guidelines (LLM Mistake Reduction Protocol) (/agent-config-update)
 
 **Context:** Implementação das diretrizes comportamentais universais de redução de erros em modelos de linguagem nos arquivos de governança do projeto (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`).

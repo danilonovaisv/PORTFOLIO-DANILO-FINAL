@@ -1,9 +1,9 @@
 'use client';
 
 import { RefObject } from 'react';
-import { m } from 'motion/react';
+import { m, AnimatePresence } from 'motion/react';
 import type { OriginBlock } from '@/components/sobre/origin/data';
-import { DynamicAssetImage } from '@/components/ui/shared/DynamicAssetImage';
+import { OriginParallaxScene } from '@/components/sobre/origin/OriginParallaxScene';
 import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
@@ -23,16 +23,16 @@ function renderParagraph(paragraph: string, highlight?: string) {
   return (
     <>
       {paragraph.slice(0, idx)}
-      <span className="text-bluePrimary">{highlight}</span>
+      <span className="text-bluePrimary font-medium">{highlight}</span>
       {paragraph.slice(idx + highlight.length)}
     </>
   );
 }
 
 /**
- * Individual content block with subtitle marker, title, text, and mobile image
- * Mobile: Layout intercalado (texto → imagem) com ordem via CSS
- * Desktop: Static content acts as scroll anchor for GSAP
+ * Individual content block with chapter indicator, phase badge, title, text, and mobile scene.
+ * Mobile: Layout editorial linear (Capítulo → Título → Parágrafo → Cena com Paralaxe → Caption).
+ * Desktop: Static content acts as scroll anchor for GSAP ScrollTrigger.
  */
 export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
   const isRightAligned = block.textAlign === 'right';
@@ -40,15 +40,25 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 
   return (
     <div
-      className={`min-h-[60vh] flex flex-col justify-start pt-12 pb-16 lg:min-h-screen lg:justify-end lg:items-end ${
+      className={`min-h-[50vh] flex flex-col justify-center py-10 lg:min-h-[78vh] lg:justify-center ${
         isRightAligned
-          ? 'lg:items-end lg:justify-start lg:text-right'
-          : 'lg:items-end lg:justify-start lg:text-left'
+          ? 'lg:items-end lg:text-right'
+          : 'lg:items-start lg:text-left'
       }`}
       data-origin-block={block.id}
     >
-      <div className="w-full lg:max-w-md text-center lg:text-left relative z-[var(--z-layer-content)] px-4 lg:px-0">
-        <m.h2
+      <div className="w-full lg:max-w-md text-left relative z-[var(--z-layer-content)] px-4 lg:px-0">
+        {/* Chapter marker & phase eyebrow */}
+        <div className="flex items-center gap-3 mb-3 lg:mb-4">
+          <span className="font-mono text-xs font-bold tracking-widest text-bluePrimary px-2 py-0.5 rounded bg-bluePrimary/10 border border-bluePrimary/20">
+            {block.chapter}
+          </span>
+          <span className="text-xs uppercase tracking-[0.2em] font-semibold text-white/50">
+            {block.phase}
+          </span>
+        </div>
+
+        <m.h3
           data-origin-title
           initial={
             prefersReducedMotion
@@ -66,45 +76,34 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
             delay: 0.1,
             ease: GHOST_EASE,
           }}
-          className="text-h2 font-bold text-bluePrimary mb-4 lg:mb-6 tracking-wide"
+          className="text-h2 font-bold text-white mb-4 lg:mb-6 tracking-wide"
         >
           {block.title}
-        </m.h2>
+        </m.h3>
 
         <p
           data-origin-copy
-          className="text-h3 lg:text-body font-medium lg:font-normal text-white/88 leading-relaxed whitespace-pre-line text-pretty"
+          className="text-body font-normal text-white/80 leading-relaxed whitespace-pre-line text-pretty"
         >
           {renderParagraph(block.paragraph, block.highlight)}
         </p>
 
-        {/* Mobile Inline Image (Only displayed on mobile where sticky gallery is hidden) */}
-        <m.div
-          initial={
-            prefersReducedMotion
-              ? { opacity: 0.85 }
-              : { clipPath: 'inset(100% 0% 0% 0%)', opacity: 0.85 }
-          }
-          whileInView={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
-          viewport={viewportConfig}
-          transition={{
-            duration: MOTION_TOKENS.duration.normal,
-            delay: MOTION_TOKENS.stagger.normal,
-            ease: GHOST_EASE,
-          }}
-          className="mt-6 relative w-full aspect-square min-h-[240px] rounded-[1.5rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] lg:hidden"
-        >
-          <DynamicAssetImage
-            assetKey={block.assetKey}
-            alt={block.title}
-            fallbackUrl={block.img || `/site-assets/${block.fallback}`}
-            priority={block.id === 1 || block.priority}
-            width={400}
-            height={400}
-            className="w-full h-full"
-            sizes="(max-width: 1024px) 92vw, 0px"
+        {/* Mobile Inline Scene: Active on mobile, linear editorial flow */}
+        <div className="mt-8 relative w-full aspect-square min-h-[260px] rounded-[1.5rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] border border-white/5 lg:hidden">
+          <OriginParallaxScene
+            config={block.scene}
+            isActive={true}
+            fallbackImage={block.img || `/site.assets/${block.fallback}`}
+            priority={block.id === 1}
           />
-        </m.div>
+        </div>
+
+        {/* Mobile Caption */}
+        {block.caption && (
+          <p className="mt-2.5 text-xs text-white/40 italic lg:hidden">
+            {block.caption}
+          </p>
+        )}
       </div>
     </div>
   );
@@ -113,57 +112,107 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 interface OriginStickyGalleryProps {
   blocks: (OriginBlock & { img?: string; priority?: boolean })[];
   archRightRef: RefObject<HTMLDivElement | null>;
+  activeSceneIndex?: number;
 }
 
 /**
- * Sticky gallery that displays images on desktop
- * Pinned à direita com transição de imagens conforme scroll do texto
+ * Sticky Media Stage that displays 4 multi-layer parallax scenes on desktop.
+ * Sincronizado com scroll do texto via GSAP ScrollTrigger.
  *
- * Specs:
- * - 4 imagens (500px altura, auto largura)
- * - Z-index: 4 → 1 (sequencial)
- * - object-fit: cover
- * - border-radius: 24px
- * - blur(4px) inicial → blur(0)
- * - opacity: 0.85 → 1
+ * Includes:
+ * - 4 scenes with 4 layers each (OriginParallaxScene)
+ * - Chapter Progress Counter (01 / 04)
+ * - Active Phase badge & vertical progress bar
+ * - Contextual caption with smooth cross-fade
  */
 export function OriginStickyGallery({
   blocks,
   archRightRef,
+  activeSceneIndex = 0,
 }: OriginStickyGalleryProps) {
+  const currentBlock = blocks[activeSceneIndex] || blocks[0];
+  const total = blocks.length;
+
   return (
     <div
       className="hidden lg:flex lg:col-span-6 lg:h-screen lg:sticky lg:top-0 lg:items-center lg:justify-center pointer-events-none"
       ref={archRightRef}
       data-testid="origin-sticky-gallery"
     >
-      {/* Gallery container - 500px height per spec */}
       <div className="origin-gallery-container relative w-full max-w-lg h-[500px]">
         {/* Glow effect behind images */}
         <div className="origin-glow" />
 
-        {blocks.map((block, index) => (
-          <div
-            key={block.id}
-            className="origin-img absolute inset-0 w-full h-full rounded-[1.5rem] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-background"
-            data-img-index={index}
-            data-z-index={index + 1}
-          >
-            <DynamicAssetImage
-              assetKey={block.assetKey}
-              alt={block.title}
-              fallbackUrl={block.img || `/site-assets/${block.fallback}`}
-              priority={block.priority}
-              width={512}
-              height={500}
-              className="w-full h-full rounded-3xl overflow-hidden"
-              sizes="(max-width: 1024px) 0px, 40vw"
-            />
-            {/* Mask overlay for reveal effect */}
-            <div className="origin-mask absolute inset-0 bg-background z-[var(--z-layer-glass)] origin-top" />
+        {/* Desktop Stage HUD / Progress Indicator */}
+        <div className="absolute -top-12 left-0 right-0 flex items-center justify-between z-20 px-2 pointer-events-auto select-none">
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-sm font-bold text-bluePrimary tracking-wider">
+              0{activeSceneIndex + 1} / 0{total}
+            </span>
+            <span className="text-white/20">|</span>
+            <span className="text-xs uppercase font-semibold tracking-[0.2em] text-white/70">
+              {currentBlock.phase}
+            </span>
           </div>
-        ))}
+
+          {/* Progress bar ticks */}
+          <div className="flex gap-1.5">
+            {blocks.map((_, i) => (
+              <div
+                key={i}
+                className={`h-1 rounded-full transition-all duration-500 ${
+                  i === activeSceneIndex
+                    ? 'w-6 bg-bluePrimary'
+                    : i < activeSceneIndex
+                      ? 'w-2 bg-white/40'
+                      : 'w-2 bg-white/15'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* 4 Multi-depth Parallax Scenes */}
+        {blocks.map((block, index) => {
+          const isActive = activeSceneIndex === index;
+          return (
+            <div
+              key={block.id}
+              className="origin-img absolute inset-0 w-full h-full rounded-[1.5rem] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-background border border-white/5"
+              data-img-index={index}
+              data-z-index={index + 1}
+            >
+              <OriginParallaxScene
+                config={block.scene}
+                isActive={isActive}
+                fallbackImage={block.img || `/site.assets/${block.fallback}`}
+                priority={block.priority}
+              />
+              {/* Mask overlay for legacy reveal effect compatibility */}
+              <div className="origin-mask absolute inset-0 bg-background z-[var(--z-layer-glass)] origin-top opacity-0 pointer-events-none" />
+            </div>
+          );
+        })}
+
+        {/* Bottom Contextual Caption */}
+        <div className="absolute -bottom-9 left-2 right-2 flex items-center justify-between z-20 pointer-events-auto">
+          <AnimatePresence mode="wait">
+            <m.p
+              key={currentBlock.id}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.3 }}
+              className="text-xs text-white/50 italic truncate"
+            >
+              {currentBlock.caption}
+            </m.p>
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );
 }
+
+/** Alias for OriginStickyGallery per design specification */
+export const OriginMediaStage = OriginStickyGallery;

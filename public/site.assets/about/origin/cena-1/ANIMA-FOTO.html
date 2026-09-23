@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Preview Animado</title>
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+
+    html,
+    body{
+        width:100%;
+        height:100%;
+        overflow:hidden;
+        background:#000;
+        -webkit-font-smoothing:antialiased;
+    }
+
+    .parallax-viewport{
+        position:fixed;
+        inset:0;
+        width:100%;
+        height:100%;
+        overflow:hidden;
+        background:#000;
+        contain:strict;
+    }
+
+    .parallax-layer{
+        position:absolute;
+        left:0;
+        top:0;
+        overflow:hidden;
+        pointer-events:none;
+        backface-visibility:hidden;
+        -webkit-backface-visibility:hidden;
+    }
+
+    .parallax-track{
+        position:absolute;
+        top:0;
+        left:0;
+        display:flex;
+        width:200%;
+        height:100%;
+        will-change:transform;
+        transform:translate3d(0,0,0);
+        backface-visibility:hidden;
+        -webkit-backface-visibility:hidden;
+    }
+
+    .parallax-track img{
+        display:block;
+        flex:0 0 50%;
+        width:50%;
+        height:100%;
+        object-fit:cover;
+        object-position:center center;
+        user-select:none;
+        -webkit-user-select:none;
+        pointer-events:none;
+        -webkit-user-drag:none;
+        opacity:0;
+        transition:opacity .45s ease-out;
+    }
+
+    .parallax-track img.is-ready{
+        opacity:1;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+        .parallax-track{
+            transform:none !important;
+        }
+    }
+</style>
+</head>
+<body>
+    <main class="parallax-viewport" id="viewport" aria-label="Preview animado da homepage com efeito de paralaxe">
+
+        <div class="parallax-layer" data-depth="0.006">
+            <div class="parallax-track">
+                <img src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/ANIMA-FOTO/CAMADA-0.webp" alt="Camada de fundo da composição" decoding="async">
+                <img src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/ANIMA-FOTO/CAMADA-0.webp" alt="" aria-hidden="true" decoding="async">
+            </div>
+        </div>
+
+        <div class="parallax-layer" data-depth="0.013">
+            <div class="parallax-track">
+                <img src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/ANIMA-FOTO/CAMADA-1.webp" alt="Camada central da composição" decoding="async">
+                <img src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/ANIMA-FOTO/CAMADA-1.webp" alt="" aria-hidden="true" decoding="async">
+            </div>
+        </div>
+
+        <div class="parallax-layer" data-depth="0.024">
+            <div class="parallax-track">
+                <img src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/ANIMA-FOTO/CAMADA-2.webp" alt="Camada intermediária da composição" decoding="async">
+                <img src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/ANIMA-FOTO/CAMADA-2.webp" alt="" aria-hidden="true" decoding="async">
+            </div>
+        </div>
+
+        <div class="parallax-layer" data-depth="0.040">
+            <div class="parallax-track">
+                <img src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/ANIMA-FOTO/CAMADA-3.webp" alt="Camada de primeiro plano da composição" decoding="async">
+                <img src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/ANIMA-FOTO/CAMADA-3.webp" alt="" aria-hidden="true" decoding="async">
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var SEGMENT_DURATION_MS = 4000;
+        var PERIOD_MS = SEGMENT_DURATION_MS * 2;
+        var TWO_PI = Math.PI * 2;
+        var COVER_SCALE = 1.12;
+
+        var viewport = document.getElementById('viewport');
+        var layerNodes = Array.prototype.slice.call(viewport.querySelectorAll('.parallax-layer'));
+
+        var layers = layerNodes.map(function (node) {
+            return {
+                element: node,
+                track: node.querySelector('.parallax-track'),
+                images: Array.prototype.slice.call(node.querySelectorAll('img')),
+                depth: parseFloat(node.getAttribute('data-depth')) || 0,
+                amplitude: 0,
+                lastValue: null
+            };
+        });
+
+        var viewWidth = 0;
+        var viewHeight = 0;
+        var layerSide = 0;
+        var startTimestamp = null;
+        var rafId = null;
+        var isRunning = false;
+        var resizeScheduled = false;
+
+        var motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+        function measure() {
+            viewWidth = window.innerWidth || document.documentElement.clientWidth;
+            viewHeight = window.innerHeight || document.documentElement.clientHeight;
+
+            var cover = Math.max(viewWidth, viewHeight);
+            layerSide = Math.ceil(cover * COVER_SCALE);
+
+            var offsetX = Math.round((viewWidth - layerSide) / 2);
+            var offsetY = Math.round((viewHeight - layerSide) / 2);
+
+            for (var i = 0; i < layers.length; i++) {
+                var layer = layers[i];
+                layer.element.style.width = layerSide + 'px';
+                layer.element.style.height = layerSide + 'px';
+                layer.element.style.transform = 'translate3d(' + offsetX + 'px,' + offsetY + 'px,0)';
+                layer.amplitude = layerSide * layer.depth;
+                layer.lastValue = null;
+            }
+
+            if (isRunning) {
+                applyFrame(startTimestamp === null ? 0 : performance.now() - startTimestamp);
+            } else {
+                for (var j = 0; j < layers.length; j++) {
+                    layers[j].track.style.transform = 'translate3d(0,0,0)';
+                }
+            }
+        }
+
+        function applyFrame(elapsed) {
+            var phase = (elapsed % PERIOD_MS) / PERIOD_MS;
+            var wave = Math.cos(phase * TWO_PI);
+
+            for (var i = 0; i < layers.length; i++) {
+                var layer = layers[i];
+                var value = Math.round(layer.amplitude * wave * 100) / 100;
+                if (value !== layer.lastValue) {
+                    layer.track.style.transform = 'translate3d(' + value + 'px,0,0)';
+                    layer.lastValue = value;
+                }
+            }
+        }
+
+        function tick(timestamp) {
+            if (!isRunning) {
+                return;
+            }
+            if (startTimestamp === null) {
+                startTimestamp = timestamp;
+            }
+            applyFrame(timestamp - startTimestamp);
+            rafId = window.requestAnimationFrame(tick);
+        }
+
+        function start() {
+            if (isRunning || motionQuery.matches) {
+                return;
+            }
+            isRunning = true;
+            startTimestamp = null;
+            rafId = window.requestAnimationFrame(tick);
+        }
+
+        function stop() {
+            isRunning = false;
+            if (rafId !== null) {
+                window.cancelAnimationFrame(rafId);
+                rafId = null;
+            }
+            startTimestamp = null;
+            for (var i = 0; i < layers.length; i++) {
+                layers[i].track.style.transform = 'translate3d(0,0,0)';
+                layers[i].lastValue = 0;
+            }
+        }
+
+        function revealImages() {
+            for (var i = 0; i < layers.length; i++) {
+                for (var j = 0; j < layers[i].images.length; j++) {
+                    layers[i].images[j].classList.add('is-ready');
+                }
+            }
+        }
+
+        function waitForAssets(callback) {
+            var pending = 0;
+            var settled = false;
+
+            function finish() {
+                if (settled) {
+                    return;
+                }
+                pending--;
+                if (pending <= 0) {
+                    settled = true;
+                    callback();
+                }
+            }
+
+            var allImages = [];
+            for (var i = 0; i < layers.length; i++) {
+                allImages = allImages.concat(layers[i].images);
+            }
+
+            for (var k = 0; k < allImages.length; k++) {
+                pending++;
+            }
+
+            if (pending === 0) {
+                callback();
+                return;
+            }
+
+            for (var m = 0; m < allImages.length; m++) {
+                (function (image) {
+                    if (image.complete && image.naturalWidth > 0) {
+                        finish();
+                        return;
+                    }
+                    image.addEventListener('load', finish, { once: true });
+                    image.addEventListener('error', finish, { once: true });
+                })(allImages[m]);
+            }
+
+            window.setTimeout(function () {
+                if (!settled) {
+                    settled = true;
+                    callback();
+                }
+            }, 8000);
+        }
+
+        function boot() {
+            measure();
+            revealImages();
+            if (!motionQuery.matches) {
+                start();
+            }
+        }
+
+        waitForAssets(boot);
+
+        window.addEventListener('resize', function () {
+            if (resizeScheduled) {
+                return;
+            }
+            resizeScheduled = true;
+            window.requestAnimationFrame(function () {
+                resizeScheduled = false;
+                measure();
+            });
+        });
+
+        window.addEventListener('orientationchange', function () {
+            window.setTimeout(measure, 120);
+        });
+
+        var motionHandler = function () {
+            if (motionQuery.matches) {
+                stop();
+            } else {
+                measure();
+                start();
+            }
+        };
+
+        if (typeof motionQuery.addEventListener === 'function') {
+            motionQuery.addEventListener('change', motionHandler);
+        } else if (typeof motionQuery.addListener === 'function') {
+            motionQuery.addListener(motionHandler);
+        }
+
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                if (isRunning && rafId !== null) {
+                    window.cancelAnimationFrame(rafId);
+                    rafId = null;
+                }
+            } else if (isRunning && rafId === null && !motionQuery.matches) {
+                startTimestamp = null;
+                rafId = window.requestAnimationFrame(tick);
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

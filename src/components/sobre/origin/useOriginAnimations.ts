@@ -16,6 +16,7 @@ interface UseOriginAnimationsProps {
   archRightRef: RefObject<HTMLDivElement | null>;
   contentCount: number;
   prefersReducedMotion: boolean;
+  onActiveSceneChange?: (_index: number) => void;
 }
 
 export function useOriginAnimations({
@@ -24,6 +25,7 @@ export function useOriginAnimations({
   archRightRef,
   contentCount,
   prefersReducedMotion,
+  onActiveSceneChange,
 }: UseOriginAnimationsProps) {
   useEffect(() => {
     if (!isClient) return;
@@ -73,6 +75,7 @@ export function useOriginAnimations({
           });
           gsap.set(titles[0], { opacity: 1, y: 0, filter: 'blur(0px)' });
           gsap.set(copies[0], { opacity: 0.82, y: 0, filter: 'blur(0px)' });
+          onActiveSceneChange?.(0);
         };
         setInitialState();
 
@@ -98,6 +101,7 @@ export function useOriginAnimations({
         triggers.push(endTrigger);
 
         function revealImage(activeIndex: number, direction: 'up' | 'down') {
+          onActiveSceneChange?.(activeIndex);
           const duration = prefersReducedMotion
             ? MOTION_TOKENS.duration.fast
             : MOTION_TOKENS.duration.normal;
@@ -217,5 +221,12 @@ export function useOriginAnimations({
     });
 
     return () => mm.revert();
-  }, [isClient, archRef, archRightRef, contentCount, prefersReducedMotion]);
+  }, [
+    isClient,
+    archRef,
+    archRightRef,
+    contentCount,
+    prefersReducedMotion,
+    onActiveSceneChange,
+  ]);
 }

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Design — Paralaxe</title>
+<style>
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #000;
+    }
+
+    .stage {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        background: #000;
+    }
+
+    .layer {
+        position: absolute;
+        inset: 0;
+        transform: translate3d(0, 0, 0) scale(1.16);
+        transform-origin: 50% 50%;
+        will-change: transform;
+        backface-visibility: hidden;
+        pointer-events: none;
+    }
+
+    .layer img {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 50%;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .layer {
+            transform: translate3d(0, 0, 0) scale(1.16) !important;
+        }
+    }
+</style>
+</head>
+<body>
+    <main class="stage" id="stage" aria-label="Homepage em animação contínua de paralaxe">
+        <div class="layer" data-amplitude="0.006">
+            <img
+                src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/03-design/camada-0.webp"
+                alt="Camada de fundo da homepage"
+                draggable="false"
+            >
+            <img
+                src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/03-design/camada-0.webp"
+                alt=""
+                aria-hidden="true"
+                draggable="false"
+            >
+        </div>
+
+        <div class="layer" data-amplitude="0.014">
+            <img
+                src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/03-design/camada-1.webp"
+                alt="Primeira camada da homepage"
+                draggable="false"
+            >
+            <img
+                src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/03-design/camada-1.webp"
+                alt=""
+                aria-hidden="true"
+                draggable="false"
+            >
+        </div>
+
+        <div class="layer" data-amplitude="0.028">
+            <img
+                src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/03-design/camada-2.webp"
+                alt="Segunda camada da homepage"
+                draggable="false"
+            >
+            <img
+                src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/03-design/camada-2.webp"
+                alt=""
+                aria-hidden="true"
+                draggable="false"
+            >
+        </div>
+
+        <div class="layer" data-amplitude="0.048">
+            <img
+                src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/03-design/camada-3.webp"
+                alt="Terceira camada da homepage"
+                draggable="false"
+            >
+            <img
+                src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/03-design/camada-3.webp"
+                alt=""
+                aria-hidden="true"
+                draggable="false"
+            >
+        </div>
+    </main>
+
+    <script>
+        (function () {
+            'use strict';
+
+            var CYCLE_DURATION_MS = 4000;
+            var BASE_SCALE = 1.16;
+            var VERTICAL_RATIO = 0.35;
+            var MAX_FRAME_DELTA_MS = 50;
+
+            var layerElements = Array.prototype.slice.call(document.querySelectorAll('.layer'));
+            var allImages = Array.prototype.slice.call(document.querySelectorAll('.layer img'));
+            var reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+            var baseSize = 1;
+            var virtualTime = 0;
+            var lastTimestamp = null;
+            var rafId = null;
+            var started = false;
+            var pendingImages = 0;
+
+            function measure() {
+                var w = window.innerWidth || 0;
+                var h = window.innerHeight || 0;
+                baseSize = Math.min(w, h) || 1;
+            }
+
+            function applyTransform(element, dx, dy) {
+                element.style.transform =
+                    'translate3d(' + dx.toFixed(2) + 'px, ' + dy.toFixed(2) + 'px, 0) scale(' + BASE_SCALE + ')';
+            }
+
+            function renderAt(time) {
+                var theta = (time / CYCLE_DURATION_MS) * Math.PI * 2;
+                var wave = Math.sin(theta);
+
+                for (var i = 0; i < layerElements.length; i++) {
+                    var element = layerElements[i];
+                    var amplitude = parseFloat(element.dataset.amplitude) * baseSize;
+                    applyTransform(element, wave * amplitude, wave * amplitude * VERTICAL_RATIO);
+                }
+            }
+
+            function renderStatic() {
+                for (var i = 0; i < layerElements.length; i++) {
+                    applyTransform(layerElements[i], 0, 0);
+                }
+            }
+
+            function frame(timestamp) {
+                if (lastTimestamp === null) {
+                    lastTimestamp = timestamp;
+                }
+
+                var delta = timestamp - lastTimestamp;
+                lastTimestamp = timestamp;
+
+                if (delta > MAX_FRAME_DELTA_MS) {
+                    delta = MAX_FRAME_DELTA_MS;
+                }
+                if (delta < 0) {
+                    delta = 0;
+                }
+
+                virtualTime += delta;
+                if (virtualTime >= CYCLE_DURATION_MS) {
+                    virtualTime -= CYCLE_DURATION_MS;
+                }
+
+                renderAt(virtualTime);
+                rafId = window.requestAnimationFrame(frame);
+            }
+
+            function stopLoop() {
+                if (rafId !== null) {
+                    window.cancelAnimationFrame(rafId);
+                    rafId = null;
+                }
+                lastTimestamp = null;
+            }
+
+            function startLoop() {
+                stopLoop();
+                rafId = window.requestAnimationFrame(frame);
+            }
+
+            function start() {
+                if (started) {
+                    return;
+                }
+                started = true;
+                measure();
+
+                if (reduceMotionQuery.matches) {
+                    renderStatic();
+                    return;
+                }
+
+                renderAt(0);
+                startLoop();
+            }
+
+            function handleResize() {
+                measure();
+                if (!started) {
+                    return;
+                }
+                if (reduceMotionQuery.matches) {
+                    renderStatic();
+                }
+            }
+
+            function handleMotionPreferenceChange() {
+                if (!started) {
+                    return;
+                }
+                if (reduceMotionQuery.matches) {
+                    stopLoop();
+                    renderStatic();
+                } else {
+                    startLoop();
+                }
+            }
+
+            function onImageSettled() {
+                pendingImages -= 1;
+                if (pendingImages <= 0) {
+                    start();
+                }
+            }
+
+            for (var i = 0; i < allImages.length; i++) {
+                var img = allImages[i];
+                if (img.complete && img.naturalWidth > 0) {
+                    continue;
+                }
+                pendingImages += 1;
+                img.addEventListener('load', onImageSettled, { once: true });
+                img.addEventListener('error', onImageSettled, { once: true });
+            }
+
+            window.addEventListener('resize', handleResize, { passive: true });
+            window.addEventListener('orientationchange', handleResize, { passive: true });
+
+            if (typeof reduceMotionQuery.addEventListener === 'function') {
+                reduceMotionQuery.addEventListener('change', handleMotionPreferenceChange);
+            } else if (typeof reduceMotionQuery.addListener === 'function') {
+                reduceMotionQuery.addListener(handleMotionPreferenceChange);
+            }
+
+            if (pendingImages === 0) {
+                start();
+            }
+        })();
+    </script>
+</body>
+</html>
