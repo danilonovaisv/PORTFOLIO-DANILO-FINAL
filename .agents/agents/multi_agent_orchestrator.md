@@ -35,6 +35,10 @@ Domain Specialists for PORTFOLIO-DANILO-FINAL:
 - Public UI/Cards (video, HTML, img, touch) & Case pages (/projects/[slug]): portfolio-experience-specialist
 - Supabase schema, RLS policies, storage policies: database-sentinel
 - Three.js, shaders, WebGL, 60FPS: spectral-artist
+- Design, UX/UI, accessibility, motion audits: design-auditor
+- Pre-audit context mapping & docs verification: portfolio-context-analyst
+- Staged implementation planning & dependency graphs: implementation-planner
+- Audit acceptance criteria & regression verification: audit-validator
 - Independent verification & test gates: quality-verification-specialist
 </project_domain_routing>
 

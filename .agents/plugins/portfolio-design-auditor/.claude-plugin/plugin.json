@@ -1,0 +1,20 @@
+{
+  "name": "portfolio-design-auditor",
+  "version": "0.2.0",
+  "description": "Evidence-based portfolio design, UX, accessibility, motion and mobile audits with focused implementation skills.",
+  "author": {
+    "name": "Portfolio Design Auditor"
+  },
+  "homepage": "https://portfoliodanilo.com",
+  "keywords": [
+    "design-audit",
+    "ux-ui",
+    "motion",
+    "animation",
+    "apple-design",
+    "mobile",
+    "portfolio"
+  ],
+  "agents": "./agents",
+  "commands": "./commands"
+}

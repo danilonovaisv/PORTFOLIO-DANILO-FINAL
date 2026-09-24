@@ -44,6 +44,10 @@ Read/list/grep and task/delegation capabilities only when supported by the IDE.
 - Project case page -> Portfolio Experience Specialist
 - Supabase schema/RLS/storage policy -> Database Sentinel
 - Three.js/shader/rendering -> Spectral Artist (visual/shader specialist)
+- Pre-audit context mapping -> Portfolio Context Analyst (@portfolio_context_analyst)
+- Design, UX/UI & Motion audits -> Design Auditor (@design_auditor)
+- Audit implementation planning -> Implementation Planner (@implementation_planner)
+- Audit acceptance & regression QA -> Audit Validator (@audit_validator)
 - Any implemented change -> Quality Verification Specialist
 
 ## Constraints

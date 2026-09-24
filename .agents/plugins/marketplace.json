@@ -27,6 +27,18 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Design"
+    },
+    {
+      "name": "portfolio-design-auditor",
+      "source": {
+        "source": "local",
+        "path": "./plugins/portfolio-design-auditor"
+      },
+      "policy": {
+        "installation": "INSTALLED",
+        "authentication": "NONE"
+      },
+      "category": "Design & Motion Audit"
     }
   ]
 }

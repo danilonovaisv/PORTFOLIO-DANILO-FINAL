@@ -1,5 +1,43 @@
 # Adjustment Log
 
+## [2026-09-24T19:20] Instalação e Configuração do Plugin portfolio-design-auditor (/agents-orquestrator @plugin-structure)
+
+**Context:** Instalação e configuração de contexto para execução de auditorias de design e animação utilizando a skill `plugin-structure` no plugin `portfolio-design-auditor`.
+
+**Changes Applied & Verified:**
+
+1. **Conformidade com Plugin Structure (`.agents/skills/plugin-structure/SKILL.md`)** ✅
+   - Criado manifesto oficial [`.claude-plugin/plugin.json`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/plugins/portfolio-design-auditor/.claude-plugin/plugin.json) declarando metadados, comandos e agentes.
+   - Extraídos e organizados os 4 subagentes especializados em [`.agents/plugins/portfolio-design-auditor/agents/`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/plugins/portfolio-design-auditor/agents/):
+     - `portfolio-context-analyst.md`
+     - `design-auditor.md`
+     - `implementation-planner.md`
+     - `audit-validator.md`
+   - Extraídos e estruturados os 4 comandos slash em [`.agents/plugins/portfolio-design-auditor/commands/`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/plugins/portfolio-design-auditor/commands/):
+     - `audit.md` (`/audit`)
+     - `plan-implementation.md` (`/plan-implementation`)
+     - `implement-audit.md` (`/implement-audit`)
+     - `validate-audit.md` (`/validate-audit`)
+   - Extraídas as 4 especificações de referência em [`.agents/plugins/portfolio-design-auditor/references/`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/plugins/portfolio-design-auditor/references/):
+     - `audit-framework.md`
+     - `finding-schema.md`
+     - `reference-analysis.md`
+     - `implementation-protocol.md`
+
+2. **Registro no Marketplace Local & Agentes Antigravity IDE (`.agents/agents/`)** ✅
+   - Registrado o plugin `portfolio-design-auditor` na categoria "Design & Motion Audit" com status `INSTALLED`.
+   - Promovidos os 4 agentes de auditoria como cidadãos de primeira classe no Antigravity em [`.agents/agents/`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/agents/):
+     - `@portfolio-context-analyst`
+     - `@design-auditor`
+     - `@implementation-planner`
+     - `@audit-validator`
+   - Atualizadas as rotas de orquestração em [`.agents/agents/project-orchestrator.md`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/agents/project-orchestrator.md), [`.agents/agents/multi_agent_orchestrator.md`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/agents/multi_agent_orchestrator.md) e na tabela de governança [AGENTS.md](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/AGENTS.md).
+
+3. **Configuração de Contexto & Ambiente de Auditoria (`.context/audits/`)** ✅
+   - Criado o arquivo [`.context/audits/AUDIT-ENVIRONMENT.md`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.context/audits/AUDIT-ENVIRONMENT.md) conectando os alvos de auditoria ([`.context/DOCS-PORTFOLIO-PAGES/`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.context/DOCS-PORTFOLIO-PAGES)), tokens do Design System Ghost ([`GHOST-DESIGN-SYSTEM.md`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.context/GHOST-DESIGN-SYSTEM.md)), mandatos de 60FPS/motion e o ciclo operacional com os agentes do sistema.
+
+---
+
 ## [2026-09-23T18:35] Resolução de Persistência de Vídeos HTML em Landing Pages & Auditoria de Agente (/audit /audit-agent-config)
 
 **Context:** Auditoria de configuração do agente `@portfolio_experience` ([`.agents/agents/portfolio-experience-specialist.md`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/agents/portfolio-experience-specialist.md)) e resolução da falha que impedia o salvamento de vídeos HTML nos projetos de landing pages no `/admin`.

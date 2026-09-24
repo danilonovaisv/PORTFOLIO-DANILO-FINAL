@@ -134,6 +134,10 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 | **`@ghost_architect`**         | `ghost-architect.md`                 | Estrutura Next.js 16 App Router, TypeScript strict e DDD          | `ghost-architect`, `clean-code`, `writing-plans`               |
 | **`@devops-engineer`**         | `devops-engineer.md`                 | Pipeline de deploy Firebase Hosting e SSR Guardrail               | `deploy-manager`, `ghost-firebase-deploy`                      |
 | **`@obsidian_vault_operator`** | `obsidian-vault-operator.md`         | Gestão de Wiki-Brain, notas OFM e Canvas do grafo de conhecimento | `wiki-brain`, `obsidian-claude-integration`                    |
+| **`@portfolio_context_analyst`** | `portfolio-context-analyst.md`       | Mapeamento de rotas, docs vs código real antes de auditorias      | `portfolio-design-audit`, `apple-design`, `animation-vocabulary` |
+| **`@design_auditor`**          | `design-auditor.md`                  | Auditoria dimensional (Visual, UX, A11y, Motion) com findings P0-P3 | `portfolio-design-audit`, `apple-design`, `improve-animations` |
+| **`@implementation_planner`**  | `implementation-planner.md`          | Decomposição de achados de auditoria em tarefas e fases sequenciais| `writing-plans`, `orchestration`, `subagent-driven-development`|
+| **`@audit_validator`**         | `audit-validator.md`                 | Portão de validação de critérios de aceite e regressão de layout  | `review-animations`, `verify-portfolio-change`, `verification-before-completion` |
 
 ---
 
