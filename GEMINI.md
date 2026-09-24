@@ -259,19 +259,21 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ## 📐 4. REGRAS INEGOCIÁVEIS DO GHOST SYSTEM
 
-1. **Zero Placeholder Policy:** Nunca use Lorem Ipsum. Utilize assets reais do Supabase.
-2. **Atomic Commits:** Commits frequentes e semânticos (`feat:`, `fix:`, `style:`, `refactor:`, `perf:`).
-3. **Socratic Gate:** Se a tarefa for vaga, pare e faça perguntas de alinhamento antes de codar.
-4. **Mobile First:** Toda interação deve ser impecável e fluida no touch.
-5. **Language Protocol:** Comunicação em **Português (PT-BR)**. Código e Documentação Técnica em **Inglês**.
-6. **Pre-deploy Mandatório:** Deploy em produção exige aprovação prévia em `pnpm run build-check`.
-7. **Segurança:** Nunca comite segredos ou variáveis `.env`.
-8. **Cookies Firebase:** Cookies de autenticação devem usar estritamente `name: '__session'`.
+1. **Obsidian & Graphify First (Pesquisa Obrigatória):** Antes de planejar ou codar qualquer tarefa, TODO agente DEVE pesquisar o grafo de conhecimento no Obsidian (via MCP `obsidian`: `search_vault`, `get_vault_file`, `get_canvas`) e no grafo semântico do código (`graphify query "<pergunta>"`). Nenhuma alteração é iniciada às cegas.
+2. **Zero Placeholder Policy:** Nunca use Lorem Ipsum. Utilize assets reais do Supabase.
+3. **Atomic Commits:** Commits frequentes e semânticos (`feat:`, `fix:`, `style:`, `refactor:`, `perf:`).
+4. **Socratic Gate:** Se a tarefa for vaga, pare e faça perguntas de alinhamento antes de codar.
+5. **Mobile First:** Toda interação deve ser impecável e fluida no touch.
+6. **Language Protocol:** Comunicação em **Português (PT-BR)**. Código e Documentação Técnica em **Inglês**.
+7. **Pre-deploy Mandatório:** Deploy em produção exige aprovação prévia em `pnpm run build-check`.
+8. **Segurança:** Nunca comite segredos ou variáveis `.env`.
+9. **Cookies Firebase:** Cookies de autenticação devem usar estritamente `name: '__session'`.
 
 ---
 
 ## 🔄 5. CICLO DE VIDA DA MISSÃO
 
+0. **GRAPH DISCOVERY:** Consultar o cofre Obsidian via MCP `obsidian` (`search_vault`, `get_canvas`) e o grafo semântico AST (`graphify query`).
 1. **SCAN:** Mapear arquivos, consultar `.context/` e checar grafo de dependências.
 2. **PLAN:** Gerar `implementation_plan.md` antes de grandes alterações (`writing-plans`).
 3. **CODE:** Executar correções estruturais -> Estética -> Microinterações.

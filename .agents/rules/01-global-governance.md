@@ -7,11 +7,12 @@ priority: high
 
 ## ⚖️ Immutable Laws
 
-### 1. The Rule of Context (`.context/`)
+### 1. The Rule of Context (`.context/`, Obsidian & Graphify)
 
+- **Graph & Vault First**: Before planning or executing any task, ALWAYS query the Obsidian knowledge graph via MCP `obsidian` (`search_vault`, `get_vault_file`, `get_canvas`) and codebase semantic graph (`graphify query "<question>"`).
 - **Read First**: You possess NO long-term memory. You MUST read `.context/` files before planning.
-- **Documentation Bible**:Whenever you are going to make an adjustment, first understand the page and session, all the blueprint and detailing of each session, with images for layout comparison, in the path `.context//DOCS-PORTFOLIO-PAGES/‘
-- **Write Always**: If you learn something new, update `.context/knowledge-graph.md` or `.context/logs/adjustment_log.md`.
+- **Documentation Bible**: Whenever you are going to make an adjustment, first understand the page and session, all the blueprint and detailing of each session, with images for layout comparison, in the path `.context/DOCS-PORTFOLIO-PAGES/`.
+- **Write Always**: If you learn something new, update `.context/knowledge-graph.md`, Obsidian vault or `.context/logs/adjustment_log.md`.
 - **Self-Healing**: If code changes, docs MUST update. No stale documentation allowed.
 
 ### 2. The Rule of Atomic Commits

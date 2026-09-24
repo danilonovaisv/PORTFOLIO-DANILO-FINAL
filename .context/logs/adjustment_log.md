@@ -1,5 +1,30 @@
 # Adjustment Log
 
+## [2026-09-24T19:33] Protocolo Obrigatório de Pesquisa em Grafos do Obsidian & Graphify (/obsidian-claude-integration /graphify)
+
+**Context:** Estabelecido o mandato obrigatório para que todos os agentes do Antigravity IDE consultem o cofre Obsidian (via MCP `obsidian` na porta 27200) e o grafo semântico AST (`graphify query`) antes de formular planos ou executar qualquer tarefa.
+
+**Changes Applied & Verified:**
+
+1. **Nova Regra Soberana (`.agents/rules/02-obsidian-graph-first.md`)** ✅
+   - Criada regra mandatória com prioridade crítica estabelecendo o protocolo em 3 etapas: (1) Consulta ao cofre Obsidian via MCP `obsidian` (`search_vault`, `get_vault_file`, `get_canvas`); (2) Consulta ao grafo AST via `graphify query`; (3) Alinhamento com `.context/DOCS-PORTFOLIO-PAGES/` e tokens do Ghost System.
+
+2. **Atualização da Constituição & Governança (`GEMINI.md`, `AGENTS.md`)** ✅
+   - `GEMINI.md`: Inserida como Regra Inegociável nº 1 e etapa 0 do Ciclo de Vida da Missão ("GRAPH DISCOVERY").
+   - `AGENTS.md`: Inserida nas "Behavioral Rules (Always Enforced)" como requisito prévio para planos e edições de código.
+
+3. **Atualização dos Protocolos de Execução & Contexto (`.agents/rules/`)** ✅
+   - `01-global-governance.md`: Atualizada a Regra 1 ("The Rule of Context, Obsidian & Graphify") com pesquisa obrigatória prévia.
+   - `30-execution-protocol.md`: Atualizados o bloco "MCP First" e a "Phase 1: Context & Plan" com a etapa de Graph & Vault Discovery.
+   - `context-governance.md`: Incluída a regra como prioridade nº 1.
+
+4. **Integração aos Agentes e Workflows (`.agents/agents/`, `.agents/workflows/`)** ✅
+   - `@portfolio-context-analyst` e `@design-auditor`: Adicionada consulta ao Obsidian Vault e Graphify como contexto de entrada obrigatório.
+   - Workflow `/agents-orquestrator`: Atualizada a Fase 0 para busca obrigatória em grafos antes do Socratic Gate e planejamento.
+   - MCP `obsidian`: Verificado e validado com sucesso via local transport streamable-http (626 notas ativas).
+
+---
+
 ## [2026-09-24T19:20] Instalação e Configuração do Plugin portfolio-design-auditor (/agents-orquestrator @plugin-structure)
 
 **Context:** Instalação e configuração de contexto para execução de auditorias de design e animação utilizando a skill `plugin-structure` no plugin `portfolio-design-auditor`.

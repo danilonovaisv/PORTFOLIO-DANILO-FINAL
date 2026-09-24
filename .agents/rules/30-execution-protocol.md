@@ -64,13 +64,14 @@ If a standard action fails:
 
 Before writing custom code:
 
-1. Check `context7` for similar patterns.
-2. Check `github-mcp` for existing issues/PRs.
-3. Check `firebase-mcp` for deployment status.
+1. **Obsidian Vault & Knowledge Graph**: Check `obsidian` MCP (`search_vault`, `get_vault_file`, `get_canvas`) and run `graphify query "<question>"`.
+2. Check `context7` for external library/API documentation.
+3. Check `github-mcp` for existing issues/PRs.
+4. Check `firebase-mcp` for deployment status.
 
 ### Logging
 
-- **Major Decisions**: Log to `.context/logs/adjustment_log.md`.
+- **Major Decisions**: Log to `.context/logs/adjustment_log.md` and Obsidian Vault.
 - **Architectural Changes**: Log to `docs/ARCH-DECISION-[ID].md`.
 
 ---
@@ -79,9 +80,10 @@ Before writing custom code:
 
 ### Phase 1: Context & Plan
 
-1. **Read**: `.context/active_state.md`.
-2. **Plan**: Create `docs/PLAN-[ID].md` for complex tasks.
-3. **Gate**: Wait for user approval if "Complex".
+1. **Graph & Vault Discovery**: Query Obsidian vault (`search_vault`) and semantic AST graph (`graphify query`) for architectural precedents and existing patterns.
+2. **Read**: `.context/active_state.md` and relevant `.context/DOCS-PORTFOLIO-PAGES/`.
+3. **Plan**: Create `docs/PLAN-[ID].md` for complex tasks.
+4. **Gate**: Wait for user approval if "Complex".
 
 ### Phase 2: Execution
 

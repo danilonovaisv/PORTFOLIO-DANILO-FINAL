@@ -17,7 +17,8 @@ Evaluate the current Portfolio experience and transform observations into action
 
 ## Required Context
 Before auditing, consume:
-- Portfolio Context Analysis (via `@portfolio_context_analyst`)
+- Contexto & Grafos do Obsidian Vault via MCP `obsidian` (`search_vault`, `get_vault_file`, `get_canvas`)
+- Grafo Semântico do Codebase (`graphify query`) e análise do `@portfolio_context_analyst`
 - `.context/DOCS-PORTFOLIO-PAGES` correspondente
 - `.context/GHOST-DESIGN-SYSTEM.md` & `.agents/rules/23-design-system.md`
 - Actual implementation evidence (inspeção do código e layout)

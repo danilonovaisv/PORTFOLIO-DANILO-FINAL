@@ -17,6 +17,8 @@ Build an evidence-based map of the Portfolio implementation before design recomm
 
 ## Required Sources
 Inspect the relevant content under:
+- **Obsidian Vault (MCP `obsidian`):** Consultar notas em `DevMemory`, `Wiki` e `02-projects/portfolio-danilo-final/` via `search_vault` e `get_canvas`.
+- **Graphify Semantics:** Executar `graphify query "<seção/componente>"` ou inspecionar `graphify-out/graph.json` e `graphify-out/wiki/index.md`.
 - `.context/DOCS-PORTFOLIO-PAGES` (Blueprint oficial das páginas)
 - `.context/GHOST-DESIGN-SYSTEM.md` (Design tokens, tipografia e grids)
 - Actual source code associated with the requested target (`src/app/`, `src/components/`)

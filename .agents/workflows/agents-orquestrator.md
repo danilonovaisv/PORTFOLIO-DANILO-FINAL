@@ -20,11 +20,12 @@ Este workflow orquestra a resolução de demandas de engenharia de software de a
 # SEMPRE USAR SKILLS: "@caveman", "@graphify", "@superpower:writing-plans" e "@verification-loop"
 ```
 
-## 🛑 FASE 0: Socratic Gate & Context Fetching
+## 🛑 FASE 0: Socratic Gate, Graph & Context Fetching
 
-1. Leia o `NOME_DO_PROJETO` e analise a solicitação inicial.
-2. Identifique quais Servidores MCP são necessários para a tarefa atual (Ex: Supabase MCP para esquemas de banco, Figma MCP para tokens de design, n8n MCP para workflows).
-3. Se os requisitos da UI/UX forem vagos, pare e exija os requisitos do usuário. Priorize layouts de grid responsivos _mobile-first_ aderentes a padrões de usabilidade; rejeite comportamentos desnecessários como _3D parallax_ a menos que explicitamente exigido.
+1. **Obsidian Vault & Graphify First:** Consulte obrigatoriamente o cofre do Obsidian via MCP `obsidian` (`search_vault`, `get_vault_file`, `get_canvas`) e execute `graphify query "<termo/fluxo>"` para mapear decisões arquiteturais anteriores, lições aprendidas e nós de dependência antes de qualquer planejamento.
+2. Leia o `NOME_DO_PROJETO` e analise a solicitação inicial contra as notas do Obsidian.
+3. Identifique quais Servidores MCP são necessários para a tarefa atual (Ex: `obsidian` MCP para grafo de notas, `supabase` MCP para esquemas de banco, `github` MCP para PRs).
+4. Se os requisitos da UI/UX forem vagos, pare e exija os requisitos do usuário. Priorize layouts de grid responsivos _mobile-first_ aderentes a padrões de usabilidade; rejeite comportamentos desnecessários como _3D parallax_ a menos que explicitamente exigido.
 
 ## 🔍 FASE 1: Discovery & Planning
 
