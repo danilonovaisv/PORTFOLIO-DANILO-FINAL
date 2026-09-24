@@ -1,0 +1,31 @@
+{
+  "name": "portfolio-design-auditor",
+  "version": "0.2.0",
+  "description": "Audit portfolio design and interactions with evidence, then apply focused improvements when requested.",
+  "author": {
+    "name": "Portfolio Design Auditor"
+  },
+  "homepage": "https://portfoliodanilo.com",
+  "keywords": [
+    "design-audit",
+    "portfolio",
+    "accessibility",
+    "motion",
+    "mobile"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Portfolio Design Auditor",
+    "shortDescription": "Audit and improve portfolio experiences",
+    "longDescription": "Evidence-based design, UX, accessibility, interaction, motion and mobile audits, with focused skills for implementation and validation.",
+    "developerName": "Portfolio Design Auditor",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://portfoliodanilo.com",
+    "defaultPrompt": [
+      "Audite esta pagina do portfolio e priorize os problemas de design.",
+      "Revise a experiencia mobile desta interface.",
+      "Implemente os ajustes de interacao ja definidos."
+    ]
+  }
+}
