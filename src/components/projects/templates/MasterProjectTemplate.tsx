@@ -129,11 +129,11 @@ export default function MasterProjectTemplate({
   const highlightColor = normalizeHighlightColor(project.highlight_color);
   const rawHeroSrc = project.hero_cover_image?.src?.trim() || '';
   const isCoverHtml = Boolean(
-    project.hero_cover_image?.kind === 'html' ||
-    isHtmlMedia(rawHeroSrc)
+    project.hero_cover_image?.kind === 'html' || isHtmlMedia(rawHeroSrc)
   );
   const isHeroVideo = Boolean(
-    !isCoverHtml && (isVideoAsset(project.hero_cover_image) || isVideo(rawHeroSrc))
+    !isCoverHtml &&
+    (isVideoAsset(project.hero_cover_image) || isVideo(rawHeroSrc))
   );
   const heroImage = isCoverHtml
     ? rawHeroSrc
@@ -183,7 +183,9 @@ export default function MasterProjectTemplate({
           <m.div
             className="absolute inset-0 flex items-center justify-center bg-transparent"
             style={
-              prefersReducedMotion || isHeroVideo || isCoverHtml ? undefined : { y: parallaxY }
+              prefersReducedMotion || isHeroVideo || isCoverHtml
+                ? undefined
+                : { y: parallaxY }
             }
           >
             {isCoverHtml ? (

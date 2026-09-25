@@ -5,6 +5,7 @@
 **Context:** Auditoria profunda e resolução do erro de visualização das Heros HTML e de vídeo nas landing pages do portfólio (`/projects/[slug]`), diagnosticado via DevTools no projeto de exemplo `https://portfoliodanilo.com/projects/nestle-nutrition-health-abrafarma-future-trends-2026`.
 
 **Root Cause Analysis:**
+
 1. **Fallback Fantasma (`ProjectRenderer.tsx`)**: No componente `LegacyProjectRenderer`, quando `project.cover` era nulo ou vazio, a função `getAssetUrl` retornava `ASSET_PLACEHOLDER` (1x1 transparent GIF). Como o retorno era uma string não-vazia, o Next.js `<Image fill className="object-cover opacity-60" />` renderizava um elemento `<img>` com o GIF 1x1 e o gradiente escuro cobrindo a tela inteira, sem nenhum vídeo ou tag `<video>` presente no DOM.
 2. **Falta de Suporte a Vídeo e HTML na Hero Legada (`ProjectRenderer.tsx`)**: O componente apenas passava `coverUrl` cegamente para `<Image />`. Quando `cover` continha uma URL de vídeo ou código HTML, o componente falhava silenciosamente e quebrava o carregamento de mídia.
 3. **Bug Crítico de Persistência no Save (`landing-page-save.ts`)**: No formulário de admin, ao salvar uma página com o template `V3_ALPA_HERO_EXPANDED` (`MASTER_PROJECT_TEMPLATE_V3_HERO`), a condição em `prepareLandingPageData` comparava apenas `ctx.template === MASTER_PROJECT_TEMPLATE_V3`. Como não contemplava `MASTER_PROJECT_TEMPLATE_V3_HERO`, a requisição caía no `else` (`saveLegacyContent`), ignorando todos os dados do V3 e persistindo `content = []` e `cover = null` no Supabase.
@@ -12,6 +13,7 @@
 5. **Robustez em `AlpaHeroLayout.tsx`**: Quando `mediaKind === 'html'` mas o HTML estava no campo `.src` (e não `.html`), o componente falhava no teste e tentava carregar como imagem.
 
 **Changes Applied & Verified:**
+
 1. **`src/lib/admin/services/landing-page-save.ts`**:
    - Adicionado `MASTER_PROJECT_TEMPLATE_V3_HERO` na condição de salvamento de template V3.
    - Garantido que `nextTemplate.template` preserve o identificador `MASTER_PROJECT_TEMPLATE_V3_HERO` no salvamento.

@@ -46,9 +46,7 @@ export function AlpaHeroLayout({
     const mediaKind = (hero_top_media.kind as string) ?? 'image';
 
     const isHtml =
-      mediaKind === 'html' ||
-      Boolean(rawHtml) ||
-      isHtmlMedia(rawSrc);
+      mediaKind === 'html' || Boolean(rawHtml) || isHtmlMedia(rawSrc);
 
     const resolvedHtml = rawHtml || (isHtml ? rawSrc : '');
 
