@@ -3,7 +3,8 @@
 import { m } from 'motion/react';
 import Image from 'next/image';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
-import { getAssetUrl } from '@/lib/utils';
+import { getAssetUrl, isVideo } from '@/lib/utils';
+import { isHtmlMedia } from '@/lib/portfolio/card-media';
 import type { MasterProjectTemplateV3HeroData } from '@/types/project-template';
 import { AlpaLayout } from './AlpaLayout';
 import { HTMLVideoBlock } from '@/components/ui/HTMLVideoBlock';
@@ -40,9 +41,18 @@ export function AlpaHeroLayout({
   const renderHeroTopMedia = () => {
     if (!hero_top_media) return null;
 
+    const rawSrc = hero_top_media.src?.trim() || '';
+    const rawHtml = hero_top_media.html?.trim() || '';
     const mediaKind = (hero_top_media.kind as string) ?? 'image';
 
-    if (mediaKind === 'html' && hero_top_media.html) {
+    const isHtml =
+      mediaKind === 'html' ||
+      Boolean(rawHtml) ||
+      isHtmlMedia(rawSrc);
+
+    const resolvedHtml = rawHtml || (isHtml ? rawSrc : '');
+
+    if (isHtml && resolvedHtml) {
       return (
         <m.div
           className="w-full max-w-5xl mx-auto mb-8 sm:mb-12 flex items-center justify-center"
@@ -56,7 +66,7 @@ export function AlpaHeroLayout({
         >
           <HTMLVideoBlock
             preserveVideoFrame
-            html={hero_top_media.html}
+            html={resolvedHtml}
             frameless
             allowFullscreenToggle
             className="w-full aspect-video max-h-[85vh] flex items-center justify-center"
@@ -65,8 +75,10 @@ export function AlpaHeroLayout({
       );
     }
 
-    if (mediaKind === 'video' && hero_top_media.src) {
-      const videoSrc = getAssetUrl(hero_top_media.src, { isVideo: true });
+    const isVid = mediaKind === 'video' || isVideo(rawSrc);
+
+    if (isVid && rawSrc) {
+      const videoSrc = getAssetUrl(rawSrc, { isVideo: true });
       return (
         <m.div
           className="flex w-full max-w-5xl mx-auto mb-8 sm:mb-12 items-center justify-center overflow-hidden bg-transparent"
@@ -91,8 +103,8 @@ export function AlpaHeroLayout({
       );
     }
 
-    if (hero_top_media.src) {
-      const imageSrc = getAssetUrl(hero_top_media.src, { width: 1600 });
+    if (rawSrc) {
+      const imageSrc = getAssetUrl(rawSrc, { width: 1600 });
       return (
         <m.div
           className="relative w-full max-w-5xl mx-auto mb-8 sm:mb-12 flex items-center justify-center overflow-hidden"

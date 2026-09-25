@@ -20,6 +20,7 @@ import {
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
   MASTER_PROJECT_TEMPLATE_V3,
+  MASTER_PROJECT_TEMPLATE_V3_HERO,
   ProjectTemplateId,
 } from '@/types/project-template';
 
@@ -64,7 +65,10 @@ export async function prepareLandingPageData(ctx: SaveContext) {
     const result = await saveMasterTemplateV2(ctx, handleFileUpload);
     finalContent = result.content;
     finalCover = result.coverPath;
-  } else if (ctx.template === MASTER_PROJECT_TEMPLATE_V3) {
+  } else if (
+    ctx.template === MASTER_PROJECT_TEMPLATE_V3 ||
+    ctx.template === MASTER_PROJECT_TEMPLATE_V3_HERO
+  ) {
     const result = await saveMasterTemplateV3(ctx, handleFileUpload);
     finalContent = result.content;
     finalCover = result.coverPath;
@@ -333,8 +337,12 @@ function normalizeTemplateV3IntroBody(introBody: unknown) {
 }
 
 async function saveMasterTemplateV3(ctx: SaveContext, upload: UploadAsset) {
+  const isV3Hero = ctx.template === MASTER_PROJECT_TEMPLATE_V3_HERO;
   const nextTemplate = {
     ...ctx.masterTemplateV3,
+    template: isV3Hero
+      ? MASTER_PROJECT_TEMPLATE_V3_HERO
+      : MASTER_PROJECT_TEMPLATE_V3,
     project_slug: ctx.slug,
     project_title: ctx.masterTemplateV3.project_title || ctx.title,
     intro_body: normalizeTemplateV3IntroBody(ctx.masterTemplateV3.intro_body),

@@ -9,7 +9,9 @@ import { ArrowRight, ArrowDown } from 'lucide-react';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { getAssetUrl } from '@/lib/utils';
+import { getAssetUrl, isVideo, ASSET_PLACEHOLDER } from '@/lib/utils';
+import { isHtmlMedia } from '@/lib/portfolio/card-media';
+import { HTMLVideoBlock } from '@/components/ui/HTMLVideoBlock';
 import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
@@ -125,12 +127,28 @@ export default function MasterProjectTemplate({
   );
 
   const highlightColor = normalizeHighlightColor(project.highlight_color);
-  const isHeroVideo = isVideoAsset(project.hero_cover_image);
-  const heroImage = getAssetUrl(project.hero_cover_image.src, {
-    isVideo: isHeroVideo,
-    width: isHeroVideo ? undefined : 1920,
-    quality: 90,
-  });
+  const rawHeroSrc = project.hero_cover_image?.src?.trim() || '';
+  const isCoverHtml = Boolean(
+    project.hero_cover_image?.kind === 'html' ||
+    isHtmlMedia(rawHeroSrc)
+  );
+  const isHeroVideo = Boolean(
+    !isCoverHtml && (isVideoAsset(project.hero_cover_image) || isVideo(rawHeroSrc))
+  );
+  const heroImage = isCoverHtml
+    ? rawHeroSrc
+    : rawHeroSrc
+      ? getAssetUrl(rawHeroSrc, {
+          isVideo: isHeroVideo,
+          width: isHeroVideo ? undefined : 1920,
+          quality: 90,
+        })
+      : '';
+  const hasRealImage = Boolean(
+    !isCoverHtml && !isHeroVideo && heroImage && heroImage !== ASSET_PLACEHOLDER
+  );
+  const hasHeroMedia = isCoverHtml || isHeroVideo || hasRealImage;
+
   const heroLogo = project.hero_logo_image?.src
     ? getAssetUrl(project.hero_logo_image.src, { width: 400 })
     : '';
@@ -161,14 +179,22 @@ export default function MasterProjectTemplate({
         ref={heroRef}
         className="relative flex min-h-[88vh] items-end overflow-hidden pt-28"
       >
-        {heroImage ? (
+        {hasHeroMedia ? (
           <m.div
             className="absolute inset-0 flex items-center justify-center bg-transparent"
             style={
-              prefersReducedMotion || isHeroVideo ? undefined : { y: parallaxY }
+              prefersReducedMotion || isHeroVideo || isCoverHtml ? undefined : { y: parallaxY }
             }
           >
-            {isVideoAsset(project.hero_cover_image) ? (
+            {isCoverHtml ? (
+              <HTMLVideoBlock
+                preserveVideoFrame
+                html={heroImage}
+                frameless
+                allowFullscreenToggle={false}
+                className="h-full w-full object-cover pointer-events-none"
+              />
+            ) : isHeroVideo ? (
               <video
                 className="h-full w-full object-contain object-center"
                 src={heroImage}
@@ -184,7 +210,7 @@ export default function MasterProjectTemplate({
               >
                 <ResponsiveCaptionTrack src={DEFAULT_CAPTIONS} />
               </video>
-            ) : (
+            ) : hasRealImage ? (
               <Image
                 src={heroImage}
                 alt={project.hero_cover_image.alt || project.project_title}
@@ -193,7 +219,7 @@ export default function MasterProjectTemplate({
                 sizes="100vw"
                 className="object-cover"
               />
-            )}
+            ) : null}
           </m.div>
         ) : (
           <div className="absolute inset-0 bg-linear-to-b from-abyssStart via-abyssMid to-background" />

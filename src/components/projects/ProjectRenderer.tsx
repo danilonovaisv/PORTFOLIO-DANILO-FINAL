@@ -9,7 +9,9 @@ import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { LandingPageBlock } from '@/types/landing-page';
 import { parseLandingPageContent } from '@/lib/projects/template-schema';
-import { getAssetUrl } from '@/lib/utils';
+import { getAssetUrl, isVideo, ASSET_PLACEHOLDER } from '@/lib/utils';
+import { isHtmlMedia } from '@/lib/portfolio/card-media';
+import { HTMLVideoBlock } from '@/components/ui/HTMLVideoBlock';
 import {
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
@@ -40,13 +42,23 @@ function LegacyProjectRenderer({
   project: { title: string; cover?: string | null };
   blocks: LandingPageBlock[];
 }) {
-  const coverUrl = getAssetUrl(project.cover, { width: 1920, quality: 90 });
   const backHref = useLandingBackLink();
+  const rawCover = project.cover?.trim() || '';
+
+  const isCoverHtml = Boolean(rawCover && isHtmlMedia(rawCover));
+  const isCoverVideo = Boolean(rawCover && !isCoverHtml && isVideo(rawCover));
+  const coverUrl = rawCover
+    ? getAssetUrl(rawCover, isCoverVideo ? { isVideo: true } : { width: 1920, quality: 90 })
+    : '';
+  const hasRealImage = Boolean(
+    !isCoverHtml && !isCoverVideo && coverUrl && coverUrl !== ASSET_PLACEHOLDER
+  );
+  const hasHeroMedia = isCoverHtml || isCoverVideo || hasRealImage;
 
   return (
     <div className="bg-background text-white selection:bg-blue-600 selection:text-white">
       <section className="relative flex h-[90vh] w-full flex-col items-center justify-center overflow-hidden">
-        {coverUrl && (
+        {hasHeroMedia ? (
           <m.div
             initial={{
               opacity: 0,
@@ -58,17 +70,39 @@ function LegacyProjectRenderer({
               duration: MOTION_TOKENS.duration.normal,
               ease: GHOST_EASE,
             }}
-            className="absolute inset-0 z-0"
+            className="absolute inset-0 z-0 overflow-hidden"
           >
-            <Image
-              src={coverUrl}
-              alt={project.title}
-              fill
-              className="object-cover opacity-60"
-              priority
-            />
-            <div className="absolute inset-0 bg-linear-to-b from-transparent via-background/50 to-background" />
+            {isCoverHtml ? (
+              <HTMLVideoBlock
+                preserveVideoFrame
+                html={rawCover}
+                frameless
+                allowFullscreenToggle={false}
+                className="h-full w-full object-cover opacity-60 pointer-events-none"
+              />
+            ) : isCoverVideo ? (
+              <video
+                src={coverUrl}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="h-full w-full object-cover opacity-60"
+              />
+            ) : hasRealImage ? (
+              <Image
+                src={coverUrl}
+                alt={project.title}
+                fill
+                className="object-cover opacity-60"
+                priority
+              />
+            ) : null}
+            <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-background/50 to-background" />
           </m.div>
+        ) : (
+          <div className="pointer-events-none absolute inset-0 z-0 bg-linear-to-b from-abyssStart via-abyssMid to-background opacity-80" />
         )}
 
         <div className="std-grid relative z-10 text-center">

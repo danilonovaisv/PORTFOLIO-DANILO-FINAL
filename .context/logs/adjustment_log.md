@@ -1,5 +1,40 @@
 # Adjustment Log
 
+## [2026-09-25T15:55] Auditoria e Resolução do Erro de Visualização de Heros HTML/Vídeo em Landing Pages (/portfolio-design-audit)
+
+**Context:** Auditoria profunda e resolução do erro de visualização das Heros HTML e de vídeo nas landing pages do portfólio (`/projects/[slug]`), diagnosticado via DevTools no projeto de exemplo `https://portfoliodanilo.com/projects/nestle-nutrition-health-abrafarma-future-trends-2026`.
+
+**Root Cause Analysis:**
+1. **Fallback Fantasma (`ProjectRenderer.tsx`)**: No componente `LegacyProjectRenderer`, quando `project.cover` era nulo ou vazio, a função `getAssetUrl` retornava `ASSET_PLACEHOLDER` (1x1 transparent GIF). Como o retorno era uma string não-vazia, o Next.js `<Image fill className="object-cover opacity-60" />` renderizava um elemento `<img>` com o GIF 1x1 e o gradiente escuro cobrindo a tela inteira, sem nenhum vídeo ou tag `<video>` presente no DOM.
+2. **Falta de Suporte a Vídeo e HTML na Hero Legada (`ProjectRenderer.tsx`)**: O componente apenas passava `coverUrl` cegamente para `<Image />`. Quando `cover` continha uma URL de vídeo ou código HTML, o componente falhava silenciosamente e quebrava o carregamento de mídia.
+3. **Bug Crítico de Persistência no Save (`landing-page-save.ts`)**: No formulário de admin, ao salvar uma página com o template `V3_ALPA_HERO_EXPANDED` (`MASTER_PROJECT_TEMPLATE_V3_HERO`), a condição em `prepareLandingPageData` comparava apenas `ctx.template === MASTER_PROJECT_TEMPLATE_V3`. Como não contemplava `MASTER_PROJECT_TEMPLATE_V3_HERO`, a requisição caía no `else` (`saveLegacyContent`), ignorando todos os dados do V3 e persistindo `content = []` e `cover = null` no Supabase.
+4. **Falta de suporte a HTML na Hero de Templates V1 e V2 (`MasterProjectTemplate.tsx`, `ProjectTemplateMasterRenderer.tsx`)**: Se a capa da Hero fosse configurada como HTML, os componentes caíam no ramo `Image` e tentavam renderizar código HTML com o loader de imagens do Next.js.
+5. **Robustez em `AlpaHeroLayout.tsx`**: Quando `mediaKind === 'html'` mas o HTML estava no campo `.src` (e não `.html`), o componente falhava no teste e tentava carregar como imagem.
+
+**Changes Applied & Verified:**
+1. **`src/lib/admin/services/landing-page-save.ts`**:
+   - Adicionado `MASTER_PROJECT_TEMPLATE_V3_HERO` na condição de salvamento de template V3.
+   - Garantido que `nextTemplate.template` preserve o identificador `MASTER_PROJECT_TEMPLATE_V3_HERO` no salvamento.
+2. **`src/components/projects/ProjectRenderer.tsx`**:
+   - Adicionada detecção polimórfica de mídia para a capa (`isCoverHtml`, `isCoverVideo`, `hasRealImage`, `hasHeroMedia`).
+   - Se for vídeo: renderiza tag `<video>` nativa com `autoPlay`, `muted`, `loop`, `playsInline`, `preload="auto"`, `className="h-full w-full object-cover opacity-60"`.
+   - Se for HTML: renderiza via `HTMLVideoBlock` (frameless, preserveVideoFrame, pointer-events-none).
+   - Se for imagem real: renderiza `<Image fill ... />` somente quando a URL for válida e diferente de `ASSET_PLACEHOLDER`.
+   - Se não houver capa: renderiza o degradê abissal do Ghost System (`from-abyssStart via-abyssMid to-background`) sem tag `<img>` invisível de GIF 1x1.
+3. **`src/components/projects/templates/ProjectTemplateMasterRenderer.tsx`**:
+   - Adicionado suporte a `HTMLVideoBlock` na hero do template V2 quando `hero_cover_image` for HTML.
+4. **`src/components/projects/templates/MasterProjectTemplate.tsx`**:
+   - Adicionado suporte a `HTMLVideoBlock` na hero do template V1 quando `hero_cover_image` for HTML.
+5. **`src/components/projects/templates/alpa/AlpaHeroLayout.tsx`**:
+   - Tratamento resiliente de código HTML vindo de `.html` ou `.src`, e detecção de vídeo via `isVideo`.
+6. **Verificação & Qualidade**:
+   - `pnpm run typecheck`: 0 erros.
+   - `pnpm run lint`: 0 erros.
+   - `pnpm test`: 46 suites / 335 testes unitários aprovados (100% PASS).
+   - `pnpm run build-check`: Aprovado com código de saída 0.
+
+---
+
 ## [2026-09-24T19:33] Protocolo Obrigatório de Pesquisa em Grafos do Obsidian & Graphify (/obsidian-claude-integration /graphify)
 
 **Context:** Estabelecido o mandato obrigatório para que todos os agentes do Antigravity IDE consultem o cofre Obsidian (via MCP `obsidian` na porta 27200) e o grafo semântico AST (`graphify query`) antes de formular planos ou executar qualquer tarefa.
