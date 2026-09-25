@@ -122,23 +122,23 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ## 🏛️ Batalhão Canônico Ghost System (11 Agentes)
 
-| Agente                         | Arquivo                              | Responsabilidade                                                  | Skills Primárias (Molde Anthropic)                             |
-| :----------------------------- | :----------------------------------- | :---------------------------------------------------------------- | :------------------------------------------------------------- |
-| **`@project_orchestrator`**    | `project-orchestrator.md`            | Roteador primário read-first e orquestração de dependências       | `orchestration`, `writing-plans`, `verify-portfolio-change`    |
-| **`@admin_reliability`**       | `admin-reliability-specialist.md`    | Autenticação, sessão SSR, CRUD e rotas protegidas `/admin`        | `diagnose-admin-flow`, `verify-portfolio-change`               |
-| **`@portfolio_experience`**    | `portfolio-experience-specialist.md` | Cards de mídia (vídeo/HTML/imagem), touch mobile e case pages     | `review-project-media-card`, `tailwind-patterns`, `clean-code` |
-| **`@database_sentinel`**       | `database-sentinel.md`               | Contratos de persistência, RLS no Supabase e Storage Policies     | `database-design`, `supabase-auth-storage-realtime-core`       |
-| **`@spectral_artist`**         | `spectral-artist.md`                 | Shaders GLSL, Three.js/R3F, 60 FPS Mandate e atmosfera Ghost Blue | `ghost-r3f-optimization`, `threejs-shaders`, `3d-webgl-scene`  |
-| **`@quality_verification`**    | `quality-verification-specialist.md` | Gate independente de QA, Playwright E2E e Jest                    | `verify-portfolio-change`, `verification-before-completion`    |
-| **`@motion_choreographer`**    | `motion-choreographer.md`            | Framer Motion, sincronização Lenis scroll e Ghost easing          | `framer-motion`, `tailwind-motion-choreography`, `gsap-core`   |
-| **`@audit_sentinel`**          | `audit-sentinel.md`                  | Conformidade de layout `.std-grid`, Vitals (LCP/INP/CLS) e A11y   | `audit-website`, `web-perf`, `a11y-debugging`                  |
-| **`@ghost_architect`**         | `ghost-architect.md`                 | Estrutura Next.js 16 App Router, TypeScript strict e DDD          | `ghost-architect`, `clean-code`, `writing-plans`               |
-| **`@devops-engineer`**         | `devops-engineer.md`                 | Pipeline de deploy Firebase Hosting e SSR Guardrail               | `deploy-manager`, `ghost-firebase-deploy`                      |
-| **`@obsidian_vault_operator`** | `obsidian-vault-operator.md`         | Gestão de Wiki-Brain, notas OFM e Canvas do grafo de conhecimento | `wiki-brain`, `obsidian-claude-integration`                    |
-| **`@portfolio_context_analyst`** | `portfolio-context-analyst.md`       | Mapeamento de rotas, docs vs código real antes de auditorias      | `portfolio-design-audit`, `apple-design`, `animation-vocabulary` |
-| **`@design_auditor`**          | `design-auditor.md`                  | Auditoria dimensional (Visual, UX, A11y, Motion) com findings P0-P3 | `portfolio-design-audit`, `apple-design`, `improve-animations` |
-| **`@implementation_planner`**  | `implementation-planner.md`          | Decomposição de achados de auditoria em tarefas e fases sequenciais| `writing-plans`, `orchestration`, `subagent-driven-development`|
-| **`@audit_validator`**         | `audit-validator.md`                 | Portão de validação de critérios de aceite e regressão de layout  | `review-animations`, `verify-portfolio-change`, `verification-before-completion` |
+| Agente                           | Arquivo                              | Responsabilidade                                                    | Skills Primárias (Molde Anthropic)                                               |
+| :------------------------------- | :----------------------------------- | :------------------------------------------------------------------ | :------------------------------------------------------------------------------- |
+| **`@project_orchestrator`**      | `project-orchestrator.md`            | Roteador primário read-first e orquestração de dependências         | `orchestration`, `writing-plans`, `verify-portfolio-change`                      |
+| **`@admin_reliability`**         | `admin-reliability-specialist.md`    | Autenticação, sessão SSR, CRUD e rotas protegidas `/admin`          | `diagnose-admin-flow`, `verify-portfolio-change`                                 |
+| **`@portfolio_experience`**      | `portfolio-experience-specialist.md` | Cards de mídia (vídeo/HTML/imagem), touch mobile e case pages       | `review-project-media-card`, `tailwind-patterns`, `clean-code`                   |
+| **`@database_sentinel`**         | `database-sentinel.md`               | Contratos de persistência, RLS no Supabase e Storage Policies       | `database-design`, `supabase-auth-storage-realtime-core`                         |
+| **`@spectral_artist`**           | `spectral-artist.md`                 | Shaders GLSL, Three.js/R3F, 60 FPS Mandate e atmosfera Ghost Blue   | `ghost-r3f-optimization`, `threejs-shaders`, `3d-webgl-scene`                    |
+| **`@quality_verification`**      | `quality-verification-specialist.md` | Gate independente de QA, Playwright E2E e Jest                      | `verify-portfolio-change`, `verification-before-completion`                      |
+| **`@motion_choreographer`**      | `motion-choreographer.md`            | Framer Motion, sincronização Lenis scroll e Ghost easing            | `framer-motion`, `tailwind-motion-choreography`, `gsap-core`                     |
+| **`@audit_sentinel`**            | `audit-sentinel.md`                  | Conformidade de layout `.std-grid`, Vitals (LCP/INP/CLS) e A11y     | `audit-website`, `web-perf`, `a11y-debugging`                                    |
+| **`@ghost_architect`**           | `ghost-architect.md`                 | Estrutura Next.js 16 App Router, TypeScript strict e DDD            | `ghost-architect`, `clean-code`, `writing-plans`                                 |
+| **`@devops-engineer`**           | `devops-engineer.md`                 | Pipeline de deploy Firebase Hosting e SSR Guardrail                 | `deploy-manager`, `ghost-firebase-deploy`                                        |
+| **`@obsidian_vault_operator`**   | `obsidian-vault-operator.md`         | Gestão de Wiki-Brain, notas OFM e Canvas do grafo de conhecimento   | `wiki-brain`, `obsidian-claude-integration`                                      |
+| **`@portfolio_context_analyst`** | `portfolio-context-analyst.md`       | Mapeamento de rotas, docs vs código real antes de auditorias        | `portfolio-design-audit`, `apple-design`, `animation-vocabulary`                 |
+| **`@design_auditor`**            | `design-auditor.md`                  | Auditoria dimensional (Visual, UX, A11y, Motion) com findings P0-P3 | `portfolio-design-audit`, `apple-design`, `improve-animations`                   |
+| **`@implementation_planner`**    | `implementation-planner.md`          | Decomposição de achados de auditoria em tarefas e fases sequenciais | `writing-plans`, `orchestration`, `subagent-driven-development`                  |
+| **`@audit_validator`**           | `audit-validator.md`                 | Portão de validação de critérios de aceite e regressão de layout    | `review-animations`, `verify-portfolio-change`, `verification-before-completion` |
 
 ---
 

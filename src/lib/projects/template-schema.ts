@@ -1,3 +1,5 @@
+import { isVideo } from '@/lib/utils';
+import { isHtmlMedia } from '@/lib/portfolio/card-media';
 import type { LandingPageBlock } from '@/types/landing-page';
 import {
   LEGACY_PROJECT_TEMPLATE,
@@ -255,14 +257,50 @@ function normalizeMasterTemplateV3(
   const seoRecord = asRecord(record.seo);
 
   const rawHeroMediaType = asString(record.hero_media_type);
-  const heroMediaType = (
-    ['none', 'image', 'video', 'html'].includes(rawHeroMediaType ?? '')
-      ? rawHeroMediaType
-      : heroTopMediaRecord
-        ? (asString(heroTopMediaRecord.kind) as 'image' | 'video' | 'html') ||
-          'image'
-        : 'none'
-  ) as 'none' | 'image' | 'video' | 'html';
+  const heroTopMediaCandidate =
+    heroTopMediaRecord ??
+    (isV3Hero || rawHeroMediaType ? heroCoverRecord : null);
+
+  let normalizedHeroTopMedia:
+    | (import('@/types/project-template').MasterProjectAsset & {
+        kind?: 'image' | 'video' | 'html';
+        html?: string;
+      })
+    | undefined = undefined;
+
+  if (heroTopMediaCandidate) {
+    const rawSrc = asString(heroTopMediaCandidate.src) ?? '';
+    const rawHtml = asString(heroTopMediaCandidate.html) ?? '';
+    const rawKind = asString(heroTopMediaCandidate.kind);
+
+    const isHtml =
+      rawKind === 'html' || Boolean(rawHtml) || isHtmlMedia(rawSrc);
+    const isVid = !isHtml && (rawKind === 'video' || isVideo(rawSrc));
+
+    const mediaKind: 'image' | 'video' | 'html' = [
+      'none',
+      'image',
+      'video',
+      'html',
+    ].includes(rawHeroMediaType ?? '')
+      ? (rawHeroMediaType as 'image' | 'video' | 'html')
+      : isHtml
+        ? 'html'
+        : isVid
+          ? 'video'
+          : (rawKind as 'image' | 'video' | 'html') || 'image';
+
+    normalizedHeroTopMedia = {
+      ...normalizeAsset(heroTopMediaCandidate, `${projectTitle} hero media`),
+      kind: mediaKind,
+      html: rawHtml || (isHtml ? rawSrc : undefined),
+    };
+  }
+
+  const heroMediaType =
+    (rawHeroMediaType as 'none' | 'image' | 'video' | 'html') ||
+    normalizedHeroTopMedia?.kind ||
+    'none';
 
   const baseV3 = {
     schema_version: '3.0' as const,
@@ -281,16 +319,8 @@ function normalizeMasterTemplateV3(
     hero_logo_image: heroLogoAsset,
     client_logo_image: clientLogoAsset,
     hero_media_type: heroMediaType,
-    ...(heroTopMediaRecord
-      ? {
-          hero_top_media: {
-            ...normalizeAsset(heroTopMediaRecord, `${projectTitle} hero media`),
-            kind:
-              (asString(heroTopMediaRecord.kind) as
-                'image' | 'video' | 'html') || 'image',
-            html: asString(heroTopMediaRecord.html),
-          },
-        }
+    ...(normalizedHeroTopMedia
+      ? { hero_top_media: normalizedHeroTopMedia }
       : {}),
     project_title: projectTitle,
     project_subtitle:

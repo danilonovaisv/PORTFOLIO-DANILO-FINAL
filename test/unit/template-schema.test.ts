@@ -104,3 +104,54 @@ describe('Master Project Template V3 Schema & Defaults', () => {
     }
   });
 });
+
+it('normalizes video hero_top_media without explicit kind property', () => {
+  const rawContent = {
+    template: 'master-project-v3-alpa-hero',
+    project_title: 'Nestlé Nutrition & Health',
+    hero_media_type: 'video',
+    hero_top_media: {
+      src: 'site-assets/landing-pages/nestle/hero.mp4',
+      alt: 'Nestlé Hero Video',
+    },
+    gallery_grid: [],
+  };
+
+  const parsed = parseLandingPageContent(rawContent, {
+    title: 'Nestlé Nutrition & Health',
+    slug: 'nestle',
+  });
+
+  expect(parsed.template).toBe('master-project-v3-alpa-hero');
+  if (parsed.template === 'master-project-v3-alpa-hero') {
+    expect(parsed.data.hero_top_media).toBeDefined();
+    expect(parsed.data.hero_top_media?.kind).toBe('video');
+    expect(parsed.data.hero_top_media?.src).toContain('nestle/hero.mp4');
+  }
+});
+
+it('falls back hero_top_media from hero_cover_image when template is V3_HERO or hero_media_type is set', () => {
+  const rawContent = {
+    template: 'master-project-v3-alpa-hero',
+    project_title: 'Nestlé Nutrition & Health',
+    hero_media_type: 'video',
+    hero_cover_image: {
+      src: 'site-assets/landing-pages/nestle/hero-cover.mp4',
+      kind: 'video',
+      alt: 'Hero Video Cover',
+    },
+    gallery_grid: [],
+  };
+
+  const parsed = parseLandingPageContent(rawContent, {
+    title: 'Nestlé Nutrition & Health',
+    slug: 'nestle',
+  });
+
+  expect(parsed.template).toBe('master-project-v3-alpa-hero');
+  if (parsed.template === 'master-project-v3-alpa-hero') {
+    expect(parsed.data.hero_top_media).toBeDefined();
+    expect(parsed.data.hero_top_media?.src).toContain('nestle/hero-cover.mp4');
+    expect(parsed.data.hero_top_media?.kind).toBe('video');
+  }
+});
