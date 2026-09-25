@@ -1,5 +1,43 @@
 # Adjustment Log
 
+## [2026-09-25T18:50] Resolução Completa da Hero Animada (Alpa Hero Placement, Auto-Recuperação de HTML no Logo, Prevenção de Erro 400 no Image Optimizer & Admin V3 Hero Form Retention)
+
+**Context:** Investigação cirúrgica, reprodução empírica e resolução do problema em que a Hero animada configurada nas Landing Pages não era visualizada nas páginas públicas (caso real: `/projects/nestle-nutrition-health-abrafarma-future-trends-2026`).
+
+**Diagnóstico & Evidências Empíricas Coletadas:**
+1. **Erro HTTP 400 no Next Image Optimizer (`/_next/image?url=https%3A%2F%2F...`):**
+   - O código HTML de `anima-HERO-bidaya.html` (8.882 caracteres) havia sido colado no campo de logo (`client_logo_image` / `hero_logo_image`) porque o componente `MediaAssetField` permitia seleção de HTML sem restrição e o seletor `hero_media_type` permaneceu como `'none'`.
+   - `AlpaLayout.tsx` passava o código HTML como URL para `getAssetUrl(clientLogoAsset.src, { width: 400 })`, gerando URLs de mais de 8KB que causavam Bad Request (400) imediato no otimizador de imagens do Next.js.
+2. **Defeito de Posicionamento no DOM em `AlpaHeroLayout.tsx`:**
+   - A prop `renderHeroTopMedia()` era passada como `{children}` de `AlpaLayout`.
+   - Em `AlpaLayout.tsx`, `{children}` era renderizado na linha 271, **abaixo** de toda a seção de introdução editorial (`intro_headline`, parágrafos, YouTube). A Hero Media nunca aparecia no topo da Hero.
+3. **Bug Crítico de Reset de Estado no Painel Admin (`LandingPageForm.tsx`):**
+   - No `useState` inicial de `masterTemplateV3`, a checagem era estrita: `initialParsed.template === MASTER_PROJECT_TEMPLATE_V3`.
+   - Ao editar páginas com `MASTER_PROJECT_TEMPLATE_V3_HERO`, a condição falhava e descartava todos os dados carregados do banco de dados, substituindo-os pelo template padrão vazio.
+
+**Changes Applied & Verified:**
+1. **`src/lib/projects/template-schema-utils.ts` & `src/lib/projects/template-schema.ts`**:
+   - `asMediaKind` atualizado para aceitar `'html'`.
+   - `normalizeAssetReadValue` e `normalizeAsset` reconhecem strings HTML via `isHtmlMedia`.
+   - Adicionada auto-recuperação resiliente no parser de template: quando `hero_top_media` estiver vazia ou com tipo `'none'`, mas `hero_logo_image` ou `client_logo_image` contiver código HTML (`isHtmlMedia`), o HTML é automaticamente promovido para `hero_top_media` com `kind: 'html'`, e o campo de logo é sanitizado com string vazia para impedir erros no Next Image.
+2. **`src/components/projects/templates/alpa/AlpaLayout.tsx`**:
+   - Adicionada prop explícita `heroTopMedia?: React.ReactNode` em `AlpaLayoutProps`.
+   - Renderizada a mídia no topo da Hero Section (`<section className="relative flex min-h-[82vh] ...">`), acima do logo do cliente e do título do projeto.
+   - Sanitização de defesa em profundidade para `heroLogo`: se `clientLogoAsset` for HTML, `heroLogo` é definido como string vazia, prevenindo qualquer tentativa de passar HTML para `getAssetUrl()` e `<Image fill />`.
+3. **`src/components/projects/templates/alpa/AlpaHeroLayout.tsx`**:
+   - Passa `heroTopMedia={renderHeroTopMedia()}` como prop para `AlpaLayout`, preservando `{children}` para blocos de galeria subsequentes.
+4. **`src/components/admin/LandingPageForm.tsx`**:
+   - Importado `MASTER_PROJECT_TEMPLATE_V3_HERO`.
+   - Atualizado o `useState` de `masterTemplateV3`, `handleSyncWithTemplates` e `handleSyncSlugWithTemplates` para dar suporte pleno tanto a `MASTER_PROJECT_TEMPLATE_V3` quanto a `MASTER_PROJECT_TEMPLATE_V3_HERO`, prevenindo perda acidental de dados ao abrir e salvar páginas V3 Hero.
+5. **Quality Gates & Testes Automatizados**:
+   - Novo teste de regressão TDD criado: `test/unit/hero-animation-regression.test.tsx` (100% PASS).
+   - Suíte de testes unitários: 23 test suites, 217 testes executados com 100% de sucesso.
+   - Typecheck (`tsc --noEmit`): 0 erros.
+   - Lint (`eslint`): 0 erros.
+   - Grafo de conhecimento: atualizado via `graphify update .`.
+
+---
+
 ## [2026-09-25T15:55] Auditoria e Resolução do Erro de Visualização de Heros HTML/Vídeo em Landing Pages (/portfolio-design-audit)
 
 **Context:** Auditoria profunda e resolução do erro de visualização das Heros HTML e de vídeo nas landing pages do portfólio (`/projects/[slug]`), diagnosticado via DevTools no projeto de exemplo `https://portfoliodanilo.com/projects/nestle-nutrition-health-abrafarma-future-trends-2026`.

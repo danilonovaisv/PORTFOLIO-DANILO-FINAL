@@ -15,6 +15,7 @@ import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { GhostMarkdown } from '@/components/ui/GhostMarkdown';
 import { normalizeHexColor, mixHex } from '@/lib/colors';
 import { extractYoutubeId } from '@/lib/media/asset-contract';
+import { isHtmlMedia } from '@/lib/portfolio/card-media';
 import { AssetLightbox } from '../AssetLightbox';
 import type { ZoomAsset, IntroBodyBlock } from '../types';
 
@@ -65,6 +66,7 @@ const toIntroBodyBlocks = (
 interface AlpaLayoutProps {
   project: MasterProjectTemplateV3Data;
   children: React.ReactNode;
+  heroTopMedia?: React.ReactNode;
   // We pass these down so AlpaContent can use them consistently
   revealInitial: any;
   revealVisible: any;
@@ -75,6 +77,7 @@ interface AlpaLayoutProps {
 export function AlpaLayout({
   project,
   children,
+  heroTopMedia,
   revealInitial,
   revealVisible,
   zoomAsset,
@@ -111,7 +114,11 @@ export function AlpaLayout({
   const clientLogoAsset = project.client_logo_image?.src
     ? project.client_logo_image
     : project.hero_logo_image;
-  const heroLogo = clientLogoAsset?.src
+  const isLogoHtml = Boolean(
+    clientLogoAsset &&
+      (clientLogoAsset.kind === 'html' || isHtmlMedia(clientLogoAsset.src))
+  );
+  const heroLogo = !isLogoHtml && clientLogoAsset?.src
     ? getAssetUrl(clientLogoAsset.src, { width: 400 })
     : '';
   const heroLogoAlt =
@@ -167,6 +174,12 @@ export function AlpaLayout({
                   ease: GHOST_EASE,
                 }}
               >
+                {heroTopMedia ? (
+                  <div className="w-full relative z-20 mb-2 flex justify-center">
+                    {heroTopMedia}
+                  </div>
+                ) : null}
+
                 {heroLogo ? (
                   <div className="relative flex items-center justify-center h-16 w-36 sm:h-20 sm:w-48 md:h-24 md:w-60 max-w-full">
                     <Image

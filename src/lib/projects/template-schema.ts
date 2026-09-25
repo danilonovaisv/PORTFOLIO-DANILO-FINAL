@@ -41,6 +41,7 @@ import {
   normalizeLandingBlock,
   hasV3BlockType,
 } from './template-schema-utils';
+import { isHtmlMedia } from '@/lib/portfolio/card-media';
 
 function normalizeMasterTemplate(
   value: unknown,
@@ -229,13 +230,49 @@ function normalizeMasterTemplateV3(
   const logoFallbackAlt = `Logo de ${projectTitle}`;
 
   const heroCoverRecord = asRecord(record.hero_cover_image);
-  const heroLogoRecord = asRecord(
-    record.hero_logo_image ?? record.client_logo_image
-  );
-  const clientLogoRecord = asRecord(
-    record.client_logo_image ?? record.hero_logo_image
-  );
   const heroTopMediaRecord = asRecord(record.hero_top_media);
+  const rawTopSrc = asString(heroTopMediaRecord?.src);
+  const rawTopHtml = asString(heroTopMediaRecord?.html);
+  const topKind = asString(heroTopMediaRecord?.kind);
+
+  const hasDirectTopHtml = Boolean(
+    topKind === 'html' ||
+    rawTopHtml ||
+    (rawTopSrc && isHtmlMedia(rawTopSrc))
+  );
+
+  const heroLogoRecordRaw = asRecord(record.hero_logo_image);
+  const clientLogoRecordRaw = asRecord(record.client_logo_image);
+
+  const logoSrcCandidate =
+    asString(heroLogoRecordRaw?.src) ?? asString(clientLogoRecordRaw?.src);
+  const logoKindCandidate =
+    asString(heroLogoRecordRaw?.kind) ?? asString(clientLogoRecordRaw?.kind);
+
+  const hasMisplacedLogoHtml = Boolean(
+    !hasDirectTopHtml &&
+    (logoKindCandidate === 'html' || (logoSrcCandidate && isHtmlMedia(logoSrcCandidate)))
+  );
+
+  const recoveredHtml = hasDirectTopHtml
+    ? (rawTopHtml || (rawTopSrc && isHtmlMedia(rawTopSrc) ? rawTopSrc : undefined))
+    : (hasMisplacedLogoHtml ? logoSrcCandidate : undefined);
+
+  // Higienizar logo records para que NUNCA passem código HTML para o next/image
+  const sanitizedHeroLogoRecord = heroLogoRecordRaw
+    ? (isHtmlMedia(asString(heroLogoRecordRaw.src)) || heroLogoRecordRaw.kind === 'html'
+        ? { ...heroLogoRecordRaw, src: '', kind: 'image' }
+        : heroLogoRecordRaw)
+    : undefined;
+
+  const sanitizedClientLogoRecord = clientLogoRecordRaw
+    ? (isHtmlMedia(asString(clientLogoRecordRaw.src)) || clientLogoRecordRaw.kind === 'html'
+        ? { ...clientLogoRecordRaw, src: '', kind: 'image' }
+        : clientLogoRecordRaw)
+    : undefined;
+
+  const heroLogoRecord = sanitizedHeroLogoRecord ?? sanitizedClientLogoRecord;
+  const clientLogoRecord = sanitizedClientLogoRecord ?? sanitizedHeroLogoRecord;
 
   const heroLogoAsset = heroLogoRecord
     ? normalizeAsset(heroLogoRecord, logoFallbackAlt)
@@ -255,18 +292,34 @@ function normalizeMasterTemplateV3(
   const seoRecord = asRecord(record.seo);
 
   const rawHeroMediaType = asString(record.hero_media_type);
+  const hasRecoveredOrDirectHtml = Boolean(recoveredHtml);
+  const hasDirectVideoOrImage = Boolean(
+    heroTopMediaRecord &&
+    rawTopSrc &&
+    !isHtmlMedia(rawTopSrc) &&
+    (topKind === 'video' || topKind === 'image' || rawHeroMediaType === 'video' || rawHeroMediaType === 'image')
+  );
+
   const heroMediaType = (
-    ['none', 'image', 'video', 'html'].includes(rawHeroMediaType ?? '')
-      ? rawHeroMediaType
-      : heroTopMediaRecord
-        ? (asString(heroTopMediaRecord.kind) as 'image' | 'video' | 'html') ||
-          'image'
-        : 'none'
+    hasRecoveredOrDirectHtml
+      ? 'html'
+      : ['none', 'image', 'video', 'html'].includes(rawHeroMediaType ?? '')
+        ? rawHeroMediaType
+        : heroTopMediaRecord
+          ? (asString(heroTopMediaRecord.kind) as 'image' | 'video' | 'html') ||
+            'image'
+          : 'none'
   ) as 'none' | 'image' | 'video' | 'html';
+
+  const shouldBeV3Hero =
+    isV3Hero ||
+    hasRecoveredOrDirectHtml ||
+    hasDirectVideoOrImage ||
+    heroMediaType !== 'none';
 
   const baseV3 = {
     schema_version: '3.0' as const,
-    template: isV3Hero
+    template: shouldBeV3Hero
       ? MASTER_PROJECT_TEMPLATE_V3_HERO
       : MASTER_PROJECT_TEMPLATE_V3,
     project_slug:
@@ -281,14 +334,17 @@ function normalizeMasterTemplateV3(
     hero_logo_image: heroLogoAsset,
     client_logo_image: clientLogoAsset,
     hero_media_type: heroMediaType,
-    ...(heroTopMediaRecord
+    ...(shouldBeV3Hero || heroTopMediaRecord
       ? {
           hero_top_media: {
-            ...normalizeAsset(heroTopMediaRecord, `${projectTitle} hero media`),
-            kind:
-              (asString(heroTopMediaRecord.kind) as
-                'image' | 'video' | 'html') || 'image',
-            html: asString(heroTopMediaRecord.html),
+            alt:
+              asString(heroTopMediaRecord?.alt) ??
+              `${projectTitle} hero media`,
+            kind: (hasRecoveredOrDirectHtml
+              ? 'html'
+              : (asString(heroTopMediaRecord?.kind) as 'image' | 'video' | 'html') || 'image') as 'image' | 'video' | 'html',
+            html: recoveredHtml ?? asString(heroTopMediaRecord?.html),
+            src: hasRecoveredOrDirectHtml ? '' : (asString(heroTopMediaRecord?.src) ?? ''),
           },
         }
       : {}),
@@ -333,7 +389,7 @@ function normalizeMasterTemplateV3(
     },
   };
 
-  if (isV3Hero) {
+  if (shouldBeV3Hero) {
     return baseV3 as MasterProjectTemplateV3HeroData;
   }
   return baseV3 as MasterProjectTemplateV3Data;

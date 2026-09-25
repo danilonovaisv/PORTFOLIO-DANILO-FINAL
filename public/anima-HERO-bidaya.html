@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<title>Bidaya Parfums — Scents Without Borders | Preview Animado</title>
+<style>
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    position: fixed;
+    inset: 0;
+    background: #000;
+  }
+
+  .viewport {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    contain: layout paint;
+  }
+
+  .stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 700ms ease-out;
+  }
+
+  .stage.is-ready {
+    opacity: 1;
+  }
+
+  .layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    transform: translate3d(0, 0, 0);
+    transform-origin: 50% 50%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    user-select: none;
+    pointer-events: none;
+    -webkit-user-drag: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stage {
+      transition: none;
+    }
+    .layer {
+      transform: none !important;
+      will-change: auto;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="viewport" id="viewport" aria-label="Preview animado da homepage Bidaya Parfums">
+    <div class="stage" id="stage">
+      <img
+        id="layerBg"
+        class="layer"
+        src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/bg-16.9.webp"
+        alt="Homepage Bidaya Parfums - Scents Without Borders"
+        decoding="async"
+        fetchpriority="high"
+      />
+      <img
+        id="layer0"
+        class="layer"
+        src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-0-16.9.webp"
+        alt=""
+        aria-hidden="true"
+        decoding="async"
+      />
+      <img
+        id="layer1"
+        class="layer"
+        src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-1-16.9.webp"
+        alt=""
+        aria-hidden="true"
+        decoding="async"
+      />
+      <img
+        id="layer2"
+        class="layer"
+        src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-2-16.9.webp"
+        alt=""
+        aria-hidden="true"
+        decoding="async"
+      />
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var CYCLE_MS = 4000;
+      var TAU = Math.PI * 2;
+
+      var stage = document.getElementById('stage');
+      var viewport = document.getElementById('viewport');
+
+      var layers = [
+        {
+          el: document.getElementById('layerBg'),
+          ampXFactor: 0.0040,
+          ampYFactor: 0.0020,
+          phase: 0,
+          scaleBase: 1.030,
+          scaleDelta: 0.004,
+          driftX: 1,
+          driftY: -1
+        },
+        {
+          el: document.getElementById('layer0'),
+          ampXFactor: 0.0090,
+          ampYFactor: 0.0040,
+          phase: 45,
+          scaleBase: 1.040,
+          scaleDelta: 0.006,
+          driftX: 1,
+          driftY: -1
+        },
+        {
+          el: document.getElementById('layer1'),
+          ampXFactor: 0.0180,
+          ampYFactor: 0.0070,
+          phase: 90,
+          scaleBase: 1.055,
+          scaleDelta: 0.008,
+          driftX: 1,
+          driftY: -1
+        },
+        {
+          el: document.getElementById('layer2'),
+          ampXFactor: 0.0320,
+          ampYFactor: 0.0110,
+          phase: 135,
+          scaleBase: 1.075,
+          scaleDelta: 0.012,
+          driftX: 1,
+          driftY: -1
+        }
+      ];
+
+      var stageWidth = 0;
+      var stageHeight = 0;
+      var rafId = null;
+      var startTimestamp = null;
+      var running = false;
+      var reducedMotion = false;
+
+      var motionQuery = window.matchMedia
+        ? window.matchMedia('(prefers-reduced-motion: reduce)')
+        : null;
+
+      function measure() {
+        var rect = stage.getBoundingClientRect();
+        stageWidth = rect.width || window.innerWidth;
+        stageHeight = rect.height || window.innerHeight;
+
+        for (var i = 0; i < layers.length; i++) {
+          var layer = layers[i];
+          layer.ampX = layer.ampXFactor * stageWidth;
+          layer.ampY = layer.ampYFactor * stageHeight;
+        }
+
+        if (!running) {
+          render(0);
+        }
+      }
+
+      function render(elapsed) {
+        for (var i = 0; i < layers.length; i++) {
+          var layer = layers[i];
+          var local = elapsed + layer.phase;
+          var angle = ((local % CYCLE_MS) / CYCLE_MS) * TAU;
+
+          var wave = Math.sin(angle);
+          var breathe = (1 - Math.cos(angle)) * 0.5;
+
+          var x = wave * layer.ampX * layer.driftX;
+          var y = wave * layer.ampY * layer.driftY;
+          var scale = layer.scaleBase + layer.scaleDelta * breathe;
+
+          layer.el.style.transform =
+            'translate3d(' + x.toFixed(2) + 'px, ' + y.toFixed(2) + 'px, 0) scale(' + scale.toFixed(4) + ')';
+        }
+      }
+
+      function frame(timestamp) {
+        if (startTimestamp === null) {
+          startTimestamp = timestamp;
+        }
+        var elapsed = timestamp - startTimestamp;
+        render(elapsed);
+        rafId = window.requestAnimationFrame(frame);
+      }
+
+      function stop() {
+        running = false;
+        if (rafId !== null) {
+          window.cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      }
+
+      function start() {
+        if (reducedMotion) {
+          for (var i = 0; i < layers.length; i++) {
+            layers[i].el.style.transform =
+              'translate3d(0, 0, 0) scale(' + layers[i].scaleBase.toFixed(4) + ')';
+          }
+          return;
+        }
+        if (running) {
+          return;
+        }
+        running = true;
+        startTimestamp = null;
+        rafId = window.requestAnimationFrame(frame);
+      }
+
+      function reveal() {
+        stage.classList.add('is-ready');
+        measure();
+        start();
+      }
+
+      function waitForAssets() {
+        var pending = layers.length;
+        var settled = false;
+
+        function done() {
+          pending -= 1;
+          if (pending <= 0 && !settled) {
+            settled = true;
+            reveal();
+          }
+        }
+
+        for (var i = 0; i < layers.length; i++) {
+          var img = layers[i].el;
+          if (img.complete && img.naturalWidth > 0) {
+            done();
+          } else {
+            img.addEventListener('load', done, { once: true });
+            img.addEventListener('error', done, { once: true });
+          }
+        }
+
+        window.setTimeout(function () {
+          if (!settled) {
+            settled = true;
+            reveal();
+          }
+        }, 6000);
+      }
+
+      function applyMotionPreference() {
+        reducedMotion = !!(motionQuery && motionQuery.matches);
+        if (reducedMotion) {
+          stop();
+          for (var i = 0; i < layers.length; i++) {
+            layers[i].el.style.transform =
+              'translate3d(0, 0, 0) scale(' + layers[i].scaleBase.toFixed(4) + ')';
+          }
+        } else if (stage.classList.contains('is-ready')) {
+          start();
+        }
+      }
+
+      var resizeTimer = null;
+      function onResize() {
+        if (resizeTimer) {
+          window.cancelAnimationFrame(resizeTimer);
+        }
+        resizeTimer = window.requestAnimationFrame(function () {
+          measure();
+        });
+      }
+
+      window.addEventListener('resize', onResize, { passive: true });
+      window.addEventListener('orientationchange', onResize, { passive: true });
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          stop();
+        } else if (!reducedMotion && stage.classList.contains('is-ready')) {
+          start();
+        }
+      });
+
+      if (motionQuery) {
+        if (typeof motionQuery.addEventListener === 'function') {
+          motionQuery.addEventListener('change', applyMotionPreference);
+        } else if (typeof motionQuery.addListener === 'function') {
+          motionQuery.addListener(applyMotionPreference);
+        }
+      }
+
+      reducedMotion = !!(motionQuery && motionQuery.matches);
+      measure();
+      waitForAssets();
+    })();
+  </script>
+</body>
+</html>

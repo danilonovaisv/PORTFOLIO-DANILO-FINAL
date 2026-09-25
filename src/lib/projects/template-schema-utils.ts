@@ -12,6 +12,7 @@ import {
   type MasterProjectV2GalleryItem,
   type TemplateV3IntroBlock,
 } from '@/types/project-template';
+import { isHtmlMedia } from '@/lib/portfolio/card-media';
 
 export const VIDEO_FILE_PATTERN = /\.(mp4|webm|ogg|mov)$/i;
 export const V3_BLOCK_TYPES: BlockType[] = [
@@ -133,8 +134,11 @@ export const asV3IntroBlocks = (
   return blocks.length > 0 ? blocks : undefined;
 };
 
-export const asMediaKind = (value: unknown): 'image' | 'video' =>
-  value === 'video' ? 'video' : 'image';
+export const asMediaKind = (value: unknown): 'image' | 'video' | 'html' => {
+  if (value === 'html') return 'html';
+  if (value === 'video') return 'video';
+  return 'image';
+};
 
 export const asGalleryLayout = (
   value: unknown
@@ -216,6 +220,7 @@ export const normalizeAssetReadValue = (
   hint?: AssetTypeHint
 ): string | undefined => {
   if (!value) return undefined;
+  if (hint === 'html' || isHtmlMedia(value)) return value;
   const resolved = resolveLandingAsset(value, hint);
   return resolved.ok ? resolved.asset.url : value;
 };
@@ -250,15 +255,17 @@ export const normalizeAsset = (
   fallbackSrc?: string
 ): MasterProjectAsset => {
   const record = asRecord(value);
+  const rawKind = record?.kind;
+  const rawSrc = asString(record?.src) ?? fallbackSrc;
+  const isHtml = rawKind === 'html' || isHtmlMedia(rawSrc);
+  const kind = isHtml ? 'html' : asMediaKind(rawKind);
 
   return {
-    src:
-      normalizeAssetReadValue(
-        asString(record?.src) ?? fallbackSrc,
-        asMediaKind(record?.kind)
-      ) ?? '',
+    src: isHtml
+      ? (rawSrc ?? '')
+      : (normalizeAssetReadValue(rawSrc, kind as AssetTypeHint) ?? ''),
     alt: asString(record?.alt) ?? fallbackAlt,
-    kind: asMediaKind(record?.kind),
+    kind,
     poster: normalizeAssetReadValue(asString(record?.poster), 'image'),
   };
 };

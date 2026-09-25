@@ -136,12 +136,12 @@ export function AlpaHeroLayout({
   return (
     <AlpaLayout
       project={project as any}
+      heroTopMedia={renderHeroTopMedia()}
       revealInitial={revealInitial}
       revealVisible={revealVisible}
       zoomAsset={zoomAsset}
       closeAsset={closeAsset}
     >
-      {renderHeroTopMedia()}
       {children}
     </AlpaLayout>
   );
