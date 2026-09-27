@@ -398,14 +398,11 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: UploadAsset) {
     heroTopMedia = {
       ...heroTopMedia,
       src: isHtml
-        ? (heroTopMedia.src || '')
-        : (heroTopMedia.src
-            ? normalizePersistedAsset(
-                heroTopMedia.src,
-                heroTopMedia.kind as any
-              )
-            : ''),
-      kind: isHtml ? 'html' : (heroTopMedia.kind || 'image'),
+        ? heroTopMedia.src || ''
+        : heroTopMedia.src
+          ? normalizePersistedAsset(heroTopMedia.src, heroTopMedia.kind as any)
+          : '',
+      kind: isHtml ? 'html' : heroTopMedia.kind || 'image',
       html: heroTopMedia.html || (isHtml ? heroTopMedia.src : undefined),
       file: null,
       previewUrl: '',

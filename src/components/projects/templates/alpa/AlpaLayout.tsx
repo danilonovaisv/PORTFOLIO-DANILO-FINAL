@@ -116,11 +116,12 @@ export function AlpaLayout({
     : project.hero_logo_image;
   const isLogoHtml = Boolean(
     clientLogoAsset &&
-      (clientLogoAsset.kind === 'html' || isHtmlMedia(clientLogoAsset.src))
+    (clientLogoAsset.kind === 'html' || isHtmlMedia(clientLogoAsset.src))
   );
-  const heroLogo = !isLogoHtml && clientLogoAsset?.src
-    ? getAssetUrl(clientLogoAsset.src, { width: 400 })
-    : '';
+  const heroLogo =
+    !isLogoHtml && clientLogoAsset?.src
+      ? getAssetUrl(clientLogoAsset.src, { width: 400 })
+      : '';
   const heroLogoAlt =
     clientLogoAsset?.alt?.trim() ||
     (project.project_client

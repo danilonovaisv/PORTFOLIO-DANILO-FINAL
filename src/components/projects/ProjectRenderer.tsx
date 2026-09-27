@@ -48,7 +48,10 @@ function LegacyProjectRenderer({
   const isCoverHtml = Boolean(rawCover && isHtmlMedia(rawCover));
   const isCoverVideo = Boolean(rawCover && !isCoverHtml && isVideo(rawCover));
   const coverUrl = rawCover
-    ? getAssetUrl(rawCover, isCoverVideo ? { isVideo: true } : { width: 1920, quality: 90 })
+    ? getAssetUrl(
+        rawCover,
+        isCoverVideo ? { isVideo: true } : { width: 1920, quality: 90 }
+      )
     : '';
   const hasRealImage = Boolean(
     !isCoverHtml && !isCoverVideo && coverUrl && coverUrl !== ASSET_PLACEHOLDER

@@ -9,7 +9,12 @@ import { useMemo } from 'react';
 import { ArrowDown, ArrowRight } from 'lucide-react';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
-import { getAssetUrl, supabaseLoader, ASSET_PLACEHOLDER, isVideo } from '@/lib/utils';
+import {
+  getAssetUrl,
+  supabaseLoader,
+  ASSET_PLACEHOLDER,
+  isVideo,
+} from '@/lib/utils';
 import { isHtmlMedia } from '@/lib/portfolio/card-media';
 import { HTMLVideoBlock } from '@/components/ui/HTMLVideoBlock';
 import { ResponsiveCaptionTrack } from '@/components/ui/ResponsiveCaptionTrack';
@@ -97,19 +102,25 @@ export default function ProjectTemplateMasterRenderer({
 
   const rawHeroSrc = project.hero_cover_image?.src?.trim() || '';
   const isCoverHtml = Boolean(
-    project.hero_cover_image?.kind === 'html' ||
-    isHtmlMedia(rawHeroSrc)
+    project.hero_cover_image?.kind === 'html' || isHtmlMedia(rawHeroSrc)
   );
   const isCoverVideo = Boolean(
-    !isCoverHtml && (isVideoAsset(project.hero_cover_image) || isVideo(rawHeroSrc))
+    !isCoverHtml &&
+    (isVideoAsset(project.hero_cover_image) || isVideo(rawHeroSrc))
   );
   const heroImage = isCoverHtml
     ? rawHeroSrc
     : rawHeroSrc
-      ? getAssetUrl(rawHeroSrc, isCoverVideo ? { isVideo: true } : { width: 1920, quality: 90 })
+      ? getAssetUrl(
+          rawHeroSrc,
+          isCoverVideo ? { isVideo: true } : { width: 1920, quality: 90 }
+        )
       : '';
   const hasRealImage = Boolean(
-    !isCoverHtml && !isCoverVideo && heroImage && heroImage !== ASSET_PLACEHOLDER
+    !isCoverHtml &&
+    !isCoverVideo &&
+    heroImage &&
+    heroImage !== ASSET_PLACEHOLDER
   );
   const hasHeroMedia = isCoverHtml || isCoverVideo || hasRealImage;
 

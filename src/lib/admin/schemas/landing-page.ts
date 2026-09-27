@@ -69,9 +69,7 @@ const common = {
 const v3 = {
   ...common,
   schema_version: z.literal('3.0').optional(),
-  hero_top_media: asset
-    .extend({ html: z.string().optional() })
-    .optional(),
+  hero_top_media: asset.extend({ html: z.string().optional() }).optional(),
   gallery_grid: z.array(block),
   intro_body: z
     .array(

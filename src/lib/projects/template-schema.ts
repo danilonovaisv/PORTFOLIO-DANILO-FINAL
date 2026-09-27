@@ -236,9 +236,7 @@ function normalizeMasterTemplateV3(
   const topKind = asString(heroTopMediaRecord?.kind);
 
   const hasDirectTopHtml = Boolean(
-    topKind === 'html' ||
-    rawTopHtml ||
-    (rawTopSrc && isHtmlMedia(rawTopSrc))
+    topKind === 'html' || rawTopHtml || (rawTopSrc && isHtmlMedia(rawTopSrc))
   );
 
   const heroLogoRecordRaw = asRecord(record.hero_logo_image);
@@ -251,24 +249,30 @@ function normalizeMasterTemplateV3(
 
   const hasMisplacedLogoHtml = Boolean(
     !hasDirectTopHtml &&
-    (logoKindCandidate === 'html' || (logoSrcCandidate && isHtmlMedia(logoSrcCandidate)))
+    (logoKindCandidate === 'html' ||
+      (logoSrcCandidate && isHtmlMedia(logoSrcCandidate)))
   );
 
   const recoveredHtml = hasDirectTopHtml
-    ? (rawTopHtml || (rawTopSrc && isHtmlMedia(rawTopSrc) ? rawTopSrc : undefined))
-    : (hasMisplacedLogoHtml ? logoSrcCandidate : undefined);
+    ? rawTopHtml ||
+      (rawTopSrc && isHtmlMedia(rawTopSrc) ? rawTopSrc : undefined)
+    : hasMisplacedLogoHtml
+      ? logoSrcCandidate
+      : undefined;
 
   // Higienizar logo records para que NUNCA passem código HTML para o next/image
   const sanitizedHeroLogoRecord = heroLogoRecordRaw
-    ? (isHtmlMedia(asString(heroLogoRecordRaw.src)) || heroLogoRecordRaw.kind === 'html'
-        ? { ...heroLogoRecordRaw, src: '', kind: 'image' }
-        : heroLogoRecordRaw)
+    ? isHtmlMedia(asString(heroLogoRecordRaw.src)) ||
+      heroLogoRecordRaw.kind === 'html'
+      ? { ...heroLogoRecordRaw, src: '', kind: 'image' }
+      : heroLogoRecordRaw
     : undefined;
 
   const sanitizedClientLogoRecord = clientLogoRecordRaw
-    ? (isHtmlMedia(asString(clientLogoRecordRaw.src)) || clientLogoRecordRaw.kind === 'html'
-        ? { ...clientLogoRecordRaw, src: '', kind: 'image' }
-        : clientLogoRecordRaw)
+    ? isHtmlMedia(asString(clientLogoRecordRaw.src)) ||
+      clientLogoRecordRaw.kind === 'html'
+      ? { ...clientLogoRecordRaw, src: '', kind: 'image' }
+      : clientLogoRecordRaw
     : undefined;
 
   const heroLogoRecord = sanitizedHeroLogoRecord ?? sanitizedClientLogoRecord;
@@ -297,7 +301,10 @@ function normalizeMasterTemplateV3(
     heroTopMediaRecord &&
     rawTopSrc &&
     !isHtmlMedia(rawTopSrc) &&
-    (topKind === 'video' || topKind === 'image' || rawHeroMediaType === 'video' || rawHeroMediaType === 'image')
+    (topKind === 'video' ||
+      topKind === 'image' ||
+      rawHeroMediaType === 'video' ||
+      rawHeroMediaType === 'image')
   );
 
   const heroMediaType = (
@@ -338,13 +345,16 @@ function normalizeMasterTemplateV3(
       ? {
           hero_top_media: {
             alt:
-              asString(heroTopMediaRecord?.alt) ??
-              `${projectTitle} hero media`,
+              asString(heroTopMediaRecord?.alt) ?? `${projectTitle} hero media`,
             kind: (hasRecoveredOrDirectHtml
               ? 'html'
-              : (asString(heroTopMediaRecord?.kind) as 'image' | 'video' | 'html') || 'image') as 'image' | 'video' | 'html',
+              : (asString(heroTopMediaRecord?.kind) as
+                  'image' | 'video' | 'html') || 'image') as
+              'image' | 'video' | 'html',
             html: recoveredHtml ?? asString(heroTopMediaRecord?.html),
-            src: hasRecoveredOrDirectHtml ? '' : (asString(heroTopMediaRecord?.src) ?? ''),
+            src: hasRecoveredOrDirectHtml
+              ? ''
+              : (asString(heroTopMediaRecord?.src) ?? ''),
           },
         }
       : {}),

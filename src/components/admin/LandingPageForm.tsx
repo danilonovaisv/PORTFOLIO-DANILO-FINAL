@@ -135,7 +135,7 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
     useState<MasterProjectTemplateV3Draft>(
       toMasterV3Draft(
         initialParsed.template === MASTER_PROJECT_TEMPLATE_V3 ||
-        initialParsed.template === MASTER_PROJECT_TEMPLATE_V3_HERO
+          initialParsed.template === MASTER_PROJECT_TEMPLATE_V3_HERO
           ? initialParsed.data
           : createDefaultMasterProjectTemplateV3({
               slug: initialData?.slug,

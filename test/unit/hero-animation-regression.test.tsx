@@ -13,7 +13,9 @@ jest.mock('next/image', () => ({
 }));
 
 jest.mock('@/components/ui/GhostMarkdown', () => ({
-  GhostMarkdown: ({ content }: any) => <div data-testid="ghost-markdown">{content}</div>,
+  GhostMarkdown: ({ content }: any) => (
+    <div data-testid="ghost-markdown">{content}</div>
+  ),
 }));
 
 jest.mock('@/components/ui/AntigravityCTA', () => ({
@@ -22,7 +24,12 @@ jest.mock('@/components/ui/AntigravityCTA', () => ({
 }));
 
 jest.mock('@/components/ui/HTMLVideoBlock', () => ({
-  HTMLVideoBlock: ({ html }: any) => <div data-testid="html-video-block" dangerouslySetInnerHTML={{ __html: html }} />,
+  HTMLVideoBlock: ({ html }: any) => (
+    <div
+      data-testid="html-video-block"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  ),
 }));
 
 jest.mock('next/dynamic', () => () => {
@@ -45,7 +52,9 @@ jest.mock('motion/react', () => {
         </section>
       ),
       div: MockComponent,
-      h1: ({ children, className }: any) => <h1 className={className}>{children}</h1>,
+      h1: ({ children, className }: any) => (
+        <h1 className={className}>{children}</h1>
+      ),
       div_custom: MockComponent,
     },
     m: {
@@ -55,7 +64,9 @@ jest.mock('motion/react', () => {
         </section>
       ),
       div: MockComponent,
-      h1: ({ children, className }: any) => <h1 className={className}>{children}</h1>,
+      h1: ({ children, className }: any) => (
+        <h1 className={className}>{children}</h1>
+      ),
     },
     AnimatePresence: ({ children }: any) => <>{children}</>,
   };
@@ -156,15 +167,23 @@ describe('Hero Animation Regression & Evidence Verification', () => {
       );
 
       // Verify HTMLVideoBlock rendered
-      const heroMediaEl = container.querySelector('[data-testid="html-video-block"]');
+      const heroMediaEl = container.querySelector(
+        '[data-testid="html-video-block"]'
+      );
       expect(heroMediaEl).toBeTruthy();
 
       // Check DOM ordering: hero media must appear BEFORE intro section
-      const introHeading = screen.getByRole('heading', { level: 2, name: /Introdução do Projeto/i });
+      const introHeading = screen.getByRole('heading', {
+        level: 2,
+        name: /Introdução do Projeto/i,
+      });
 
       // In AlpaHeroLayout, hero media must precede the intro section
       // and NOT be placed after introHeading
-      const precedesIntro = (introHeading.compareDocumentPosition(heroMediaEl!) & Node.DOCUMENT_POSITION_PRECEDING) !== 0;
+      const precedesIntro =
+        (introHeading.compareDocumentPosition(heroMediaEl!) &
+          Node.DOCUMENT_POSITION_PRECEDING) !==
+        0;
       expect(precedesIntro).toBe(true);
     });
   });

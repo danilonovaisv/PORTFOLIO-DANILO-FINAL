@@ -47,18 +47,21 @@ Localização: [.agents/plugins/portfolio-design-auditor](file:///Users/danilono
 ### Componentes Integrados:
 
 #### A. Subagentes Especializados:
+
 - **`portfolio-context-analyst`**: Mapeia rotas, componentes, dependências, estilos e divergências entre docs e código real.
 - **`design-auditor`**: Executa auditoria dimensional (Visual, Tipografia, UX, Interação, Motion, A11y, Mobile).
 - **`implementation-planner`**: Converte apontamentos aprovados em planos executáveis com grafo de dependência e tarefas isoladas.
 - **`audit-validator`**: Valida a conformidade das implementações frente aos critérios de aceite e checagem de regressão.
 
 #### B. Comandos Slash de Auditoria:
+
 - **`/audit`**: Inicia auditoria em página, seção ou componente (Gera relatório e findings P0-P3).
 - **`/plan-implementation`**: Transforma achados aceitos em tarefas de engenharia atribuídas a agentes específicos.
 - **`/implement-audit`**: Executa a implementação via agentes do sistema com verificação em etapas.
 - **`/validate-audit`**: Verifica de ponta a ponta se o código atende às especificações e critérios de aceite.
 
 #### C. Catálogo de Skills:
+
 - `portfolio-design-audit`: Auditoria ampla de páginas e componentes com evidências.
 - `apple-design`: Lente de princípios de interfaces fluidas (física de springs, continuidade espacial, feedback).
 - `improve-animations`: Auditoria e plano de melhorias no sistema de motion global.
@@ -98,6 +101,7 @@ Localização: [.agents/plugins/portfolio-design-auditor](file:///Users/danilono
 Todos os relatórios gerados por auditorias devem ser salvos neste diretório:
 `file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.context/audits/`
 com a nomenclatura:
+
 - `AUDIT-[DATA]-[NOME_DA_SECAO].md`
 - `PLAN-[DATA]-[NOME_DA_SECAO].md`
 - `VALIDATION-[DATA]-[NOME_DA_SECAO].md`
@@ -110,18 +114,19 @@ Os agentes de auditoria agora são cidadãos de primeira classe no Antigravity I
 
 ### Como Chamar no Chat do Antigravity:
 
-| Agente | Chamada no Chat | Propósito Principal |
-| :--- | :--- | :--- |
-| **Portfolio Context Analyst** | `@portfolio-context-analyst` | *"Mapeie os componentes, rotas e divergências entre a doc e o código da seção Hero da Home antes de auditarmos."* |
-| **Design Auditor** | `@design-auditor` | *"Realize a auditoria dimensional (Visual, UX, A11y e Motion) da página /sobre gerando findings P0 a P3."* |
-| **Implementation Planner** | `@implementation-planner` | *"Converta os findings do relatório AUDIT-HOME.md em um plano de tarefas dependentes para os especialistas."* |
-| **Audit Validator** | `@audit-validator` | *"Valide a implementação da TASK-01 da seção de Projetos contra os critérios de aceite e cheque regressões."* |
+| Agente                        | Chamada no Chat              | Propósito Principal                                                                                               |
+| :---------------------------- | :--------------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| **Portfolio Context Analyst** | `@portfolio-context-analyst` | _"Mapeie os componentes, rotas e divergências entre a doc e o código da seção Hero da Home antes de auditarmos."_ |
+| **Design Auditor**            | `@design-auditor`            | _"Realize a auditoria dimensional (Visual, UX, A11y e Motion) da página /sobre gerando findings P0 a P3."_        |
+| **Implementation Planner**    | `@implementation-planner`    | _"Converta os findings do relatório AUDIT-HOME.md em um plano de tarefas dependentes para os especialistas."_     |
+| **Audit Validator**           | `@audit-validator`           | _"Valide a implementação da TASK-01 da seção de Projetos contra os critérios de aceite e cheque regressões."_     |
 
 ### Orquestração Integrada via Ghost Commander:
+
 Ao utilizar `@project-orchestrator` ou `/agents-orquestrator`, o fluxo completo pode ser disparado com delegação automática:
+
 1. O Orchestrator despacha `@portfolio-context-analyst` para leitura de contexto.
 2. Em seguida, aciona `@design-auditor` para compilação dos achados em `.context/audits/`.
 3. Após aprovação humana do escopo, `@implementation-planner` cria as tarefas.
 4. `@frontend-specialist` ou `@spectral-artist` executa a implementação no código.
 5. `@audit-validator` e `@quality-verification` fecham o ciclo garantindo 60 FPS e conformidade total com o Ghost System.
-

@@ -306,6 +306,11 @@
       "sourceType": "github",
       "skillPath": "skills/write-swift/SKILL.md",
       "computedHash": "f20bb9cf51dbee1900b264820a12f1d3d378dc4d23ac758e7ba9e644c49a2459"
+    },
+    "premium-web-design": {
+      "source": "creative-design/premium-web-design",
+      "sourceType": "claude-code-templates",
+      "skillPath": ".agents/skills/premium-web-design/SKILL.md"
     }
   }
 }
