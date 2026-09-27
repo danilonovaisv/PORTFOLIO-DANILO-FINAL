@@ -39,15 +39,25 @@ jest.mock('next/dynamic', () => () => {
 });
 
 jest.mock('motion/react', () => {
+  const sanitize = ({
+    whileInView: _whileInView,
+    initial: _initial,
+    animate: _animate,
+    viewport: _viewport,
+    transition: _transition,
+    variants: _variants,
+    ...domProps
+  }: any) => domProps;
+
   const MockComponent = ({ children, className, style, ...rest }: any) => (
-    <div className={className} style={style} {...rest}>
+    <div className={className} style={style} {...sanitize(rest)}>
       {children}
     </div>
   );
   return {
     motion: {
       section: ({ children, className, id, ...rest }: any) => (
-        <section className={className} id={id} {...rest}>
+        <section className={className} id={id} {...sanitize(rest)}>
           {children}
         </section>
       ),
@@ -59,7 +69,7 @@ jest.mock('motion/react', () => {
     },
     m: {
       section: ({ children, className, id, ...rest }: any) => (
-        <section className={className} id={id} {...rest}>
+        <section className={className} id={id} {...sanitize(rest)}>
           {children}
         </section>
       ),

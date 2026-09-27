@@ -130,7 +130,7 @@ export function AlpaLayout({
 
   return (
     <article className="template-alpa relative min-h-screen bg-background text-text">
-      <style jsx global>{`
+      <style>{`
         /* Garantir que assets em ALPA tenham cantos retos */
         .template-alpa :where(img, video, figure) {
           border-radius: 0 !important;

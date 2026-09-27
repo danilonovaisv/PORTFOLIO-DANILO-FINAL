@@ -48,6 +48,13 @@ export async function requireAdminAccess(
     );
   }
 
+  if (!requestScopedSupabase?.auth) {
+    throw new AdminAccessError(
+      'SYSTEM_ERR: SUPABASE_CLIENT_UNAVAILABLE — AUTH_SUBSYSTEM_MISSING',
+      'unauthorized'
+    );
+  }
+
   const {
     data: { user },
     error,

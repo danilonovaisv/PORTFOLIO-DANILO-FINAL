@@ -1,5 +1,32 @@
 # Adjustment Log
 
+## [2026-09-27T09:22] Ghost System Orchestration: Code Review, Hardening, Refactor & Test Expansion (/agents-orquestrator /code-reviewer /generate-tests /refactor-code)
+
+**Context:** Execução combinada do protocolo de orquestração multi-agente, revisão estática profunda, geração de suíte de testes unitários e refatoração cirúrgica preventiva no codebase `_danilonovais_portfolio`.
+
+**Diagnóstico & Achados do Code Review:**
+
+1. **React 19 Compatibility Warnings Eliminados:**
+   - Em `AlpaLayout.tsx`, remoção do resquício de styled-jsx `<style jsx global>` que gerava no console: `Received 'true' for a non-boolean attribute 'global'`.
+   - Em `hero-animation-regression.test.tsx`, o mock de `motion/react` repassava props Framer Motion (`whileInView`, etc.) para tags nativas do DOM. Refatorado com sanitizador que descarta props internas de motion.
+2. **Hardening de Segurança e Defesa em Profundidade (`src/lib/admin/server-access.ts`):**
+   - Adicionada verificação defensiva contra cliente Supabase nulo ou sem subsistema `auth`, prevenindo `TypeError` não tratado e padronizando erro seguro `AdminAccessError`.
+3. **Expansão Crítica de Cobertura de Testes Unitários (+34 novos testes):**
+   - `test/unit/template-schema-utils.test.ts`: 24 testes cobrindo parsing, guards (`asRecord`, `asString`, `asNumber`, `asBoolean`, `asStringArray`, `asIntroParagraphs`, `asV3IntroBlocks`), normalizadores de layouts legados e V2 (`grid_2_col`, `grid_1_col`, `grid_feat`, `grid_quote`, `grid_split`), blocos polimórficos V3 (`media-1x`, `media-2x`, `media-3x`, `quote-band`), configs de texto e inferência de mídia (YouTube/vídeo).
+   - `test/unit/logger.test.ts`: 5 testes cobrindo todos os níveis de severidade (`debug`, `info`, `warn`, `error`) e validação de supressão seletiva por ambiente `NODE_ENV`.
+   - `test/security/admin-server-access.test.ts`: ampliado para 8 testes cobrindo `requireAdminAccess`, falhas de inicialização do cliente, validação de sessão, escalonamento para `service_role` e fallback para `request_scoped`.
+
+**Métricas Finais de Qualidade:**
+
+- **Test Suites:** 49/49 aprovados (100% PASS).
+- **Testes Unitários:** 371/371 aprovados (+34 novos testes).
+- **Cobertura Geral de Linhas:** 76.57% (2.076/2.711 linhas).
+- **TypeScript Strict:** 0 erros (`tsc --noEmit --strict --jsx react-jsx`).
+- **ESLint:** 0 erros, 0 warnings.
+- **Topologia Graphify:** Atualizada via `graphify update .` com 29.429 nós, 33.782 arestas e 2.323 comunidades.
+
+---
+
 ## [2026-09-25T18:50] Resolução Completa da Hero Animada (Alpa Hero Placement, Auto-Recuperação de HTML no Logo, Prevenção de Erro 400 no Image Optimizer & Admin V3 Hero Form Retention)
 
 **Context:** Investigação cirúrgica, reprodução empírica e resolução do problema em que a Hero animada configurada nas Landing Pages não era visualizada nas páginas públicas (caso real: `/projects/nestle-nutrition-health-abrafarma-future-trends-2026`).
