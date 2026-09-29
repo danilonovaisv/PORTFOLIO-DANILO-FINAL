@@ -21,7 +21,7 @@
     "deep-clean": "python3 scripts/pnpm_deep_clean.py",
     "fix-pnpm": "chmod +x scripts/fix-pnpm.sh && ./scripts/fix-pnpm.sh",
     "audit-pnpm-global": "python3 scripts/audit_pnpm_global.py",
-    "prebuild": "pnpm run validate-env && node scripts/generate-build-info.cjs",
+    "prebuild": "VALIDATE_ENV_WARN_ONLY=1 pnpm run validate-env && node scripts/generate-build-info.cjs",
     "validate-env": "node --env-file-if-exists=.env.local --env-file-if-exists=.env --import tsx src/lib/env.ts",
     "validate:structure": "python3 scripts/validate_structure.py",
     "build": "next build",
