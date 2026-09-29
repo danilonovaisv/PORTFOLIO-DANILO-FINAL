@@ -135,7 +135,7 @@ _Padronizado segundo a especificação formal de ferramentas Anthropic._
 #### `ghost-firebase-deploy`
 
 - **O que faz:** Conduz o pipeline de build e deploy no Firebase Hosting com proteção estrita SSR Guardrail.
-- **Quando usar:** Em deploys de produção ou staging (`pnpm run deploy`).
+- **Quando usar:** Em deploys de produção ou staging (`pnpm run cf:deploy`).
 - **Quando NÃO usar:** Durante desenvolvimento local com `pnpm dev`.
 - **Formato & Protocolo:** Invocação via `.agents/skills/ghost-firebase-deploy/SKILL.md`. Requer Node.js 20 e cookies sob `__session`.
 

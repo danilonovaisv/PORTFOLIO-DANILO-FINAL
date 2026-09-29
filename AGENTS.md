@@ -254,7 +254,7 @@ _Padronizado segundo a especificação formal de ferramentas Anthropic (O que fa
 #### `ghost-firebase-deploy`
 
 - **O que faz:** Orquestra a esteira de build e deploy no Firebase Hosting (Next.js App Router standalone com Cloud Functions SSR), aplicando o SSR Guardrail.
-- **Quando usar:** Em liberações para produção (`pnpm run deploy`) ou sincronização de pré-visualizações no Firebase.
+- **Quando usar:** Em liberações para produção (`pnpm run cf:deploy`) ou sincronização de pré-visualizações no Firebase.
 - **Quando NÃO usar:** Em ambiente local de desenvolvimento com `pnpm dev`.
 - **Formato & Protocolo:** Invocação via `.agents/skills/ghost-firebase-deploy/SKILL.md`. Exige verificação prévia de versão Node.js 20, manifesto `.next` gerado e cookies sob `__session`.
 
@@ -316,7 +316,7 @@ _Padronizado segundo a especificação formal de ferramentas Anthropic (O que fa
 
 - **Framework:** Next.js 16.2.2 (App Router, standalone output, Turbopack)
 - **Language:** TypeScript 6.0.2 (strict mode)
-- **Runtime:** Node.js >=20, pnpm 10.33.0
+- **Runtime:** Node.js >=20, pnpm 12.6.0
 - **UI:** React 19, Tailwind CSS 4, Framer Motion 12, GSAP 3, Lenis 1
 - **3D/WebGL:** React Three Fiber 9, Three.js 0.183, OGL, custom GLSL shaders
 - **Backend:** Supabase (PostgreSQL, Storage), Firebase (Hosting, Functions, Firestore, Realtime DB)
@@ -360,8 +360,8 @@ pnpm test
 # E2E tests (Playwright)
 pnpm test:e2e
 
-# Deploy
-pnpm run deploy
+# Deploy (Cloudflare Workers)
+pnpm run cf:deploy
 ```
 
 <!-- BEGIN:nextjs-agent-rules -->

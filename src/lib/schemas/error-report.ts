@@ -18,5 +18,3 @@ export const ErrorReportSchema = z.object({
     .default(() => new Date().toISOString()),
   metadata: z.record(z.string(), z.unknown()).optional(),
 });
-
-export type ErrorReport = z.infer<typeof ErrorReportSchema>;
