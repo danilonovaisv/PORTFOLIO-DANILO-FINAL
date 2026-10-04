@@ -67,12 +67,10 @@ describe('admin server access guard', () => {
     it('throws unauthorized when getUser returns an error', async () => {
       const mockClient = {
         auth: {
-          getUser: jest
-            .fn()
-            .mockResolvedValue({
-              data: { user: null },
-              error: { message: 'jwt expired' },
-            }),
+          getUser: jest.fn().mockResolvedValue({
+            data: { user: null },
+            error: { message: 'jwt expired' },
+          }),
         },
       };
       (createClient as jest.Mock).mockResolvedValueOnce(mockClient);
