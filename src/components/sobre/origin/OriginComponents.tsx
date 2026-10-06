@@ -230,5 +230,3 @@ export function OriginStickyGallery({
   );
 }
 
-/** Alias for OriginStickyGallery per design specification */
-export const OriginMediaStage = OriginStickyGallery;
