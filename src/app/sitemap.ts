@@ -8,6 +8,11 @@ import { getCanonicalSiteUrl } from '@/lib/seo';
 export const dynamic = 'force-static';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  if (process.env.CF_PAGES || process.env.VALIDATE_ENV_WARN_ONLY === '1') {
+    return [
+      { url: 'https://danilonovais.com', lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
+    ];
+  }
   // Always emit canonical production URLs in sitemap.
   const baseUrl = getCanonicalSiteUrl().replace(/\/$/, '');
 
