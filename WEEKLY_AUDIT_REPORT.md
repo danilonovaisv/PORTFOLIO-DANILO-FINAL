@@ -1,63 +1,74 @@
 ### 1️⃣ Visão Geral
-A auditoria semanal automatizada varreu os diretórios `src/app` e `src/components`, avaliando as páginas Home, Sobre, Portfolio e a área de Admin do projeto Ghost Era. A estrutura base do Next.js App Router está implementada com páginas e rotas corretas. O roteamento (SPA) está sendo utilizado com `MotionLink`, mas ainda há melhorias necessárias para o design system. A performance está criticamente ameaçada pela ausência do Loader Customizado de Imagens do Supabase. Animações e a integração R3F precisam de ajustes estruturais para se adequarem às diretrizes da arquitetura V3.
+A auditoria semanal automatizada do repositório varreu as pastas `src/app` e `src/components` (incluindo as páginas Home, Sobre, Portfólio e a área Admin), confrontando a implementação técnica com a documentação de referência em `.context/DOCS-PORTFOLIO-PAGES/`.
+
+A arquitetura geral do Next.js App Router com React, TypeScript e Tailwind CSS apresenta boa organização estrutural. O roteamento cliente utiliza `MotionLink` para evitar reloads completos. No entanto, foram identificados gargalos de performance, desacordos com as regras estritas de organização de componentes WebGL, desalinhamentos em animações de estado ativo do Header e pequenas divergências em efeitos de transição de cards e setas. Todos os cards de projetos em destaque no Bento Grid utilizam alinhamento de altura idêntica na mesma linha via `h-full min-h-0 self-stretch` com CSS Grid (`grid-cols-12`).
 
 ### 2️⃣ Diagnóstico por Seção
 
 - **Home Hero:**
-  O Hero implementa o preloader corretamente e renderiza as camadas de z-index conforme o protocolo Ghost. No entanto, a organização de pastas de componentes 3D viola o padrão. O `GhostSceneWrapper` está em `src/components/canvas/home/hero/`, mas a arquitetura estrita exige que esteja em `src/components/home/webgl/`.
+  - **Status:** O Hero renderiza corretamente a hierarquia de z-index (Preloader z-50 > Manifesto Thumb z-30 > WebGL z-20 > Hero Text z-10 > BG z-0).
+  - **Inconsistência:** O componente 3D `GhostSceneWrapper` e arquivos relacionados estão alocados em `src/components/canvas/home/hero/`, violando o padrão estrito do projeto que exige a localização em `src/components/home/webgl/ghost-canvas/`.
 
 - **Manifesto:**
-  O componente `VideoManifesto.tsx` está isolado e bem implementado, com as lógicas de mute e autoplay configuradas. O comportamento de fullscreen no desktop segue a responsividade mobile-first através do fallback para o componente `ResponsiveVideo`.
+  - **Status:** O `VideoManifesto.tsx` está isolado e com controle de áudio, reproduçãomuda e suporte a fallback responsivo (`ResponsiveVideo`).
+  - **Inconsistência:** No scroll-expansion do desktop, o controle de liberação do audio/unmute no fullscreen necessita de sincronização declarativa para evitar inconsistências durante chamadas concorrentes de scroll.
 
 - **Featured Projects:**
-  A renderização usa a estrutura do Bento Grid com CSS Grid classes do Tailwind. O requisito de que todos os cards na mesma linha tenham a mesma altura vertical está devidamente respeitado pelo uso contínuo de `h-full min-h-0 self-stretch` ao longo das diretivas do `FeaturedProjectsSection.tsx` e `FeaturedProjectCard.tsx`.
+  - **Status:** Implementação do Bento Grid com CSS Grid classes do Tailwind (5col+7col, 12col, 8col+4col).
+  - **Conformidade de Altura:** Todos os cards da mesma linha compartilham rigorosamente a mesma altura vertical via `col-span-4 flex h-full min-h-0 w-full self-stretch`.
+  - **Inconsistência:** O componente `CTAProjectCard.tsx` não aplica de forma estrita o efeito de mudança de cor no texto do título (`#0057FF`) em estado de hover estipulado pela documentação.
 
 - **About (Origin/Method/What I Do):**
-  A seção Sobre obedece à semântica geral do Tailwind e à paleta de cores. As hierarquias de fonte seguem a tabela fluid scale estipulada em `GHOST-DESIGN-SYSTEM.md`.
+  - **Status:** A página Sobre (`src/app/sobre/page.tsx`) e subseções (`origin`, `beliefs`, `sections`) respeitam a paleta do Ghost System e tipografia fluida.
+  - **Inconsistência:** O componente `OriginSection` possui classes CSS inline declaradas com opacidade fixa que ignoram a escala utilitária e tokens de movimento `GHOST_EASE`.
 
 - **Portfolio Grid:**
-  O grid (`.std-grid`) está bem formatado. A visualização de landing pages via ALPA V3 (em `/portfolio/[slug]`) apresenta integridade com o redirecionamento. O componente `PortfolioHeroNew.tsx` foi migrado para Tailwind e não faz mais uso de CSS Modules legados.
+  - **Status:** O grid de projetos em `/portfolio` (`ProjectsGallery.tsx` e `PortfolioHeroNew.tsx`) utiliza Tailwind e padronização `.std-grid`.
+  - **Inconsistência:** O componente `CategoryStripe.tsx` em Portfolio Showcase gerencia a animação da seta com dois SVGs sobrepostos (`ArrowUpRight` e `ArrowUp`) alterando a opacidade em vez de mover declarativamente o vetor com `translateX(4px)` conforme estipulado pelo Ghost Ease.
 
 ### 3️⃣ Lista de Problemas e Backlog Priorizado
 
-- 🔴 **P0 (Crítico): Ausência do Supabase Image Loader (`src/lib/supabase/image-loader.ts`).**
-  O arquivo não existe, mas está sendo referenciado nas memórias do projeto e configurações essenciais. O Firebase Hosting falhará ao otimizar imagens, necessitando da declaração no `next.config.mjs`.
+- 🔴 **P0 (Crítico): Ausência do Supabase Custom Image Loader (`src/lib/supabase/image-loader.ts`).**
+  O loader customizado de imagens do Supabase é necessário no `next.config.mjs` para evitar sobrecarga no Firebase Hosting e falhas de renderização de imagem dinâmica.
 
 - 🟡 **P1 (Estrutural): Arquitetura WebGL Fora do Padrão.**
-  Componentes da `GhostScene` estão alocados em `canvas/home/hero` e precisam ser migrados estritamente para `src/components/home/webgl/` conforme a regra SSoT (`AGENTS.md`).
+  Componentes da `GhostScene` estão em `src/components/canvas/home/hero/` em vez de `src/components/home/webgl/ghost-canvas/`.
 
-- 🟡 **P1 (Estrutural): Estado Ativo do Header sem `scaleX`.**
-  O componente `DesktopFluidHeader.tsx` continua utilizando a animação baseada em alteração de `width` no pseudo-sublinhado, ao passo que a regra do projeto estipula explicitamente a utilização de `animate={{ scaleX: isActive ? 1 : 0 }}`.
+- 🟡 **P1 (Estrutural): Estado Ativo do Header utilizando Animação Baseada em Largura (Width-based).**
+  No `DesktopFluidHeader.tsx`, o indicador de aba ativa altera a largura (`width: 0 -> 100%`) em vez de utilizar o padrão `scaleX: isActive ? 1 : 0` com `origin-center`.
 
-- 🟢 **P2 (Polimento Rápido): Refinamento do `CategoryStripe.tsx`.**
-  As interações da seta não estão empregando a propriedade `translateX` como recomendado para o padrão de movimento "Ghost Ease", estando baseadas unicamente em transições de opacidade estática entre SVGs.
+- 🟡 **P1 (Estrutural): Transição de Ícone da Seta em `CategoryStripe.tsx`.**
+  O componente varia a opacidade de dois elementos em vez de animar a transição com `x: isHovered ? 4 : 0` usando o token `GHOST_EASE`.
+
+- 🟢 **P2 (Polimento Rápido): CTA Project Card Hover Highlight.**
+  Garantir transição de cor do título para `#0057FF` no hover do `CTAProjectCard.tsx`.
 
 ### 4️⃣ Prompts Técnicos para Agentes Google Antigravity (Atômicos)
 
 > **### 🛠️ Prompt #01 — Setup Custom Image Loader (Supabase/Firebase)**
-> **Objetivo:** Criar e configurar o loader customizado de imagens para evitar quebras de build e sobrecarga no Firebase Hosting.
-> **Arquivos:** `next.config.mjs`, `src/lib/supabase/image-loader.ts`
-> **Ações:** 1. Criar o arquivo `src/lib/supabase/image-loader.ts` com a lógica para transformar as URLs do bucket do Supabase em `/render/image/public`. 2. Atualizar o `next.config.mjs` para incluir a configuração `images: { loader: 'custom', loaderFile: './src/lib/supabase/image-loader.ts' }`.
-> **Regras:** Seguir as guidelines de performance e prover fallback seguro caso a URL não pertença ao Supabase.
-> **Critérios de Aceite:** O projeto deve buildar corretamente sem erros e a propriedade do Next Image deve redirecionar corretamente a request.
+> **Objetivo:** Criar e configurar o loader customizado de imagens do Supabase para otimização de imagens no Firebase Hosting sem o endpoint `/_next/image`.
+> **Arquivos:** `src/lib/supabase/image-loader.ts`, `next.config.mjs`
+> **Ações:** 1. Criar `src/lib/supabase/image-loader.ts` para converter URLs de objetos Supabase Storage em URLs do serviço de renderização `/render/image/public`. 2. Atualizar o `next.config.mjs` para setar `images: { loader: 'custom', loaderFile: './src/lib/supabase/image-loader.ts' }`.
+> **Regras:** Manter suporte a fallback para URLs externas não pertencentes ao Supabase.
+> **Critérios de Aceite:** O comando `pnpm run build-check` e `next build` concluem com sucesso e o Next Image renderiza com URLs otimizadas.
 
 > **### 🛠️ Prompt #02 — Refatorar Arquitetura WebGL da Home**
-> **Objetivo:** Isolar e migrar componentes 3D/WebGL da Home para o diretório correto conforme documentado.
+> **Objetivo:** Migrar os componentes 3D do Hero da Home para a estrutura de diretórios estipulada em `AGENTS.md`.
 > **Arquivos:** `src/components/home/hero/HomeHero.tsx`, `src/components/canvas/home/hero/*`, `src/components/home/webgl/ghost-canvas/*`
-> **Ações:** 1. Mover todos os arquivos R3F de `src/components/canvas/home/hero/` para o diretório `src/components/home/webgl/ghost-canvas/`. 2. Atualizar todos os imports em `HomeHero.tsx`.
-> **Regras:** Manter o uso do Dynamic Import e `ssr: false` para o Wrapper R3F.
-> **Critérios de Aceite:** O projeto compila com `next build` sem erros de importação e o canvas 3D é renderizado corretamente.
+> **Ações:** 1. Mover os arquivos da pasta `src/components/canvas/home/hero/` para `src/components/home/webgl/ghost-canvas/`. 2. Atualizar todas as declarações de importação em `HomeHero.tsx` e componentes dependentes.
+> **Regras:** Preservar o carregamento dinâmico cliente (`ssr: false`) e o wrapper de `Suspense`.
+> **Critérios de Aceite:** A compilação TypeScript e Next build completam sem erros de importação e o Canvas 3D renderiza na Home.
 
-> **### 🛠️ Prompt #03 — Consertar Animação do Estado "Active" no Header**
-> **Objetivo:** Substituir a animação de `width` pelo uso de `scaleX` no indicador de aba ativa para o padrão Framer.
+> **### 🛠️ Prompt #03 — Consertar Animação do Estado Active no Header**
+> **Objetivo:** Substituir a animação de `width` pelo uso de `scaleX` no indicador de navegação ativa do Header.
 > **Arquivos:** `src/components/layout/header/DesktopFluidHeader.tsx`
-> **Ações:** 1. Localizar o componente `DesktopNavItem`. 2. Substituir os variants (initial, hover, active) da barra de sublinhado. Definir o width fixo ou 100% e animar através de `scaleX`, configurando `origin-center` ou `origin-left`.
-> **Regras:** Respeitar a documentação explícita que proíbe o método puramente *width-based* sem layoutId, em detrimento do uso explícito do transform scale.
-> **Critérios de Aceite:** A animação sublinha suavemente e não causa repaint/layout shift.
+> **Ações:** 1. Localizar `DesktopNavItem`. 2. Alterar o elemento `<m.span>` de sublinhado para utilizar `style={{ scaleX: isActive ? 1 : 0 }}` e animar com Framer Motion declarativo utilizando `scaleX`. 3. Garantir `origin-center` ou `origin-left`.
+> **Regras:** Não utilizar alteração direta de largura CSS sem layoutId; priorizar transform de escala para performance.
+> **Critérios de Aceite:** As abas ativas do Header animam suavemente sem provocar reflow ou layout shift.
 
-> **### 🛠️ Prompt #04 — Refinar Animação da Seta em CategoryStripe**
+> **### 🛠️ Prompt #04 — Padronizar Animação da Seta em CategoryStripe**
 > **Objetivo:** Adequar a seta do *Showcase* aos princípios Ghost System usando `translateX`.
 > **Arquivos:** `src/components/home/portfolio-showcase/CategoryStripe.tsx`
-> **Ações:** 1. Reduzir para um único ícone de `ArrowRight` (ou ArrowUpRight rotacionado nativamente) e injetar `animate={{ x: isHovered ? 4 : 0 }}`. 2. Remover opacidades duplas de ícones.
-> **Regras:** Animações devem ser declarativas pelo Framer Motion, respeitando a curva `GHOST_EASE`.
-> **Critérios de Aceite:** A interação flui apenas movendo a seta para a direita ao se aproximar.
+> **Ações:** 1. Remover a dupla declaração de ícones de seta com opacidade. 2. Utilizar um único componente de ícone de seta. 3. Aplicar a animação declarativa `animate={{ x: isHovered ? 4 : 0 }}` com o easing `GHOST_EASE`.
+> **Regras:** Respeitar a curva `GHOST_EASE` de `src/config/motion.ts`.
+> **Critérios de Aceite:** Ao passar o mouse sobre cada linha de categoria, a seta desliza suavemente 4px para a direita.
