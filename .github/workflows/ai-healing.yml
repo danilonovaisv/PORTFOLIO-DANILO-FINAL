@@ -3,7 +3,7 @@ name: 🛡️ AI Self-Healing Agent
 on:
   workflow_run:
     workflows:
-      - Firebase Deploy
+      - Cloudflare Deploy
     types:
       - completed
   workflow_dispatch:
@@ -66,7 +66,7 @@ jobs:
           {
             echo "prompt<<EOF_MARKER"
             echo "Analyze these failed workflow logs from a Next.js 16 (App Router) portfolio project."
-            echo "Environment: Node 20, pnpm 10.33.0, Firebase Hosting (webframeworks), Supabase SSR."
+            echo "Environment: Node 22, pnpm 12.9.1, Cloudflare Workers (OpenNext), Supabase SSR."
             echo "Infrastructure: GitHub Actions with Ubuntu-latest."
             echo
             echo "--- LOG EXCERPT ---"

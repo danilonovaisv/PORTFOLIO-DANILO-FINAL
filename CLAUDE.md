@@ -3,6 +3,7 @@
 > **Projeto:** Portfolio institucional de Danilo Novais  
 > **Codinome:** Ghost Era / Ghost System  
 > **URL:** https://portfoliodanilo.com  
+> **Stack:** Next.js 16.3.8 · React 19.3.0 · TypeScript 7.0.2 · Node.js 22 · pnpm 12.9.1
 > **Governança:** Padrão Anthropic Tool & Skill Protocol
 
 ---

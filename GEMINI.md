@@ -23,7 +23,7 @@ Este é o documento de governança supremo deste workspace. Todas as operações
 
 ### Tech Stack & Performance
 
-- **Framework:** Next.js 16 (App Router, standalone output, Turbopack).
+- **Framework:** Next.js 16.3.8 (App Router, standalone output, Turbopack, Node.js 22, pnpm 12.9.1).
 - **Motor 3D:** R3F (React Three Fiber) + Three.js.
 - **Performance:** Mandato de 60FPS. Use `InstancedMesh` e evite alocações no `useFrame`.
 - **Estética:** Ghost Blue (`#0048ff`), Void Black (`#040013`), Backdrop Blur e 'TT Norms Pro'.
