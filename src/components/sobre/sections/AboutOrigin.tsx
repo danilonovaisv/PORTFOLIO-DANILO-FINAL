@@ -1,18 +1,19 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import {
   ORIGIN_CONTENT,
   ORIGIN_INTRO,
   ORIGIN_BRIDGE,
+  ORIGIN_PARTICLE_STAGES,
 } from '@/components/sobre/origin/data';
 import {
   OriginInfoBlock,
   OriginStickyGallery,
 } from '@/components/sobre/origin/OriginComponents';
-import { useOriginAnimations } from '@/components/sobre/origin/useOriginAnimations';
+import { useOriginParticleAnimations } from '@/components/sobre/origin/useOriginParticleAnimations';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 export function AboutOrigin() {
@@ -51,13 +52,21 @@ export function AboutOrigin() {
     { ...ORIGIN_CONTENT[3], img: originImage4, priority: false },
   ];
 
-  useOriginAnimations({
+  const [bgColor, setBgColor] = useState(ORIGIN_PARTICLE_STAGES[0].bgColor);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--origin-bg-color', bgColor);
+  }, [bgColor]);
+
+  useOriginParticleAnimations({
     isClient: true,
     archRef,
     archRightRef,
     contentCount: contentBlocks.length,
     prefersReducedMotion: !!prefersReducedMotion,
-    onActiveSceneChange: setActiveSceneIndex,
+    particleStages: ORIGIN_PARTICLE_STAGES,
+    onActiveStageChange: setActiveSceneIndex,
+    onBgColorChange: setBgColor,
   });
 
   return (
@@ -65,6 +74,11 @@ export function AboutOrigin() {
       className="relative w-full transition-colors duration-bg"
       ref={containerRef}
       aria-labelledby="origin-heading"
+      style={
+        {
+          backgroundColor: `var(--origin-bg-color, ${ORIGIN_PARTICLE_STAGES[0].bgColor})`,
+        } as React.CSSProperties
+      }
     >
       <div className="std-grid py-16 md:py-24">
         {/* Editorial Section Introduction */}
