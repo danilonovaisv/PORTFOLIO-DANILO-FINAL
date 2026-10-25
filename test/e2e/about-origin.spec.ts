@@ -43,9 +43,10 @@ test.describe('About Origin Section', () => {
     const stickyGallery = page.locator('[data-testid="origin-sticky-gallery"]');
     await expect(stickyGallery).toBeAttached();
 
-    // 5. Verificar presença das 4 composições com acessibilidade correta (role="img")
+    // 5. Verificar presença da composição ativa com acessibilidade correta (role="img")
+    // O OriginStickyGallery renderiza apenas a cena ativa por vez (morphing)
     const scenes = stickyGallery.locator('[role="img"]');
-    await expect(scenes).toHaveCount(4);
+    await expect(scenes).toHaveCount(1);
   });
 
   test('should support prefers-reduced-motion correctly', async ({ page }) => {

@@ -439,7 +439,10 @@ html.admin-page body {
     0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
   /* shadow-lg */
-  transition: all 0.3s var(--ease-ghost);
+  transition:
+    background-color 0.3s var(--ease-ghost),
+    box-shadow 0.3s var(--ease-ghost),
+    transform 0.3s var(--ease-ghost);
 }
 
 /* Group hover effect for cards */
