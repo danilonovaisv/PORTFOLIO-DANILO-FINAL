@@ -32,12 +32,8 @@ const ContactForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [shouldLoadTurnstile, setShouldLoadTurnstile] = useState(false);
+  const [isPlaywrightMock, setIsPlaywrightMock] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
-
-  const isPlaywrightMock =
-    typeof window !== 'undefined' &&
-    (!!(window as any).__IS_PLAYWRIGHT_MOCK__ ||
-      process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true');
 
   useEffect(() => {
     window.onTurnstileSuccess = (token: string) => {
@@ -46,6 +42,15 @@ const ContactForm: React.FC = () => {
     return () => {
       delete window.onTurnstileSuccess;
     };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsPlaywrightMock(
+        (window as any).__IS_PLAYWRIGHT_MOCK__ === true ||
+          process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true'
+      );
+    }
   }, []);
 
   useEffect(() => {

@@ -36,13 +36,15 @@ export function useOriginParticleAnimations({
   const triggersRef = useRef<ScrollTrigger[]>([]);
   const ctxRef = useRef<gsap.Context | null>(null);
   const lastStageRef = useRef(-1);
+  const isMountedRef = useRef(true);
 
   useEffect(() => {
     if (!isClient) return;
+    isMountedRef.current = true;
 
     const mm = gsap.matchMedia();
 
-    mm.add('(min-width: 1024px)', () => {
+    const desktopCleanup = mm.add('(min-width: 1024px)', () => {
       const archEl = archRef.current;
       const archRightEl = archRightRef.current;
 
@@ -60,6 +62,7 @@ export function useOriginParticleAnimations({
         onBgColorChange?.(particleStages[0].bgColor);
 
         const setInitialState = () => {
+          if (!isMountedRef.current) return;
           gsap.set(titles, {
             opacity: 0.45,
             y: MOTION_TOKENS.offset.subtle,
@@ -107,6 +110,8 @@ export function useOriginParticleAnimations({
           stageIndex: number,
           _direction: 'up' | 'down'
         ) {
+          if (!isMountedRef.current) return;
+
           if (stageIndex >= contentCount) {
             // Past last block - hide last text
             const lastTitle = titles[contentCount - 1];
@@ -222,19 +227,21 @@ export function useOriginParticleAnimations({
         triggersRef.current = triggers;
 
         return () => {
-          triggers.forEach((trigger) => trigger.kill());
+          triggers.forEach((trigger) => {
+            if (trigger) trigger.kill();
+          });
         };
       }, archEl);
 
       ctxRef.current = ctx;
 
       return () => {
-        ctx.revert();
+        if (ctx) ctx.revert();
       };
     });
 
     // Mobile: simple viewport-based reveal
-    mm.add('(max-width: 1023px)', () => {
+    const mobileCleanup = mm.add('(max-width: 1023px)', () => {
       const archEl = archRef.current;
       if (!archEl) return;
 
@@ -244,6 +251,7 @@ export function useOriginParticleAnimations({
         const copies = archEl.querySelectorAll('[data-origin-copy]');
 
         const setInitialState = () => {
+          if (!isMountedRef.current) return;
           gsap.set(titles, {
             opacity: 0,
             y: MOTION_TOKENS.offset.standard,
@@ -267,6 +275,7 @@ export function useOriginParticleAnimations({
             trigger: block,
             start: 'top 80%',
             onEnter: () => {
+              if (!isMountedRef.current) return;
               const title = titles[index];
               const copy = copies[index];
               if (title) {
@@ -297,6 +306,7 @@ export function useOriginParticleAnimations({
               onBgColorChange?.(stage.bgColor);
             },
             onEnterBack: () => {
+              if (!isMountedRef.current) return;
               const title = titles[index];
               const copy = copies[index];
               if (title) {
@@ -329,13 +339,29 @@ export function useOriginParticleAnimations({
           });
         });
 
-        return () => ctx.revert();
+        return () => {
+          if (ctx) ctx.revert();
+        };
       }, archEl);
 
       ctxRef.current = ctx;
     });
 
-    return () => mm.revert();
+    return () => {
+      isMountedRef.current = false;
+      // mm is a MatchMedia object, use its revert method if available
+      try {
+        desktopCleanup?.revert?.();
+        mobileCleanup?.revert?.();
+      } catch {
+        // ignore cleanup errors
+      }
+      // Kill any remaining triggers
+      triggersRef.current.forEach((trigger) => {
+        if (trigger) trigger.kill();
+      });
+      triggersRef.current = [];
+    };
   }, [
     isClient,
     archRef,
