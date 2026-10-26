@@ -1,22 +1,22 @@
 export const dynamic = 'force-static';
 
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import type { Metadata } from 'next';
-import {
-  AboutHero,
-  AboutOrigin,
-  AboutWhatIDo,
-  AboutMethod,
-  AboutClosing,
-  AboutProof,
-  ManifestoScrollSection,
-  StickyContactCTA,
-} from '@/components/sobre/sections';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 import JsonLd from '@/components/ui/JsonLd';
 
 import { BRAND } from '@/config/brand';
 import { normalizeTemplatedTitle, toCanonicalUrl } from '@/lib/seo';
+
+// Dynamic imports for heavy components - code split to reduce initial bundle
+const AboutHero = lazy(() => import('@/components/sobre/sections/AboutHero').then(m => ({ default: m.AboutHero })));
+const AboutOrigin = lazy(() => import('@/components/sobre/sections/AboutOrigin').then(m => ({ default: m.AboutOrigin })));
+const AboutWhatIDo = lazy(() => import('@/components/sobre/sections/AboutWhatIDo').then(m => ({ default: m.AboutWhatIDo })));
+const AboutMethod = lazy(() => import('@/components/sobre/sections/AboutMethod').then(m => ({ default: m.AboutMethod })));
+const AboutClosing = lazy(() => import('@/components/sobre/sections/AboutClosing').then(m => ({ default: m.AboutClosing })));
+const AboutProof = lazy(() => import('@/components/sobre/sections/AboutProof').then(m => ({ default: m.AboutProof })));
+const ManifestoScrollSection = lazy(() => import('@/components/sobre/sections/ManifestoScrollSection').then(m => ({ default: m.ManifestoScrollSection })));
+const StickyContactCTA = lazy(() => import('@/components/sobre/sections/StickyContactCTA').then(m => ({ default: m.StickyContactCTA })));
 
 /** Minimal skeleton fallback for Suspense boundaries */
 function SectionSkeleton({ label }: { label: string }) {
@@ -101,7 +101,9 @@ export default function AboutPage() {
         <AboutMethod />
       </Suspense>
       {/* Seção 05 — O Que Me Move (Manifesto) */}
-      <ManifestoScrollSection />
+      <Suspense fallback={<SectionSkeleton label="Manifesto" />}>
+        <ManifestoScrollSection />
+      </Suspense>
       {/* Seção 06 — Prova & Autoridade (âncora antes da decisão) */}
       <Suspense fallback={<SectionSkeleton label="Prova" />}>
         <AboutProof />
@@ -114,7 +116,9 @@ export default function AboutPage() {
         <SiteClosure />
       </Suspense>
       {/* CTA persistente de conversão */}
-      <StickyContactCTA />
+      <Suspense fallback={<SectionSkeleton label="CTA" />}>
+        <StickyContactCTA />
+      </Suspense>
     </main>
   );
 }
