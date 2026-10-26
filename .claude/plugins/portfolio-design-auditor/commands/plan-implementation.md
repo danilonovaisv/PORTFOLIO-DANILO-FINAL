@@ -10,6 +10,7 @@ Read the requested audit.
 Before planning, verify that the target implementation still reasonably matches the context recorded by the audit.
 
 Inspect current:
+
 - source;
 - relevant documentation;
 - agents;
@@ -21,6 +22,7 @@ If material changes make the audit unreliable, mark:
 Explain the conflicting evidence and stop before producing unsafe implementation instructions.
 
 Otherwise:
+
 1. identify accepted findings;
 2. identify dependencies;
 3. discover relevant skills;

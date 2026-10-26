@@ -229,10 +229,10 @@ function getColorFromPalette(
   // Secondary: slightly darker teal
   // Accent: bright white/blue highlights
   const colors = [
-    palette.primary,   // Main cyan/teal
-    palette.accent,    // Brighter cyan
-    palette.detail1,   // White/blue highlight
-    palette.detail2,   // Darker teal
+    palette.primary, // Main cyan/teal
+    palette.accent, // Brighter cyan
+    palette.detail1, // White/blue highlight
+    palette.detail2, // Darker teal
     palette.secondary, // Void black (background)
   ];
   const idx = Math.floor(phase * colors.length) % colors.length;
@@ -521,7 +521,8 @@ export function OriginParticleScene({
         const fpx = Math.abs(fx) * width;
         const fpy = Math.abs(fy) * height;
         const fsize = 0.5 + Math.abs(Math.sin(i * 4.14159 + fieldTime)) * 1.5;
-        const falpha = 0.2 + Math.abs(Math.sin(i * 2.71828 + fieldTime * 0.5)) * 0.4;
+        const falpha =
+          0.2 + Math.abs(Math.sin(i * 2.71828 + fieldTime * 0.5)) * 0.4;
 
         ctx.beginPath();
         ctx.arc(fpx, fpy, fsize, 0, Math.PI * 2);

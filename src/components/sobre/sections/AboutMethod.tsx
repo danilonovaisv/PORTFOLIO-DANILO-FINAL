@@ -25,11 +25,11 @@ export function AboutMethod() {
 
   const activePosterDesk = getAssetUrl(DEFAULT_VIDEO_POSTER, {
     width: 1920,
-    quality: 60,
+    quality: 50,
   });
   const activePosterMobile = getAssetUrl(DEFAULT_VIDEO_POSTER, {
     width: 1080,
-    quality: 60,
+    quality: 50,
   });
 
   return (

@@ -14,20 +14,20 @@ The Portfolio is the product. External references and `apple-design` are evaluat
 
 ## Included skills
 
-| Skill | Role in plugin |
-|---|---|
-| `portfolio-design-audit` | General evidence-based portfolio audit and routing |
-| `apple-design` | Principles / evaluation lens |
-| `animation-vocabulary` | Terminology normalization |
-| `find-animation-opportunities` | Read-only opportunity discovery |
-| `improve-animations` | Broad motion audit + implementation planning |
-| `review-animations` | Localized review / validation |
-| `animate` | Approved web motion implementation |
-| `animate-expo` | Approved React Native / Expo motion implementation |
-| `mobile-native` | Mobile web/PWA platform audit + fixes |
-| `pick-ui-library` | Explicit dependency/library decision support |
-| `prototype` | Approved UI exploration |
-| `ask-sonner` | Sonner implementation/troubleshooting support |
+| Skill                          | Role in plugin                                     |
+| ------------------------------ | -------------------------------------------------- |
+| `portfolio-design-audit`       | General evidence-based portfolio audit and routing |
+| `apple-design`                 | Principles / evaluation lens                       |
+| `animation-vocabulary`         | Terminology normalization                          |
+| `find-animation-opportunities` | Read-only opportunity discovery                    |
+| `improve-animations`           | Broad motion audit + implementation planning       |
+| `review-animations`            | Localized review / validation                      |
+| `animate`                      | Approved web motion implementation                 |
+| `animate-expo`                 | Approved React Native / Expo motion implementation |
+| `mobile-native`                | Mobile web/PWA platform audit + fixes              |
+| `pick-ui-library`              | Explicit dependency/library decision support       |
+| `prototype`                    | Approved UI exploration                            |
+| `ask-sonner`                   | Sonner implementation/troubleshooting support      |
 
 ## Routing
 

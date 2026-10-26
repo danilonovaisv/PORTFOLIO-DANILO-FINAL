@@ -10,6 +10,7 @@ Implement the requested approved audit.
 ## Preflight
 
 Before editing:
+
 1. read the complete audit;
 2. inspect current source;
 3. inspect relevant project documentation;
@@ -29,6 +30,7 @@ and explain what must be reconciled.
 Execute tasks according to their dependency graph.
 
 For each task:
+
 1. load required skills;
 2. use the appropriate available agent;
 3. verify target files before editing;
@@ -48,6 +50,7 @@ A dependent task must not proceed when a blocking prerequisite failed validation
 ## Completion report
 
 For each task record:
+
 - Status
 - Files Changed
 - Components Changed

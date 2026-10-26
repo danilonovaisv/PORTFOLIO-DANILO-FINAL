@@ -1,6 +1,7 @@
 ---
 name: pick-ui-library
-description: Seleciona biblioteca de UI para uma necessidade frontend depois de inspecionar
+description:
+  Seleciona biblioteca de UI para uma necessidade frontend depois de inspecionar
   dependências e constraints do projeto. Use explicitamente quando uma nova dependência
   pode ser necessária; prefere o que já existe e documenta impacto. Não é um catálogo
   automático.
@@ -65,50 +66,50 @@ O conteúdo abaixo preserva a orientação técnica da skill fornecida pelo usu�
 
 ### UI components & primitives
 
-| Task | Library |
-| --- | --- |
-| Unstyled, accessible UI components (dialogs, popovers, menus, selects…) | [base-ui](https://base-ui.com) |
-| Command menus (⌘K palettes) | [cmdk](https://cmdk.paco.me) |
-| Toasts / notifications | [Sonner](https://sonner.emilkowal.ski) |
-| One-time password / verification code inputs | [input-otp](https://input-otp.rodz.dev) |
-| Customizable GUIs / control panels | [Leva](https://github.com/pmndrs/leva) — [dialkit](https://joshpuckett.me/dialkit) is an alternative |
+| Task                                                                    | Library                                                                                              |
+| ----------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Unstyled, accessible UI components (dialogs, popovers, menus, selects…) | [base-ui](https://base-ui.com)                                                                       |
+| Command menus (⌘K palettes)                                             | [cmdk](https://cmdk.paco.me)                                                                         |
+| Toasts / notifications                                                  | [Sonner](https://sonner.emilkowal.ski)                                                               |
+| One-time password / verification code inputs                            | [input-otp](https://input-otp.rodz.dev)                                                              |
+| Customizable GUIs / control panels                                      | [Leva](https://github.com/pmndrs/leva) — [dialkit](https://joshpuckett.me/dialkit) is an alternative |
 
 ### Motion & visuals
 
-| Task | Library |
-| --- | --- |
+| Task                                                               | Library                                      |
+| ------------------------------------------------------------------ | -------------------------------------------- |
 | General-purpose animation (springs, layout animations, enter/exit) | [motion](https://motion.dev) (Framer Motion) |
-| Animating numbers (counters, prices, stats) | [NumberFlow](https://number-flow.barvian.me) |
-| Animated text components | [torph](https://torph.lochie.me/) |
-| 3D globes | [Cobe](https://cobe.vercel.app) |
-| Dynamic OG images (HTML/CSS → SVG/PNG) | [Satori](https://github.com/vercel/satori) |
-| Syntax highlighting | [shiki](https://shiki.style) |
+| Animating numbers (counters, prices, stats)                        | [NumberFlow](https://number-flow.barvian.me) |
+| Animated text components                                           | [torph](https://torph.lochie.me/)            |
+| 3D globes                                                          | [Cobe](https://cobe.vercel.app)              |
+| Dynamic OG images (HTML/CSS → SVG/PNG)                             | [Satori](https://github.com/vercel/satori)   |
+| Syntax highlighting                                                | [shiki](https://shiki.style)                 |
 
 Reach for motion when you need springs, layout animations, exit animations, or gesture-driven values. A simple hover or fade doesn't need it — plain CSS transitions are the right tool there.
 
 ### Charts
 
-| Task | Library |
-| --- | --- |
-| Real-time / streaming charts | [Liveline](https://github.com/benjitaylor/liveline) |
-| General charts (static or interactive dashboards) | [recharts](https://recharts.org) |
+| Task                                              | Library                                             |
+| ------------------------------------------------- | --------------------------------------------------- |
+| Real-time / streaming charts                      | [Liveline](https://github.com/benjitaylor/liveline) |
+| General charts (static or interactive dashboards) | [recharts](https://recharts.org)                    |
 
 The split: if data points arrive live and the chart scrolls with time, use Liveline. Everything else is recharts.
 
 ### Interaction & performance
 
-| Task | Library |
-| --- | --- |
-| Drag and drop | [dnd kit](https://dndkit.com) |
+| Task                                      | Library                          |
+| ----------------------------------------- | -------------------------------- |
+| Drag and drop                             | [dnd kit](https://dndkit.com)    |
 | Virtualization (long lists, large tables) | [Virtuoso](https://virtuoso.dev) |
 
 ### State & styling
 
-| Task | Library |
-| --- | --- |
-| State management | [zustand](https://zustand.docs.pmnd.rs) |
-| Constructing `className` strings conditionally | [clsx](https://github.com/lukeed/clsx) |
-| Type-safe, variant-driven styling for Tailwind | [cva](https://cva.style) |
+| Task                                           | Library                                                   |
+| ---------------------------------------------- | --------------------------------------------------------- |
+| State management                               | [zustand](https://zustand.docs.pmnd.rs)                   |
+| Constructing `className` strings conditionally | [clsx](https://github.com/lukeed/clsx)                    |
+| Type-safe, variant-driven styling for Tailwind | [cva](https://cva.style)                                  |
 | Theme switching / dark mode (no flash on load) | [next-themes](https://github.com/pacocoursey/next-themes) |
 
 The styling split: clsx for ad-hoc conditional classes; cva when a component has real variants (size, intent, state) that deserve a typed API. They compose — cva uses clsx-style inputs internally.

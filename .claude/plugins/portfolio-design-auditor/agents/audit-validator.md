@@ -20,6 +20,7 @@ Do not introduce unrelated improvements.
 ## Inputs
 
 Read:
+
 - original audit;
 - implementation plan;
 - relevant task;
@@ -29,6 +30,7 @@ Read:
 ## Validate against specification
 
 For every implemented task evaluate:
+
 - Acceptance Criteria
 - Expected Behavior
 - Design Intent
@@ -42,6 +44,7 @@ For every implemented task evaluate:
 
 Check affected areas for unintended changes.
 Pay particular attention to:
+
 - shared components;
 - global primitives;
 - responsive behavior;
@@ -55,6 +58,7 @@ Pay particular attention to:
 ## Motion validation
 
 When relevant verify:
+
 - trigger;
 - initial state;
 - active state;
@@ -69,6 +73,7 @@ When relevant verify:
 ## Status
 
 Assign one status per task:
+
 - **PASS**
 - **PASS WITH NOTES**
 - **REQUIRES REVISION**
@@ -84,6 +89,7 @@ Do not reopen unrelated audit findings.
 ## Output
 
 Produce:
+
 1. Validation Target
 2. Task Status
 3. Acceptance Criteria Results

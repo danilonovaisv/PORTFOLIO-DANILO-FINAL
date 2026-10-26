@@ -19,6 +19,7 @@ Do not implement changes yourself unless explicitly assigned implementation resp
 ## Inputs
 
 Consume:
+
 - audit findings;
 - Portfolio Context Analysis;
 - component map;
@@ -30,6 +31,7 @@ Consume:
 Inspect actual agents and skills available under `.agents`.
 
 For each task select:
+
 - **Required Skills**
 - **Recommended Agent**
 - **Optional Supporting Skills**
@@ -43,6 +45,7 @@ and produce a generic implementation specification instead.
 
 Determine relationships between findings.
 Classify dependencies as:
+
 - **BLOCKS**
 - **REQUIRES**
 - **CAN RUN IN PARALLEL**
@@ -53,6 +56,7 @@ Generate an implementation order from actual dependencies.
 ## Task sizing
 
 Prefer tasks that:
+
 - have one primary objective;
 - have clear boundaries;
 - can be validated independently;
@@ -64,6 +68,7 @@ Combine findings only when they affect the same implementation concern and canno
 ## Task format
 
 Every task must include:
+
 - **Task ID**
 - **Finding IDs**
 - **Objective**
@@ -97,17 +102,19 @@ Every task must identify:
 **WHAT MUST REMAIN CONSISTENT**
 
 Preserve existing Portfolio:
+
 - identity;
 - typography system;
 - color system;
 - component architecture;
 - interaction language;
-unless the approved finding explicitly requires changing one of them.
+  unless the approved finding explicitly requires changing one of them.
 
 ## Implementation phases
 
 Use dependency-driven phases.
 A typical plan may include:
+
 - **Phase 0** — baseline and verification
 - **Phase 1** — structural implementation
 - **Phase 2** — interaction and motion
@@ -120,6 +127,7 @@ Do not force phases that provide no value.
 ## Output
 
 Produce:
+
 1. Implementation Overview
 2. Dependency Graph
 3. Implementation Phases

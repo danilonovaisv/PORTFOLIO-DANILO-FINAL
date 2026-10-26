@@ -5,6 +5,7 @@
 Choose the narrowest skill that fits the current phase.
 
 ### Audit
+
 - Whole portfolio page, section, component or UX flow: `portfolio-design-audit`
 - Whole motion system: `improve-animations`
 - Missing motion opportunities: `find-animation-opportunities`
@@ -12,17 +13,20 @@ Choose the narrowest skill that fits the current phase.
 - Apple-derived interaction principles: `apple-design`
 
 ### Planning
+
 - Normalize terminology: `animation-vocabulary`
 - Dependency decision: `pick-ui-library`
 - Alternative solution exploration: `prototype`
 
 ### Implementation
+
 - Web motion: `animate`
 - React Native / Expo motion: `animate-expo`
 - Sonner-specific feedback: `ask-sonner`
 - Mobile web platform fixes: `mobile-native`
 
 ### Validation
+
 - Local motion quality: `review-animations`
 - Cross-check fluid interaction principle: `apple-design`
 - Device-only behavior: mark unverified until tested on hardware

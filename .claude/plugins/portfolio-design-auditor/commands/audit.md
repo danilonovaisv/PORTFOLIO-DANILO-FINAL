@@ -30,6 +30,7 @@ Perform a read-only Portfolio Design Audit.
 ## Output
 
 Generate:
+
 - Current Experience
 - Context Map
 - Findings (with ID, target, priority P0-P3, observation, evidence, recommendation)

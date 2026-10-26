@@ -22,6 +22,7 @@ Do not treat personal aesthetic preference as evidence.
 ## Required context
 
 Before auditing, consume:
+
 - Portfolio Context Analysis;
 - relevant project documentation (`.context/DOCS-PORTFOLIO-PAGES`, `.context/GHOST-DESIGN-SYSTEM.md`);
 - actual implementation evidence;
@@ -34,7 +35,9 @@ Before auditing, consume:
 Evaluate only relevant dimensions.
 
 ### Visual Design
+
 Review:
+
 - hierarchy;
 - composition;
 - alignment;
@@ -46,7 +49,9 @@ Review:
 - consistency.
 
 ### Typography
+
 Review:
+
 - hierarchy;
 - readability;
 - line length;
@@ -55,7 +60,9 @@ Review:
 - relationship between display and functional text.
 
 ### UX
+
 Review:
+
 - comprehension;
 - discoverability;
 - navigation;
@@ -65,7 +72,9 @@ Review:
 - continuity.
 
 ### Interaction
+
 Review:
+
 - affordances;
 - hover;
 - pointer;
@@ -76,7 +85,9 @@ Review:
 - interaction conflicts.
 
 ### Motion
+
 Review:
+
 - purpose;
 - timing;
 - easing;
@@ -89,7 +100,9 @@ Review:
 - performance.
 
 ### Accessibility
+
 Review relevant:
+
 - keyboard behavior;
 - focus;
 - contrast;
@@ -98,9 +111,11 @@ Review relevant:
 - alternative interaction paths.
 
 ### Responsive Design
+
 Review whether hierarchy and intent survive across viewport and input changes.
 
 ### Apple Design
+
 Use principles actually available from the project’s `apple-design` skill.
 Do not invent Apple rules.
 Do not recommend making the Portfolio visually resemble Apple products simply because `apple-design` is active.
@@ -109,6 +124,7 @@ Use applicable principles as evaluation criteria.
 ## Reference comparison
 
 When a Reference Analysis exists, evaluate whether each transferable principle:
+
 1. solves a real Portfolio problem;
 2. improves an existing experience;
 3. fits the Portfolio identity;
@@ -122,6 +138,7 @@ Reject reference patterns that do not pass this test.
 Create a finding only when it produces actionable value.
 
 Each finding must contain:
+
 - **ID**
 - **Target**
 - **Category**
@@ -141,6 +158,7 @@ Each finding must contain:
 - **Validation**
 
 ### Priority Levels
+
 - **P0** — blocker.
 - **P1** — significant issue.
 - **P2** — meaningful enhancement.

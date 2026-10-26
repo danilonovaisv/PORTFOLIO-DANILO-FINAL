@@ -5,11 +5,11 @@
 description: Maps Portfolio Danilo documentation, source code, components, design patterns and technical constraints before a design audit or implementation.
 capabilities:
 
-* Repository context analysis
-* Documentation analysis
-* Component mapping
-* Design system discovery
-* Technical constraint discovery
+- Repository context analysis
+- Documentation analysis
+- Component mapping
+- Design system discovery
+- Technical constraint discovery
 
 ⸻
 
@@ -37,18 +37,18 @@ Target discovery
 
 For the requested page or section identify:
 
-* route;
-* page entry;
-* primary components;
-* child components;
-* shared components;
-* styles;
-* tokens;
-* assets;
-* animation infrastructure;
-* interaction logic;
-* responsive logic;
-* dependencies.
+- route;
+- page entry;
+- primary components;
+- child components;
+- shared components;
+- styles;
+- tokens;
+- assets;
+- animation infrastructure;
+- interaction logic;
+- responsive logic;
+- dependencies.
 
 Do not infer paths when they can be verified.
 
@@ -96,16 +96,16 @@ Design system discovery
 
 Identify existing:
 
-* colors;
-* typography;
-* spacing;
-* grids;
-* breakpoints;
-* tokens;
-* component conventions;
-* animation utilities;
-* easing conventions;
-* reusable primitives.
+- colors;
+- typography;
+- spacing;
+- grids;
+- breakpoints;
+- tokens;
+- component conventions;
+- animation utilities;
+- easing conventions;
+- reusable primitives.
 
 Prefer existing systems over introducing new ones.
 
@@ -113,14 +113,14 @@ Technical constraints
 
 Identify relevant:
 
-* framework;
-* rendering model;
-* animation libraries;
-* CSS strategy;
-* asset pipeline;
-* responsive strategy;
-* accessibility utilities;
-* performance-sensitive areas.
+- framework;
+- rendering model;
+- animation libraries;
+- CSS strategy;
+- asset pipeline;
+- responsive strategy;
+- accessibility utilities;
+- performance-sensitive areas.
 
 Only report constraints supported by repository evidence.
 
@@ -181,12 +181,12 @@ Clearly mark unknown information as UNKNOWN rather than guessing.
 description: Performs evidence-based design, UX/UI, interaction, accessibility and motion audits for Portfolio Danilo.
 capabilities:
 
-* Design auditing
-* UX/UI review
-* Motion review
-* Interaction review
-* Accessibility review
-* Finding generation
+- Design auditing
+- UX/UI review
+- Motion review
+- Interaction review
+- Accessibility review
+- Finding generation
 
 ⸻
 
@@ -202,12 +202,12 @@ Required context
 
 Before auditing, consume:
 
-* Portfolio Context Analysis;
-* relevant project documentation;
-* actual implementation evidence;
-* Reference Analysis when supplied;
-* relevant project skills;
-* apple-design when available.
+- Portfolio Context Analysis;
+- relevant project documentation;
+- actual implementation evidence;
+- Reference Analysis when supplied;
+- relevant project skills;
+- apple-design when available.
 
 Audit dimensions
 
@@ -217,77 +217,77 @@ Visual Design
 
 Review:
 
-* hierarchy;
-* composition;
-* alignment;
-* scale;
-* rhythm;
-* contrast;
-* whitespace;
-* density;
-* consistency.
+- hierarchy;
+- composition;
+- alignment;
+- scale;
+- rhythm;
+- contrast;
+- whitespace;
+- density;
+- consistency.
 
 Typography
 
 Review:
 
-* hierarchy;
-* readability;
-* line length;
-* scale;
-* responsive typography;
-* relationship between display and functional text.
+- hierarchy;
+- readability;
+- line length;
+- scale;
+- responsive typography;
+- relationship between display and functional text.
 
 UX
 
 Review:
 
-* comprehension;
-* discoverability;
-* navigation;
-* user agency;
-* cognitive load;
-* feedback;
-* continuity.
+- comprehension;
+- discoverability;
+- navigation;
+- user agency;
+- cognitive load;
+- feedback;
+- continuity.
 
 Interaction
 
 Review:
 
-* affordances;
-* hover;
-* pointer;
-* touch;
-* focus;
-* state changes;
-* feedback;
-* interaction conflicts.
+- affordances;
+- hover;
+- pointer;
+- touch;
+- focus;
+- state changes;
+- feedback;
+- interaction conflicts.
 
 Motion
 
 Review:
 
-* purpose;
-* timing;
-* easing;
-* choreography;
-* continuity;
-* interruption;
-* scroll coupling;
-* pointer coupling;
-* reduced-motion behavior;
-* performance.
+- purpose;
+- timing;
+- easing;
+- choreography;
+- continuity;
+- interruption;
+- scroll coupling;
+- pointer coupling;
+- reduced-motion behavior;
+- performance.
 
 Accessibility
 
 Review relevant:
 
-* keyboard behavior;
-* focus;
-* contrast;
-* motion sensitivity;
-* semantics;
-* alternative interaction paths.
+- keyboard behavior;
+- focus;
+- contrast;
+- motion sensitivity;
+- semantics;
+- alternative interaction paths.
 
 Responsive Design
 
@@ -390,11 +390,11 @@ Do not modify application code.
 description: Converts approved Portfolio design audit findings into dependency-aware implementation tasks for existing IDE agents.
 capabilities:
 
-* Implementation planning
-* Agent selection
-* Skill selection
-* Dependency planning
-* Acceptance criteria generation
+- Implementation planning
+- Agent selection
+- Skill selection
+- Dependency planning
+- Acceptance criteria generation
 
 ⸻
 
@@ -408,11 +408,11 @@ Inputs
 
 Consume:
 
-* audit findings;
-* Portfolio Context Analysis;
-* component map;
-* capability inventory;
-* relevant documentation.
+- audit findings;
+- Portfolio Context Analysis;
+- component map;
+- capability inventory;
+- relevant documentation.
 
 Capability selection
 
@@ -454,10 +454,10 @@ Task sizing
 
 Prefer tasks that:
 
-* have one primary objective;
-* have clear boundaries;
-* can be validated independently;
-* minimize unrelated code changes.
+- have one primary objective;
+- have clear boundaries;
+- can be validated independently;
+- minimize unrelated code changes.
 
 Split overly broad findings.
 
@@ -523,11 +523,11 @@ WHAT MUST REMAIN CONSISTENT.
 
 Preserve existing Portfolio:
 
-* identity;
-* typography system;
-* color system;
-* component architecture;
-* interaction language;
+- identity;
+- typography system;
+- color system;
+- component architecture;
+- interaction language;
 
 unless the approved finding explicitly requires changing one of them.
 
@@ -576,11 +576,11 @@ Rollback Considerations
 description: Validates implemented Portfolio audit tasks against approved findings, acceptance criteria and regression risks.
 capabilities:
 
-* Design validation
-* Implementation validation
-* Regression review
-* Accessibility validation
-* Motion validation
+- Design validation
+- Implementation validation
+- Regression review
+- Accessibility validation
+- Motion validation
 
 ⸻
 
@@ -596,11 +596,11 @@ Inputs
 
 Read:
 
-* original audit;
-* implementation plan;
-* relevant task;
-* completion report;
-* current implementation.
+- original audit;
+- implementation plan;
+- relevant task;
+- completion report;
+- current implementation.
 
 Validate against specification
 
@@ -628,30 +628,30 @@ Check affected areas for unintended changes.
 
 Pay particular attention to:
 
-* shared components;
-* global primitives;
-* responsive behavior;
-* navigation;
-* pointer behavior;
-* touch behavior;
-* keyboard behavior;
-* motion;
-* layout stability.
+- shared components;
+- global primitives;
+- responsive behavior;
+- navigation;
+- pointer behavior;
+- touch behavior;
+- keyboard behavior;
+- motion;
+- layout stability.
 
 Motion validation
 
 When relevant verify:
 
-* trigger;
-* initial state;
-* active state;
-* exit state;
-* duration;
-* easing;
-* interruption;
-* reduced motion;
-* responsive behavior;
-* interaction conflicts.
+- trigger;
+- initial state;
+- active state;
+- exit state;
+- duration;
+- easing;
+- interruption;
+- reduced motion;
+- responsive behavior;
+- interaction conflicts.
 
 Status
 
@@ -720,14 +720,14 @@ Use additional skills only when supported by the task.
 
 Analyze relevant:
 
-* design;
-* UX;
-* UI;
-* interaction;
-* motion;
-* responsive behavior;
-* accessibility;
-* implementation quality.
+- design;
+- UX;
+- UI;
+- interaction;
+- motion;
+- responsive behavior;
+- accessibility;
+- implementation quality.
 
 Generate evidence-based findings.
 
@@ -778,10 +778,10 @@ Before planning, verify that the target implementation still reasonably matches 
 
 Inspect current:
 
-* source;
-* relevant documentation;
-* agents;
-* skills.
+- source;
+- relevant documentation;
+- agents;
+- skills.
 
 If material changes make the audit unreliable, mark:
 
@@ -897,25 +897,25 @@ description: Validate Portfolio implementation work against an approved design a
 
 Read:
 
-* original audit;
-* implementation plan;
-* completion information;
-* current implementation.
+- original audit;
+- implementation plan;
+- completion information;
+- current implementation.
 
 Validate every implemented task independently.
 
 Check applicable:
 
-* visual result;
-* UX behavior;
-* interaction;
-* motion;
-* responsive behavior;
-* keyboard behavior;
-* accessibility;
-* reduced motion;
-* regressions;
-* performance-sensitive behavior.
+- visual result;
+- UX behavior;
+- interaction;
+- motion;
+- responsive behavior;
+- keyboard behavior;
+- accessibility;
+- reduced motion;
+- regressions;
+- performance-sensitive behavior.
 
 Compare actual results against the written acceptance criteria.
 
@@ -963,14 +963,14 @@ Evidence
 
 Strong evidence may include:
 
-* actual interface behavior;
-* source implementation;
-* documented project intent;
-* accessibility behavior;
-* interaction inconsistency;
-* responsive failure;
-* performance implications;
-* applicable design principles.
+- actual interface behavior;
+- source implementation;
+- documented project intent;
+- accessibility behavior;
+- interaction inconsistency;
+- responsive failure;
+- performance implications;
+- applicable design principles.
 
 Audit dimensions
 
@@ -1249,12 +1249,12 @@ Stale audit
 
 Mark an audit STALE when repository changes materially invalidate:
 
-* target paths;
-* component assumptions;
-* architecture assumptions;
-* design system assumptions;
-* dependencies;
-* task ordering.
+- target paths;
+- component assumptions;
+- architecture assumptions;
+- design system assumptions;
+- dependencies;
+- task ordering.
 
 Do not blindly implement a stale audit.
 
@@ -1493,26 +1493,25 @@ Há uma melhoria que eu recomendo antes de instalar: colocar o plugin dentro do 
 O fluxo final fica:
 
 URL externa (opcional)
-        ↓
+↓
 Reference Analyzer
-        ↓
+↓
 Portfolio Context Analyst
-        ↓
+↓
 apple-design + skills relevantes
-        ↓
+↓
 Design Auditor
-        ↓
+↓
 AUD-001 / AUD-002 / AUD-003
-        ↓
+↓
 Implementation Planner
-        ↓
+↓
 skills + agents existentes
-        ↓
+↓
 TASK-001 / TASK-002 / TASK-003
-        ↓
+↓
 implement-audit
-        ↓
+↓
 Audit Validator
-        ↓
+↓
 PASS / REVISION / BLOCKED
-

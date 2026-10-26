@@ -2,25 +2,28 @@ const { chromium } = require('playwright');
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
-  
-  page.on('pageerror', err => console.log('PAGE ERROR:', err.message));
-  
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 900 },
+  });
+
+  page.on('pageerror', (err) => console.log('PAGE ERROR:', err.message));
+
   await page.goto('http://localhost:3000/sobre', {
     waitUntil: 'networkidle',
-    timeout: 60000
+    timeout: 60000,
   });
-  
+
   await page.waitForTimeout(3000);
-  
+
   // Scroll to Origin section
   await page.evaluate(() => {
     const section = document.querySelector('[aria-label="Origem Criativa"]');
-    if (section) section.scrollIntoView({ behavior: 'instant', block: 'start' });
+    if (section)
+      section.scrollIntoView({ behavior: 'instant', block: 'start' });
   });
-  
+
   await page.waitForTimeout(2000);
-  
+
   // Capture Origin section specifically
   const originSection = await page.evaluate(() => {
     const section = document.querySelector('[aria-label="Origem Criativa"]');
@@ -31,30 +34,30 @@ const { chromium } = require('playwright');
       top: rect.top,
       left: rect.left,
       width: rect.width,
-      height: rect.height
+      height: rect.height,
     };
   });
-  
+
   console.log('ORIGIN SECTION:', JSON.stringify(originSection, null, 2));
-  
+
   // Check all canvases in Origin section
   const originCanvases = await page.evaluate(() => {
     const section = document.querySelector('[aria-label="Origem Criativa"]');
     if (!section) return [];
     const canvases = Array.from(section.querySelectorAll('canvas'));
-    return canvases.map(c => ({
+    return canvases.map((c) => ({
       width: c.width,
       height: c.height,
       clientWidth: c.clientWidth,
       clientHeight: c.clientHeight,
       opacity: getComputedStyle(c).opacity,
       display: getComputedStyle(c).display,
-      position: c.getBoundingClientRect().top
+      position: c.getBoundingClientRect().top,
     }));
   });
-  
+
   console.log('ORIGIN CANVASES:', JSON.stringify(originCanvases, null, 2));
-  
+
   // Check if canvas has content (drawn pixels)
   const canvasContent = await page.evaluate(() => {
     const canvases = Array.from(document.querySelectorAll('canvas'));
@@ -71,26 +74,28 @@ const { chromium } = require('playwright');
         width: canvas.width,
         height: canvas.height,
         nonTransparentPixels: nonTransparent,
-        totalPixels: data.length / 4
+        totalPixels: data.length / 4,
       });
     }
     return results;
   });
-  
+
   console.log('CANVAS CONTENT:', JSON.stringify(canvasContent, null, 2));
-  
+
   // Capture Origin section screenshot
-  await page.screenshot({ 
-    path: '/tmp/origin-section.png', 
+  await page.screenshot({
+    path: '/tmp/origin-section.png',
     fullPage: false,
-    clip: originSection.found ? {
-      x: originSection.left,
-      y: originSection.top,
-      width: originSection.width,
-      height: originSection.height
-    } : undefined
+    clip: originSection.found
+      ? {
+          x: originSection.left,
+          y: originSection.top,
+          width: originSection.width,
+          height: originSection.height,
+        }
+      : undefined,
   });
-  
+
   await browser.close();
   console.log('\n=== TEST COMPLETE ===');
 })();

@@ -30,13 +30,14 @@ export function AboutHero() {
   const prefersReducedMotion = useMotionGate();
   const shouldPlayVideo = !prefersReducedMotion;
 
+  // Defer poster loading - don't preload on initial render
   const activePosterDesk = getAssetUrl(DEFAULT_VIDEO_POSTER, {
     width: 1920,
-    quality: 60,
+    quality: 50,
   });
   const activePosterMobile = getAssetUrl(DEFAULT_VIDEO_POSTER, {
     width: 1080,
-    quality: 60,
+    quality: 50,
   });
 
   const heroSrTitle = [
@@ -62,7 +63,7 @@ export function AboutHero() {
           {heroSrTitle}
         </h1>
 
-        {/* Background Video - Native responsive `<source>` implementation */}
+        {/* Background Video - Native responsive `<source>` implementation - lazy loaded */}
         <div className="relative aspect-[9/16] w-full overflow-hidden md:absolute md:inset-0 md:h-full md:aspect-auto">
           <ResponsiveVideo
             desktopSrc={RESPONSIVE_VIDEOS.aboutHero.desktop}

@@ -6,6 +6,7 @@ description: Validate Portfolio implementation work against an approved design a
 # /validate-audit
 
 Read:
+
 - original audit;
 - implementation plan;
 - completion information;
@@ -14,6 +15,7 @@ Read:
 Validate every implemented task independently.
 
 Check applicable:
+
 - visual result;
 - UX behavior;
 - interaction;
@@ -29,6 +31,7 @@ Compare actual results against the written acceptance criteria.
 Do not mark an item complete solely because code exists.
 
 Return per-task status:
+
 - **PASS**
 - **PASS WITH NOTES**
 - **REQUIRES REVISION**

@@ -9,14 +9,46 @@ import { BRAND } from '@/config/brand';
 import { normalizeTemplatedTitle, toCanonicalUrl } from '@/lib/seo';
 
 // Dynamic imports for heavy components - code split to reduce initial bundle
-const AboutHero = lazy(() => import('@/components/sobre/sections/AboutHero').then(m => ({ default: m.AboutHero })));
-const AboutOrigin = lazy(() => import('@/components/sobre/sections/AboutOrigin').then(m => ({ default: m.AboutOrigin })));
-const AboutWhatIDo = lazy(() => import('@/components/sobre/sections/AboutWhatIDo').then(m => ({ default: m.AboutWhatIDo })));
-const AboutMethod = lazy(() => import('@/components/sobre/sections/AboutMethod').then(m => ({ default: m.AboutMethod })));
-const AboutClosing = lazy(() => import('@/components/sobre/sections/AboutClosing').then(m => ({ default: m.AboutClosing })));
-const AboutProof = lazy(() => import('@/components/sobre/sections/AboutProof').then(m => ({ default: m.AboutProof })));
-const ManifestoScrollSection = lazy(() => import('@/components/sobre/sections/ManifestoScrollSection').then(m => ({ default: m.ManifestoScrollSection })));
-const StickyContactCTA = lazy(() => import('@/components/sobre/sections/StickyContactCTA').then(m => ({ default: m.StickyContactCTA })));
+const AboutHero = lazy(() =>
+  import('@/components/sobre/sections/AboutHero').then((m) => ({
+    default: m.AboutHero,
+  }))
+);
+const AboutOrigin = lazy(() =>
+  import('@/components/sobre/sections/AboutOrigin').then((m) => ({
+    default: m.AboutOrigin,
+  }))
+);
+const AboutWhatIDo = lazy(() =>
+  import('@/components/sobre/sections/AboutWhatIDo').then((m) => ({
+    default: m.AboutWhatIDo,
+  }))
+);
+const AboutMethod = lazy(() =>
+  import('@/components/sobre/sections/AboutMethod').then((m) => ({
+    default: m.AboutMethod,
+  }))
+);
+const AboutClosing = lazy(() =>
+  import('@/components/sobre/sections/AboutClosing').then((m) => ({
+    default: m.AboutClosing,
+  }))
+);
+const AboutProof = lazy(() =>
+  import('@/components/sobre/sections/AboutProof').then((m) => ({
+    default: m.AboutProof,
+  }))
+);
+const ManifestoScrollSection = lazy(() =>
+  import('@/components/sobre/sections/ManifestoScrollSection').then((m) => ({
+    default: m.ManifestoScrollSection,
+  }))
+);
+const StickyContactCTA = lazy(() =>
+  import('@/components/sobre/sections/StickyContactCTA').then((m) => ({
+    default: m.StickyContactCTA,
+  }))
+);
 
 /** Minimal skeleton fallback for Suspense boundaries */
 function SectionSkeleton({ label }: { label: string }) {

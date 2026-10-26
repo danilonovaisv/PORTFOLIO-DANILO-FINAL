@@ -91,6 +91,7 @@ export const ResponsiveVideo = forwardRef<
       <video
         ref={innerRef}
         poster={poster}
+        preload="none"
         autoPlay={autoPlay}
         muted={muted}
         loop={loop}

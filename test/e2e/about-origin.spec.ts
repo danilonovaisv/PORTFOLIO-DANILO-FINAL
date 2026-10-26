@@ -48,7 +48,9 @@ test.describe('About Origin Section', () => {
       await expect(mobileScenes).toHaveCount(4);
     } else {
       // Desktop: verify sticky gallery with single active scene
-      const stickyGallery = page.locator('[data-testid="origin-sticky-gallery"]');
+      const stickyGallery = page.locator(
+        '[data-testid="origin-sticky-gallery"]'
+      );
       await expect(stickyGallery).toBeAttached();
 
       // 5. Verificar presença da composição ativa com acessibilidade correta (role="img")

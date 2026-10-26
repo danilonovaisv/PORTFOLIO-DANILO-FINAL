@@ -30,6 +30,7 @@ Inspect `.agents` to understand available project capabilities when relevant.
 ## Target discovery
 
 For the requested page or section identify:
+
 - route;
 - page entry;
 - primary components;
@@ -65,6 +66,7 @@ Example:
 Page → Section → Component → Primitive → Styling → Motion → Assets
 
 Identify components that are:
+
 - LOCAL
 - SHARED
 - GLOBAL
@@ -74,6 +76,7 @@ Changes to shared or global components require explicit impact analysis.
 ## Design system discovery
 
 Identify existing:
+
 - colors;
 - typography;
 - spacing;
@@ -90,6 +93,7 @@ Prefer existing systems over introducing new ones.
 ## Technical constraints
 
 Identify relevant:
+
 - framework;
 - rendering model;
 - animation libraries;
@@ -106,6 +110,7 @@ Only report constraints supported by repository evidence.
 When implementation planning is expected, inspect `.agents`.
 
 Produce:
+
 - Available Skills
 - Available Agents
 - Potentially Relevant Skills
@@ -116,6 +121,7 @@ Do not select capabilities solely by filename. Read their descriptions or instru
 ## Output
 
 Return:
+
 1. Target
 2. Relevant Documentation
 3. Source Map
