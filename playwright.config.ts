@@ -69,7 +69,7 @@ export default defineConfig({
       process.env.PLAYWRIGHT_SERVER_COMMAND ||
       `PLAYWRIGHT_TEST=true NEXT_PUBLIC_PLAYWRIGHT_TEST=true NEXT_PUBLIC_SUPABASE_URL=${TEST_SUPABASE_URL} NEXT_PUBLIC_SUPABASE_ANON_KEY=${TEST_SUPABASE_KEY} NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=${TEST_SUPABASE_KEY} pnpm exec next dev --port ${TEST_PORT} --hostname 127.0.0.1`,
     port: TEST_PORT,
-    reuseExistingServer: false,
+    reuseExistingServer: true,
     timeout: 120_000,
   },
 });
