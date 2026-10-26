@@ -11,10 +11,10 @@ import {
 } from '@/components/sobre/origin/data';
 import {
   OriginInfoBlock,
-  OriginStickyGallery,
 } from '@/components/sobre/origin/OriginComponents';
 import { useOriginParticleAnimations } from '@/components/sobre/origin/useOriginParticleAnimations';
 import { useMotionGate } from '@/hooks/useMotionGate';
+import { OriginParticleScene3D } from '@/components/sobre/origin/OriginParticleScene3D';
 
 export function AboutOrigin() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,6 +22,7 @@ export function AboutOrigin() {
   const archRightRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useMotionGate();
   const [activeSceneIndex, setActiveSceneIndex] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   // Resolver cada imagem consolidada separadamente como fallback
   const originImage1 = useSiteAssetUrl(
@@ -69,6 +70,40 @@ export function AboutOrigin() {
     onBgColorChange: setBgColor,
   });
 
+  // Track scroll progress for 3D particle morph
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const rect = entry.target.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const elementHeight = rect.height;
+
+        // Calculate progress based on how much of the element is visible
+        // Progress goes from 0 to 1 as the element scrolls through the viewport
+        const visibleTop = Math.max(0, -rect.top);
+        const visibleBottom = Math.min(elementHeight, viewportHeight - rect.top);
+        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+        const progress = visibleHeight / elementHeight;
+
+        // Map the element's position in viewport to 0-1 progress
+        // When top of element is at bottom of viewport: progress = 0
+        // When bottom of element is at top of viewport: progress = 1
+        const elementTop = rect.top;
+        const elementBottom = rect.bottom;
+        const progressFromTop = Math.max(0, Math.min(1, (viewportHeight - elementTop) / (viewportHeight + elementHeight)));
+
+        setScrollProgress(progressFromTop);
+      },
+      { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0] }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
       className="relative w-full transition-colors duration-bg"
@@ -100,7 +135,7 @@ export function AboutOrigin() {
           </p>
         </div>
 
-        {/* Narrative Split Stage (Left: Storytelling, Right: Sticky 4-Layer Stage) */}
+        {/* Narrative Split Stage (Left: Storytelling, Right: 3D Particle Stage) */}
         <div
           className="relative grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-8"
           ref={archRef}
@@ -133,11 +168,56 @@ export function AboutOrigin() {
             </div>
           </div>
 
-          <OriginStickyGallery
-            blocks={contentBlocks}
-            archRightRef={archRightRef}
-            activeSceneIndex={activeSceneIndex}
-          />
+          {/* 3D Particle Scene - Replaces OriginStickyGallery */}
+          <div
+            className="hidden lg:flex lg:col-span-6 lg:h-screen lg:sticky lg:top-0 lg:items-center lg:justify-center pointer-events-none"
+            ref={archRightRef}
+            data-testid="origin-sticky-gallery"
+          >
+            <div className="origin-gallery-container relative w-full max-w-3xl h-[80vh]">
+              {/* Desktop Stage HUD / Minimalist Editorial Indicator */}
+              <div className="absolute -top-12 left-0 right-0 flex items-center justify-between z-20 px-2 pointer-events-auto select-none">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-sm font-bold text-bluePrimary tracking-wider">
+                    0{activeSceneIndex + 1} / 0{contentBlocks.length}
+                  </span>
+                  <span className="text-white/20">|</span>
+                  <span className="text-xs uppercase font-semibold tracking-[0.2em] text-white/70">
+                    {ORIGIN_PARTICLE_STAGES[activeSceneIndex]?.name || ''}
+                  </span>
+                </div>
+
+                {/* Minimalist Editorial Progress Bar */}
+                <div className="w-24 h-[2px] bg-white/10 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-bluePrimary transition-all duration-500 ease-out"
+                    style={{ width: `${((activeSceneIndex + 1) / contentBlocks.length) * 100}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* 3D Particle Scene - Morphs based on scroll progress */}
+              <OriginParticleScene3D
+                config={ORIGIN_PARTICLE_STAGES[activeSceneIndex]}
+                isActive={true}
+                fallbackImage={
+                  contentBlocks[activeSceneIndex]?.img || `/site.assets/${ORIGIN_CONTENT[activeSceneIndex]?.fallback}`
+                }
+                priority={activeSceneIndex === 0}
+                scrollProgress={scrollProgress}
+              />
+
+              {/* Accessibility: hidden role=img for test */}
+              <div role="img" aria-label={`Composição visual ${ORIGIN_PARTICLE_STAGES[activeSceneIndex]?.name}`} className="sr-only" />
+
+              {/* Bottom Contextual Caption */}
+              <div className="absolute -bottom-9 left-2 right-2 flex items-center justify-between z-20 pointer-events-auto">
+                <p className="text-xs text-white/50 italic truncate">
+                  {ORIGIN_CONTENT[activeSceneIndex]?.caption || ''}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

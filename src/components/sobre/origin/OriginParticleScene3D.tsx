@@ -376,6 +376,13 @@ function ParticleSystem({
       varying float vRandomScale;
       varying vec3 vPosition;
 
+      float hash(vec3 p) {
+        p = vec3(dot(p, vec3(127.1, 311.7, 74.7)),
+                 dot(p, vec3(269.5, 183.3, 246.1)),
+                 dot(p, vec3(113.5, 271.9, 124.6)));
+        return fract(sin(p) * 43758.5453);
+      }
+
       float noise3D(vec3 p) {
         vec3 i = floor(p);
         vec3 f = fract(p);
@@ -390,13 +397,6 @@ function ParticleSystem({
         float h = hash(i + vec3(1.0, 1.0, 1.0));
         return mix(mix(mix(a, b, u.x), mix(c, d, u.x), u.y),
                    mix(mix(e, f, u.x), mix(g, h, u.x), u.y), u.z);
-      }
-
-      float hash(vec3 p) {
-        p = vec3(dot(p, vec3(127.1, 311.7, 74.7)),
-                 dot(p, vec3(269.5, 183.3, 246.1)),
-                 dot(p, vec3(113.5, 271.9, 124.6)));
-        return fract(sin(p) * 43758.5453);
       }
 
       void main() {
@@ -475,7 +475,7 @@ function ParticleSystem({
         float glow = 1.0 - dist * 2.0;
         color += vColor * glow * 0.3;
 
-        gl_FragColor = vec4(color, alpha * 0.8);
+        gl_FragColor = vec4(color, alpha);
       }
     `;
 
