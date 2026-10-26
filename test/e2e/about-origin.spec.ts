@@ -39,14 +39,23 @@ test.describe('About Origin Section', () => {
       /Conheça as áreas de atuação/i
     );
 
-    // 4. Verificar media stage desktop
-    const stickyGallery = page.locator('[data-testid="origin-sticky-gallery"]');
-    await expect(stickyGallery).toBeAttached();
+    // 4. Verificar media stage (desktop: sticky gallery; mobile: inline scenes)
+    const isMobile = await page.evaluate(() => window.innerWidth < 1024);
 
-    // 5. Verificar presença da composição ativa com acessibilidade correta (role="img")
-    // O OriginStickyGallery renderiza apenas a cena ativa por vez (morphing)
-    const scenes = stickyGallery.locator('[role="img"]');
-    await expect(scenes).toHaveCount(1);
+    if (isMobile) {
+      // Mobile: verify inline particle scenes in each block
+      const mobileScenes = page.locator('[data-origin-block] [role="img"]');
+      await expect(mobileScenes).toHaveCount(4);
+    } else {
+      // Desktop: verify sticky gallery with single active scene
+      const stickyGallery = page.locator('[data-testid="origin-sticky-gallery"]');
+      await expect(stickyGallery).toBeAttached();
+
+      // 5. Verificar presença da composição ativa com acessibilidade correta (role="img")
+      // O OriginStickyGallery renderiza apenas a cena ativa por vez (morphing)
+      const scenes = stickyGallery.locator('[role="img"]');
+      await expect(scenes).toHaveCount(1);
+    }
   });
 
   test('should support prefers-reduced-motion correctly', async ({ page }) => {

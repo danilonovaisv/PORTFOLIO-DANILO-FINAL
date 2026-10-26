@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 import process from 'node:process';
 
 // Define the test port we'll use consistently
@@ -40,6 +40,28 @@ export default defineConfig({
     {
       name: 'firefox',
       use: { browserName: 'firefox' },
+    },
+    // Mobile projects for touch testing
+    {
+      name: 'mobile-chrome',
+      use: {
+        ...devices['Pixel 5'],
+        viewport: { width: 393, height: 851 },
+      },
+    },
+    {
+      name: 'mobile-safari',
+      use: {
+        ...devices['iPhone 13'],
+        viewport: { width: 390, height: 844 },
+      },
+    },
+    {
+      name: 'tablet-chrome',
+      use: {
+        ...devices['iPad Pro'],
+        viewport: { width: 1024, height: 1366 },
+      },
     },
   ],
   webServer: {
