@@ -3,7 +3,7 @@
 > **Projeto:** Portfolio institucional de Danilo Novais  
 > **Codinome:** Ghost Era / Ghost System  
 > **URL:** <https://portfoliodanilo.com>  
-> **Stack:** Next.js 16 · React 19 · TypeScript · Three.js/R3F · Supabase · Firebase  
+> **Stack:** Next.js 16.4.3 · React 19.3.1 · TypeScript 7.0.2 · Three.js/R3F · Supabase · Cloudflare OpenNext / Firebase
 > **Governança:** Padrão Anthropic Tool & Skill Protocol
 
 ---
@@ -314,12 +314,14 @@ _Padronizado segundo a especificação formal de ferramentas Anthropic (O que fa
 
 ### Tech Stack
 
-- **Framework:** Next.js 16.2.2 (App Router, standalone output, Turbopack)
-- **Language:** TypeScript 6.0.2 (strict mode)
-- **Runtime:** Node.js >=20, pnpm 10.33.0
-- **UI:** React 19, Tailwind CSS 4, Framer Motion 12, GSAP 3, Lenis 1
-- **3D/WebGL:** React Three Fiber 9, Three.js 0.183, OGL, custom GLSL shaders
-- **Backend:** Supabase (PostgreSQL, Storage), Firebase (Hosting, Functions, Firestore, Realtime DB)
+- **Framework:** Next.js 16.4.3 (App Router, standalone output, Turbopack)
+- **Language:** TypeScript 7.0.2 (strict mode)
+- **Runtime:** Node.js 22, pnpm 12.15.0
+- **Primary Hosting:** Cloudflare Workers via OpenNext (`wrangler.toml`)
+- **Secondary / Emulator:** Firebase (Functions, Emulators, Firestore, Realtime DB)
+- **UI:** React 19.3.1, Tailwind CSS 4, Motion 14, GSAP 3, Lenis 1
+- **3D/WebGL:** React Three Fiber 9, Three.js 0.186, OGL, custom GLSL shaders
+- **Backend:** Supabase (PostgreSQL, Storage CDN)
 - **AI/External:** OpenAI, Google ADK, Genkit
 - **State:** Zustand 5, React Context
 - **Components:** Radix UI, shadcn/ui
