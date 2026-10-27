@@ -315,9 +315,9 @@ const createNextConfig = (phase) => ({
     // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;", // Movido para headers globais
   },
 
-  // Ignora erros de typescript no build (CRÍTICO para deploy em ambiente instável)
+  // Valida estritamente erros de TypeScript no build
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
 });
 

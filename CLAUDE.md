@@ -310,13 +310,14 @@ _Padronizado segundo a especificação formal de ferramentas Anthropic (O que fa
 
 | Camada         | Tecnologia                                                   | Versão  |
 | :------------- | :----------------------------------------------------------- | :------ |
-| **Framework**  | Next.js (App Router, standalone, Turbopack)                  | 16.2.2  |
-| **Linguagem**  | TypeScript (strict mode)                                     | 6.0.2   |
-| **Runtime**    | Node.js >=20, pnpm                                           | 10.33.0 |
-| **UI**         | React 19, Tailwind CSS 4                                     | —       |
-| **Animation**  | Framer Motion 12, GSAP 3, Lenis 1                            | —       |
-| **3D / WebGL** | React Three Fiber 9, Three.js 0.183, Custom GLSL             | —       |
-| **Backend**    | Supabase (PostgreSQL, Storage), Firebase Hosting & Functions | —       |
+| **Framework**  | Next.js (App Router, standalone, Turbopack)                  | 16.4.3  |
+| **Linguagem**  | TypeScript (strict mode)                                     | 7.0.2   |
+| **Runtime**    | Node.js 22, pnpm                                             | 12.15.0 |
+| **UI**         | React 19.3.1, Tailwind CSS 4                                 | —       |
+| **Animation**  | Motion 14, GSAP 3, Lenis 1                                   | —       |
+| **3D / WebGL** | React Three Fiber 9, Three.js 0.186, OGL, Custom GLSL        | —       |
+| **Hosting**    | Cloudflare Workers (OpenNext) / Firebase Functions           | —       |
+| **Backend**    | Supabase (PostgreSQL, Storage CDN)                           | —       |
 | **State**      | Zustand 5, React Context                                     | —       |
 
 ### Constantes de Design — Ghost System
