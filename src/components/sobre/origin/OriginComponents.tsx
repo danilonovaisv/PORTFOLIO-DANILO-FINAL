@@ -2,11 +2,8 @@
 
 import { RefObject } from 'react';
 import { m, AnimatePresence } from 'motion/react';
-import type {
-  OriginBlock,
-  ParticleStageConfig,
-} from '@/components/sobre/origin/data';
-import { OriginParticleScene } from '@/components/sobre/origin/OriginParticleScene';
+import type { OriginBlock } from '@/components/sobre/origin/data';
+import { OriginParallaxScene } from '@/components/sobre/origin/OriginParallaxScene';
 import { GHOST_EASE, MOTION_TOKENS, viewportConfig } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
@@ -93,8 +90,8 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 
         {/* Mobile Inline Scene: Active on mobile, linear editorial flow */}
         <div className="mt-8 relative w-full aspect-square min-h-[260px] rounded-[1.5rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] border border-white/5 lg:hidden">
-          <OriginParticleScene
-            config={block.scene as ParticleStageConfig}
+          <OriginParallaxScene
+            config={block.scene}
             isActive={true}
             fallbackImage={block.img || `/site.assets/${block.fallback}`}
             priority={block.id === 1}
@@ -119,11 +116,11 @@ interface OriginStickyGalleryProps {
 }
 
 /**
- * Sticky Media Stage that displays a single Canvas 2D particle-mask scene
- * morphing between 4 stages synced with narrative chapters.
+ * Sticky Media Stage that displays 4 multi-layer parallax scenes on desktop.
+ * Sincronizado com scroll do texto via GSAP ScrollTrigger.
  *
  * Includes:
- * - 1 OriginParticleScene that morphs targets on scroll
+ * - 4 scenes with 4 layers each (OriginParallaxScene)
  * - Chapter Progress Counter (01 / 04)
  * - Active Phase badge & vertical progress bar
  * - Contextual caption with smooth cross-fade
@@ -135,7 +132,6 @@ export function OriginStickyGallery({
 }: OriginStickyGalleryProps) {
   const currentBlock = blocks[activeSceneIndex] || blocks[0];
   const total = blocks.length;
-  const currentStageConfig = currentBlock.scene as ParticleStageConfig;
 
   return (
     <div
@@ -143,8 +139,11 @@ export function OriginStickyGallery({
       ref={archRightRef}
       data-testid="origin-sticky-gallery"
     >
-      <div className="origin-gallery-container relative w-full max-w-3xl h-[80vh]">
-        {/* Desktop Stage HUD / Minimalist Editorial Indicator */}
+      <div className="origin-gallery-container relative w-full max-w-lg h-[500px]">
+        {/* Glow effect behind images */}
+        <div className="origin-glow" />
+
+        {/* Desktop Stage HUD / Progress Indicator */}
         <div className="absolute -top-12 left-0 right-0 flex items-center justify-between z-20 px-2 pointer-events-auto select-none">
           <div className="flex items-center gap-3">
             <span className="font-mono text-sm font-bold text-bluePrimary tracking-wider">
@@ -156,24 +155,44 @@ export function OriginStickyGallery({
             </span>
           </div>
 
-          {/* Minimalist Editorial Progress Bar */}
-          <div className="w-24 h-[2px] bg-white/10 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-bluePrimary transition-all duration-500 ease-out"
-              style={{ width: `${((activeSceneIndex + 1) / total) * 100}%` }}
-            />
+          {/* Progress bar ticks */}
+          <div className="flex gap-1.5">
+            {blocks.map((_, i) => (
+              <div
+                key={i}
+                className={`h-1 rounded-full transition-all duration-500 ${
+                  i === activeSceneIndex
+                    ? 'w-6 bg-bluePrimary'
+                    : i < activeSceneIndex
+                      ? 'w-2 bg-white/40'
+                      : 'w-2 bg-white/15'
+                }`}
+              />
+            ))}
           </div>
         </div>
 
-        {/* Single Particle Scene - Morphs between stages */}
-        <OriginParticleScene
-          config={currentStageConfig}
-          isActive={true}
-          fallbackImage={
-            currentBlock.img || `/site.assets/${currentBlock.fallback}`
-          }
-          priority={currentBlock.id === 1}
-        />
+        {/* 4 Multi-depth Parallax Scenes */}
+        {blocks.map((block, index) => {
+          const isActive = activeSceneIndex === index;
+          return (
+            <div
+              key={block.id}
+              className="origin-img absolute inset-0 w-full h-full rounded-[1.5rem] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-background border border-white/5"
+              data-img-index={index}
+              data-z-index={index + 1}
+            >
+              <OriginParallaxScene
+                config={block.scene}
+                isActive={isActive}
+                fallbackImage={block.img || `/site.assets/${block.fallback}`}
+                priority={block.priority}
+              />
+              {/* Mask overlay for legacy reveal effect compatibility */}
+              <div className="origin-mask absolute inset-0 bg-background z-[var(--z-layer-glass)] origin-top opacity-0 pointer-events-none" />
+            </div>
+          );
+        })}
 
         {/* Bottom Contextual Caption */}
         <div className="absolute -bottom-9 left-2 right-2 flex items-center justify-between z-20 pointer-events-auto">

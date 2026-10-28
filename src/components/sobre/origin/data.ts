@@ -1,6 +1,6 @@
 /**
  * Origin Section Data
- * Content blocks and the Canvas 2D particle-mask morph system for the AboutOrigin component.
+ * Content blocks and multi-layer parallax scenes for the AboutOrigin component.
  * Aligned with Ghost System SOBRE-PROTOTIPO-INTERATIVO.md and operational prompt specifications.
  *
  * Narrative Progression:
@@ -8,11 +8,6 @@
  * 02 / CRIAÇÃO — DO TRAÇO À INTENÇÃO (Gesto em estrutura)
  * 03 / DESIGN — A DESCOBERTA DO INVISÍVEL (Estrutura em significado)
  * 04 / EXPANSÃO — EXPANSÃO COM PROPÓSITO (Significado em sistema)
- *
- * Visual System:
- * The legacy 4-layer parallax scenes (`ORIGIN_SCENES`) are deprecated in favor of
- * `ORIGIN_PARTICLE_STAGES` — a Canvas 2D particle field that morphs between four
- * silhouette targets, one per narrative chapter. No Three.js / R3F: pure 2D context.
  */
 
 export type FallbackImage =
@@ -21,72 +16,16 @@ export type FallbackImage =
   | 'about/origin/about.origin_image.3.webp'
   | 'about/origin/about.origin_image.4.webp';
 
-export type MorphTarget = 'organic' | 'geometric' | 'structured' | 'expansive';
-
-/**
- * Particle color palette for a single morph stage.
- * Ghost palette: Deep Blue `#0048ff`, Void Black `#040013`,
- * Ghost Accent `#4fe6ff`, Pink Details `#f501d3`, Purple Details `#8705f2`.
- * Purple/Pink allowed as accent details per Ghost Design System (hover/glitch only).
- */
-export interface ParticleColorPalette {
-  primary: string;
-  secondary: string;
-  accent: string;
-  detail1: string;
-  detail2: string;
-}
-
-/**
- * Cursor-driven repulsion field applied to the particle field.
- */
-export interface CursorRepulsionConfig {
-  enabled: boolean;
-  radius: number;
-  strength: number;
-}
-
-/**
- * Animation tuning for a single morph stage.
- */
-export interface ParticleAnimationConfig {
-  speed: number;
-  noiseScale: number;
-  morphDuration: number;
-}
-
-/**
- * Configuration for one morph stage in the Canvas 2D particle-mask system.
- * Consumed by the future `OriginParticleScene.tsx` component.
- */
-export interface ParticleStageConfig {
-  id: number;
-  name: string;
-  description: string;
-  particleCount: number;
-  morphTarget: MorphTarget;
-  colorPalette: ParticleColorPalette;
-  bgColor: string;
-  cursorRepulsion: CursorRepulsionConfig;
-  animation: ParticleAnimationConfig;
-  /** Supabase Storage keys kept for fallback imagery (legacy parallax layers). */
-  fallbackLayers: string[];
-}
-
-/**
- * Legacy parallax scene config. Retained for backward compatibility with
- * `OriginParallaxScene.tsx`; superseded by `ParticleStageConfig`.
- */
 export interface OriginParallaxLayerConfig {
   src: string;
   fallbackUrl: string;
   depth: number;
+  alt?: string;
 }
 
 export interface OriginSceneConfig {
   id: number;
   name: string;
-  description: string;
   layers: OriginParallaxLayerConfig[];
   scale: number;
   cycleMs: number;
@@ -109,7 +48,7 @@ export interface OriginBlock {
   textAlign: 'left' | 'right';
   img?: string;
   assetKey: string;
-  scene: ParticleStageConfig;
+  scene: OriginSceneConfig;
 }
 
 export const ORIGIN_INTRO = {
@@ -128,108 +67,136 @@ export const ORIGIN_BRIDGE = {
 const SUPABASE_BASE_STORAGE =
   'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets';
 
-/**
- * Canvas 2D Particle-Mask Morph Stages
- * One stage per narrative chapter. Supersedes the legacy `ORIGIN_SCENES`.
- * Each stage defines a particle field that morphs to a silhouette target.
- */
-export const ORIGIN_PARTICLE_STAGES: ParticleStageConfig[] = [
-  {
+export const ORIGIN_SCENES: Record<number, OriginSceneConfig> = {
+  1: {
     id: 1,
     name: 'SENSIBILIDADE',
-    description:
-      'Formas orgânicas emergem da observação — a essência que resiste ao tempo.',
-    particleCount: 2000,
-    morphTarget: 'organic',
-    colorPalette: {
-      primary: '#00e5ff', // Vibrant Cyan (jiro.build style)
-      secondary: '#040013', // Void Black
-      accent: '#4fe6ff', // Ghost Accent (brighter cyan)
-      detail1: '#0048ff', // Deep Blue
-      detail2: '#8705f2', // Purple Details
-    },
-    bgColor: '#040013',
-    cursorRepulsion: { enabled: true, radius: 150, strength: 0.8 },
-    animation: { speed: 0.3, noiseScale: 0.015, morphDuration: 1200 },
-    fallbackLayers: [
-      `${SUPABASE_BASE_STORAGE}/about/origin/ANIMA-FOTO/CAMADA-0.webp`,
-      `${SUPABASE_BASE_STORAGE}/about/origin/ANIMA-FOTO/CAMADA-1.webp`,
-      `${SUPABASE_BASE_STORAGE}/about/origin/ANIMA-FOTO/CAMADA-2.webp`,
-      `${SUPABASE_BASE_STORAGE}/about/origin/ANIMA-FOTO/CAMADA-3.webp`,
+    scale: 1.12,
+    cycleMs: 8000,
+    verticalRatio: 0,
+    motionMode: 'horizontal',
+    wave: 'cosine',
+    layers: [
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/ANIMA-FOTO/CAMADA-0.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-1/CAMADA-0.webp',
+        depth: 0.006,
+        alt: 'Camada de fundo da composição Sensibilidade',
+      },
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/ANIMA-FOTO/CAMADA-1.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-1/CAMADA-1.webp',
+        depth: 0.013,
+      },
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/ANIMA-FOTO/CAMADA-2.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-1/CAMADA-2.webp',
+        depth: 0.024,
+      },
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/ANIMA-FOTO/CAMADA-3.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-1/CAMADA-3.webp',
+        depth: 0.04,
+      },
     ],
   },
-  {
+  2: {
     id: 2,
     name: 'CRIAÇÃO',
-    description: 'Do traço livre à estrutura intencional — gesto em geometria.',
-    particleCount: 2000,
-    morphTarget: 'geometric',
-    colorPalette: {
-      primary: '#00e5ff', // Vibrant Cyan
-      secondary: '#040013', // Void Black
-      accent: '#4fe6ff', // Ghost Accent (brighter cyan)
-      detail1: '#8705f2', // Purple Details
-      detail2: '#0048ff', // Deep Blue
-    },
-    bgColor: '#0a001a',
-    cursorRepulsion: { enabled: true, radius: 150, strength: 0.8 },
-    animation: { speed: 0.35, noiseScale: 0.018, morphDuration: 1000 },
-    fallbackLayers: [
-      `${SUPABASE_BASE_STORAGE}/about/origin/02-criacao/camada-0.webp`,
-      `${SUPABASE_BASE_STORAGE}/about/origin/02-criacao/camada-1.webp`,
-      `${SUPABASE_BASE_STORAGE}/about/origin/02-criacao/camada-2.webp`,
-      `${SUPABASE_BASE_STORAGE}/about/origin/02-criacao/camada-3.webp`,
+    scale: 1.16,
+    cycleMs: 4000,
+    verticalRatio: 0.35,
+    motionMode: 'diagonal',
+    wave: 'sine',
+    layers: [
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/02-criacao/camada-0.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-2/camada-0.webp',
+        depth: 0.006,
+        alt: 'Camada de fundo da composição Criação',
+      },
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/02-criacao/camada-1.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-2/camada-1.webp',
+        depth: 0.014,
+      },
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/02-criacao/camada-2.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-2/camada-2.webp',
+        depth: 0.028,
+      },
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/02-criacao/camada-3.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-2/camada-3.webp',
+        depth: 0.048,
+      },
     ],
   },
-  {
+  3: {
     id: 3,
     name: 'DESIGN',
-    description:
-      'Estruturas invisíveis que conduzem — design como ferramenta silenciosa.',
-    particleCount: 2000,
-    morphTarget: 'structured',
-    colorPalette: {
-      primary: '#00e5ff', // Vibrant Cyan
-      secondary: '#040013', // Void Black
-      accent: '#8705f2', // Purple Details
-      detail1: '#4fe6ff', // Ghost Accent (blueAccent)
-      detail2: '#0048ff', // Deep Blue
-    },
-    bgColor: '#1a002e',
-    cursorRepulsion: { enabled: true, radius: 150, strength: 0.8 },
-    animation: { speed: 0.25, noiseScale: 0.012, morphDuration: 1400 },
-    fallbackLayers: [
-      `${SUPABASE_BASE_STORAGE}/about/origin/03-design/camada-0.webp`,
-      `${SUPABASE_BASE_STORAGE}/about/origin/03-design/camada-1.webp`,
-      `${SUPABASE_BASE_STORAGE}/about/origin/03-design/camada-2.webp`,
-      `${SUPABASE_BASE_STORAGE}/about/origin/03-design/camada-3.webp`,
+    scale: 1.16,
+    cycleMs: 4000,
+    verticalRatio: 0.35,
+    motionMode: 'diagonal',
+    wave: 'sine',
+    layers: [
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/03-design/camada-0.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-3/camada-0.webp',
+        depth: 0.006,
+        alt: 'Camada de fundo da composição Design',
+      },
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/03-design/camada-1.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-3/camada-1.webp',
+        depth: 0.014,
+      },
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/03-design/camada-2.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-3/camada-2.webp',
+        depth: 0.028,
+      },
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/03-design/camada-3.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-3/camada-3.webp',
+        depth: 0.048,
+      },
     ],
   },
-  {
+  4: {
     id: 4,
     name: 'EXPANSÃO',
-    description:
-      'Integração expansiva — estratégia, tecnologia e IA com propósito humano.',
-    particleCount: 2200,
-    morphTarget: 'expansive',
-    colorPalette: {
-      primary: '#8705f2', // Purple Details
-      secondary: '#040013', // Void Black
-      accent: '#4fe6ff', // Ghost Accent (brighter cyan)
-      detail1: '#0048ff', // Deep Blue
-      detail2: '#0048ff', // Deep Blue
-    },
-    bgColor: '#040013',
-    cursorRepulsion: { enabled: true, radius: 150, strength: 0.8 },
-    animation: { speed: 0.4, noiseScale: 0.02, morphDuration: 1000 },
-    fallbackLayers: [
-      `${SUPABASE_BASE_STORAGE}/about/origin/04-expansao/camada-0.webp`,
-      `${SUPABASE_BASE_STORAGE}/about/origin/04-expansao/camada-1.webp`,
-      `${SUPABASE_BASE_STORAGE}/about/origin/04-expansao/camada-2.webp`,
-      `${SUPABASE_BASE_STORAGE}/about/origin/04-expansao/camada-3.webp`,
+    scale: 1.16,
+    cycleMs: 4000,
+    verticalRatio: 0.35,
+    motionMode: 'diagonal',
+    wave: 'sine',
+    layers: [
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/04-expansao/camada-0.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-4/camada-0.webp',
+        depth: 0.006,
+        alt: 'Camada de fundo da composição Expansão',
+      },
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/04-expansao/camada-1.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-4/camada-1.webp',
+        depth: 0.014,
+      },
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/04-expansao/camada-2.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-4/camada-2.webp',
+        depth: 0.028,
+      },
+      {
+        src: `${SUPABASE_BASE_STORAGE}/about/origin/04-expansao/camada-3.webp`,
+        fallbackUrl: '/site.assets/about/origin/cena-4/camada-3.webp',
+        depth: 0.048,
+      },
     ],
   },
-];
+};
 
 /**
  * Content blocks with fallback images stored in Supabase & local fallbacks.
@@ -255,7 +222,7 @@ A essência das coisas sempre falou mais alto do que a superfície.`,
     textAlign: 'right',
     assetKey: 'about.origin_image.1',
     img: undefined,
-    scene: ORIGIN_PARTICLE_STAGES[0],
+    scene: ORIGIN_SCENES[1],
   },
   {
     id: 2,
@@ -277,7 +244,7 @@ até que os conceitos começaram a falar por si.`,
     fallback: 'about/origin/about.origin_image.2.webp',
     textAlign: 'left',
     assetKey: 'about.origin_image.2',
-    scene: ORIGIN_PARTICLE_STAGES[1],
+    scene: ORIGIN_SCENES[2],
   },
   {
     id: 3,
@@ -299,7 +266,7 @@ Transformar sem que se perceba a transformação: isso é potência.`,
     fallback: 'about/origin/about.origin_image.3.webp',
     textAlign: 'right',
     assetKey: 'about.origin_image.3',
-    scene: ORIGIN_PARTICLE_STAGES[2],
+    scene: ORIGIN_SCENES[3],
   },
   {
     id: 4,
@@ -321,6 +288,6 @@ a sensibilidade, o olhar atento, a busca pelo significado.`,
     fallback: 'about/origin/about.origin_image.4.webp',
     textAlign: 'left',
     assetKey: 'about.origin_image.4',
-    scene: ORIGIN_PARTICLE_STAGES[3],
+    scene: ORIGIN_SCENES[4],
   },
 ];
