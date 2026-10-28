@@ -11,6 +11,7 @@ const importedFiles = new Set();
 const entryPoints = [
   path.join(srcDir, 'app/layout.tsx'),
   path.join(srcDir, 'app/page.tsx'),
+  path.join(srcDir, 'middleware.ts'),
   // add other main entrypoints
 ];
 
@@ -100,10 +101,19 @@ function findEntries(dir) {
       if (fs.statSync(filepath).isDirectory()) {
         findEntries(filepath);
       } else if (
-        file === 'page.tsx' ||
-        file === 'layout.tsx' ||
-        file === 'route.ts' ||
-        file === 'template.tsx'
+        [
+          'page.tsx',
+          'layout.tsx',
+          'route.ts',
+          'template.tsx',
+          'error.tsx',
+          'global-error.tsx',
+          'not-found.tsx',
+          'loading.tsx',
+          'opengraph-image.tsx',
+          'robots.ts',
+          'sitemap.ts',
+        ].includes(file)
       ) {
         entryPoints.push(filepath);
       }

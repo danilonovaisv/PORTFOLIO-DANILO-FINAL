@@ -1,5 +1,27 @@
 # Adjustment Log
 
+## [2026-10-27T22:33] Ghost System Diagnostics & Multi-Agent Remediation (/diagnostics /agents-orquestrator)
+
+**Context:** Execução completa dos workflows `/diagnostics` e `/agents-orquestrator` com auditoria de dependências, varredura de dead code (`scan-dead-code.mjs` + `knip`), auditoria de componentes UI (`src/components/ui/`) e remediação delegada aos especialistas `@ghost-architect`, `@devops-engineer` e `@audit-sentinel`.
+
+**Ações & Correções Aplicadas:**
+
+1. **Remoção de Dead Code & Export Duplicado:**
+   - Removidos `src/components/sobre/sections/index.ts` (barrel órfão) e `src/components/ui/motion/TextReveal.tsx` (0 referências em `src/`).
+   - Removido alias duplicado `OriginMediaStage` em `src/components/sobre/origin/OriginComponents.tsx`.
+2. **Higiene de Dependências (`package.json`):**
+   - Removida dependência órfã `simplex-noise` (`^4.0.3`) de `package.json` e `pnpm-lock.yaml`.
+3. **Modernização dos Scripts de Diagnóstico:**
+   - `scripts/scan-dead-code.mjs` atualizado para reconhecer entrypoints nativos do Next.js 16 App Router (`middleware.ts`, `error.tsx`, `global-error.tsx`, `not-found.tsx`, `loading.tsx`, `opengraph-image.tsx`, `robots.ts`, `sitemap.ts`), zerando falsos positivos (`Total potential orphans: 0`).
+   - `scripts/audit_ui_usage.ts` atualizado com travessia recursiva (`ui/motion/`, `ui/shared/`, `ui/media/`).
+   - `knip.json` atualizado para ignorar `.agents/**`.
+4. **Gates de Verificação:**
+   - `tsc --noEmit`: 0 erros.
+   - `pnpm run lint`: 0 erros/warnings.
+   - `graphify update .`: 29.913 nós e 34.244 arestas sincronizados.
+
+---
+
 ## [2026-09-27T09:22] Ghost System Orchestration: Code Review, Hardening, Refactor & Test Expansion (/agents-orquestrator /code-reviewer /generate-tests /refactor-code)
 
 **Context:** Execução combinada do protocolo de orquestração multi-agente, revisão estática profunda, geração de suíte de testes unitários e refatoração cirúrgica preventiva no codebase `_danilonovais_portfolio`.
