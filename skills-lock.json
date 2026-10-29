@@ -19,6 +19,12 @@
       "skillPath": "skills/animate-expo/SKILL.md",
       "computedHash": "5de09593d564091f9db60aabede7bed760251e118548272050a247c653c417d2"
     },
+    "animation-principles": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/animation-principles/SKILL.md",
+      "computedHash": "388660277ec82d73fc5c62f8e65e98121076ce77d0de9480e887eec5c7742922"
+    },
     "animation-vocabulary": {
       "source": "emilkowalski/skills",
       "sourceType": "github",
@@ -97,6 +103,12 @@
       "sourceType": "github",
       "computedHash": "05c97bc3120108acd0b80bdef7fb4fa7c224ba83c8d384ccbc97f92e8a065918"
     },
+    "container-bounds": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/container-bounds/SKILL.md",
+      "computedHash": "6145c6aa0113d57466258252ff6df2ede387b2e5db1f6cdebec00754a54e6fcb"
+    },
     "developing-genkit-dart": {
       "source": "firebase/agent-skills",
       "sourceType": "github",
@@ -128,6 +140,12 @@
       "sourceType": "github",
       "skillPath": "skills/emil-design-eng/SKILL.md",
       "computedHash": "51f2537e04d15911b41d78e2de24c36a0e26d41beae15e82a954fe5496a5eda9"
+    },
+    "exit-animations": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/exit-animations/SKILL.md",
+      "computedHash": "4434720e115d13fbfdc59af25011a0e4990fea436032516b2b7c4fe94eed61a4"
     },
     "find-animation-opportunities": {
       "source": "emilkowalski/skills",
@@ -231,11 +249,35 @@
       "skillPath": "skills/improve-animations/SKILL.md",
       "computedHash": "524ea241e41d58bbdd8e288700fe24f5725e2a2f3ae7186ad7cebf9055058356"
     },
+    "interface-sound": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/interface-sound/SKILL.md",
+      "computedHash": "5f5c420495d78708bb4033aeaf2e41d2c073498689d9958786bfa30ffeb6b82c"
+    },
+    "interface-typography": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/interface-typography/SKILL.md",
+      "computedHash": "3e124c223015975e28a3cff31deda2792c89c73d819585c25bf456c59fd0ae30"
+    },
+    "laws-of-ux": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/laws-of-ux/SKILL.md",
+      "computedHash": "5f4a2a3ab2f6eb08c4d39a86f4c49ab3b06ee57b7307d239e107f98692eee6c3"
+    },
     "mobile-native": {
       "source": "emilkowalski/skills",
       "sourceType": "github",
       "skillPath": "skills/mobile-native/SKILL.md",
       "computedHash": "f221cea36642168df6d3d6d7f236237cbf1ae669138ff7df07775674223d49ad"
+    },
+    "morphing-icons": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/morphing-icons/SKILL.md",
+      "computedHash": "b62756020f35dd570a5d6098c47c5bf4b2b1e96a5f0ceb36c5d09a7a8446a579"
     },
     "pick-ui-library": {
       "source": "emilkowalski/skills",
@@ -243,11 +285,28 @@
       "skillPath": "skills/pick-ui-library/SKILL.md",
       "computedHash": "5d2a77bf0ecafbda85aa95fb49999b6d77945d9066ec83d970b62e5b388cd686"
     },
+    "predictive-prefetch": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/predictive-prefetch/SKILL.md",
+      "computedHash": "a3b0dc9548436c9016a6aaecc5ac8bf7daebff193579dc85218c1acfa18d5dc3"
+    },
+    "premium-web-design": {
+      "source": "creative-design/premium-web-design",
+      "sourceType": "claude-code-templates",
+      "skillPath": ".agents/skills/premium-web-design/SKILL.md"
+    },
     "prototype": {
       "source": "emilkowalski/skills",
       "sourceType": "github",
       "skillPath": "skills/prototype/SKILL.md",
       "computedHash": "77be567d8c946608fdd15e61b62ab383cdf289a194dce2479828b7eda860d3ba"
+    },
+    "pseudo-elements": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/pseudo-elements/SKILL.md",
+      "computedHash": "4d608be54bbd4b6cd529926ea7b225b97da36c441d4cc291a7cc8ffca119a20b"
     },
     "review-animations": {
       "source": "emilkowalski/skills",
@@ -277,11 +336,29 @@
       "sourceType": "github",
       "computedHash": "9c87c315aed143ee3b34bec8117100f5035e0df09e6b23e1ecc772cff434c9ad"
     },
+    "synthesize-sound": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/synthesize-sound/SKILL.md",
+      "computedHash": "070b06a78bdd56e40b6fec617d6f8172d5bddc9b0c085f7b9dfda44dd5ac6669"
+    },
+    "timing-functions": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/timing-functions/SKILL.md",
+      "computedHash": "6410a86c737a8bc92791da0234f9f6c260f97385115f922db9b559f59b896130"
+    },
     "turnstile-spin": {
       "source": "cloudflare/skills",
       "sourceType": "github",
       "skillPath": "skills/turnstile-spin/SKILL.md",
       "computedHash": "ec3868fef71e9ca926c177c4e2f8a5e234ae501bba4258746507ed095613bbb2"
+    },
+    "visual-design": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/visual-design/SKILL.md",
+      "computedHash": "3092e31913d74995ffa24358e442be18d2a0111b390d74769c5f9a8614048e81"
     },
     "web-perf": {
       "source": "cloudflare/skills",
@@ -306,11 +383,6 @@
       "sourceType": "github",
       "skillPath": "skills/write-swift/SKILL.md",
       "computedHash": "f20bb9cf51dbee1900b264820a12f1d3d378dc4d23ac758e7ba9e644c49a2459"
-    },
-    "premium-web-design": {
-      "source": "creative-design/premium-web-design",
-      "sourceType": "claude-code-templates",
-      "skillPath": ".agents/skills/premium-web-design/SKILL.md"
     }
   }
 }

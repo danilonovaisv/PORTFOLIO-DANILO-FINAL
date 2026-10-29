@@ -1,0 +1,3 @@
+interface:
+  display_name: "Timing Functions"
+  short_description: "Springs, easing and duration"

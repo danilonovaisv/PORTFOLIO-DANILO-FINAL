@@ -46,17 +46,25 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
         ease: GHOST_EASE,
       };
 
+  const handleHoverStart = () => {
+    if (typeof window !== 'undefined' && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      return;
+    }
+    setIsHovered(true);
+  };
+
   const commonProps = {
     onClick: onClick as any,
     className: cn(
-      'relative group cta-button inline-flex items-center cursor-pointer min-w-fit rounded-full text-white no-underline visited:text-white hover:text-white',
+      'relative group cta-button inline-flex items-center cursor-pointer min-w-fit rounded-full text-white no-underline visited:text-white hover:text-white select-none',
       'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-bluePrimary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
       className
     ),
-    onHoverStart: () => setIsHovered(true),
+    onHoverStart: handleHoverStart,
     onHoverEnd: () => setIsHovered(false),
     initial: false,
     animate: { y: isHovered ? -1 : 0 },
+    whileTap: reduceMotion ? undefined : { scale: MOTION_TOKENS.press.scale },
     transition,
     role: 'button',
     tabIndex: 0,
@@ -73,26 +81,15 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
         transition={transition}
       />
 
-      <m.div
+      <div
         className={cn(
           'relative z-10 inline-flex items-center rounded-full',
-          isCompact ? 'gap-2' : 'gap-0.5 sm:gap-1'
+          isCompact ? 'gap-2' : 'gap-1 sm:gap-1.5'
         )}
-        initial={false}
-        animate={{
-          columnGap: isHovered
-            ? isCompact
-              ? '0.875rem'
-              : '0.5rem'
-            : isCompact
-              ? '0.5rem'
-              : '0.125rem',
-        }}
-        transition={transition}
       >
         <div
           className={cn(
-            'relative z-10 flex items-center justify-center rounded-full text-white shadow-lg select-none active:translate-y-px will-change-transform',
+            'relative z-10 flex items-center justify-center rounded-full text-white shadow-lg select-none will-change-transform',
             isCompact
               ? 'h-10 pl-4 pr-3 text-sm sm:h-11 sm:pl-5 sm:pr-4'
               : 'h-12 w-[220px] pl-5 pr-4 text-sm sm:h-14 sm:w-[280px] sm:pl-8 sm:pr-6 sm:text-base lg:h-[68px] lg:w-[340px] lg:pl-10 lg:pr-8 lg:text-lg'
@@ -109,7 +106,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
 
         <m.div
           className={cn(
-            'relative z-20 flex items-center justify-center rounded-full text-white shadow-lg active:translate-y-px will-change-transform',
+            'relative z-20 flex items-center justify-center rounded-full text-white shadow-lg will-change-transform',
             isCompact
               ? 'h-10 w-10 sm:h-11 sm:w-11'
               : 'h-12 w-12 sm:h-14 sm:w-14 lg:h-[68px] lg:w-[68px]'
@@ -135,7 +132,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
             strokeLinejoin="round"
           />
         </m.div>
-      </m.div>
+      </div>
     </>
   );
 

@@ -47,6 +47,8 @@ export const MOTION_TOKENS = {
     standard: 0.3,
     /** Micro-interactions - 0.16s */
     micro: 0.16,
+    /** Press feedback duration - 0.16s */
+    press: 0.16,
     /** Modal/overlay animations - 0.5s */
     modal: 0.5,
     /** Specialized stagger for word reveals */
@@ -72,17 +74,24 @@ export const MOTION_TOKENS = {
   },
 
   // ─────────────────────────────────────────────────────────────────────────
-  // STAGGER DELAYS
+  // STAGGER DELAYS (Rule: < 50ms per item to avoid blocking interaction)
   // ─────────────────────────────────────────────────────────────────────────
   stagger: {
-    /** Rapid fire - 0.04s */
-    tight: 0.04,
-    /** Standard stagger - 0.08s (Ghost System) */
-    normal: 0.08,
-    /** Ghost-like slow reveal - 0.15s */
-    relaxed: 0.15,
-    /** Very slow, dramatic - 0.25s */
-    dramatic: 0.25,
+    /** Ultra-fast stagger - 0.02s */
+    tight: 0.02,
+    /** Standard stagger - 0.035s (compliant with animation principles) */
+    normal: 0.035,
+    /** Fluid reveal - 0.048s */
+    relaxed: 0.048,
+    /** Dramatic - 0.06s */
+    dramatic: 0.06,
+  },
+
+  /** Press feedback scale token */
+  press: {
+    scale: 0.98,
+    scaleSubtle: 0.985,
+    scaleCompact: 0.96,
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -225,14 +234,14 @@ export const ghostRise: Variants = {
  * Use for: Lists, grids, card groups
  */
 export const staggerContainer = (
-  staggerDelay: number = MOTION_TOKENS.stagger.relaxed as number
+  staggerDelay: number = MOTION_TOKENS.stagger.normal as number
 ): Variants => ({
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
       staggerChildren: staggerDelay,
-      delayChildren: 0.2,
+      delayChildren: 0.08,
     },
   },
 });

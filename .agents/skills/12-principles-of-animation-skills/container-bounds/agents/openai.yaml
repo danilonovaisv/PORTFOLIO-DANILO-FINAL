@@ -1,0 +1,3 @@
+interface:
+  display_name: "Container Bounds"
+  short_description: "Measure inner, animate outer"

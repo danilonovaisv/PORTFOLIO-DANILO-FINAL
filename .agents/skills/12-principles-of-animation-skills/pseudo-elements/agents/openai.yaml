@@ -1,0 +1,3 @@
+interface:
+  display_name: "Pseudo-elements"
+  short_description: "Pseudos, backdrops and view transitions"
