@@ -1,5 +1,64 @@
 # Adjustment Log
 
+## [2026-10-29T00:55] Code Review Remediation: QR Scanner PWA & Manifest Restoration (/agents-orquestrator /code-review-checklist)
+
+**Context:** Remediação completa das vulnerabilidades e violações de arquitetura identificadas durante a auditoria agêntica de código do QR Scanner PWA.
+
+**Ações & Infraestrutura Implementada:**
+
+1. **Restauração da Identidade do Portfólio (`public/manifest.json`):**
+   - Restaurado o `manifest.json` da raiz para os metadados soberanos do Danilo Novais Portfolio.
+   - Criado manifesto isolado `public/manifest-qr.json` dedicado exclusivamente ao sub-app do scanner (`/qr-scanner`).
+2. **Correção de Arquitetura Next.js App Router (`src/app/qr-scanner/layout.tsx`):**
+   - Removidas tags ilegais `<html>`, `<head>` e `<body>` do layout aninhado para prevenir hydration mismatch.
+   - Normalizado export `viewport` e `metadata` com referência segura para `/manifest-qr.json`.
+3. **Resiliência Mobile Safari/iOS (`QRScanner.tsx`):**
+   - Blindagem com fallback resiliente para `navigator.permissions.query` (evita falha fatal `TypeError` no WebKit).
+   - Tratamento de status `hasPermission === 'denied'` com alerta acessível na UI.
+4. **Qualidade de Código & DRY (`ScanResult.tsx`, `qr-mapping.ts`, `sw-register.ts`):**
+   - Eliminada duplicação de `extractCode` em favor de `extractQRCode` reutilizável.
+   - Saneamento de todas as advertências ESLint (0 errors, 0 warnings).
+   - Substituição de `window.confirm` bloqueante por evento customizado no Service Worker.
+5. **Validação & QA:**
+   - `pnpm lint`: 0 erros, 0 avisos.
+   - `pnpm tsc --noEmit`: 100% aprovado.
+   - `graphify update .`: Grafo semântico AST atualizado.
+
+## [2026-10-28T22:50] Cloudflare Workers Custom Domain + New QR Code Generation (/cloudflare /agents-orquestrator)
+
+**Context:** Execução completa do plano de implementação de redirecionamento via subdomínio dedicado `qr.portfoliodanilo.com` usando Cloudflare Workers, Custom Domains e geração física de novo QR Code de alta resolução.
+
+**Ações & Infraestrutura Implementada:**
+
+1. **Deployment de Worker Edge (`qr-redirect-match-mountain`):**
+   - Script ES Module com HTTP 302 (Found) dinâmico e preservação de query parameters/UTMs.
+   - Destino configurado: `https://match-the-mountain.netlify.app`.
+2. **Custom Domain Attachment:**
+   - Hostname `qr.portfoliodanilo.com` associado ao serviço `qr-redirect-match-mountain` na zona `portfoliodanilo.com` com emissão automática de certificado TLS.
+   - Rota edge `*qr.portfoliodanilo.com/*` vinculada como trigger.
+3. **Geração de Assets de QR Code:**
+   - `QR/QR-MATCH-MOUNTAIN.png` (PNG de alta resolução 1110x1110px com quiet zone ISO/IEC 18004).
+   - `QR/QR-MATCH-MOUNTAIN.svg` (SVG vetorial ideal para impressão gráfica).
+4. **Validação:**
+   - `curl -sI https://qr.portfoliodanilo.com`: Retorno `HTTP/2 302` com `location: https://match-the-mountain.netlify.app/`.
+   - Decodificação do PNG gerado via WeChat QR Decoder: URL validada `https://qr.portfoliodanilo.com`.
+
+## [2026-10-28T22:38] Cloudflare Workers Edge Redirection: QR Code RTM (/cloudflare /agents-orquestrator)
+
+**Context:** Execução do plano de redirecionamento edge com Cloudflare Workers para reativação do fluxo do QR Code (`QR/QR-RTM.jpeg`) apontando para `https://match-the-mountain.netlify.app` através do domínio controlado `portfoliodanilo.com`.
+
+**Ações & Infraestrutura Implementada:**
+
+1. **Deployment de Worker Edge (`qr-rtm-redirect`):**
+   - Script ES Module implementado em Cloudflare Workers com suporte a HTTP 302 (Found) dinâmico e repasse integral de parâmetros de busca (`searchParams`).
+   - Destino configurado: `https://match-the-mountain.netlify.app`.
+2. **Zone Routing & Domain Integration (`portfoliodanilo.com`):**
+   - Rota edge criada na zona Cloudflare (`b47bfa8814401f70df9d8550f711046d`): `*portfoliodanilo.com/rtm*` vinculada diretamente ao script `qr-rtm-redirect`.
+3. **Validação e Gates de QA:**
+   - Teste de borda validado via `curl -sI https://portfoliodanilo.com/rtm`: Retorno `HTTP/2 302` com cabeçalho `location: https://match-the-mountain.netlify.app/`.
+   - Teste de subdomínio `www.portfoliodanilo.com/rtm`: Normalização e redirecionamento íntegro.
+   - Teste de preservação de UTMs: `https://portfoliodanilo.com/rtm?utm_source=qr&campaign=rtm` preservado com sucesso.
+
 ## [2026-10-27T22:33] Ghost System Diagnostics & Multi-Agent Remediation (/diagnostics /agents-orquestrator)
 
 **Context:** Execução completa dos workflows `/diagnostics` e `/agents-orquestrator` com auditoria de dependências, varredura de dead code (`scan-dead-code.mjs` + `knip`), auditoria de componentes UI (`src/components/ui/`) e remediação delegada aos especialistas `@ghost-architect`, `@devops-engineer` e `@audit-sentinel`.

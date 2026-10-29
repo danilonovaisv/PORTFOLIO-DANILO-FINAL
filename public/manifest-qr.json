@@ -1,0 +1,45 @@
+{
+  "name": "QR Scanner - Match the Mountain",
+  "short_name": "QR Scanner",
+  "description": "Scanner de QR codes promocionais para Match the Mountain. Funciona offline como PWA.",
+  "start_url": "/qr-scanner",
+  "display": "standalone",
+  "background_color": "#040013",
+  "theme_color": "#040013",
+  "orientation": "portrait-primary",
+  "scope": "/qr-scanner/",
+  "icons": [
+    {
+      "src": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.favicon_dark.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.favicon_dark.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "utilities",
+    "productivity"
+  ],
+  "shortcuts": [
+    {
+      "name": "Escanear QR",
+      "short_name": "Scan",
+      "description": "Abrir scanner de QR code",
+      "url": "/qr-scanner",
+      "icons": [
+        {
+          "src": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.favicon_dark.svg",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": []
+}
