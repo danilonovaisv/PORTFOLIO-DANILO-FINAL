@@ -133,7 +133,7 @@ export const ProjectCard = React.memo(function ProjectCard({
     tall: 'col-span-4 lg:col-span-4 aspect-[3/5] w-full',
   };
 
-  const baseCardClasses = "relative overflow-hidden cursor-pointer bg-neutral border border-white/10 h-full transition-all duration-fast ease-out sm:hover:-translate-y-1 sm:hover:shadow-[0_18px_40px_rgba(0,0,0,0.4)] sm:hover:brightness-105 active:translate-y-px [contain:layout_paint]";
+  const baseCardClasses = "relative overflow-hidden cursor-pointer bg-neutral border border-white/10 h-full transition-[transform,box-shadow,filter] duration-fast ease-out sm:hover:-translate-y-1 sm:hover:shadow-[0_18px_40px_rgba(0,0,0,0.4)] sm:hover:brightness-105 [contain:layout_paint] select-none";
   const mobileCardClasses = "max-sm:!w-full max-sm:!h-auto max-sm:!border-none max-sm:!bg-transparent max-sm:!aspect-square max-sm:!block max-sm:!p-0 max-sm:!m-0 max-sm:leading-none";
 
   return (
@@ -146,6 +146,7 @@ export const ProjectCard = React.memo(function ProjectCard({
       onClick={handleClick}
       aria-haspopup={isModalDestination ? 'dialog' : undefined}
       aria-labelledby={headingId}
+      whileTap={reduceMotion ? undefined : { scale: 0.98 }}
       className={cn(
         baseCardClasses,
         sizeClasses[size],
@@ -177,7 +178,7 @@ export const ProjectCard = React.memo(function ProjectCard({
                poster={DEFAULT_VIDEO_POSTER}
                className="absolute inset-0 hidden h-full w-full md:block"
                mediaClassName={cn(
-                 'transition-opacity duration-modal',
+                 'transition-opacity duration-standard',
                  hasVideo && isHovered
                    ? 'opacity-0'
                    : 'opacity-95 group-hover:opacity-100'
@@ -191,7 +192,7 @@ export const ProjectCard = React.memo(function ProjectCard({
                poster={DEFAULT_VIDEO_POSTER}
                className="absolute inset-0 block h-full w-full md:hidden"
                mediaClassName={cn(
-                 'transition-opacity duration-modal',
+                 'transition-opacity duration-standard',
                  hasVideo && isHovered
                    ? 'opacity-0'
                    : 'opacity-95 group-hover:opacity-100'
@@ -207,7 +208,7 @@ export const ProjectCard = React.memo(function ProjectCard({
              poster={DEFAULT_VIDEO_POSTER}
              className="absolute inset-0 h-full w-full"
              mediaClassName={cn(
-               'transition-opacity duration-modal',
+               'transition-opacity duration-standard',
                hasVideo && isHovered
                  ? 'opacity-0'
                  : 'opacity-95 group-hover:opacity-100'
@@ -225,7 +226,7 @@ export const ProjectCard = React.memo(function ProjectCard({
              preload="none"
              className="absolute inset-0 h-full w-full"
              mediaClassName={cn(
-               'transition-opacity duration-modal',
+               'transition-opacity duration-standard',
                isHovered ? 'opacity-100' : 'opacity-0'
              )}
              objectPosition={objectPosition}
@@ -236,7 +237,7 @@ export const ProjectCard = React.memo(function ProjectCard({
 
       <div
         className={cn(
-          "absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center transition-all duration-fast ease-out",
+          "absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center transition-[opacity,transform] duration-fast ease-out",
           "opacity-0 group-focus-visible:opacity-100 sm:group-hover:opacity-100",
           "max-sm:opacity-100 max-sm:justify-end max-sm:p-4 max-sm:bg-gradient-to-t max-sm:from-background/95 max-sm:via-background/60 max-sm:to-transparent",
           hasVideo || hoverMedia?.kind === 'html' || desktopMedia?.kind === 'html'

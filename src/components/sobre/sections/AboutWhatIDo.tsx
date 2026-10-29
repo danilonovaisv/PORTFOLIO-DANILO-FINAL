@@ -115,7 +115,7 @@ export function AboutWhatIDo() {
                   delay: index * 0.06,
                   ease: GHOST_EASE,
                 }}
-                className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] border border-bluePrimary/15 bg-neutral px-5 py-5 text-center shadow-lg shadow-bluePrimary/5 transition-all duration-standard hover:border-bluePrimary/40 hover:shadow-xl hover:shadow-bluePrimary/10 focus-within:border-bluePrimary/50"
+                className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] border border-bluePrimary/15 bg-neutral px-5 py-5 text-center shadow-lg shadow-bluePrimary/5 transition-[border-color,box-shadow,transform] duration-fast select-none active:scale-95 hover:border-bluePrimary/40 hover:shadow-xl hover:shadow-bluePrimary/10 focus-within:border-bluePrimary/50"
               >
                 <span
                   className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-bluePrimary/30 bg-bluePrimary/10 font-sans text-h3 font-black text-blueAccent"
@@ -168,7 +168,7 @@ export function AboutWhatIDo() {
                 <m.li
                   key={service.id}
                   style={prefersReducedMotion ? {} : { x, opacity }}
-                  className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl border border-bluePrimary/10 bg-neutral px-5 py-4 shadow-md shadow-bluePrimary/5 transition-all duration-standard"
+                  className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl border border-bluePrimary/10 bg-neutral px-5 py-4 shadow-md shadow-bluePrimary/5 transition-[border-color,box-shadow,transform] duration-fast active:scale-95 select-none"
                 >
                   <span
                     className="shrink-0 font-sans text-display text-2xl font-black text-blueAccent flex h-10 w-10 items-center justify-center rounded-full bg-bluePrimary/10 border border-bluePrimary/30"

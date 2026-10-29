@@ -36,7 +36,7 @@ const MobileMenuButton = forwardRef<HTMLButtonElement, MobileMenuButtonProps>(
         aria-label={open ? 'Fechar menu' : 'Abrir menu'}
         aria-expanded={open ? 'true' : 'false'}
         aria-controls={controlsId}
-        className={`relative inline-flex items-center justify-center gap-2 bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible z-110 min-h-12 min-w-12 px-3 transition-colors duration-fast ${
+        className={`relative inline-flex items-center justify-center gap-2 bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible z-110 min-h-12 min-w-12 px-3 select-none active:scale-95 transition-all duration-fast ${
           open ? 'text-white' : 'text-white hover:text-primary'
         }`}
       >

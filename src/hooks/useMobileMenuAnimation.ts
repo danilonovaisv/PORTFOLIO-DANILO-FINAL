@@ -40,8 +40,7 @@ export function useMobileMenuAnimation(isOpen: boolean) {
       if (panel) {
         gsap.set([panel, ...preLayers], {
           opacity: isOpen ? 1 : 0,
-          filter: isOpen ? 'blur(0px)' : 'blur(10px)',
-          y: isOpen ? 0 : 18,
+          y: isOpen ? 0 : 12,
           pointerEvents: isOpen ? 'auto' : 'none',
         });
       }
@@ -71,7 +70,7 @@ export function useMobileMenuAnimation(isOpen: boolean) {
       gsap.set(inner, { yPercent: 0 });
       textCycleAnimRef.current = gsap.to(inner, {
         yPercent: -50,
-        duration: MOTION_TOKENS.duration.modal,
+        duration: 0.22,
         ease: GSAP_GHOST_EASE,
       });
     },
@@ -96,21 +95,20 @@ export function useMobileMenuAnimation(isOpen: boolean) {
     const socialTitle = socialsEl?.querySelector('.sm-social-title');
 
     if (itemEls.length) {
-      gsap.set(itemEls, { y: 18, opacity: 0, filter: 'blur(8px)' });
+      gsap.set(itemEls, { y: 12, opacity: 0 });
     }
-    if (socialTitle) gsap.set(socialTitle, { opacity: 0, filter: 'blur(4px)' });
-    if (socialLinks.length) gsap.set(socialLinks, { y: 12, opacity: 0 });
+    if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
+    if (socialLinks.length) gsap.set(socialLinks, { y: 8, opacity: 0 });
 
     const tl = gsap.timeline({ paused: true });
 
     if (layers.length) {
       tl.to(layers, {
         opacity: 0.9,
-        filter: 'blur(0px)',
         y: 0,
-        duration: MOTION_TOKENS.duration.normal,
+        duration: 0.28,
         ease: GSAP_GHOST_EASE,
-        stagger: 0.08,
+        stagger: 0.03,
       });
     }
 
@@ -118,13 +116,12 @@ export function useMobileMenuAnimation(isOpen: boolean) {
       panel,
       {
         opacity: 1,
-        filter: 'blur(0px)',
         y: 0,
-        duration: MOTION_TOKENS.duration.normal,
+        duration: 0.3,
         ease: GSAP_GHOST_EASE,
         pointerEvents: 'auto',
       },
-      layers.length ? '-=0.5' : 0
+      layers.length ? '-=0.2' : 0
     );
 
     if (itemEls.length) {
@@ -133,12 +130,11 @@ export function useMobileMenuAnimation(isOpen: boolean) {
         {
           y: 0,
           opacity: 1,
-          filter: 'blur(0px)',
-          duration: MOTION_TOKENS.duration.ghostIn,
+          duration: 0.3,
           ease: GSAP_GHOST_EASE,
-          stagger: 0.06,
+          stagger: 0.035,
         },
-        '-=0.4'
+        '-=0.2'
       );
     }
 
@@ -148,10 +144,9 @@ export function useMobileMenuAnimation(isOpen: boolean) {
           socialTitle,
           {
             opacity: 1,
-            filter: 'blur(0px)',
-            duration: MOTION_TOKENS.duration.modal,
+            duration: 0.22,
           },
-          '-=0.4'
+          '-=0.2'
         );
       }
       if (socialLinks.length) {
@@ -160,11 +155,11 @@ export function useMobileMenuAnimation(isOpen: boolean) {
           {
             y: 0,
             opacity: 1,
-            duration: MOTION_TOKENS.duration.normal,
+            duration: 0.25,
             ease: GSAP_GHOST_EASE,
-            stagger: 0.06,
+            stagger: 0.03,
           },
-          '-=0.3'
+          '-=0.18'
         );
       }
     }
@@ -193,9 +188,8 @@ export function useMobileMenuAnimation(isOpen: boolean) {
     closeTweenRef.current?.kill();
     closeTweenRef.current = gsap.to(all, {
       opacity: 0,
-      filter: 'blur(10px)',
-      y: 18,
-      duration: MOTION_TOKENS.duration.modal,
+      y: 10,
+      duration: 0.2,
       ease: GSAP_GHOST_EASE,
       pointerEvents: 'none',
       overwrite: 'auto',

@@ -134,9 +134,9 @@ export default function ContactSection() {
                   >
                     {/* Touch target: 48px minimum */}
                     <span
-                      className="flex h-12 w-12 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-transparent border-2 border-bluePrimary text-bluePrimary will-change-transform group-hover:bg-bluePrimary group-hover:text-white group-active:bg-bluePrimary group-active:text-white group-active:translate-y-px"
+                      className="flex h-12 w-12 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-transparent border-2 border-bluePrimary text-bluePrimary will-change-transform group-hover:bg-bluePrimary group-hover:text-white group-active:bg-bluePrimary group-active:text-white group-active:scale-95"
                       style={{
-                        transition: `all ${MOTION_TOKENS.duration.fast}s var(--ease-ghost)`,
+                        transition: `color ${MOTION_TOKENS.duration.fast}s var(--ease-ghost), background-color ${MOTION_TOKENS.duration.fast}s var(--ease-ghost), border-color ${MOTION_TOKENS.duration.fast}s var(--ease-ghost), transform ${MOTION_TOKENS.duration.fast}s var(--ease-ghost)`,
                       }}
                     >
                       {link.icon}
@@ -144,7 +144,7 @@ export default function ContactSection() {
                     <span
                       className="text-base sm:text-lg md:text-xl font-semibold text-textInverse group-hover:text-bluePrimary group-hover:underline group-hover:underline-offset-4"
                       style={{
-                        transition: `all ${MOTION_TOKENS.duration.fast}s var(--ease-ghost)`,
+                        transition: `color ${MOTION_TOKENS.duration.fast}s var(--ease-ghost)`,
                       }}
                     >
                       {link.label}
@@ -163,7 +163,7 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="flex h-14 w-14 items-center justify-center rounded-full border border-textInverse/30 bg-transparent text-textInverse transition-all will-change-transform hover:border-bluePrimary hover:bg-bluePrimary hover:text-white hover:-translate-y-0.5"
+                  className="flex h-14 w-14 items-center justify-center rounded-full border border-textInverse/30 bg-transparent text-textInverse transition-[color,background-color,border-color,transform] duration-fast will-change-transform hover:border-bluePrimary hover:bg-bluePrimary hover:text-white hover:-translate-y-0.5 active:scale-95"
                 >
                   {social.icon}
                   <span className="sr-only">{social.label}</span>
@@ -181,7 +181,7 @@ export default function ContactSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-textInverse/30 bg-transparent text-textInverse shadow-sm transition-all duration-fast will-change-transform active:translate-y-px active:bg-bluePrimary active:border-bluePrimary active:text-white"
+                className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-textInverse/30 bg-transparent text-textInverse shadow-sm transition-[color,background-color,border-color,transform] duration-fast will-change-transform active:scale-95 active:bg-bluePrimary active:border-bluePrimary active:text-white"
               >
                 {social.icon}
                 <span className="sr-only">{social.label}</span>

@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { m, useScroll, useTransform } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 import { ABOUT_CONTENT } from '@/config/content';
 import {
@@ -28,6 +29,7 @@ export function AboutHero() {
   const blur = useTransform(scrollYProgress, [0, 0.3], [0, 8]);
 
   const prefersReducedMotion = useMotionGate();
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
   const shouldPlayVideo = !prefersReducedMotion;
 
   // Defer poster loading - don't preload on initial render
@@ -103,14 +105,16 @@ export function AboutHero() {
                 style={
                   prefersReducedMotion
                     ? {}
-                    : { opacity, y, filter: `blur(${blur}px)` }
+                    : isDesktop
+                      ? { opacity, y, filter: `blur(${blur}px)` }
+                      : { opacity, y }
                 }
                 className="col-span-1 md:col-span-8 lg:col-span-7 xl:col-span-6 flex flex-col items-center md:items-end text-center md:text-right md:-translate-y-[10%]"
               >
                 <m.div
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   animate="visible"
-                  variants={staggerContainer(0.08, 0.2)}
+                  variants={staggerContainer(0.04, 0.08)}
                   className="w-full flex flex-col items-center md:items-end max-w-[750px] md:ml-auto"
                 >
                   {/* Intro & Manifesto */}

@@ -34,6 +34,19 @@ export function OriginParallaxScene({
   priority = false,
   className = '',
 }: OriginParallaxSceneProps) {
+  // Defensive: ensure config has layers array
+  if (!config || !config.layers || !Array.isArray(config.layers)) {
+    return (
+      <div
+        className={cn(
+          'relative w-full h-full rounded-[1.5rem] overflow-hidden bg-ghost-void-black',
+          className
+        )}
+        style={{ backgroundImage: `url(${fallbackImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+      />
+    );
+  }
+
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRefs = useRef<(HTMLDivElement | null)[]>([]);
   const prefersReducedMotion = useMotionGate();

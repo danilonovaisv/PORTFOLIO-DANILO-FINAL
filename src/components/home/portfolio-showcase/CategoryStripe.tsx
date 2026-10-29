@@ -95,7 +95,7 @@ export const CategoryStripe = React.memo(function CategoryStripe({
         {/* Desktop Stripe */}
         <div
           className={cn(
-            'hidden lg:flex items-center py-8 border-t border-blueAccent/40 transition-all duration-standard',
+            'hidden lg:flex items-center py-8 border-t border-blueAccent/40 transition-colors duration-standard',
             category.alignment === 'right' && 'justify-end',
             category.alignment === 'center' && 'justify-center',
             category.alignment === 'left' && 'justify-start',
@@ -223,7 +223,7 @@ export const CategoryStripe = React.memo(function CategoryStripe({
               ))}
             </div>
             {/* Touch target: 48px minimum for accessibility */}
-            <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-bluePrimary active:bg-purpleDetails transition-all duration-fast">
+            <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-bluePrimary active:bg-purpleDetails active:scale-95 transition-[background-color,transform] duration-fast">
               <ArrowUpRight className="w-5 h-5 text-white" />
             </div>
           </div>

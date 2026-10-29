@@ -36,11 +36,11 @@ export default function HeroCopy({
         {
           y: [MOTION_TOKENS.offset.standard, 0],
           opacity: [0, 1],
-          filter: ['blur(10px)', 'blur(0px)'],
+          filter: ['blur(4px)', 'blur(0px)'],
         },
         {
-          delay: stagger(MOTION_TOKENS.stagger.normal as number),
-          duration: MOTION_TOKENS.duration.ghostIn,
+          delay: stagger(0.04),
+          duration: 0.6,
           ease: GHOST_EASE as [number, number, number, number],
         }
       );
@@ -49,8 +49,8 @@ export default function HeroCopy({
         '.hero-subtitle',
         { y: [MOTION_TOKENS.offset.standard, 0], opacity: [0, 1] },
         {
-          delay: MOTION_TOKENS.delay.medium,
-          duration: MOTION_TOKENS.duration.normal as number,
+          delay: 0.2,
+          duration: 0.5,
           ease: GHOST_EASE as [number, number, number, number],
         }
       );

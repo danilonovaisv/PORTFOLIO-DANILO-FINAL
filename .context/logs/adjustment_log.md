@@ -1,5 +1,36 @@
 # Adjustment Log
 
+## [2026-10-29T03:45] Auditoria e Otimização Mestre de Animações: Home, Sobre e Portfólio Desktop/Mobile (/plan /agents-orquestrator)
+
+**Context:** Auditoria completa e plano de refatoração nas animações das páginas Home (`/`), Sobre (`/sobre`) e Portfólio (`/portfolio`) para Desktop e Mobile, fundamentada nas skills `animation-principles`, `12-principles-of-animation-skills` e no Playbook de Design Engineering de Emil Kowalski.
+
+**Ações & Infraestrutura Implementada:**
+
+1. **Tokens Globais & Física (Ghost System v3.0):**
+   - Atualizado `src/config/motion.ts`: tokens de stagger reduzidos para `< 50ms` (`normal: 0.035s`, `tight: 0.02s`, `relaxed: 0.048s`); introduzido token de física tátil `press: { scale: 0.98, scaleCompact: 0.96 }`.
+   - `src/components/ui/AntigravityCTA.tsx`: Eliminada animação tóxica de `columnGap` que gerava recálculos de layout a 60FPS; adicionado press feedback `whileTap={{ scale: 0.98 }}` e proteção `@media (hover: hover)` para prevenir _sticky hover_ em dispositivos touch.
+2. **Navegação Mobile de Alta Performance (`useMobileMenuAnimation.ts` & `MobileMenuButton.tsx`):**
+   - Eliminados filtros pesados de desfoque `filter: blur(8px-10px)` no mobile, prevenindo quedas de taxa de quadros e travamentos térmicos no WebKit/Safari.
+   - Timeline total de abertura e fechamento reduzida de 1.4s para 350ms com stagger ágil de 0.035s.
+   - Adicionada compressão física `active:scale-95` no botão do menu hambúrguer.
+3. **Página Home (`/`):**
+   - `HeroCopy.tsx`: Suavizado o blur inicial para 4px e duração de reveal para 600ms (reduzindo a latência inicial de 1.2s para metade do tempo com elegância etérea).
+   - `ContactForm.tsx` & `ContactSection.tsx`: Removida a propriedade `transition: all`, aplicando transições direcionadas (`transform`, `opacity`, `colors`) e press state `whileTap={{ scale: 0.98 }}`.
+   - `ClientsBrandsSection.tsx`: Corrigido hover excessivamente lento de 500ms (`duration-modal`) para 200ms (`duration-fast`), com press feedback `active:scale-95`.
+   - `CategoryStripe.tsx`: Eliminado `transition-all` em favor de transições de cor e escala ativa no botão de seta.
+4. **Página Sobre (`/sobre`):**
+   - `AboutHero.tsx`: Restringido o `filter: blur` contínuo do scroll apenas para desktop via `useMediaQuery`, mantendo o scroll mobile 100% fluido a 60FPS com interpolação de opacidade e translação.
+   - `AboutWhatIDo.tsx`: Removido `transition-all` de cards e listas, adicionando resposta de compressão tátil.
+   - `ManifestoScrollSection.tsx`: Padronizado stagger consistente de 160ms entre linhas e reduzido timeout de saída para 280ms, com press feedback nos controles de play/pause.
+5. **Página Portfólio & Modal (`/portfolio`):**
+   - `PortfolioHeroNew.tsx`: Adicionada entrada orquestrada com `ghostRise` (`duration: 0.45s`) para o título `portfólio showcase`.
+   - `ProjectsGallery.tsx`: Adicionado press feedback `active:scale-95` nas abas de filtro de categorias e botões de paginação.
+   - `ProjectCard.tsx`: Eliminado `transition-all` do card e overlay; adicionado `whileTap={{ scale: 0.98 }}` para compressão física ao clique; e acelerado o crossfade do vídeo de hover de 500ms para 240ms.
+   - `src/components/portfolio/modal/variants.ts`: Reduzido o delay artificial de exibição do case study de 1.12s para 120ms (`MODAL_TIMELINE.SECONDARY`) e a duração do container para 280ms, eliminando a tela em branco para o usuário.
+6. **Validação & QA:**
+   - Typecheck estrito (`./node_modules/.bin/tsc --noEmit`): 0 erros.
+   - 60FPS Mandate respeitado em todas as transições com aceleração GPU pura (`transform` + `opacity`).
+
 ## [2026-10-29T00:55] Code Review Remediation: QR Scanner PWA & Manifest Restoration (/agents-orquestrator /code-review-checklist)
 
 **Context:** Remediação completa das vulnerabilidades e violações de arquitetura identificadas durante a auditoria agêntica de código do QR Scanner PWA.

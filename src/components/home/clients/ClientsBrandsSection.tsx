@@ -85,7 +85,7 @@ export default function ClientsBrandsSection() {
                   },
                 }}
               >
-                <div className="group relative w-32 h-16 sm:w-40 sm:h-20 md:w-48 md:h-24 flex items-center justify-center transition-transform duration-modal will-change-transform group-hover:-translate-y-0.5 p-2">
+                <div className="group relative w-32 h-16 sm:w-40 sm:h-20 md:w-48 md:h-24 flex items-center justify-center transition-transform duration-fast will-change-transform group-hover:-translate-y-0.5 active:scale-95 p-2">
                   <DynamicAssetImage
                     assetKey={assetKey}
                     alt={logo.alt}
@@ -95,7 +95,7 @@ export default function ClientsBrandsSection() {
                     height={96}
                     objectFit="contain"
                     sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, 192px"
-                    className="w-full h-full filter brightness-0 invert opacity-60 transition-all duration-modal group-hover:opacity-100"
+                    className="w-full h-full filter brightness-0 invert opacity-60 transition-opacity duration-fast group-hover:opacity-100"
                   />
                 </div>
               </m.li>

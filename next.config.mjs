@@ -204,6 +204,7 @@ const createNextConfig = (phase) => ({
 
   async headers() {
     return [
+      // Cabeçalhos globais (exceto /qr-scanner que precisa de câmera)
       {
         source: '/:path*',
         headers: [
@@ -218,6 +219,33 @@ const createNextConfig = (phase) => ({
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=(), payment=()',
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000; includeSubDomains; preload',
+          },
+          {
+            key: 'Cache-Control',
+            value:
+              'public, max-age=0, s-maxage=900, stale-while-revalidate=3600',
+          },
+        ],
+      },
+      // Rota /qr-scanner precisa de acesso à câmera
+      {
+        source: '/qr-scanner/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: cspHeader,
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(self), microphone=(), geolocation=(), payment=()',
           },
           {
             key: 'Strict-Transport-Security',

@@ -7,10 +7,12 @@
 'use client';
 
 import Image from 'next/image';
+import { m } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { ResponsiveVideo } from '@/components/ui/shared/ResponsiveVideo';
 import { RESPONSIVE_VIDEOS } from '@/lib/video-assets';
 import { COLORS } from '@/config/colors';
+import { GHOST_EASE } from '@/config/motion';
 
 const HERO_POSTER = `data:image/svg+xml;utf8,${encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
@@ -80,8 +82,11 @@ export default function PortfolioHeroNew() {
       <div className="relative z-30 w-full px-4 pb-6 md:px-12 md:pb-10">
         <div className="mx-auto flex max-w-[1400px] flex-col items-center justify-center">
           {/* Title - "portfólio showcase" - Centered */}
-          <h1
+          <m.h1
             id="portfolio-hero-heading"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, ease: GHOST_EASE }}
             className="flex max-w-full flex-col items-center justify-center gap-2 text-center text-[clamp(2.25rem,9vw,3.75rem)] font-bold leading-none tracking-tighter sm:text-5xl md:flex-row md:gap-6 md:text-7xl [text-shadow:0_12px_34px_rgba(0,0,0,0.55)]"
           >
             <div className="flex max-w-full flex-col items-center md:flex-row">
@@ -90,7 +95,7 @@ export default function PortfolioHeroNew() {
               </span>
               <span className="text-white font-bold">showcase</span>
             </div>
-          </h1>
+          </m.h1>
         </div>
       </div>
     </section>

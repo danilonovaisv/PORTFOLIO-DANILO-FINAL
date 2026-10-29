@@ -47,7 +47,10 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
       };
 
   const handleHoverStart = () => {
-    if (typeof window !== 'undefined' && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    if (
+      typeof window !== 'undefined' &&
+      !window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    ) {
       return;
     }
     setIsHovered(true);

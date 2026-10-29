@@ -64,14 +64,13 @@ export function ManifestoScrollSection() {
           }
 
           // 4. Stagger reveal line 2 immediately after line 1 completes
-          const line1Length = PHRASES[nextIndex].line1.length;
-          const delayTime = prefersReducedMotion ? 0 : line1Length * 30 + 150;
+          const delayTime = prefersReducedMotion ? 0 : 160;
 
           line2TimeoutRef.current = setTimeout(() => {
             setLine2Status('active');
           }, delayTime);
         },
-        prefersReducedMotion ? 50 : 450
+        prefersReducedMotion ? 50 : 280
       );
     },
     [prefersReducedMotion]
@@ -361,7 +360,7 @@ export function ManifestoScrollSection() {
                 ? 'Reproduzir troca automática de manifesto'
                 : 'Pausar troca automática de manifesto'
             }
-            className="flex h-11 w-11 items-center justify-center rounded-full text-white/50 hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bluePrimary cursor-pointer"
+            className="flex h-11 w-11 items-center justify-center rounded-full text-white/50 hover:text-white transition-[color,transform] active:scale-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bluePrimary cursor-pointer select-none"
           >
             {isPaused ? (
               <Play size={14} aria-hidden="true" />
