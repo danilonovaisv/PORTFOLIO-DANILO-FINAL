@@ -55,7 +55,7 @@ EMBEDS
 - ![[document.pdf#page=3]]               — embed PDF page
 - ![[audio.mp3]]                         — embed audio
 
-Use wikilinks for vault-internal references; use [text](url) for
+Use wikilinks for vault-internal references; use `[text](url)` for
 external URLs only.
 
 CALLOUTS

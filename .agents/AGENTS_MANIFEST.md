@@ -38,5 +38,16 @@
 
 ---
 
-## 🗄️ 3. Arquivo Seguro de Histórico (`.agents/.archive/`)
+## 🎨 3. Pipeline de Auditoria & Validação de Design do Portfólio (4 Agentes)
+
+| Handle / Agente | Arquivo | Finalidade | Skills Primárias |
+| :--- | :--- | :--- | :--- |
+| **`@portfolio_context_analyst`** | [`portfolio-context-analyst.md`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/agents/portfolio-context-analyst.md) | Mapeia documentação, código-fonte, componentes e restrições antes de auditorias de design | `portfolio-design-audit` |
+| **`@design_auditor`** | [`design-auditor.md`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/agents/design-auditor.md) | Executa auditorias baseadas em evidências de UX/UI, motion, acessibilidade e Ghost System | `portfolio-design-audit`, `ui-ux-pro-max`, `design-auditor` |
+| **`@implementation_planner`** | [`implementation-planner.md`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/agents/implementation-planner.md) | Converte achados de auditoria aprovados em tarefas dependentes para agentes da IDE | `portfolio-design-audit`, `writing-plans` |
+| **`@audit_validator`** | [`audit-validator.md`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/agents/audit-validator.md) | Valida implementações contra critérios de aceitação e riscos de regressão | `portfolio-design-audit`, `verify-portfolio-change` |
+
+---
+
+## 🗄️ 4. Arquivo Seguro de Histórico (`.agents/.archive/`)
 Arquivos redundantes, dumps pesados de contexto (`AGENTS.json`, `CLAUDE.json`) e agentes de outros contextos foram preservados no diretório de arquivo seguro [`.agents/.archive/`](file:///Users/danilonovais/PORTFOLIO-DANILO-FINAL/.agents/.archive/), garantindo reversibilidade sem impactar a velocidade da IDE.
