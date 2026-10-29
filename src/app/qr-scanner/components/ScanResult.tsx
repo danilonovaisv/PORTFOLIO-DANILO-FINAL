@@ -35,8 +35,18 @@ export function ScanResult({ result, onClose, onOpenUrl }: ScanResultProps) {
             className="p-2 text-ghost-text-muted hover:text-ghost-text-primary transition-colors rounded-lg hover:bg-ghost-deep-blue/10"
             aria-label="Fechar resultado"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -77,7 +87,8 @@ export function ScanResult({ result, onClose, onOpenUrl }: ScanResultProps) {
             </div>
             <div className="text-center">
               <p className="text-sm font-medium text-ghost-text-primary">
-                {result.mapping?.label || (result.success ? 'URL Válida' : 'Não Mapeado')}
+                {result.mapping?.label ||
+                  (result.success ? 'URL Válida' : 'Não Mapeado')}
               </p>
               <p className="text-xs text-ghost-text-muted">
                 {result.success ? 'Destino confirmado' : 'Verifique o código'}
@@ -89,7 +100,9 @@ export function ScanResult({ result, onClose, onOpenUrl }: ScanResultProps) {
           <div className="space-y-2 text-sm">
             <div className="flex justify-between text-ghost-text-muted">
               <span>Código detectado:</span>
-              <span className="font-mono text-ghost-text-primary">{detectedCode}</span>
+              <span className="font-mono text-ghost-text-primary">
+                {detectedCode}
+              </span>
             </div>
             <div className="flex justify-between text-ghost-text-muted">
               <span>Destino:</span>
@@ -100,7 +113,9 @@ export function ScanResult({ result, onClose, onOpenUrl }: ScanResultProps) {
             {result.mapping && (
               <div className="flex justify-between text-ghost-text-muted">
                 <span>Campanha:</span>
-                <span className="font-medium text-ghost-text-primary">{result.mapping.label}</span>
+                <span className="font-medium text-ghost-text-primary">
+                  {result.mapping.label}
+                </span>
               </div>
             )}
           </div>
@@ -127,14 +142,28 @@ export function ScanResult({ result, onClose, onOpenUrl }: ScanResultProps) {
           <details className="mt-4 border-t border-ghost-deep-blue/10 pt-4">
             <summary className="cursor-pointer text-xs text-ghost-text-muted font-medium flex items-center gap-1">
               Detalhes técnicos
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </summary>
             <div className="mt-3 space-y-1 text-xs font-mono text-ghost-text-muted">
-              <div>Timestamp: {new Date(result.timestamp).toLocaleString('pt-BR')}</div>
+              <div>
+                Timestamp: {new Date(result.timestamp).toLocaleString('pt-BR')}
+              </div>
               <div>Raw: {result.rawText}</div>
-              {result.error && <div className="text-red-500">Erro: {result.error}</div>}
+              {result.error && (
+                <div className="text-red-500">Erro: {result.error}</div>
+              )}
             </div>
           </details>
         </div>

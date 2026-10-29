@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from 'next';
 
 export const metadata: Metadata = {
   title: 'QR Scanner | Match the Mountain',
-  description: 'Scanner de QR codes promocionais para Match the Mountain. Funciona offline como PWA.',
+  description:
+    'Scanner de QR codes promocionais para Match the Mountain. Funciona offline como PWA.',
   manifest: '/manifest-qr.json',
   appleWebApp: {
     capable: true,

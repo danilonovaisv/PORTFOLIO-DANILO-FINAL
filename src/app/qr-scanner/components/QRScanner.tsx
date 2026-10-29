@@ -13,7 +13,9 @@ interface QRScannerProps {
 
 export function QRScanner({ onScan, onError, config }: QRScannerProps) {
   const [isScanning, setIsScanning] = useState(false);
-  const [hasPermission, setHasPermission] = useState<PermissionState | null>(null);
+  const [hasPermission, setHasPermission] = useState<PermissionState | null>(
+    null
+  );
   const [cameraError, setCameraError] = useState<string | null>(null);
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const elementRef = useRef<HTMLDivElement>(null);
@@ -36,7 +38,11 @@ export function QRScanner({ onScan, onError, config }: QRScannerProps) {
   // Verificar permissão de câmera (com fallback seguro para Safari/iOS)
   useEffect(() => {
     let active = true;
-    if (typeof navigator !== 'undefined' && 'permissions' in navigator && navigator.permissions?.query) {
+    if (
+      typeof navigator !== 'undefined' &&
+      'permissions' in navigator &&
+      navigator.permissions?.query
+    ) {
       navigator.permissions
         .query({ name: 'camera' as PermissionName })
         .then((result) => {
@@ -117,7 +123,8 @@ export function QRScanner({ onScan, onError, config }: QRScannerProps) {
         onScanFailure
       );
     } catch (err) {
-      const errorMsg = err instanceof Error ? err.message : 'Erro ao iniciar câmera';
+      const errorMsg =
+        err instanceof Error ? err.message : 'Erro ao iniciar câmera';
       setCameraError(errorMsg);
       onError(errorMsg);
       setIsScanning(false);
@@ -178,9 +185,7 @@ export function QRScanner({ onScan, onError, config }: QRScannerProps) {
               <p className="text-ghost-text-muted text-sm">
                 Não foi possível acessar a câmera
               </p>
-              <p className="text-ghost-text-muted text-xs">
-                {cameraError}
-              </p>
+              <p className="text-ghost-text-muted text-xs">{cameraError}</p>
               <button
                 onClick={startScanner}
                 className="mt-3 px-4 py-2 text-sm font-medium text-ghost-void-black bg-ghost-deep-blue rounded-lg hover:opacity-90 transition-opacity"
@@ -195,7 +200,8 @@ export function QRScanner({ onScan, onError, config }: QRScannerProps) {
           <div className="absolute inset-0 flex flex-col items-center justify-center p-4 bg-ghost-void-black/90 text-center z-10">
             {hasPermission === 'denied' && (
               <p className="text-amber-400 text-xs mb-3 max-w-xs">
-                Acesso à câmera bloqueado nas preferências do navegador. Libere a permissão para escanear.
+                Acesso à câmera bloqueado nas preferências do navegador. Libere
+                a permissão para escanear.
               </p>
             )}
             <button

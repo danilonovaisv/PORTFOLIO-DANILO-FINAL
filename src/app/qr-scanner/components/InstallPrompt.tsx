@@ -1,7 +1,10 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import type { PWAInstallPrompt, BeforeInstallPromptEvent } from '@/app/qr-scanner/types';
+import type {
+  PWAInstallPrompt,
+  BeforeInstallPromptEvent,
+} from '@/app/qr-scanner/types';
 
 interface InstallPromptProps {
   onInstall?: () => void;
@@ -14,7 +17,9 @@ export function InstallPrompt({ onInstall, onDismiss }: InstallPromptProps) {
 
   useEffect(() => {
     // Verificar se já está instalado
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    const isStandalone = window.matchMedia(
+      '(display-mode: standalone)'
+    ).matches;
     if (isStandalone) return;
 
     // Verificar se já foi dispensado nesta sessão
@@ -66,8 +71,18 @@ export function InstallPrompt({ onInstall, onDismiss }: InstallPromptProps) {
       <div className="bg-ghost-surface rounded-2xl border border-ghost-deep-blue/30 p-4 shadow-2xl">
         <div className="flex items-start gap-3">
           <div className="w-10 h-10 rounded-xl bg-ghost-deep-blue/20 flex items-center justify-center flex-shrink-0">
-            <svg className="w-5 h-5 text-ghost-deep-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            <svg
+              className="w-5 h-5 text-ghost-deep-blue"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+              />
             </svg>
           </div>
           <div className="flex-1 min-w-0">

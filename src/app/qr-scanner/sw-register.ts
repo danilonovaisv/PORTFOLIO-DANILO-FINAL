@@ -18,7 +18,10 @@ export function registerSW() {
             const newWorker = registration.installing;
             if (newWorker) {
               newWorker.addEventListener('statechange', () => {
-                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                if (
+                  newWorker.state === 'installed' &&
+                  navigator.serviceWorker.controller
+                ) {
                   // Notificar que nova versão foi instalada
                   window.dispatchEvent(new CustomEvent('pwa-update-available'));
                 }
