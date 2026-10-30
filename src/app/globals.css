@@ -47,6 +47,15 @@
   --color-primary: #0048ff;
   --color-accent: #4fe6ff;
 
+  /* Ghost Design System aliases (canonical naming used by Origin components
+     and the QR Scanner PWA). Mirrors the values already defined above so the
+     ghost-* class names resolve under Tailwind v4. */
+  --color-ghost-void-black: #040013;
+  --color-ghost-deep-blue: #0048ff;
+  --color-ghost-surface: rgba(255, 255, 255, 0.05);
+  --color-ghost-text-primary: #fcffff;
+  --color-ghost-text-muted: #a1a3a3;
+
   /* Font families */
   --font-family-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
   --font-family-mono: 'PPSupplyMono', 'Space Mono', monospace;

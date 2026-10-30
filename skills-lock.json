@@ -109,6 +109,12 @@
       "skillPath": "skills/container-bounds/SKILL.md",
       "computedHash": "6145c6aa0113d57466258252ff6df2ede387b2e5db1f6cdebec00754a54e6fcb"
     },
+    "design-taste-frontend": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/taste-skill/SKILL.md",
+      "computedHash": "6ac8ba6089dcbc303744a507a4587113c5d845ca2f658b3ce2b0b5eab108fb0d"
+    },
     "developing-genkit-dart": {
       "source": "firebase/agent-skills",
       "sourceType": "github",
