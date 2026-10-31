@@ -1,25 +1,29 @@
 /**
- * Origin Section Data — Ghost System v3.0 (Cinema Reel Architecture Adaptation)
+ * Origin Section Data — Ghost System v3.0 (Cinema Reel Architecture)
  * Layer 1 (Data): Narrative chapters, typographic structure, and dynamic asset keys
  * for the "Origem Criativa" section on /sobre.
  *
- * Narrative Progression:
- * 01 / SENSIBILIDADE — O QUE PERMANECE (Matéria humana)
- * 02 / CRIAÇÃO — DO TRAÇO À INTENÇÃO (Gesto em estrutura)
- * 03 / DESIGN — A DESCOBERTA DO INVISÍVEL (Estrutura em significado)
- * 04 / EXPANSÃO — EXPANSÃO COM PROPÓSITO (Significado em sistema)
+ * Supabase Storage Integration:
+ * - Project Reference: umkmwbkwvulxtdodzmzf
+ * - Bucket: site-assets
+ * - Folder: about/origin/origin2/
+ * - Assets: cena-01.webp, cena-02.webp, cena-03.webp, cena-04.webp
+ * - Resolution: 2500x1406 (Aspect Ratio: 16:9 widescreen)
  */
 
-import { SITE_ASSET_KEYS } from "@/config/site-assets";
+import { SITE_ASSET_KEYS } from '@/config/site-assets';
 
 export type OriginAssetKey =
   (typeof SITE_ASSET_KEYS.about.originImages)[number];
 
+export const SUPABASE_ORIGIN_STORAGE_BASE =
+  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/origin2';
+
 export type OriginLocalWebpPath =
-  | "/webp/about.origin_image.1.webp"
-  | "/webp/about.origin_image.2.webp"
-  | "/webp/about.origin_image.3.webp"
-  | "/webp/about.origin_image.4.webp";
+  | '/about/origin/origin2/cena-01.webp'
+  | '/about/origin/origin2/cena-02.webp'
+  | '/about/origin/origin2/cena-03.webp'
+  | '/about/origin/origin2/cena-04.webp';
 
 export interface OriginParallaxLayerConfig {
   src: string;
@@ -35,283 +39,223 @@ export interface OriginSceneConfig {
   scale: number;
   cycleMs: number;
   verticalRatio: number;
-  motionMode: "horizontal" | "diagonal";
-  wave: "sine" | "cosine";
+  motionMode: 'horizontal' | 'diagonal';
+  wave: 'sine' | 'cosine';
+}
+
+export interface OriginFocusPoint {
+  label: string;
+  value: string;
 }
 
 export interface OriginChapter {
-  /** Unique slug identifier for the chapter */
+  /** Identificador único do capítulo */
   id: string;
-  /** Numeric chapter sequence (1..4) */
+  /** Sequência numérica (1..4) */
   order: number;
-  /** Two-digit chapter code ("01".."04") rendered in Geist Mono */
+  /** Código de dois dígitos ("01".."04") */
   chapter: string;
-  /** Symbolic phase/arc label rendered in Playfair Display italic */
+  /** Fase romana / arco narrativo */
   year: string;
-  /** All-caps metadata eyebrow (supports midpoint line break) */
+  /** Eyebrow editorial em caixa alta */
   eyebrow: string;
-  /** Uppercase display lines rendered in Playfair Display */
+  /** Linhas de exibição do título monumental */
   titleLines: string[];
-  /** Consolidated plain title for a11y and alt descriptions */
+  /** Título consolidado para a11y */
   title: string;
-  /** Chapter discipline/phase category */
-  category: string;
-  /** Dynamic asset key resolved via useSiteAssetUrl */
+  /** Categoria do eixo criativo */
+  category: 'SENSIBILIDADE' | 'CRIAÇÃO' | 'DESIGN' | 'EXPANSÃO';
+  /** Disciplina profissional */
+  discipline: string;
+  /** Princípio central da narrativa */
+  principle: string;
+  /** Chave de asset dinâmico */
   imageId: OriginAssetKey;
-  /** Local WebP asset path in public/webp/ */
+  /** URL canônica pública do Supabase Storage */
+  supabaseUrl: string;
+  /** Caminho do asset local WebP */
   fallback: OriginLocalWebpPath;
-  /** Multi-paragraph narrative text rendered in Inter Tight */
-  description: string;
-  /** Key anchor sentence highlighted in bluePrimary (#0048ff) */
-  highlight: string;
-  /** Editorial frame caption */
-  caption: string;
-  /** Desktop editorial alignment alternation */
-  textAlign: "left" | "right";
-  /** Creative director label for Cinema Reel */
-  director: string;
-  /** Method philosophy label */
-  method: string;
-  /** Technical and editorial metadata stats for Cinema Reel */
-  stats: {
-    critics: number | string;
-    audience: number | string;
-    runtime: string;
-    format: string;
-    aspect: string;
-    language: string;
-    country: string;
+  /** Dimensões intrínsecas da mídia para CLS zero */
+  dimensions: {
+    width: number;
+    height: number;
+    aspectRatio: string;
   };
-  /** Editorial quotes / reviews reflecting the chapter essence */
-  awards: Array<{
-    stars: number;
-    label: string;
-    quote: string;
-  }>;
+  /** Descrição concisa para o palco principal */
+  description: string;
+  /** Trecho âncora destacado em Ghost Cyan */
+  highlight: string;
+  /** Legenda do enquadramento */
+  caption: string;
+  /** Narrativa detalhada para o painel de contexto */
+  story: string;
+  /** Alinhamento editorial no desktop */
+  textAlign: 'left' | 'right';
+  /** Diretor / autor */
+  director: string;
+  /** Metodologia aplicada */
+  method: string;
+  /** Pilares estratégicos reais da disciplina */
+  focusPoints: OriginFocusPoint[];
 }
 
-/** Alias kept for compatibility across origin modules */
 export type OriginBlock = OriginChapter;
 
 export const ORIGIN_INTRO = {
-  eyebrow: "ORIGEM",
-  headline: "Da intuição ao método.",
+  eyebrow: 'ORIGEM',
+  headline: 'Da intuição ao método.',
   description:
-    "Como observação, desenho, design, comunicação e tecnologia transformaram o olhar autoral em método criativo e estratégico.",
+    'Como a sensibilidade do olhar, a experimentação visual e o rigor técnico consolidaram uma trajetória orientada à essência, forma e impacto.',
 } as const;
 
 export const ORIGIN_BRIDGE = {
-  eyebrow: "CONTINUIDADE",
-  text: "O que começou como olhar virou método.",
-  ctaText: "Conheça as áreas de atuação",
-  ctaHref: "#04-o-que-eu-faco",
+  eyebrow: 'CONTINUIDADE',
+  headline: 'Do método à realização.',
+  text: 'O que nasceu da intuição estrutura hoje marcas, experiências digitais e plataformas completas.',
+  ctaText: 'Explorar áreas de atuação',
+  ctaHref: '#04-o-que-eu-faco',
 } as const;
 
 export const ORIGIN_CHAPTERS: OriginChapter[] = [
   {
-    id: "o-que-permanece",
+    id: 'o-que-permanece',
     order: 1,
-    chapter: "01",
-    year: "I · Essência",
-    eyebrow: "CAPÍTULO 01 · MATÉRIA HUMANA",
-    titleLines: ["O QUE", "PERMANECE"],
-    title: "O QUE PERMANECE",
-    category: "SENSIBILIDADE",
+    chapter: '01',
+    year: 'I · Essência',
+    eyebrow: 'CAPÍTULO 01 — MATÉRIA HUMANA',
+    titleLines: ['O QUE', 'PERMANECE'],
+    title: 'O QUE PERMANECE',
+    category: 'SENSIBILIDADE',
+    discipline: 'Direção de Arte & Observação',
+    principle: 'A essência resiste ao ruído passageiro.',
     imageId: SITE_ASSET_KEYS.about.originImages[0],
-    fallback: "/webp/about.origin_image.1.webp",
-    caption: "Composição 01 — O olhar humano e a essência que resiste ao tempo",
-    description: `Desde cedo, sempre prestei atenção no que ficava —
-não só no que aparecia.
-
-Enquanto muitos olhavam para o brilho imediato,
-eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
-A essência das coisas sempre falou mais alto do que a superfície.`,
-    highlight:
-      "A essência das coisas sempre falou mais alto do que a superfície.",
-    textAlign: "left",
-    director: "Danilo Novais",
-    method: "Da Observação à Essência",
-    stats: {
-      critics: 99,
-      audience: 100,
-      runtime: "Atemporal",
-      format: "Olhar Autoral",
-      aspect: "16:9 Cinema",
-      language: "Humano",
-      country: "Brasil",
+    supabaseUrl: `${SUPABASE_ORIGIN_STORAGE_BASE}/cena-01.webp`,
+    fallback: '/about/origin/origin2/cena-01.webp',
+    dimensions: {
+      width: 2500,
+      height: 1406,
+      aspectRatio: '16 / 9',
     },
-    awards: [
-      {
-        stars: 5,
-        label: "MATÉRIA HUMANA",
-        quote: "A essência que resiste ao tempo e ao ruído.",
-      },
-      {
-        stars: 5,
-        label: "ATENÇÃO AO INVISÍVEL",
-        quote: "O olhar focado no que fica, não no que passa.",
-      },
-      {
-        stars: 5,
-        label: "ESSÊNCIA",
-        quote: "A sensibilidade antes de qualquer artifício.",
-      },
+    caption: 'Composição 01 — O olhar humano e a essência que resiste ao tempo',
+    description:
+      'Antes de qualquer técnica, há a atenção ao detalhe que sobrevive ao tempo. O processo criativo começa na capacidade de filtrar excessos e reconhecer o que realmente tem substância.',
+    highlight: 'filtrar excessos e reconhecer o que realmente tem substância',
+    story:
+      'Desde cedo, aprendi a observar o que permanecia quando a novidade imediata passava. Na direção de arte e na vida, a sensibilidade precede o método: é preciso compreender a substância humana antes de propor qualquer intervenção visual.',
+    textAlign: 'left',
+    director: 'Danilo Novais',
+    method: 'Da Observação à Essência',
+    focusPoints: [
+      { label: 'EIXO', value: 'Sensibilidade & Olhar' },
+      { label: 'MÉTODO', value: 'Observação Crítica' },
+      { label: 'ENTREGA', value: 'Identidade Atemporal' },
     ],
   },
   {
-    id: "do-traco-a-intencao",
+    id: 'do-traco-a-intencao',
     order: 2,
-    chapter: "02",
-    year: "II · Gesto",
-    eyebrow: "CAPÍTULO 02 · GESTO EM ESTRUTURA",
-    titleLines: ["DO TRAÇO À", "INTENÇÃO"],
-    title: "DO TRAÇO À INTENÇÃO",
-    category: "CRIAÇÃO",
+    chapter: '02',
+    year: 'II · Gesto',
+    eyebrow: 'CAPÍTULO 02 — DO INSTINTO À ESTRUTURA',
+    titleLines: ['DO TRAÇO À', 'INTENÇÃO'],
+    title: 'DO TRAÇO À INTENÇÃO',
+    category: 'CRIAÇÃO',
+    discipline: 'Identidade Visual & Composição',
+    principle: 'O improviso no papel ganha direção e propósito.',
     imageId: SITE_ASSET_KEYS.about.originImages[1],
-    fallback: "/webp/about.origin_image.2.webp",
+    supabaseUrl: `${SUPABASE_ORIGIN_STORAGE_BASE}/cena-02.webp`,
+    fallback: '/about/origin/origin2/cena-02.webp',
+    dimensions: {
+      width: 2500,
+      height: 1406,
+      aspectRatio: '16 / 9',
+    },
     caption:
-      "Composição 02 — Do improviso no papel à construção da direção visual",
-    description: `Rabiscos viraram ideias.
-Ideias viraram projetos.
-E os projetos começaram a deixar rastros.
-
-Meu processo criativo nasceu do improviso, do lápis na margem do caderno.
-Aos poucos, aquilo que era instinto virou direção.
-Com cada tentativa, aprendi a dar forma ao invisível —
-até que os conceitos começaram a falar por si.`,
-    highlight: "aprendi a dar forma ao invisível",
-    textAlign: "right",
-    director: "Danilo Novais",
-    method: "Do Gesto à Estrutura",
-    stats: {
-      critics: 98,
-      audience: 99,
-      runtime: "Processo",
-      format: "Direção Visual",
-      aspect: "16:9 Cinema",
-      language: "Visual",
-      country: "Brasil",
-    },
-    awards: [
-      {
-        stars: 5,
-        label: "DO TRAÇO AO CONCEITO",
-        quote: "Do improviso no papel à direção visual sólida.",
-      },
-      {
-        stars: 5,
-        label: "GESTO AUTORAL",
-        quote: "O instinto transformado em método de criação.",
-      },
-      {
-        stars: 5,
-        label: "FORMA AO INVISÍVEL",
-        quote: "Ideias que ganham corpo e falam por si.",
-      },
-    ],
-  },
-  {
-    id: "a-descoberta-do-invisivel",
-    order: 3,
-    chapter: "03",
-    year: "III · Forma",
-    eyebrow: "CAPÍTULO 03 · ESTRUTURA EM SIGNIFICADO",
-    titleLines: ["A DESCOBERTA", "DO INVISÍVEL"],
-    title: "A DESCOBERTA DO INVISÍVEL",
-    category: "DESIGN",
-    imageId: SITE_ASSET_KEYS.about.originImages[2],
-    fallback: "/webp/about.origin_image.3.webp",
-    caption: "Composição 03 — A estrutura que transforma sem fazer alarde",
-    description: `Foi ali que entendi:
-design não é enfeite.
-É ferramenta invisível de transformação.
-
-Por trás de cada escolha visual, existe intenção.
-Descobri que o design verdadeiro não grita — ele conduz.
-Ele está presente nos detalhes que ninguém percebe,
-mas que todos sentem.
-Transformar sem que se perceba a transformação: isso é potência.`,
-    highlight: "o design verdadeiro não grita — ele conduz.",
-    textAlign: "left",
-    director: "Danilo Novais",
-    method: "Da Forma ao Significado",
-    stats: {
-      critics: 100,
-      audience: 98,
-      runtime: "Precisão",
-      format: "Design de Sistemas",
-      aspect: "16:9 Cinema",
-      language: "Estratégia",
-      country: "Brasil",
-    },
-    awards: [
-      {
-        stars: 5,
-        label: "O DESIGN QUE CONDUZ",
-        quote: "O design verdadeiro não grita — ele conduz.",
-      },
-      {
-        stars: 5,
-        label: "TRANSFORMAÇÃO SILENCIOSA",
-        quote: "Transformar sem que se perceba a transformação.",
-      },
-      {
-        stars: 5,
-        label: "INTENÇÃO ESTRUTURAL",
-        quote: "Ferramenta invisível de potência e significado.",
-      },
-    ],
-  },
-  {
-    id: "expansao-com-proposito",
-    order: 4,
-    chapter: "04",
-    year: "IV · Sistema",
-    eyebrow: "CAPÍTULO 04 · SIGNIFICADO EM SISTEMA",
-    titleLines: ["EXPANSÃO COM", "PROPÓSITO"],
-    title: "EXPANSÃO COM PROPÓSITO",
-    category: "EXPANSÃO",
-    imageId: SITE_ASSET_KEYS.about.originImages[3],
-    fallback: "/webp/about.origin_image.4.webp",
-    caption: "Composição 04 — Integração entre estratégia, tecnologia e IA",
-    description: `Estudei Comunicação, mergulhei no design, no branding
-e hoje uso inteligência artificial para expandir o alcance
-sem perder a essência humana da criação.
-
-Minha trajetória uniu intuição com método, arte com estratégia.
-O futuro pede novas ferramentas — e eu as abracei.
-Mas nunca deixei que a tecnologia apagasse o que me move:
-a sensibilidade, o olhar atento, a busca pelo significado.`,
+      'Composição 02 — Da experimentação no papel à construção da direção visual',
+    description:
+      'Rabiscos espontâneos transformam-se em conceitos sólidos. O gesto inicial ganha rigor por meio de testes de ritmo, proporção e contraste, até que a ideia ganhe clareza e direção.',
     highlight:
-      "Minha trajetória uniu intuição com método, arte com estratégia.",
-    textAlign: "right",
-    director: "Danilo Novais",
-    method: "Do Significado ao Sistema",
-    stats: {
-      critics: 99,
-      audience: 100,
-      runtime: "Futuro",
-      format: "IA & Estratégia",
-      aspect: "16:9 Cinema",
-      language: "Tecnologia",
-      country: "Brasil",
+      'o gesto inicial ganha rigor até que a ideia ganhe clareza e direção',
+    story:
+      'O processo nasceu no papel, nas margens de cadernos onde a intuição encontrava o primeiro registro. Com a prática contínua, o instinto foi lapidado: criar não é apenas expressar, mas testar e estruturar soluções que comunicam com precisão.',
+    textAlign: 'right',
+    director: 'Danilo Novais',
+    method: 'Do Gesto à Estrutura',
+    focusPoints: [
+      { label: 'EIXO', value: 'Criação Autoral' },
+      { label: 'MÉTODO', value: 'Rigor Composicional' },
+      { label: 'ENTREGA', value: 'Direção Visual' },
+    ],
+  },
+  {
+    id: 'a-descoberta-do-invisivel',
+    order: 3,
+    chapter: '03',
+    year: 'III · Forma',
+    eyebrow: 'CAPÍTULO 03 — LINGUAGEM E ESTRUTURA',
+    titleLines: ['A DESCOBERTA', 'DO INVISÍVEL'],
+    title: 'A DESCOBERTA DO INVISÍVEL',
+    category: 'DESIGN',
+    discipline: 'Design de Sistemas & Experiência',
+    principle: 'O design verdadeiro conduz sem precisar gritar.',
+    imageId: SITE_ASSET_KEYS.about.originImages[2],
+    supabaseUrl: `${SUPABASE_ORIGIN_STORAGE_BASE}/cena-03.webp`,
+    fallback: '/about/origin/origin2/cena-03.webp',
+    dimensions: {
+      width: 2500,
+      height: 1406,
+      aspectRatio: '16 / 9',
     },
-    awards: [
-      {
-        stars: 5,
-        label: "SÍNTESE ESTRATÉGICA",
-        quote: "Intuição com método, arte com estratégia.",
-      },
-      {
-        stars: 5,
-        label: "TECNOLOGIA & ALMA",
-        quote: "IA para expandir sem perder a essência humana.",
-      },
-      {
-        stars: 5,
-        label: "SIGNIFICADO EM SISTEMA",
-        quote: "O que começou como olhar virou método.",
-      },
+    caption: 'Composição 03 — A estrutura que transforma sem fazer alarde',
+    description:
+      'Design não é ornamento: é ferramenta silenciosa de transformação. Estruturas invisíveis de tipografia, ritmo e espaçamento orientam a percepção de forma natural e profunda.',
+    highlight: 'estruturas invisíveis de tipografia, ritmo e espaçamento',
+    story:
+      'O design mais potente opera nos bastidores da percepção. Quando proporções, contraste e espaço negativo dialogam em harmonia, a experiência flui sem atrito. Transformar sem que se perceba o esforço da transformação: essa é a verdadeira sofisticação.',
+    textAlign: 'left',
+    director: 'Danilo Novais',
+    method: 'Da Forma ao Significado',
+    focusPoints: [
+      { label: 'EIXO', value: 'Design de Sistemas' },
+      { label: 'MÉTODO', value: 'Arquitetura Visual' },
+      { label: 'ENTREGA', value: 'Clareza Operacional' },
+    ],
+  },
+  {
+    id: 'expansao-com-proposito',
+    order: 4,
+    chapter: '04',
+    year: 'IV · Sistema',
+    eyebrow: 'CAPÍTULO 04 — ESTRATÉGIA E TECNOLOGIA',
+    titleLines: ['EXPANSÃO COM', 'PROPÓSITO'],
+    title: 'EXPANSÃO COM PROPÓSITO',
+    category: 'EXPANSÃO',
+    discipline: 'Estratégia, IA & Direção Criativa',
+    principle:
+      'Tecnologia e inteligência artificial a serviço da sensibilidade humana.',
+    imageId: SITE_ASSET_KEYS.about.originImages[3],
+    supabaseUrl: `${SUPABASE_ORIGIN_STORAGE_BASE}/cena-04.webp`,
+    fallback: '/about/origin/origin2/cena-04.webp',
+    dimensions: {
+      width: 2500,
+      height: 1406,
+      aspectRatio: '16 / 9',
+    },
+    caption:
+      'Composição 04 — A integração entre estratégia, tecnologia e visão autoral',
+    description:
+      'A convergência entre comunicação, design e inteligência artificial expande o alcance criativo sem diluir a sensibilidade. A tecnologia opera como amplificador do método, nunca como substituto da visão.',
+    highlight:
+      'tecnologia como amplificador do método, nunca substituto da visão',
+    story:
+      'Com formação em Comunicação e atuação contínua em design e branding, adotei novas ferramentas e inteligência artificial para elevar o nível de entrega. Ferramentas evoluem rapidamente, mas seu impacto continuará dependendo do olhar humano que define sua direção.',
+    textAlign: 'right',
+    director: 'Danilo Novais',
+    method: 'Do Significado ao Sistema',
+    focusPoints: [
+      { label: 'EIXO', value: 'Estratégia & Escala' },
+      { label: 'MÉTODO', value: 'Processo Aumentado por IA' },
+      { label: 'ENTREGA', value: 'Impacto & Relevância' },
     ],
   },
 ];

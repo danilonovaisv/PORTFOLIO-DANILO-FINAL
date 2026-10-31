@@ -14,6 +14,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "dev:webpack": "next dev --webpack",
     "start": "node .next/standalone/server.js",
     "start:next": "next start --hostname 0.0.0.0 --port ${PORT:-3000}",
     "clean": "rimraf .next out .eslintcache .firebase dist deploy-public",
@@ -24,7 +25,7 @@
     "prebuild": "pnpm run validate-env && node scripts/generate-build-info.cjs",
     "validate-env": "node --env-file-if-exists=.env.local --env-file-if-exists=.env --import tsx src/lib/env.ts",
     "validate:structure": "python3 scripts/validate_structure.py",
-    "build": "next build",
+    "build": "next build --webpack",
     "prepare-deploy": "tsx scripts/prep-deploy.ts",
     "verify:assets": "node scripts/verify-supabase-assets.mjs",
     "cf:build": "opennextjs-cloudflare build",

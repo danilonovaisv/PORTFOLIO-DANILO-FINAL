@@ -88,6 +88,7 @@ docs/*.png
 pentest-workflow.yaml
 project_truth.json
 test-results/
+test-artifacts/
 .deploy_config/
 .backup/
 

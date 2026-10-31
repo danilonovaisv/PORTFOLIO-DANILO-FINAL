@@ -1,234 +1,189 @@
-"use client";
+'use client';
 
-/**
- * AboutOrigin — "Origem Criativa" Section (/sobre)
- * Ghost System v3.0 · Full Cinema Reel Architecture
- *
- * 3-Layer Architecture:
- * 1. Data:       src/components/sobre/origin/data.ts
- * 2. Render:     src/components/sobre/origin/OriginComponents.tsx
- * 3. Animations: src/components/sobre/origin/useOriginAnimations.ts
- */
-
-import React, { useRef, useState } from "react";
-import { Playfair_Display } from "next/font/google";
-import { useSiteAssetUrl } from "@/contexts/site-assets";
+import React, { useRef, useState, useMemo } from 'react';
+import { useSiteAssetUrl } from '@/contexts/site-assets';
 import {
   ORIGIN_CHAPTERS,
   ORIGIN_INTRO,
   ORIGIN_BRIDGE,
-  type OriginLocalWebpPath,
-} from "@/components/sobre/origin/data";
+} from '@/components/sobre/origin/data';
 import {
   OriginMask,
   CinemaReelStageFrame,
   CinemaReelRightRail,
   DetailsPanel,
   type ResolvedOriginChapter,
-} from "@/components/sobre/origin/OriginComponents";
-import {
-  useOriginAnimations,
-  ORIGIN_LAYOUT,
-} from "@/components/sobre/origin/useOriginAnimations";
-import { useMotionGate } from "@/hooks/useMotionGate";
+} from '@/components/sobre/origin/OriginComponents';
+import { useOriginAnimations } from '@/components/sobre/origin/useOriginAnimations';
+import { useMotionGate } from '@/hooks/useMotionGate';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-function resolveOriginAsset(
-  localWebp: OriginLocalWebpPath,
-  hookUrl?: string
-): string {
-  if (localWebp) return localWebp;
-  if (hookUrl && !hookUrl.startsWith("/site.assets/webp/")) return hookUrl;
-  return localWebp;
-}
-
-export default function AboutOrigin() {
+export function AboutOrigin() {
   const containerRef = useRef<HTMLElement>(null);
   const stageWrapRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = !!useMotionGate();
   const [activeSceneIndex, setActiveSceneIndex] = useState(0);
-  const [openSlideKey, setOpenSlideKey] = useState<string | null>(null);
+  const [activeDrawerChapter, setActiveDrawerChapter] =
+    useState<ResolvedOriginChapter | null>(null);
 
-  // Dynamic asset resolution with fallback
-  const assetUrl1 = useSiteAssetUrl(
-    ORIGIN_CHAPTERS[0].imageId,
-    ORIGIN_CHAPTERS[0].fallback
-  );
-  const assetUrl2 = useSiteAssetUrl(
-    ORIGIN_CHAPTERS[1].imageId,
-    ORIGIN_CHAPTERS[1].fallback
-  );
-  const assetUrl3 = useSiteAssetUrl(
-    ORIGIN_CHAPTERS[2].imageId,
-    ORIGIN_CHAPTERS[2].fallback
-  );
-  const assetUrl4 = useSiteAssetUrl(
-    ORIGIN_CHAPTERS[3].imageId,
-    ORIGIN_CHAPTERS[3].fallback
-  );
+  const prefersReducedMotion = useMotionGate();
 
-  const contentBlocks: ResolvedOriginChapter[] = [
-    {
-      ...ORIGIN_CHAPTERS[0],
-      img: resolveOriginAsset(ORIGIN_CHAPTERS[0].fallback, assetUrl1),
-      priority: true,
-    },
-    {
-      ...ORIGIN_CHAPTERS[1],
-      img: resolveOriginAsset(ORIGIN_CHAPTERS[1].fallback, assetUrl2),
-      priority: false,
-    },
-    {
-      ...ORIGIN_CHAPTERS[2],
-      img: resolveOriginAsset(ORIGIN_CHAPTERS[2].fallback, assetUrl3),
-      priority: false,
-    },
-    {
-      ...ORIGIN_CHAPTERS[3],
-      img: resolveOriginAsset(ORIGIN_CHAPTERS[3].fallback, assetUrl4),
-      priority: false,
-    },
-  ];
+  // Asset dynamic resolution with Supabase Storage origin2 canonical URL and local WebP fallback
+  const imgUrl1 = useSiteAssetUrl(ORIGIN_CHAPTERS[0].imageId);
+  const imgUrl2 = useSiteAssetUrl(ORIGIN_CHAPTERS[1].imageId);
+  const imgUrl3 = useSiteAssetUrl(ORIGIN_CHAPTERS[2].imageId);
+  const imgUrl4 = useSiteAssetUrl(ORIGIN_CHAPTERS[3].imageId);
 
+  const resolvedChapters: ResolvedOriginChapter[] = useMemo(() => {
+    const urls = [imgUrl1, imgUrl2, imgUrl3, imgUrl4];
+    return ORIGIN_CHAPTERS.map((chap, idx) => ({
+      ...chap,
+      // Prioridade: Contexto dinâmico de assets -> URL canônica do Supabase Storage origin2 -> fallback local
+      img: urls[idx] || chap.supabaseUrl || chap.fallback,
+      priority: idx === 0,
+    }));
+  }, [imgUrl1, imgUrl2, imgUrl3, imgUrl4]);
+
+  // Hook GSAP ScrollTrigger com física e curvas refinadas
   useOriginAnimations({
     isClient: true,
     stageWrapRef,
     containerRef,
-    contentCount: contentBlocks.length,
+    contentCount: resolvedChapters.length,
     prefersReducedMotion,
-    onActiveSceneChange: setActiveSceneIndex,
+    onActiveSceneChange: (newIndex) => {
+      setActiveSceneIndex(newIndex);
+    },
   });
 
-  const handleExplore = (block: ResolvedOriginChapter) => {
-    setOpenSlideKey(block.id);
-  };
-
   const handlePipClick = (index: number) => {
-    setActiveSceneIndex(index);
-    if (typeof window !== "undefined") {
-      const stageWrap = stageWrapRef.current;
-      if (stageWrap) {
-        const top = stageWrap.getBoundingClientRect().top + window.scrollY;
-        const totalDistance = (contentBlocks.length - 1) * 0.9 * window.innerHeight;
-        const targetScroll = top + (index / (contentBlocks.length - 1)) * totalDistance;
-        window.scrollTo({ top: targetScroll, behavior: "smooth" });
+    if (typeof window !== 'undefined') {
+      const st = ScrollTrigger.getById('origin-reel-trigger');
+      if (st && st.end > st.start) {
+        const total = resolvedChapters.length;
+        const progress = total > 1 ? index / (total - 1) : 0;
+        const targetScroll = st.start + (st.end - st.start) * progress;
+        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+        return;
       }
+    }
+
+    if (!stageWrapRef.current) return;
+    const frames = stageWrapRef.current.querySelectorAll<HTMLElement>(
+      '[data-origin-frame]'
+    );
+    if (frames[index]) {
+      frames[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   };
 
-  const activeSlide =
-    contentBlocks.find((b) => b.id === openSlideKey) || contentBlocks[0];
+  const handleOpenExplore = (block: ResolvedOriginChapter) => {
+    setActiveDrawerChapter(block);
+  };
+
+  const handleCloseExplore = () => {
+    setActiveDrawerChapter(null);
+  };
 
   return (
     <section
-      id="origem-criativa"
       ref={containerRef}
-      aria-labelledby="origin-heading"
-      className="relative w-full bg-[#040013] text-[#fcffff] overflow-hidden"
+      id="origem-criativa"
+      className="relative w-full bg-background text-text overflow-hidden selection:bg-bluePrimary selection:text-white"
     >
-      {/* Stage Edge Gradient Masks */}
+      {/* Halo Ambiental Cinematográfico Reativo aos Capítulos (Ghost Atmospheric Glow) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 overflow-hidden select-none z-0"
+      >
+        <div
+          className="absolute -top-[10%] left-1/2 -translate-x-1/2 w-[70vw] max-w-[1200px] h-[50vh] rounded-full bg-bluePrimary/12 blur-[140px] transition-transform duration-700 ease-out"
+          style={{
+            transform: `translate(-50%, ${activeSceneIndex * 12}%)`,
+          }}
+        />
+        <div
+          className="absolute bottom-[5%] right-[15%] w-[45vw] h-[45vh] rounded-full bg-blueAccent/5 blur-[130px] transition-opacity duration-700"
+          style={{
+            opacity: activeSceneIndex % 2 === 1 ? 0.85 : 0.35,
+          }}
+        />
+      </div>
+
       <OriginMask />
 
-      <div className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 pt-[10dvh] pb-[6dvh]">
-        {/* Editorial Section Introduction */}
-        <header className="mb-[6dvh] md:mb-[7dvh] text-center max-w-3xl mx-auto px-4 select-none">
-          <div className="inline-flex items-center gap-2.5 mb-3.5">
-            <span
-              aria-hidden="true"
-              className="h-1.5 w-1.5 rounded-full bg-[#E50914] shadow-[0_0_8px_#E50914]"
-            />
-            <span
-              id="origin-eyebrow"
-              className="font-mono text-xs uppercase tracking-[0.28em] font-semibold text-[#0048ff]"
-            >
-              {ORIGIN_INTRO.eyebrow}
-            </span>
-          </div>
+      {/* CABEÇALHO EDITORIAL: Alinhamento central e hierarquia visual rigorosa */}
+      <div className="relative w-full max-w-4xl mx-auto px-6 sm:px-8 pt-[10dvh] pb-[4dvh] md:pb-[5dvh] text-center select-none">
+        <h2
+          id="origin-heading"
+          className="font-sans text-h1 font-semibold leading-[1.04] text-bluePrimary tracking-tight mb-4"
+        >
+          {ORIGIN_INTRO.headline}
+        </h2>
 
-          <h2
-            id="origin-heading"
-            className={`${playfair.className} text-[clamp(2.4rem,5dvh,4.25rem)] font-semibold leading-[1.02] text-[#0048ff] tracking-tight mb-4`}
-          >
-            {ORIGIN_INTRO.headline}
-          </h2>
+        <p className="font-sans text-body text-textSecondary leading-relaxed font-normal max-w-2xl mx-auto">
+          {ORIGIN_INTRO.description}
+        </p>
+      </div>
 
-          <p className="font-sans text-body text-[#fcffff]/80 leading-relaxed font-normal max-w-2xl mx-auto">
-            {ORIGIN_INTRO.description}
-          </p>
-        </header>
-
-        {/* Cinematic Cinema Reel Stage Frame (Widescreen 80dvh Dominant Visual Area) */}
+      {/* PALCO CINEMATOGRÁFICO: Quase Full-Width (~94vw) com Supabase Storage origin2 */}
+      <div className="relative w-full px-2.5 sm:px-4 lg:px-0">
         <div
           ref={stageWrapRef}
-          className="relative w-full h-[76dvh] md:h-[80dvh] min-h-[500px] max-h-[880px]"
+          data-testid="origin-sticky-gallery"
+          className="relative w-full lg:w-[94vw] xl:w-[95vw] lg:max-w-[1800px] mx-auto min-h-[72dvh] sm:min-h-[78dvh] lg:h-[80dvh] lg:max-h-[840px]"
         >
-          {contentBlocks.map((block, index) => (
+          {resolvedChapters.map((block, index) => (
             <CinemaReelStageFrame
-              key={block.id}
+              key={`frame-${block.id}`}
               block={block}
               index={index}
               isActive={index === activeSceneIndex}
-              playfairClassName={playfair.className}
-              onExplore={handleExplore}
+              onExplore={handleOpenExplore}
             />
           ))}
         </div>
-
-        {/* Conceptual Bridge to Next Section */}
-        <div className="pt-[8dvh] pb-[4dvh] mt-[6dvh] border-t border-white/10 text-center max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 mb-2.5">
-            <span
-              aria-hidden="true"
-              className="h-1.5 w-1.5 rounded-full bg-[#E50914]"
-            />
-            <span className="font-mono text-xs uppercase tracking-[0.24em] font-semibold text-[#0048ff]">
-              {ORIGIN_BRIDGE.eyebrow}
-            </span>
-          </div>
-
-          <p
-            className={`${playfair.className} text-[clamp(1.5rem,3dvh,2.3rem)] italic font-normal text-white/95 leading-snug mb-5`}
-          >
-            {ORIGIN_BRIDGE.text}
-          </p>
-
-          <a
-            href={ORIGIN_BRIDGE.ctaHref}
-            className="inline-flex min-h-[48px] items-center gap-3 font-mono text-xs text-[#0048ff] hover:text-[#4fe6ff] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0048ff] transition-colors font-semibold uppercase tracking-[0.24em] group"
-          >
-            <span>{ORIGIN_BRIDGE.ctaText}</span>
-            <span
-              aria-hidden="true"
-              className="transition-transform duration-300 group-hover:translate-y-1 text-[#E50914]"
-            >
-              ↓
-            </span>
-          </a>
-        </div>
       </div>
 
-      {/* Right Rail Navigation Pips (01..04) */}
+      {/* HUD VERTICAL: Navegação lateral dos 4 capítulos no Desktop */}
       <CinemaReelRightRail
-        total={contentBlocks.length}
+        total={resolvedChapters.length}
         activeSceneIndex={activeSceneIndex}
         onPipClick={handlePipClick}
+        chapters={resolvedChapters}
       />
 
-      {/* Aside Details Panel (Cinema Reel Style) */}
+      {/* GAVETA LATERAL: Detalhes editoriais e pilares reais */}
       <DetailsPanel
-        open={!!openSlideKey}
-        slide={activeSlide}
-        onClose={() => setOpenSlideKey(null)}
-        playfairClassName={playfair.className}
+        open={Boolean(activeDrawerChapter)}
+        slide={activeDrawerChapter}
+        onClose={handleCloseExplore}
       />
+
+      {/* PONTE DE CONTINUIDADE: Transição e CTA */}
+      <div className="relative w-full max-w-2xl mx-auto px-6 pt-[8dvh] pb-[6dvh] mt-[5dvh] border-t border-white/10 text-center select-none">
+        <h3 className="font-sans text-h2 font-medium text-text leading-snug mb-3">
+          {ORIGIN_BRIDGE.headline}
+        </h3>
+
+        <p className="font-sans text-small text-textSecondary leading-relaxed max-w-lg mx-auto mb-6">
+          {ORIGIN_BRIDGE.text}
+        </p>
+
+        <a
+          href={ORIGIN_BRIDGE.ctaHref}
+          className="inline-flex min-h-[48px] items-center gap-3 rounded-full border border-bluePrimary/40 bg-bluePrimary/15 px-6 py-2.5 font-sans text-small font-semibold tracking-wide text-white backdrop-blur-md transition-all hover:border-bluePrimary hover:bg-bluePrimary hover:shadow-[0_0_24px_rgba(0,72,255,0.5)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bluePrimary group"
+        >
+          <span>{ORIGIN_BRIDGE.ctaText}</span>
+          <span
+            aria-hidden="true"
+            className="transition-transform duration-300 group-hover:translate-y-1 text-blueAccent"
+          >
+            ↓
+          </span>
+        </a>
+      </div>
     </section>
   );
 }
 
-export { AboutOrigin };
+export default AboutOrigin;

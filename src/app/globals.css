@@ -151,6 +151,11 @@
   /* Ghost Cards */
   --ghost-card-height-desktop: 480px;
   --radius: 0.625rem;
+  --radius-scene: 1.25rem;
+  --radius-scene-sm: 1.75rem;
+  --radius-scene-lg: 2.25rem;
+  --shadow-drawer: 0 24px 80px -24px rgba(0, 0, 0, 0.8);
+  --shadow-scene: 0 32px 90px -20px rgba(0, 0, 0, 0.95);
   --background: var(--color-background);
   --foreground: #fcffff;
   --card: oklch(1 0 0);
@@ -671,6 +676,17 @@ html.admin-page body {
   }
 }
 
+/* Reduced transparency — Ghost DS §2.3 accessibility */
+@media (prefers-reduced-transparency: reduce) {
+  .material-subtle,
+  .material-card,
+  [class*='backdrop-blur'],
+  .laurel-badge {
+    backdrop-filter: none !important;
+    background: rgba(4, 0, 19, 0.95) !important;
+  }
+}
+
 /* Hide scrollbar for elements with the .no-scrollbar class */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -698,6 +714,35 @@ html.admin-page body {
 /* Stitch Text Glow */
 .text-glow {
   text-shadow: 0 0 20px rgba(79, 230, 255, 0.3);
+}
+
+/* Layer Governance Z-index Utilities (Ghost DS §1.3) */
+.z-cta-layer {
+  z-index: var(--z-layer-cta, 40);
+}
+
+.z-glass-layer {
+  z-index: var(--z-layer-glass, 10);
+}
+
+.z-overlay-layer {
+  z-index: var(--z-layer-overlay, 50);
+}
+
+.z-3d-layer {
+  z-index: var(--z-layer-3d, 30);
+}
+
+.z-modal-layer {
+  z-index: var(--z-layer-modal, 100);
+}
+
+.z-modal-scrim-layer {
+  z-index: var(--z-layer-modal-scrim, 95);
+}
+
+.z-modal-close-layer {
+  z-index: var(--z-layer-modal-close, 105);
 }
 
 /* Base para todos os CTAs que devem ter este comportamento */
