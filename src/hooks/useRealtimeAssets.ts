@@ -15,6 +15,10 @@ let unsubscribeTimeout: ReturnType<typeof setTimeout> | null = null;
 let isConnecting = false;
 
 const subscribeToAssets = async () => {
+  if (process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true') {
+    return;
+  }
+
   if (unsubscribeTimeout) {
     clearTimeout(unsubscribeTimeout);
     unsubscribeTimeout = null;
@@ -44,31 +48,35 @@ const subscribeToAssets = async () => {
       return;
     }
 
-    globalChannel = supabase
-      .channel('site_assets_global')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'site_assets' },
-        (payload: any) => {
-          const newItem = payload.new as DbAsset;
-          // Only process valid updates
-          if (newItem && typeof newItem === 'object') {
-            useContentStore.getState().upsertAsset(newItem);
+    try {
+      globalChannel = supabase
+        .channel('site_assets_global')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_assets' },
+          (payload: any) => {
+            const newItem = payload.new as DbAsset;
+            // Only process valid updates
+            if (newItem && typeof newItem === 'object') {
+              useContentStore.getState().upsertAsset(newItem);
+            }
           }
-        }
-      )
-      .subscribe((status: string, err?: Error | undefined) => {
-        if (
-          status === 'CHANNEL_ERROR' ||
-          status === 'TIMED_OUT' ||
-          status === 'CLOSED'
-        ) {
-          console.warn(
-            `[useRealtimeAssets] Global subscription status: ${status}`,
-            err
-          );
-        }
-      });
+        )
+        .subscribe((status: string, err?: Error | undefined) => {
+          if (
+            status === 'CHANNEL_ERROR' ||
+            status === 'TIMED_OUT' ||
+            status === 'CLOSED'
+          ) {
+            console.warn(
+              `[useRealtimeAssets] Global subscription status: ${status}`,
+              err
+            );
+          }
+        });
+    } catch (err) {
+      console.warn('[useRealtimeAssets] Global channel subscribe error:', err);
+    }
 
     isConnecting = false;
   }

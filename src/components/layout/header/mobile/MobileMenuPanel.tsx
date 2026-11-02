@@ -40,7 +40,7 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
         aria-label="Menu de navegação"
         data-testid="site-navigation"
         data-lenis-prevent
-        className={`fixed inset-0 z-[var(--z-layer-mobile-menu)] flex min-h-[100svh] flex-col overflow-y-auto overscroll-contain bg-bluePrimary px-8 backdrop-blur-xl transition-opacity duration-modal sm:px-12 md:px-16 ${
+        className={`fixed inset-0 z-[var(--z-layer-mobile-menu)] flex min-h-[100svh] flex-col overflow-y-auto overscroll-contain bg-bluePrimary px-8 backdrop-blur-xl sm:px-12 md:px-16 ${
           open
             ? 'visible pointer-events-auto opacity-100'
             : 'invisible pointer-events-none opacity-0'

@@ -1,7 +1,6 @@
 import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { MOTION_TOKENS } from '@/config/motion';
 import { GSAP_GHOST_EASE } from '@/lib/motion/gsapGhostEase';
 
 export function useMobileMenuAnimation(isOpen: boolean) {

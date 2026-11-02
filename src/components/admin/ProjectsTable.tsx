@@ -49,24 +49,36 @@ export default function ProjectsTable({ projects }: Props) {
   const supabase = createClientComponentClient();
 
   useEffect(() => {
-    const channel = supabase
-      .channel('admin_projects_list')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'portfolio_projects',
-        },
-        () => {
-          router.refresh();
-        }
-      )
-      .subscribe();
+    if (process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true') {
+      return;
+    }
 
-    return () => {
-      supabase.removeChannel(channel);
-    };
+    try {
+      const channel = supabase
+        .channel('admin_projects_list')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'portfolio_projects',
+          },
+          () => {
+            router.refresh();
+          }
+        )
+        .subscribe();
+
+      return () => {
+        try {
+          supabase.removeChannel(channel);
+        } catch {
+          // ignore
+        }
+      };
+    } catch {
+      // ignore
+    }
   }, [router, supabase]);
 
   return (

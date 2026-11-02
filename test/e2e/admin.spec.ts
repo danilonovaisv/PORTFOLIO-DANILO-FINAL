@@ -71,15 +71,21 @@ test.describe('Admin Login Page', () => {
       page.locator('h1', { hasText: /System_Access_Portal/i })
     ).toBeVisible({ timeout: 15000 });
 
-    // 4. Fill credentials
-    await page.getByLabel(/Identity_Email/i).fill('admin@test.com');
-    await page.getByLabel(/Access_Key_Shield/i).fill('password123');
+    // 4. Fill credentials (use pressSequentially for mobile-safari touch emulation compatibility)
+    const emailInput = page.locator('#identity-email');
+    await emailInput.click();
+    await emailInput.pressSequentially('admin@test.com');
+    const passInput = page.locator('#access-key');
+    await passInput.click();
+    await passInput.pressSequentially('password123');
 
     // 5. Arm handlers before click.
     mockLoginDone = true;
 
-    // 6. Click Submit (force to bypass Turnstile overlay)
-    await page.click('button[type="submit"]', { force: true });
+    // 6. Click Submit
+    const submitBtn = page.getByRole('button', { name: /SYSTEM_LOGIN/i });
+    await submitBtn.scrollIntoViewIfNeeded();
+    await submitBtn.click();
 
     // 7. Verify redirection to /admin.
     // Increased timeout for slower CI environments/browsers

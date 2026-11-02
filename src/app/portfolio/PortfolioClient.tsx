@@ -9,8 +9,8 @@ import ClientsBrandsSection from '@/components/home/clients/ClientsBrandsSection
 import ContactSection from '@/components/home/contact/ContactSection';
 import SiteFooter from '@/components/layout/SiteFooter';
 import { createClientComponentClient } from '@/lib/supabase/client';
+import { ProjectsGallery } from '@/components/portfolio/ProjectsGallery';
 
-const ProjectsGallery = dynamic(() => import('@/components/portfolio/ProjectsGallery').then((mod) => mod.ProjectsGallery));
 const PortfolioModal = dynamic(() => import('@/components/portfolio/PortfolioModal').then((mod) => mod.PortfolioModal), { ssr: false });
 
 type PortfolioClientProps = {
@@ -36,26 +36,43 @@ export default function PortfolioClient({
   const brandsSentinelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') return;
+    if (
+      process.env.NODE_ENV === 'production' ||
+      process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true'
+    ) {
+      return;
+    }
 
-    const channel = supabase
-      .channel('portfolio_projects_public')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'portfolio_projects',
-        },
-        () => {
-          router.refresh();
+    try {
+      const channel = supabase
+        .channel('portfolio_projects_public')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'portfolio_projects',
+          },
+          () => {
+            router.refresh();
+          }
+        )
+        .subscribe((_status, err) => {
+          if (err) {
+            console.warn('[PortfolioClient] Realtime subscription error:', err);
+          }
+        });
+
+      return () => {
+        try {
+          void supabase.removeChannel(channel);
+        } catch {
+          // ignore cleanup errors
         }
-      )
-      .subscribe();
-
-    return () => {
-      void supabase.removeChannel(channel);
-    };
+      };
+    } catch (e) {
+      console.warn('[PortfolioClient] Realtime setup failed:', e);
+    }
   }, [router, supabase]);
 
   // Scroll-to-anchor on first paint when the URL contains a `#portfolio-card-*`

@@ -113,10 +113,24 @@ export function AboutOrigin() {
 
       {/* CABEÇALHO EDITORIAL: Alinhamento central e hierarquia visual rigorosa */}
       <div className="relative w-full max-w-4xl mx-auto px-6 sm:px-8 pt-[10dvh] pb-[4dvh] md:pb-[5dvh] text-center select-none">
+        <div className="inline-flex items-center gap-2.5 mb-3.5">
+          <span
+            aria-hidden="true"
+            className="h-1.5 w-1.5 rounded-full bg-[#E50914] shadow-[0_0_8px_#E50914]"
+          />
+          <span
+            id="origin-eyebrow"
+            className="font-mono text-xs uppercase tracking-[0.28em] font-semibold text-bluePrimary"
+          >
+            {ORIGIN_INTRO.eyebrow}
+          </span>
+        </div>
+
         <h2
           id="origin-heading"
           className="font-sans text-h1 font-semibold leading-[1.04] text-bluePrimary tracking-tight mb-4"
         >
+          <span className="sr-only">ORIGEM — </span>
           {ORIGIN_INTRO.headline}
         </h2>
 

@@ -1,5 +1,32 @@
 # Adjustment Log
 
+## [2026-11-02T16:00] Orquestração & Resolução E2E: Suíte Completa Playwright 100% Green (132/132) (/orchestrate /debug)
+
+**Context:** Execução e correção da suíte completa de testes End-to-End (`test:e2e`: `PLAYWRIGHT_TEST=true NEXT_PUBLIC_PLAYWRIGHT_TEST=true playwright test`) englobando 6 projetos de browsers (`chromium`, `webkit`, `firefox`, `mobile-chrome`, `mobile-safari`, `tablet-chrome`).
+
+**Causa Raiz & Correções Aplicadas:**
+1. **`test/e2e/admin.spec.ts` (Mobile Safari):**
+   - *Problema:* Emulação touch do Mobile Safari ignorava o preenchimento de `input[type="email"]` via `fill()`, falhando na validação de constraint do formulário.
+   - *Solução:* Migrado para `click()` + `pressSequentially()` garantindo eventos reais de tecla.
+2. **`test/e2e/ghost-system.spec.ts` & `test/e2e/about-origin.spec.ts` (Cinema Reel v3):**
+   - *Problema:* Testes procuravam por estrutura anterior da seção Origem (`[role="img"]`, texto legado).
+   - *Solução:* Sincronizados com a nova especificação v3 da seção Origem (`#origin-eyebrow`, acessibilidade em `h2#origin-heading`, regex `/O que\s*permanece/i` e `ORIGIN_BRIDGE`).
+3. **`test/e2e/portfolio-pagination.spec.ts` & `src/app/portfolio/PortfolioClient.tsx` (WebKit WebSocket & Dynamic Import Race):**
+   - *Problema 1:* WebKit disparava `SecurityError: The operation is insecure` ao tentar conectar em WebSocket realtime do Supabase sob `https://supabase.test.invalid`, acionando o Error Boundary global.
+   - *Problema 2:* `ProjectsGallery` era importado via `dynamic()` em `PortfolioClient`, criando race condition de hidratação no clique das abas de filtro antes dos listeners do React serem registrados.
+   - *Solução:* Adicionado guardrail `process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true'` e `try/catch` em `PortfolioClient.tsx`, `useRealtimeAssets.ts` e `ProjectsTable.tsx`; import direto de `ProjectsGallery` em `PortfolioClient.tsx` e sinalizador `data-hydrated` com espera explícita no teste.
+4. **`test/e2e/mobile-menu.spec.ts` & `MobileMenuPanel.tsx` (Chromium GSAP vs CSS Transition Conflict):**
+   - *Problema:* Classe `transition-opacity duration-modal` no painel do menu mobile disputava com os ticks de interpolação do GSAP, congelando a opacidade em `0.45` no Chromium e Mobile Chrome.
+   - *Solução:* Removida a transição CSS concorrente de `MobileMenuPanel.tsx`, permitindo que o GSAP governe com suavidade e sem travas a timeline de animação.
+
+**Validação & QA:**
+- `pnpm run test:e2e`: **132 passed (100% GREEN) em todos os 6 navegadores**.
+- `pnpm test`: **51/51 test suites aprovadas, 378/378 testes Jest passando**.
+- `pnpm run build-check`: **0 erros (TypeScript estrito + ESLint limpo)**.
+- `graphify update .`: **Grafo semântico atualizado**.
+
+---
+
 ## [2026-11-02T14:15] Debug & Self-Healing: Antigravity MCP Test & ProjectCard Motion Props (/debug)
 
 **Context:** Diagnóstico de falha no terminal do usuário durante execução do Jest (`test/mcp_config.test.ts` e console warnings em `ProjectCard.test.tsx`).

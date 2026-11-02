@@ -62,6 +62,11 @@ export const ProjectsGallery = ({
   const prefersReducedMotion = useMotionGate();
   const isMobile = useMediaQuery('(max-width: 640px)');
   const [liveProjects, setLiveProjects] = useState<PortfolioProject[]>(projects);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Filter logic
   const filteredProjects = useMemo(() => {
@@ -234,6 +239,7 @@ export const ProjectsGallery = ({
   return (
     <section
       id="portfolio-gallery"
+      data-hydrated={isMounted ? 'true' : 'false'}
       aria-labelledby="portfolio-gallery-heading"
       className="relative z-20 w-full bg-background text-white pb-32"
     >
