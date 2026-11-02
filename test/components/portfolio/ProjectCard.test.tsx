@@ -25,24 +25,24 @@ jest.mock('motion/react', () => {
 
     return {
         motion: {
-            div: ({ children, className, initial: _initial, whileInView: _whileInView, viewport: _viewport, transition: _transition, ...props }: any) => (
+            div: ({ children, className, initial: _initial, whileInView: _whileInView, whileHover: _whileHover, whileTap: _whileTap, viewport: _viewport, transition: _transition, ...props }: any) => (
                 <div className={className as string} {...props}>
                     {children as React.ReactNode}
                 </div>
             ),
-            button: ({ children, className, initial: _initial, whileInView: _whileInView, viewport: _viewport, transition: _transition, ...props }: any) => (
+            button: ({ children, className, initial: _initial, whileInView: _whileInView, whileHover: _whileHover, whileTap: _whileTap, viewport: _viewport, transition: _transition, ...props }: any) => (
                 <button className={className as string} {...props}>
                     {children as React.ReactNode}
                 </button>
             ),
         },
         m: {
-            div: ({ children, className, initial: _initial, whileInView: _whileInView, viewport: _viewport, transition: _transition, ...props }: any) => (
+            div: ({ children, className, initial: _initial, whileInView: _whileInView, whileHover: _whileHover, whileTap: _whileTap, viewport: _viewport, transition: _transition, ...props }: any) => (
                 <div className={className as string} {...props}>
                     {children as React.ReactNode}
                 </div>
             ),
-            button: ({ children, className, initial: _initial, whileInView: _whileInView, viewport: _viewport, transition: _transition, ...props }: any) => (
+            button: ({ children, className, initial: _initial, whileInView: _whileInView, whileHover: _whileHover, whileTap: _whileTap, viewport: _viewport, transition: _transition, ...props }: any) => (
                 <button className={className as string} {...props}>
                     {children as React.ReactNode}
                 </button>
