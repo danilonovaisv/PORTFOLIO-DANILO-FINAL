@@ -1,5 +1,5 @@
 ---
-trigger: always_on
+priority: low
 ---
 
 # Regras de Governança de Contexto e Design

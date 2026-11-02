@@ -1,64 +1,49 @@
 ---
-description: Encontrou um bug complexo? Análise sistemática de logs para diagnóstico e correção guiados por especialistas.
+name: debug
+description: Investigação científica e resolução sistemática de bugs, erros de runtime, falhas de WebGL ou quebras de build.
 ---
 
-# /debug - Systematic Debugging System
+# /debug — Systematic Debugging Workflow
 
-$ARGUMENTS
-
----
-
-## 🟢 PHASE 1: Forensic Discovery (The "Crime Scene")
-**Agent**: `explorer-agent` & `debugger`
-**Mission**: Isolate the exact point of failure.
-- **Action**: Read the Stack Trace or Terminal Logs.
-- **Action**: Locate the failing file:line.
-- **DNA Link**: Consult `rules/error-logging.md` to see if this is a known recurring issue.
-
-## 🟡 PHASE 2: Root Cause Analysis (RCA)
-**Agent**: `debugger`
-**Mission**: Formulate a hypothesis (Why is it broken?).
-- **Hypothesis Checklist**:
-  - Null/Undefined safety?
-  - Race condition / Sync error?
-  - Missing environment variable?
-  - Breaking dependency change?
-- **Artifact**: Propose the fix to the User with [Pros/Cons].
-
-## 🔵 PHASE 3: Surgical Repair
-**Agent**: `backend-specialist` or `frontend-specialist`
-**Mission**: Apply the targetted fix.
-- **Correction**: Wrap sensitive logic in `try...catch`.
-- **Defensive API**: Use Optional Chaining (`?.`) and Nullish Coalescing (`??`).
-
-## 🔴 PHASE 4: Verification & Post-Mortem
-**Agent**: `test-engineer` & `quality-inspector`
-**Mission**: Ensure the "Bleeding" has stopped.
-- **Action**: Run the failing test case to confirm FIX.
-- **Reporting**: Log the incident in `ERRORS.md`.
-- **Handoff**: Create a `walkthrough.md` explaining the fix.
+Workflow para reprodução, isolamento de causa raiz e correção cirúrgica de falhas no Ghost System.
 
 ---
 
-## Output Format:
-```markdown
-## 🐞 Debug Report: [Bug Title]
+## 🔍 FASE 1: Coleta Forense & Isolamento
 
-### Root Cause
-[One sentence explanation]
-
-### The Fix
-[Diff or explanation]
-
-### Verification
-- [ ] Test case passed
-- [ ] No regression found
-- [ ] Error logged in ERRORS.md
-```
+1. **Captura da Evidência:**
+   - Obtenha a mensagem exata do erro, stack trace e arquivo/linha de origem.
+   - Identifique as condições de reprodução (Mobile touch, Safari iOS, SSR, WebGL context loss, etc.).
+2. **Consulta a Incidentes Anteriores:**
+   - Consulte o histórico em `.context/logs/adjustment_log.md` e no cofre Obsidian (`search_vault_simple`).
 
 ---
 
-## Key Principles:
-- **Evidence-First**: Don't guess, use the logs.
-- **Regression-Aware**: Every fix must come with a test case to prevent it from returning.
-- **Clean Fix**: Don't use "band-aid" fixes unless it's a critical production outage.
+## 🧪 FASE 2: Formulação de Hipóteses & Diagnóstico (RCA)
+
+1. Formule uma hipótese testável sobre a causa raiz:
+   - Erro de hidratação Next.js / Server Component vs Client Component boundary?
+   - Alocação indevida no render loop do R3F / vazamento de memória GPU?
+   - Problema de autenticação / cookie `__session` ausente no SSR?
+   - Regressão de layout no `.std-grid`?
+2. Teste a hipótese de forma isolada antes de aplicar qualquer código.
+
+---
+
+## 🛠️ FASE 3: Correção Cirúrgica
+
+1. **Toque Apenas no Necessário:** Aplique a menor alteração suficiente que resolva a causa raiz.
+2. **Defensive Coding:** Trate edge cases, use fallback seguro para WebGL (`<Canvas>` boundary).
+3. **Sem Efeitos Colaterais:** Não refatore código adjacente que não esteja quebrado.
+
+---
+
+## 🛡️ FASE 4: Verificação Empírica & Registro
+
+1. Execute a reprodução exata para confirmar que a falha desapareceu.
+2. Execute a suíte de verificação:
+   ```bash
+   pnpm run build-check
+   pnpm test
+   ```
+3. Registre a resolução em `.context/logs/adjustment_log.md`.

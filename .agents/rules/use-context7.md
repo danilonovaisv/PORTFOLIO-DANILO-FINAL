@@ -1,11 +1,9 @@
 ---
-trigger: always_on
+priority: low
 ---
 
-### 5. The Rule of "All Tasks"
+### The Rule of Context7 MCP
 
-## Always use Context7 MCP when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask
-
-## Always look up skills to use in the task in the ".agents/knowledge_skills.json" file
-
-## Always consult the project's base documentation ".context/DOCS-PORTFOLIO-PAGES" to verify that the implementation matches the details and visual appearance of the session or page
+1. Utilize Context7 MCP whenever library/API documentation, code generation patterns, setup, or configuration steps are needed for third-party libraries (React 19, Next.js 16, Three.js, etc.).
+2. Consult the canonical skills registry in `.agents/knowledge_skills.json`.
+3. Consult the page blueprints in `.context/DOCS-PORTFOLIO-PAGES/` to verify session/page alignment.

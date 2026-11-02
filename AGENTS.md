@@ -151,7 +151,7 @@ _Padronizado segundo a especificação formal de ferramentas Anthropic (O que fa
 #### `orchestration`
 
 - **O que faz:** Atua como o maestro do swarm multiagente, decompondo problemas complexos em subgrafos de tarefas independentes, coordenando dependências e monitorando a execução concorrente.
-- **Quando usar:** Demandas complexas que envolvem múltiplos domínios (ex: Backend Supabase + Shaders R3F + UI Motion), refatorações sistêmicas ou chamadas aos fluxos `/orchestrate` e `/plano-ajuste-orchestration`.
+- **Quando usar:** Demandas complexas que envolvem múltiplos domínios (ex: Backend Supabase + Shaders R3F + UI Motion), refatorações sistêmicas ou chamadas ao fluxo `/orchestrate`.
 - **Quando NÃO usar:** Para correções atômicas em arquivo único, edição simples de texto ou investigações pontuais.
 - **Formato & Protocolo:** Invocação via `.agents/skills/orchestration/SKILL.md`. Define o plano de execução e despacha especialistas via subagentes com contexto isolado.
 

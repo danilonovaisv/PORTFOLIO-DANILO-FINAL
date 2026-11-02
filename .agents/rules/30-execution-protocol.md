@@ -1,6 +1,5 @@
 ---
-trigger: always_on
-priority: critical
+priority: high
 ---
 
 # 30-execution-protocol.md — The Agent Runtime

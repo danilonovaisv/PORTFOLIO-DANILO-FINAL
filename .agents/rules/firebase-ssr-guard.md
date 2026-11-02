@@ -1,5 +1,5 @@
 ---
-trigger: always_on
+match: '{firebase.json,package.json,src/app/**}'
 ---
 
 Firebase SSR Guardrail

@@ -2840,3 +2840,17 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 - ✅ Zero erros ou anomalias estruturais remanescentes.
 
 **Status:** Concluído com 100% de conformidade.
+
+
+## [2026-11-02] [Agent Config Audit & Saneamento]
+- **Context Bloat:** Desativado `trigger: always_on` de 7 regras não-constitucionais. Reduzido o volume de injeção contínua de 950 linhas para 195 linhas (5 regras constitutivas), eliminando o descarte involuntário do `AGENTS.md` pelo limite de tokens da IDE.
+- **Safe Archive:** Arquivadas com segurança 5 regras legadas em vietnamita, 2 documentações deslocadas em `rules/`, 2 workflows obsoletos (`deprecated_deploy*`), 4 agentes genéricos de grande porte (`ui-ux-designer`, `firecrawl-scraper`, `typescript-pro`, `mcp-expert`) e 9 skills Cloudflare para `.agents/.archive/purged-2026-11/`.
+- **Broken References Fix:**
+  - Criado o registro canônico `.agents/knowledge_skills.json` categorizando as skills ativas por domínio.
+  - Criado o diretório `.agents/data/` com `memory.json` inicializado.
+  - Verificada a resolução do symlink `.agent -> .agents`.
+- **Workflow Consolidation:**
+  - Unificado e modernizado `/orchestrate` (`.agents/workflows/orchestrate.md`) com o batalhão dos 15 agentes canônicos e 4 fases PDCA.
+  - Unificado e tornado canônico o workflow `/deploy` (`.agents/workflows/deploy.md`) com SSR Guardrail e preflight Firebase/Supabase.
+  - Modernizado `/debug` (`.agents/workflows/debug.md`) alinhado à metodologia científica de causa raiz.
+- **Manifest & Architecture Sync:** Atualizados `.agents/AGENTS_MANIFEST.md` e `.agents/ARCHITECTURE.md` com métricas exatas e verificadas.

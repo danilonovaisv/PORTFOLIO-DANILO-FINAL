@@ -1,7 +1,6 @@
 ---
-trigger: always_on
 priority: critical
-match: '**/*.{tsx,ts,shader,glsl}'
+match: 'src/components/canvas/**/*.{tsx,ts,shader,glsl}'
 ---
 
 # 21-webgl-performance.md — The 60FPS Mandate

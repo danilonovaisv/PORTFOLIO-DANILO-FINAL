@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "project": "Danilo Novais Portfolio",
+  "codename": "Ghost Era v2.0",
+  "updated_at": "2026-11-02T11:50:00-03:00",
+  "description": "Canonical skills catalog and knowledge registry for Antigravity AI agents",
+  "skills": {
+    "core_governance": [
+      {
+        "name": "orchestration",
+        "path": ".agents/skills/orchestration/SKILL.md",
+        "purpose": "Multi-agent task decomposition and dependency graph execution."
+      },
+      {
+        "name": "writing-plans",
+        "path": ".agents/skills/writing-plans/SKILL.md",
+        "purpose": "Sequential TDD-oriented implementation plans before writing code."
+      },
+      {
+        "name": "using-superpowers",
+        "path": ".agents/skills/using-superpowers/SKILL.md",
+        "purpose": "Cognitive gate ensuring Brainstorm -> Spec -> Plan -> TDD -> Review."
+      },
+      {
+        "name": "subagent-driven-development",
+        "path": ".agents/skills/subagent-driven-development/SKILL.md",
+        "purpose": "Coordinates isolated subagent tasks with test gates."
+      },
+      {
+        "name": "verification-before-completion",
+        "path": ".agents/skills/verification-before-completion/SKILL.md",
+        "purpose": "Mandatory empirical verification before marking tasks complete."
+      },
+      {
+        "name": "verify-portfolio-change",
+        "path": ".agents/skills/verify-portfolio-change/SKILL.md",
+        "purpose": "Full test and build verification suite (typecheck, lint, Jest, Playwright)."
+      }
+    ],
+    "webgl_3d": [
+      {
+        "name": "ghost-r3f-optimization",
+        "path": ".agents/skills/ghost-r3f-optimization/SKILL.md",
+        "purpose": "60 FPS Mandate, zero allocation in useFrame, InstancedMesh."
+      },
+      {
+        "name": "threejs-shaders",
+        "path": ".agents/skills/threejs-shaders/SKILL.md",
+        "purpose": "Custom GLSL vertex and fragment shaders for spectral effects."
+      },
+      {
+        "name": "3d-webgl-scene",
+        "path": ".agents/skills/3d-webgl-scene/SKILL.md",
+        "purpose": "Global 3D canvas management, camera setup, DPR capping for mobile."
+      }
+    ],
+    "motion_and_styling": [
+      {
+        "name": "framer-motion",
+        "path": ".agents/skills/framer-motion/SKILL.md",
+        "purpose": "Declarative UI animation with Ghost easing [0.22, 1, 0.36, 1]."
+      },
+      {
+        "name": "tailwind-motion-choreography",
+        "path": ".agents/skills/tailwind-motion-choreography/SKILL.md",
+        "purpose": "Synchronizes Tailwind CSS v4 with Lenis smooth scroll and .std-grid."
+      },
+      {
+        "name": "tailwind-patterns",
+        "path": ".agents/skills/tailwind-patterns/SKILL.md",
+        "purpose": "Design tokens, modern layout patterns, container queries."
+      },
+      {
+        "name": "ui-ux-pro-max",
+        "path": ".agents/skills/ui-ux-pro-max/SKILL.md",
+        "purpose": "Editorial design excellence, typography hierarchy ('TT Norms Pro'), AAA contrast."
+      }
+    ],
+    "frontend_nextjs": [
+      {
+        "name": "ghost-architect",
+        "path": ".agents/skills/ghost-architect/SKILL.md",
+        "purpose": "Next.js 16 App Router architecture, TypeScript strict governance, DDD boundaries."
+      },
+      {
+        "name": "nextjs-app-router-caching",
+        "path": ".agents/skills/nextjs-app-router-caching/SKILL.md",
+        "purpose": "Turbopack, Server Component boundaries, revalidation strategies."
+      },
+      {
+        "name": "clean-code",
+        "path": ".agents/skills/clean-code/SKILL.md",
+        "purpose": "Pragmatic, concise, zero over-engineering coding standards."
+      }
+    ],
+    "persistence_supabase": [
+      {
+        "name": "supabase-auth-storage-realtime-core",
+        "path": ".agents/skills/supabase-auth-storage-realtime-core/SKILL.md",
+        "purpose": "PostgreSQL schema, RLS policies, site-assets storage bucket, WebSocket subscriptions."
+      },
+      {
+        "name": "database-design",
+        "path": ".agents/skills/database-design/SKILL.md",
+        "purpose": "Database relational design, indexing, and migrations."
+      }
+    ],
+    "deploy_infrastructure": [
+      {
+        "name": "ghost-firebase-deploy",
+        "path": ".agents/skills/ghost-firebase-deploy/SKILL.md",
+        "purpose": "Firebase Hosting pipeline, Node 20 SSR guardrail, standalone output."
+      },
+      {
+        "name": "deploy-manager",
+        "path": ".agents/skills/deploy-manager/SKILL.md",
+        "purpose": "Pre-flight checks, smoke testing, safe rollbacks, cache management."
+      }
+    ],
+    "audit_and_qa": [
+      {
+        "name": "audit-website",
+        "path": ".agents/skills/audit-website/SKILL.md",
+        "purpose": "Core Web Vitals (LCP, INP, CLS), WCAG accessibility, .std-grid conformance."
+      },
+      {
+        "name": "systematic-debugging",
+        "path": ".agents/skills/systematic-debugging/SKILL.md",
+        "purpose": "Scientific root cause analysis, hypothesis testing, empirical fixes."
+      },
+      {
+        "name": "review-project-media-card",
+        "path": ".agents/skills/review-project-media-card/SKILL.md",
+        "purpose": "Multi-format media card resilience (video, image, HTML preview), touch safety."
+      },
+      {
+        "name": "review-project-case-page",
+        "path": ".agents/skills/review-project-case-page/SKILL.md",
+        "purpose": "Editorial case study evaluation at /projects/[slug]."
+      }
+    ],
+    "knowledge_graph": [
+      {
+        "name": "wiki-brain",
+        "path": ".agents/skills/wiki-brain-skill/SKILL.md",
+        "purpose": "Obsidian Second Brain sync, OFM notes, JSON Canvas maps."
+      },
+      {
+        "name": "graphify",
+        "path": ".agents/skills/graphify/SKILL.md",
+        "purpose": "Codebase semantic AST graph query and update via graphify CLI."
+      }
+    ]
+  }
+}

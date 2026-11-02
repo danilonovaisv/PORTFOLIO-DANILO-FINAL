@@ -1,51 +1,55 @@
 ---
-description: Código pronto? Execute a pipeline de deploy e disponibilize as alterações em produção.
+name: deploy
+description: Workflow canônico para validação de integridade, build e deploy no Firebase Hosting com SSR Guardrail.
 ---
 
-# /deploy - Production Release System
+# /deploy — Production Release Workflow
 
-$ARGUMENTS
-
----
-
-## 🟢 PHASE 1: Pre-Flight Integrity Check
-**Agent**: `devops-engineer` & `security-auditor`
-**Mission**: Ensure the code is "Deployable."
-- **Action**: Run `npm run build` and `npm test`.
-- **Checklist**:
-  - [ ] Zero Lint/TS errors.
-  - [ ] All security patches applied (`npm audit`).
-  - [ ] Environment variables configured in Production.
-
-## 🟡 PHASE 2: Artifact Creation & Gating
-**Agent**: `devops-engineer`
-**Mission**: Build the release.
-- **Action**: Create the production bundle/container.
-- **Gate**: Stop and verify the "Pre-deploy Checklist" success.
-
-## 🔵 PHASE 3: Surgical Deployment
-**Agent**: `devops-engineer`
-**Mission**: Switch the traffic.
-- **Action**: Execute `vercel --prod`, `railway up`, or target platform command.
-- **Strategy**: Use Blue/Green or Canary if supported by the infrastructure.
-
-## 🔴 PHASE 4: Health Audit & Verification
-**Agent**: `performance-optimizer` & `incident-responder`
-**Mission**: Verify the "Live" state.
-- **Action**: Check Production URL response time and status.
-- **Action**: Verify Database connectivity in the live environment.
-- **Artifact**: Provide the Production URL and Health Badge to the User.
+Workflow canônico de build e publicação do Ghost System no Firebase Hosting e Supabase.
 
 ---
 
-## Deployment Rules:
-- **No Yolo-Deploy**: Never deploy without a successful local build.
-- **Rollback Ready**: Always have a plan to return to the previous version.
-- **Zero Downtime**: Prioritize strategies that don't break the user experience.
+## 🛠️ Passo a Passo do Deploy
 
----
+### Passo 1: Preflight & Integridade Local
+1. **Validação de Variáveis de Ambiente:**
+   ```bash
+   pnpm run validate-env
+   ```
+2. **Auditoria de Storage & Assets Supabase:**
+   ```bash
+   pnpm run verify:assets
+   pnpm run audit:supabase-storage
+   ```
+3. **Preflight do Firebase:**
+   ```bash
+   pnpm run firebase:preflight
+   ```
 
-## Examples:
-- `/deploy production`
-- `/deploy preview`
-- `/deploy check`
+### Passo 2: Testes Automatizados & Quality Gate
+1. **Checagem Completa (Typecheck + Lint):**
+   ```bash
+   pnpm run build-check
+   ```
+2. **Suíte de Testes Unitários:**
+   ```bash
+   pnpm run test
+   ```
+
+### Passo 3: Compilação de Produção
+1. **Compilação Next.js Standalone:**
+   ```bash
+   pnpm run build
+   ```
+2. **Verificação do Manifesto de Servidor:**
+   Garante que `.next/standalone` e o manifesto de servidor foram gerados antes do envio (SSR Guardrail).
+
+### Passo 4: Publicação no Firebase
+1. **Deploy de Produção:**
+   ```bash
+   pnpm run deploy
+   ```
+2. **Smoke Test Pós-Deploy:**
+   - Validar carregamento do Hero WebGL em <https://portfoliodanilo.com>.
+   - Validar sessão e login em `/admin`.
+   - Validar ausência de erros 500 no Firebase Console.
