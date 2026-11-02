@@ -140,10 +140,10 @@ export const ORIGIN_CHAPTERS: OriginChapter[] = [
     },
     caption: 'Composição 01 — O olhar humano e a essência que resiste ao tempo',
     description:
-      'Antes de qualquer técnica, há a atenção ao detalhe que sobrevive ao tempo. O processo criativo começa na capacidade de filtrar excessos e reconhecer o que realmente tem substância.',
-    highlight: 'filtrar excessos e reconhecer o que realmente tem substância',
+      'Antes da técnica, o olhar. Filtrar ruído, reconhecer substância.',
+    highlight: 'filtrar ruído, reconhecer substância',
     story:
-      'Desde cedo, aprendi a observar o que permanecia quando a novidade imediata passava. Na direção de arte e na vida, a sensibilidade precede o método: é preciso compreender a substância humana antes de propor qualquer intervenção visual.',
+      'Desde cedo, aprendi a observar o que permanece quando a novidade passa. Na direção de arte e na vida, a sensibilidade precede o método: compreender o humano antes de propor qualquer intervenção visual.',
     textAlign: 'left',
     director: 'Danilo Novais',
     method: 'Da Observação à Essência',
@@ -175,11 +175,10 @@ export const ORIGIN_CHAPTERS: OriginChapter[] = [
     caption:
       'Composição 02 — Da experimentação no papel à construção da direção visual',
     description:
-      'Rabiscos espontâneos transformam-se em conceitos sólidos. O gesto inicial ganha rigor por meio de testes de ritmo, proporção e contraste, até que a ideia ganhe clareza e direção.',
-    highlight:
-      'o gesto inicial ganha rigor até que a ideia ganhe clareza e direção',
+      'Rabiscos viram direção. Instinto lapidado em rigor composicional.',
+    highlight: 'instinto lapidado em rigor',
     story:
-      'O processo nasceu no papel, nas margens de cadernos onde a intuição encontrava o primeiro registro. Com a prática contínua, o instinto foi lapidado: criar não é apenas expressar, mas testar e estruturar soluções que comunicam com precisão.',
+      'O processo nasceu nas margens de cadernos. Com prática contínua, o improviso ganhou rigor: testar ritmo, proporção, contraste até a ideia falar por si. Criar não é apenas expressar — é estruturar soluções que comunicam com precisão.',
     textAlign: 'right',
     director: 'Danilo Novais',
     method: 'Do Gesto à Estrutura',
@@ -210,10 +209,10 @@ export const ORIGIN_CHAPTERS: OriginChapter[] = [
     },
     caption: 'Composição 03 — A estrutura que transforma sem fazer alarde',
     description:
-      'Design não é ornamento: é ferramenta silenciosa de transformação. Estruturas invisíveis de tipografia, ritmo e espaçamento orientam a percepção de forma natural e profunda.',
-    highlight: 'estruturas invisíveis de tipografia, ritmo e espaçamento',
+      'Design não enfeita — conduz. Invisível na tipografia, ritmo, espaço.',
+    highlight: 'conduz sem gritar',
     story:
-      'O design mais potente opera nos bastidores da percepção. Quando proporções, contraste e espaço negativo dialogam em harmonia, a experiência flui sem atrito. Transformar sem que se perceba o esforço da transformação: essa é a verdadeira sofisticação.',
+      'O design mais potente opera nos bastidores da percepção. Quando proporções, contraste e espaço negativo dialogam em harmonia, a experiência flui sem atrito. Transformar sem que se perceba o esforço: essa é a sofisticação.',
     textAlign: 'left',
     director: 'Danilo Novais',
     method: 'Da Forma ao Significado',
@@ -246,11 +245,10 @@ export const ORIGIN_CHAPTERS: OriginChapter[] = [
     caption:
       'Composição 04 — A integração entre estratégia, tecnologia e visão autoral',
     description:
-      'A convergência entre comunicação, design e inteligência artificial expande o alcance criativo sem diluir a sensibilidade. A tecnologia opera como amplificador do método, nunca como substituto da visão.',
-    highlight:
-      'tecnologia como amplificador do método, nunca substituto da visão',
+      'Comunicação, design, IA convergem. Tech amplifica método, não substitui visão.',
+    highlight: 'tech amplifica método, não substitui visão',
     story:
-      'Com formação em Comunicação e atuação contínua em design e branding, adotei novas ferramentas e inteligência artificial para elevar o nível de entrega. Ferramentas evoluem rapidamente, mas seu impacto continuará dependendo do olhar humano que define sua direção.',
+      'Formação em Comunicação, imersão em design e branding, adoção de IA para elevar o nível de entrega. Ferramentas evoluem, mas seu impacto depende do olhar humano que define a direção.',
     textAlign: 'right',
     director: 'Danilo Novais',
     method: 'Do Significado ao Sistema',

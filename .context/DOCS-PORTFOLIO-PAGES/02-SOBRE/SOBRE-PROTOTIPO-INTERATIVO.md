@@ -510,12 +510,7 @@ Origem
 **1. O QUE PERMANECE** (H1, `bluePrimary`)
 
 ```
-Desde cedo, sempre prestei atenção no que ficava —
-não só no que aparecia.
-
-Enquanto muitos olhavam para o brilho imediato,
-eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
-A essência das coisas sempre falou mais alto do que a superfície.
+Antes da técnica, o olhar. Filtrar ruído, reconhecer substância.
 ```
 
 - **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.1.webp`
@@ -524,14 +519,7 @@ A essência das coisas sempre falou mais alto do que a superfície.
 **2. DO TRAÇO À INTENÇÃO** (H1, `bluePrimary`)
 
 ```
-Rabiscos viraram ideias.
-Ideias viraram projetos.
-E os projetos começaram a deixar rastros.
-
-Meu processo criativo nasceu do improviso, do lápis na margem do caderno.
-Aos poucos, aquilo que era instinto virou direção.
-Com cada tentativa, aprendi a dar forma ao invisível —
-até que os conceitos começaram a falar por si.
+Rabiscos viram direção. Instinto lapidado em rigor composicional.
 ```
 
 - **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.2.webp`
@@ -540,15 +528,7 @@ até que os conceitos começaram a falar por si.
 **3. A DESCOBERTA DO INVISÍVEL** (H1, `bluePrimary`)
 
 ```
-Foi ali que entendi:
-design não é enfeite.
-É ferramenta invisível de transformação.
-
-Por trás de cada escolha visual, existe intenção.
-Descobri que o design verdadeiro não grita — ele conduz.
-Ele está presente nos detalhes que ninguém percebe,
-mas que todos sentem.
-Transformar sem que se perceba a transformação: isso é potência.
+Design não enfeita — conduz. Invisível na tipografia, ritmo, espaço.
 ```
 
 - **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.3.webp`
@@ -557,14 +537,7 @@ Transformar sem que se perceba a transformação: isso é potência.
 **4. EXPANSÃO COM PROPÓSITO** (H1, `bluePrimary`)
 
 ```
-Estudei Comunicação, mergulhei no design, no branding
-e hoje uso inteligência artificial para expandir o alcance
-sem perder a essência humana da criação.
-
-Minha trajetória uniu intuição com método, arte com estratégia.
-O futuro pede novas ferramentas — e eu as abracei.
-Mas nunca deixei que a tecnologia apagasse o que me move:
-a sensibilidade, o olhar atento, a busca pelo significado.
+Comunicação, design, IA convergem. Tech amplifica método, não substitui visão.
 ```
 
 - **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.4.webp`

@@ -14,17 +14,17 @@
 
 ## 1. Objetivo da Página/Sessão
 
-Narrar trajetória criativa em capítulos, com memória visual progressiva e leitura contemplativa.
+Narrar trajetória criativa em 4 capítulos concisos, com memória visual progressiva e leitura contemplativa.
 
 ## 2. Estrutura de Conteúdo
 
 - Heading principal da sessão:
   - `ORIGEM` (`h2`).
-- Blocos narrativos:
-  - O QUE PERMANECE
-  - DO TRAÇO À INTENÇÃO
-  - A DESCOBERTA DO INVISÍVEL
-  - EXPANSÃO COM PROPÓSITO
+- Blocos narrativos (textos atualizados 2026-11):
+  - **O QUE PERMANECE** — *Antes da técnica, o olhar. Filtrar ruído, reconhecer substância.*
+  - **DO TRAÇO À INTENÇÃO** — *Rabiscos viram direção. Instinto lapidado em rigor composicional.*
+  - **A DESCOBERTA DO INVISÍVEL** — *Design não enfeita — conduz. Invisível na tipografia, ritmo, espaço.*
+  - **EXPANSÃO COM PROPÓSITO** — *Comunicação, design, IA convergem. Tech amplifica método, não substitui visão.*
 - Mídia:
   - 4 imagens de apoio.
 
