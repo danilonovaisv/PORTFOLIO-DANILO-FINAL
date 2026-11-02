@@ -1,0 +1,24 @@
+---
+title: 'Coreografia de Movimento'
+description: 'Ghost Easing, Lenis e microinterações do Ghost System'
+---
+
+# Coreografia de Movimento
+
+## Princípios
+
+- **Etéreo:** animações lentas e contínuas com aceleração suave.
+- **Cirúrgico:** interações de UI rápidas, na casa de 0.2s.
+- **Scroll:** rolagem suave via Lenis, com parallax discreto (deslocamento abaixo de 15%).
+
+## Ghost Easing
+
+A curva padrão do sistema é `[0.22, 1, 0.36, 1]`. Ela é usada em revelações de seção, transições de rota e estados de hover.
+
+## Framer Motion
+
+Componentes animados são isolados como Client Components, com cleanup de listeners no unmount e respeito a `prefers-reduced-motion`.
+
+## Fronteira com o 3D
+
+Animações dentro do canvas usam `useFrame` ou GSAP, nunca a camada declarativa de UI. O loop de renderização segue o mandato de 60 FPS, sem alocação de objetos por frame.

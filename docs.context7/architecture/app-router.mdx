@@ -1,0 +1,30 @@
+---
+title: 'App Router'
+description: 'Estrutura de rotas, Server Components e composição de páginas'
+---
+
+# App Router
+
+O projeto usa exclusivamente o App Router do Next.js. Não existe diretório `pages/`.
+
+## Server-first
+
+Server Components são o padrão. `"use client"` fica restrito a interatividade, hooks de estado e canvas 3D. O fetch inicial de dados acontece no servidor para preservar SEO.
+
+## Estrutura de rotas
+
+| Rota               | Conteúdo                                   |
+| :----------------- | :----------------------------------------- |
+| `/`                | Home narrativa com canvas 3D               |
+| `/sobre`           | Página institucional                       |
+| `/portfolio`       | Listagem de projetos                       |
+| `/projects/[slug]` | Landing page dinâmica por projeto          |
+| `/admin`           | Backoffice protegido por middleware e RLS  |
+
+## Composição
+
+Cada rota monta seções independentes que compartilham o grid `.std-grid`. Componentes de motion e de canvas são carregados como Client Components isolados, com fallback estático quando WebGL não está disponível.
+
+## Boundaries
+
+Erros de hidratação e falhas de WebGL são contidos por boundaries locais, evitando derrubar a rota inteira.

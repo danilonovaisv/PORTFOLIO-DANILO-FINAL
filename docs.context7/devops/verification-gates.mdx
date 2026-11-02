@@ -1,0 +1,32 @@
+---
+title: 'Gates de Verificação'
+description: 'Lint, typecheck, testes e critérios de aceite antes do deploy'
+---
+
+# Gates de Verificação
+
+Nenhuma alteração em `src/` é considerada pronta sem passar pela suíte completa.
+
+## Suíte local
+
+```bash
+pnpm run build-check  # lint + typecheck
+pnpm test             # testes unitários
+pnpm test:e2e         # testes E2E
+```
+
+## Critérios
+
+- Build de produção concluído sem erro.
+- Lint e typecheck limpos.
+- Testes unitários e E2E passando na versão alterada.
+
+## Qualidade visual e de performance
+
+- LCP abaixo de 2.5s, CLS abaixo de 0.1.
+- Cena WebGL acima de 50 FPS, com fallback HTML automático.
+- Contraste adequado e alvos de toque de no mínimo 44x44px no mobile.
+
+## Pipeline
+
+O CI não aprova nenhum merge com teste falhando, e alterações exclusivas de documentação ficam fora da suíte de código.

@@ -1,0 +1,22 @@
+---
+title: 'Portfólio e Projetos'
+description: 'Listagem, cards de mídia e páginas dinâmicas de projeto'
+---
+
+# Portfólio e Projetos
+
+## Listagem
+
+A listagem carrega os projetos no servidor e os apresenta em grid responsivo. Ordenação e filtros são resolvidos antes do render, evitando reordenação visual após a hidratação.
+
+## Cards de mídia
+
+Cada card usa `next/image` ou `drei/Image` para otimização e carregamento progressivo nas imagens críticas. Vídeos ficam em lazy-load e só inicializam quando entram no viewport.
+
+## Página dinâmica
+
+`/projects/[slug]` busca o projeto pela rota, com metadados gerados no servidor para SEO. Conteúdo ausente retorna 404 em vez de uma página vazia.
+
+## Assets
+
+Toda mídia vem do Supabase Storage, registrada em `assets.json`. Placeholders e Lorem Ipsum são proibidos.

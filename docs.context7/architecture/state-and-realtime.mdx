@@ -1,0 +1,26 @@
+---
+title: 'Estado e Realtime'
+description: 'Zustand, Context e subscriptions do Supabase'
+---
+
+# Estado e Realtime
+
+## Camadas de estado
+
+- **Estado global:** Zustand, usado para dados que atravessam rotas e para sincronização com o realtime.
+- **Estado de composição:** React Context, aplicado a compound components.
+- **Estado local:** `useState` apenas para dados voláteis de um único componente.
+
+Estado de servidor e estado de cliente ficam separados. Dados vindos do Supabase não são duplicados em stores locais quando já existe subscription ativa.
+
+## Realtime
+
+1. Fetch inicial via Server Component (SSR).
+2. Hidratação no cliente.
+3. Subscription por `channel.subscribe()` para atualizações ao vivo.
+
+Conteúdo editado no `/admin` deve refletir na interface em menos de 2 segundos, sem refresh.
+
+## Fallback
+
+Se o WebSocket falhar, o sistema cai para polling HTTP ou para os dados estáticos carregados no SSR, sem quebrar a página.

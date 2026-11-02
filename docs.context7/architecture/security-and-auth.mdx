@@ -1,0 +1,26 @@
+---
+title: 'Segurança e Autenticação'
+description: 'Middleware, RLS e validação de entrada'
+---
+
+# Segurança e Autenticação
+
+## Acesso ao backoffice
+
+Todas as rotas `/admin` passam por middleware e por Row Level Security. Cada ação protegida verifica `role: 'admin'` em `user_metadata` antes de executar.
+
+Toda escrita no `/admin` gera um registro de auditoria, com autor, horário e valores alterados.
+
+## Validação
+
+- Inputs de usuário e schemas de API são validados com Zod.
+- Conteúdo renderizado como HTML passa por DOMPurify.
+- Queries usam parâmetros, nunca concatenação de strings.
+
+## Segredos
+
+Chaves de API e tokens nunca entram no código. Ficam em variáveis de ambiente validadas em runtime, e `.env` permanece no `.gitignore`.
+
+## Headers
+
+Os cabeçalhos de segurança são configurados em `next.config.mjs`.

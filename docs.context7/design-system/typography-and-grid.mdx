@@ -1,0 +1,26 @@
+---
+title: 'Tipografia e Grid'
+description: 'Escalas fluidas, fontes e o grid editorial do Ghost System'
+---
+
+# Tipografia e Grid
+
+## Escala tipográfica
+
+A escala usa `clamp()` para crescer junto com o viewport sem breakpoints manuais. Os títulos partem de tamanhos maiores no desktop e reduzem de forma contínua no mobile.
+
+## Fontes
+
+- **Manrope:** corpo de texto e interface.
+- **PPSupplyMono:** detalhes técnicos, rótulos e numeração.
+- **Inter Tight:** fallback de UI em componentes legados.
+
+## Grid
+
+O grid `.std-grid` define colunas, gutters e margens laterais de forma consistente em todas as seções. Ele é obrigatório como container raiz de qualquer bloco editorial: introduções, listas de projetos e rodapés.
+
+## Hierarquia
+
+1. Títulos de seção com peso alto e tracking reduzido.
+2. Subtítulos em caixa alta com espaçamento ampliado.
+3. Corpo em tamanho confortável de leitura, com largura máxima controlada.

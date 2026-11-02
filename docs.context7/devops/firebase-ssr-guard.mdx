@@ -1,0 +1,23 @@
+---
+title: 'SSR Guardrail do Firebase'
+description: 'Como evitar o erro de SSR falho no Firebase Hosting'
+---
+
+# SSR Guardrail do Firebase
+
+O sistema usa SSR do Next.js sobre Firebase Hosting e Cloud Functions. A falha mais comum nesse arranjo é o erro `Internal Server Error — SSR Failed`, causado por desalinhamento de versão, build ou dependências.
+
+## Verificações obrigatórias
+
+1. **Versão do Node.js:** o campo `engines` precisa ser idêntico no `package.json` da raiz e no de `functions/`, e precisa ser suportado pelo Firebase.
+2. **Configuração de build:** o `firebase.json` deve apontar para o diretório de saída correto do Next.js.
+3. **Pre-deploy:** confirme que a pasta `.next` existe e contém o manifesto de servidor. Caso contrário, rode o build novamente.
+4. **Dependências de produção:** `firebase-admin` e `firebase-functions` são dependências de produção, não `devDependencies`.
+
+## Sessão
+
+Cookies de sessão precisam ser gravados sob o nome `__session`, único aceito pelo Firebase Hosting.
+
+## Diagnóstico
+
+Quando o SSR falha em produção e funciona localmente, a causa costuma estar na versão do runtime ou no manifesto ausente, não no código da aplicação.

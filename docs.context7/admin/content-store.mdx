@@ -1,0 +1,28 @@
+---
+title: 'Content Store'
+description: 'Modelo de dados, edição de conteúdo e sincronização com o frontend'
+---
+
+# Content Store
+
+## Princípio
+
+Textos, títulos e links não são hardcoded no React. Todo conteúdo de marketing vive no Supabase e é editado pelo painel.
+
+## Modelo de dados
+
+Todas as tabelas seguem `snake_case` e carregam `created_at` e `updated_at`. Chaves estrangeiras e colunas de busca são indexadas.
+
+## Fluxo de edição
+
+1. O conteúdo é alterado no `/admin`.
+2. A alteração é persistida no PostgreSQL.
+3. A subscription da tabela propaga o novo valor para o frontend.
+
+## Migrations
+
+Alterações de schema entram como arquivo versionado em `supabase/migrations/`. Colunas em produção não são alteradas manualmente.
+
+## Consistência
+
+O frontend lê o mesmo schema que o painel escreve. Divergência entre os dois é tratada como bug, não como exceção.

@@ -1,0 +1,22 @@
+---
+title: 'Efeitos Visuais'
+description: 'Camadas de brilho, distorção e transições na interface'
+---
+
+# Efeitos Visuais
+
+Esta página cobre os efeitos aplicados fora do canvas 3D: aqueles que vivem na camada DOM.
+
+## Camadas
+
+- **Grain e ruído:** textura sutil sobre o fundo Void Black.
+- **Brilho espectral:** gradientes com o Ghost Blue e o ciano `#4fe6ff` usados em realces.
+- **Glitch:** distorção pontual em hovers, único contexto em que tons de violeta são permitidos.
+
+## Transições
+
+Efeitos de entrada usam Ghost Easing e dissolução por opacidade. Animações de máscara são preferidas a movimentos de layout, que forçam reflow.
+
+## Limites
+
+Efeitos DOM nunca competem com o loop do canvas. Quando o custo de composição ameaça o frame rate, a camada é desativada no mobile e substituída por um estado estático.
