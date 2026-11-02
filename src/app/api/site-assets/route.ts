@@ -1,4 +1,3 @@
-export const runtime = 'edge';
 import { createClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
 import { normalizeAssetList } from '@/lib/supabase/site-asset-utils';

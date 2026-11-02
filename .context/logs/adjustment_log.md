@@ -1,5 +1,29 @@
 # Adjustment Log
 
+## [2026-11-02T16:15] OpenNext Cloudflare Build Fix: Eliminação do Edge Runtime Obsoleto (/orchestrate /debug)
+
+**Context:** Diagnóstico e resolução da falha no comando `pnpm run build:cloudflare` (ProcessId 72799): `app/api/admin/storage/init-bucket/route cannot use the edge runtime. OpenNext requires edge runtime function to be defined in a separate function.`
+
+**Causa Raiz & Correção Aplicada:**
+1. **Depreciação do Edge Runtime no Next.js 16 e Incompatibilidade com OpenNext:**
+   - O Next.js 16 depreciou formalmente o Edge Runtime em favor do Node.js runtime.
+   - O `@opennextjs/cloudflare` empacota a aplicação como um Cloudflare Worker único utilizando `nodejs_compat`. Ao encontrar `export const runtime = 'edge';` dentro de rotas de API na server function padrão, o OpenNext rejeitava o bundle (`copyTracedFiles`).
+   - As páginas admin já haviam comentado o edge runtime, porém 5 rotas de API ainda continham `export const runtime = 'edge';`:
+     - `src/app/api/admin/storage/init-bucket/route.ts`
+     - `src/app/api/report-error/route.ts`
+     - `src/app/api/site-assets/route.ts`
+     - `src/app/api/view-cv/route.ts`
+     - `src/app/auth/callback/route.ts`
+2. **Ação Cirúrgica:**
+   - Removido `export const runtime = 'edge';` das 5 rotas de API, permitindo que utilizem o runtime Node.js padrão com suporte a `nodejs_compat` no Cloudflare Worker.
+
+**Validação & QA:**
+- `pnpm run build:cloudflare`: **Build OpenNext concluído com sucesso (`.open-next/worker.js` gerado, exit code 0)**.
+- `pnpm run build-check`: **0 erros (TypeScript estrito + ESLint limpo)**.
+- `graphify update .`: **Grafo semântico atualizado**.
+
+---
+
 ## [2026-11-02T16:00] Orquestração & Resolução E2E: Suíte Completa Playwright 100% Green (132/132) (/orchestrate /debug)
 
 **Context:** Execução e correção da suíte completa de testes End-to-End (`test:e2e`: `PLAYWRIGHT_TEST=true NEXT_PUBLIC_PLAYWRIGHT_TEST=true playwright test`) englobando 6 projetos de browsers (`chromium`, `webkit`, `firefox`, `mobile-chrome`, `mobile-safari`, `tablet-chrome`).
