@@ -1,0 +1,28 @@
+---
+title: 'Pipeline Supabase'
+description: 'Schema, storage e publicação realtime'
+---
+
+# Pipeline Supabase
+
+O Supabase é o content store do sistema: o código é o contêiner, o banco é o conteúdo. Textos, títulos e links não são hardcoded no React.
+
+## Estrutura
+
+- **PostgreSQL:** tabelas de conteúdo, mídia e leads, com `created_at` e `updated_at` em todas elas.
+- **Storage:** bucket `site-assets` para UI e bucket `portfolio-media` para vídeos e projetos.
+- **Realtime:** as tabelas consumidas ao vivo precisam estar na publicação `supabase_realtime`.
+
+## Fluxo de assets
+
+1. Upload no bucket correspondente.
+2. Registro do caminho no banco e em `assets.json`.
+3. Consumo no frontend via `next/image` ou `drei/useTexture`, com descarte no unmount.
+
+## Migrations
+
+Alterações de schema são versionadas em `supabase/migrations/`. Nunca se altera uma coluna diretamente em produção.
+
+## Diagnóstico
+
+Erros de realtime costumam vir de dois pontos: tabela fora da publicação `supabase_realtime` ou política RLS incorreta. Verifique os dois antes de investigar o cliente.

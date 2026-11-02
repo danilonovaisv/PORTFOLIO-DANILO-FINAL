@@ -1,0 +1,40 @@
+---
+title: 'Configuração do Ambiente'
+description: 'Instalação, variáveis de ambiente e comandos de desenvolvimento'
+---
+
+# Configuração do Ambiente
+
+## Pré-requisitos
+
+- Node.js 20 ou superior.
+- pnpm (gerenciador oficial do projeto).
+- Acesso ao projeto Supabase e ao Firebase Hosting.
+
+## Instalação
+
+```bash
+pnpm install
+pnpm run dev
+```
+
+## Variáveis de ambiente
+
+As chaves do Supabase e do Firebase ficam em `.env.local` e nunca são commitadas. As variáveis devem ser validadas em runtime antes do build.
+
+## Comandos
+
+```bash
+pnpm run dev          # servidor local
+pnpm run build-check  # lint + typecheck
+pnpm run build        # build de produção
+pnpm test             # testes unitários
+pnpm test:e2e         # testes E2E
+pnpm run deploy       # deploy no Firebase Hosting
+```
+
+## Verificações antes do deploy
+
+- `engines.node` idêntico entre a raiz e `functions/`.
+- Pasta `.next` presente e com o manifesto de servidor gerado.
+- `firebase-admin` e `firebase-functions` como dependências de produção.

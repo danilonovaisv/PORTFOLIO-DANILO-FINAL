@@ -1,0 +1,30 @@
+---
+title: 'Stack Tecnológica'
+description: 'Linguagens, frameworks e serviços que compõem o Ghost System'
+---
+
+# Stack Tecnológica
+
+| Camada         | Tecnologia                                                   |
+| :------------- | :----------------------------------------------------------- |
+| **Framework**  | Next.js (App Router, standalone, Turbopack)                  |
+| **Linguagem**  | TypeScript (strict mode)                                     |
+| **Runtime**    | Node.js >= 20, pnpm                                          |
+| **UI**         | React 19, Tailwind CSS 4                                     |
+| **Animation**  | Framer Motion, GSAP, Lenis                                   |
+| **3D / WebGL** | React Three Fiber, Three.js, GLSL customizado                |
+| **Backend**    | Supabase (PostgreSQL, Storage), Firebase Hosting & Functions |
+| **State**      | Zustand, React Context                                       |
+
+## Constantes de Design
+
+- **Ghost Blue:** `#0048ff`
+- **Void Black:** `#040013`
+- **Ghost Easing:** `[0.22, 1, 0.36, 1]`
+- **Grid padronizado:** `.std-grid`
+
+## Decisões de plataforma
+
+- Server Components por padrão; `"use client"` apenas para interatividade, hooks de estado e canvas 3D.
+- Componentes R3F (`<Canvas>`, meshes) são sempre Client Components.
+- Assets de produção servidos via Supabase Storage, referenciados por `assets.json` ou constantes tipadas.

@@ -1,0 +1,32 @@
+---
+title: 'Procedimentos de Deploy'
+description: 'Build, publicação no Firebase Hosting e rollback'
+---
+
+# Procedimentos de Deploy
+
+## Pré-requisitos
+
+- Node.js 20, com `engines.node` idêntico entre a raiz do projeto e `functions/`.
+- Pasta `.next` presente e com o manifesto de servidor gerado.
+- Flag experimental `webframeworks` habilitada no Firebase CLI.
+
+## Sequência
+
+```bash
+pnpm run build-check
+pnpm run build
+pnpm run deploy
+```
+
+O deploy usa o Firebase Hosting com Cloud Functions para o SSR do Next.js. Cookies de sessão são gravados sob `__session`.
+
+## Pós-deploy
+
+1. Smoke test nas rotas principais, incluindo `/admin`.
+2. Verificação de saúde da CDN e das funções.
+3. Conferência das variáveis de ambiente no projeto Firebase.
+
+## Rollback
+
+Releases são versionadas no Hosting, o que permite voltar à versão anterior sem rebuild. O rollback só é considerado concluído após o smoke test passar na versão restaurada.

@@ -1,0 +1,29 @@
+---
+title: 'Gerenciador de Assets'
+description: 'Upload, formatos e ciclo de vida da mídia no Supabase Storage'
+---
+
+# Gerenciador de Assets
+
+## Buckets
+
+- **`site-assets`:** elementos de interface, logos fixos e imagens de apoio.
+- **`portfolio-media`:** vídeos e imagens ligados a projetos.
+
+## Restrições de formato
+
+- Imagens em `.webp`, com fallback `.jpg` quando necessário.
+- Ícones em `.svg`.
+- Vídeos em `.mp4` (H.264/H.265) com bitrate otimizado.
+
+Nenhuma imagem deve passar de 2MB. Vídeos de hero ou background devem ficar abaixo de 5MB sempre que possível.
+
+## Fluxo de upload
+
+1. Envio do arquivo pelo painel.
+2. Registro do caminho no banco e em `assets.json`.
+3. Consumo no frontend com carregamento progressivo nas imagens críticas.
+
+## Ciclo de vida
+
+Assets removidos do banco também saem do Storage. Texturas usadas em R3F são descartadas no unmount para evitar vazamento de memória.

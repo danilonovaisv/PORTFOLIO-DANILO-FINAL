@@ -1,0 +1,26 @@
+---
+title: 'Tokens'
+description: 'Cores, espaçamento e escalas do Ghost Design System'
+---
+
+# Tokens
+
+Os tokens concentram as decisões visuais do Ghost System. Nenhum componente usa *magic numbers*: valores de cor, espaçamento e tipografia vêm sempre de um token.
+
+## Paleta
+
+- **Ghost Blue:** `#0048ff`, cor primária em superfícies e estados de foco.
+- **Void Black:** `#040013`, fundo base das seções.
+- **Ciano espectral:** `#4fe6ff`, realces e brilhos.
+
+Violeta e roxo são proibidos em superfícies principais, com exceção de estados de hover e efeitos de glitch.
+
+## Espaçamento e grid
+
+- Escala baseada em múltiplos de 4px.
+- Grid institucional `.std-grid` obrigatório em todas as seções.
+- Padding dinâmico via `clamp()` para acompanhar o viewport.
+
+## Z-index
+
+Os níveis de empilhamento são gerenciados por constantes em `z-indices.ts`, nunca por valores literais no CSS.

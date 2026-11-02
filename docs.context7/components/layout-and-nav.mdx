@@ -1,0 +1,22 @@
+---
+title: 'Layout e Navegação'
+description: 'Shell global, header, rodapé e transições de rota'
+---
+
+# Layout e Navegação
+
+## Shell global
+
+O layout raiz monta o header, o rodapé e o canvas persistente. Ele também injeta a rolagem suave do Lenis e o grid `.std-grid` como base das seções.
+
+## Header
+
+A navegação é fixa, com estado de scroll que altera a opacidade do fundo. Em dispositivos móveis, o menu abre em tela cheia com foco preso ao painel.
+
+## Rodapé
+
+Concentra contato, links sociais e a assinatura visual da marca.
+
+## Transições
+
+Trocas de rota usam o Ghost Easing `[0.22, 1, 0.36, 1]`. Elementos persistentes entre páginas são animados por layout animation, sem remontar o canvas.

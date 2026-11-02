@@ -1,0 +1,23 @@
+---
+title: 'Narrativa da Home'
+description: 'Seções, hierarquia e ritmo de leitura da página inicial'
+---
+
+# Narrativa da Home
+
+A Home é construída como uma narrativa em blocos, cada um montado sobre o grid `.std-grid`.
+
+## Seções
+
+1. **Hero:** título de impacto sobre a cena 3D, com fallback estático quando WebGL não está disponível.
+2. **Manifesto:** texto editorial curto que apresenta o posicionamento.
+3. **Projetos em destaque:** seleção de trabalhos com cards de mídia.
+4. **Chamada final:** convite ao contato, com links diretos.
+
+## Ritmo
+
+As revelações acontecem no scroll, com deslocamento discreto e stagger entre elementos. Nenhuma seção depende de conteúdo hardcoded: os textos vêm do Supabase e podem ser editados no `/admin`.
+
+## Performance
+
+O canvas da Hero é isolado e carregado com `ssr: false`, evitando bloquear o primeiro paint.

@@ -1,0 +1,26 @@
+---
+title: 'Visão Geral do Admin'
+description: 'Estrutura do backoffice, acesso e registro de auditoria'
+---
+
+# Visão Geral do Admin
+
+O backoffice em `/admin` permite editar o conteúdo do site sem novo deploy.
+
+## Acesso
+
+As rotas são protegidas por middleware e por Row Level Security. Cada ação sensível confirma `role: 'admin'` em `user_metadata` antes de executar.
+
+## Áreas
+
+- **Assets:** upload e organização de mídia nos buckets do Supabase.
+- **Conteúdo:** edição de textos, títulos e links exibidos no frontend.
+- **Leads:** leitura dos contatos recebidos pelo formulário.
+
+## Auditoria
+
+Toda escrita no painel gera um registro com autor, horário e valores anteriores e novos. Exclusões de dados relevantes são lógicas, via status, não físicas.
+
+## Realtime
+
+As alterações são publicadas por subscription e aparecem no site em menos de 2 segundos, sem refresh.
