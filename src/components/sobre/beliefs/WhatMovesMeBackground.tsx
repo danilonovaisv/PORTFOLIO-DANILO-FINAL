@@ -19,7 +19,7 @@ export function WhatMovesMeBackground() {
           pointerEvents: 'none',
           background: [
             'radial-gradient(ellipse 80% 60% at 50% 50%, #0048ff22 0%, transparent 70%)',
-            'radial-gradient(ellipse 50% 40% at 20% 80%, #8705f218 0%, transparent 60%)',
+            'radial-gradient(ellipse 50% 40% at 20% 80%, #0048ff15 0%, transparent 60%)',
             'radial-gradient(ellipse 40% 30% at 80% 20%, #4fe6ff10 0%, transparent 50%)',
           ].join(', '),
         }}

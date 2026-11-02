@@ -234,6 +234,7 @@ const ContactForm: React.FC = () => {
                 error={errors.name}
                 required
                 autoComplete="name"
+                enterKeyHint="next"
                 placeholder="João da Silva"
               />
 
@@ -247,6 +248,7 @@ const ContactForm: React.FC = () => {
                 error={errors.email}
                 required
                 autoComplete="email"
+                enterKeyHint="next"
                 placeholder="joao@empresa.com"
               />
 
@@ -259,6 +261,7 @@ const ContactForm: React.FC = () => {
                 onChange={handleChange}
                 error={errors.phone}
                 autoComplete="tel"
+                enterKeyHint="next"
                 placeholder="(11) 99999-9999"
               />
 
@@ -271,6 +274,7 @@ const ContactForm: React.FC = () => {
                 error={errors.message}
                 required
                 rows={4}
+                enterKeyHint="send"
                 placeholder="Conte-me sobre seu projeto..."
               />
             </div>

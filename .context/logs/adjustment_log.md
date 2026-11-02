@@ -1,5 +1,31 @@
 # Adjustment Log
 
+## [2026-11-02T17:35] Auditoria Squirrelscan & Refinamento da Rota `/sobre` (/orchestrate /squirrel-audit)
+
+**Context:** Execução do workflow `/squirrel-audit` na rota `/sobre` (`https://portfoliodanilo.com/sobre`), seguido da criação do `/plan` de melhorias aprovado pelo usuário (com a diretriz explícita de nunca adicionar legendas a vídeos sem áudio).
+
+**Diagnóstico & Correções Aplicadas:**
+1. **Purificação da Paleta Ghost (Erradicação de Violeta):**
+   - *Problema:* `src/components/sobre/beliefs/WhatMovesMeBackground.tsx` usava tom violeta `#8705f218` em gradiente radial, violando a regra soberana do Ghost System ("NO VIOLET / PURPLE on main surfaces").
+   - *Solução:* Substituído por `#0048ff15` (Ghost Blue), restabelecendo conformidade estética estrita.
+2. **Diretriz de Mídia & A11y (Vídeos Ambientais sem Áudio):**
+   - *Regra aplicada:* Vídeo do Hero em `AboutHero.tsx` é estritamente decorativo/visual e não possui áudio. Respeitada a exigência do usuário: **nenhuma faixa de legendas foi adicionada**.
+3. **Ergonomia Mobile em Formulários (`enterKeyHint`):**
+   - *Problema:* `ContactForm.tsx` não definia `enterKeyHint`, alertado pelo Squirrelscan para formulários com múltiplos campos.
+   - *Solução:* Adicionado `enterKeyHint="next"` nos campos de Nome, Email e Telefone, e `enterKeyHint="send"` no campo de Mensagem.
+4. **Ano de Copyright Dinâmico:**
+   - *Problema:* `src/config/navigation.ts` congelava o copyright em `© 2025`.
+   - *Solução:* Atualizado para `${new Date().getFullYear()}`, eliminando avisos de conteúdo defasado.
+5. **Otimização de DPR em WebGL Shader (`src/components/ui/shader-lines.tsx`):**
+   - *Melhoria:* Limitado DPR a max 1.5 em telas touch/mobile (< 768px), reduzindo carga de fragment shader em até ~44% sem perda perceptível de nitidez em telas Retina.
+
+**Validação & QA:**
+- `pnpm test test/components/sobre/`: **3/3 test suites passed, 9/9 testes Jest aprovados**.
+- `pnpm run typecheck`: **0 erros (TypeScript 6.0 modo estrito)**.
+- `pnpm run lint`: **0 erros de linting**.
+- `graphify update .`: **Grafo semântico AST atualizado (25.698 nós, 30.279 arestas)**.
+- Relatório executivo persistido em `artifacts/audit-report-sobre.md`.
+
 ## [2026-11-02T16:15] OpenNext Cloudflare Build Fix: Eliminação do Edge Runtime Obsoleto (/orchestrate /debug)
 
 **Context:** Diagnóstico e resolução da falha no comando `pnpm run build:cloudflare` (ProcessId 72799): `app/api/admin/storage/init-bucket/route cannot use the edge runtime. OpenNext requires edge runtime function to be defined in a separate function.`

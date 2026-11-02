@@ -167,7 +167,9 @@ function ShaderAnimationInternal({ opacity, className }: ShaderAnimationProps) {
           alpha: true,
           powerPreference: 'low-power',
         });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        const isMobileScreen = typeof window !== 'undefined' && window.innerWidth < 768;
+        const maxDpr = isMobileScreen ? 1.5 : 2;
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxDpr));
       } catch (err) {
         if (process.env.NODE_ENV !== 'production') {
           console.warn(

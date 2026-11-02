@@ -16,7 +16,7 @@ export const NAVIGATION = {
     { label: 'contato', href: '/#contact' }, // Always anchor
   ],
   footer: {
-    copyright: '© 2025 Danilo Novais Vilela — todos os direitos reservados',
+    copyright: `© ${new Date().getFullYear()} Danilo Novais Vilela — todos os direitos reservados`,
     links: [
       { label: 'home', href: '/' },
       { label: 'sobre', href: '/sobre' },
