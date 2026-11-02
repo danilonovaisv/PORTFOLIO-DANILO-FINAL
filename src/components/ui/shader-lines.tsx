@@ -69,18 +69,17 @@ function ShaderAnimationInternal({ opacity, className }: ShaderAnimationProps) {
   const [hasError, setHasError] = useState(false);
   const [isSupported, setIsSupported] = useState(true);
 
-  // Pre-check capability synchronously on mount
-  useEffect(() => {
-    if (!isWebGLAvailable()) {
-      setIsSupported(false);
-    }
-  }, []);
-
   useEffect(() => {
     let isCancelled = false;
     let cleanupFn: (() => void) | null = null;
 
-    if (!containerRef.current || !isSupported || hasError) return;
+    if (!containerRef.current || hasError) return;
+
+    if (!isWebGLAvailable()) {
+      setIsSupported(false);
+      setHasError(true);
+      return;
+    }
 
     const init = async () => {
       // Dynamic import of Three.js to keep it out of the initial route bundle
@@ -172,8 +171,8 @@ function ShaderAnimationInternal({ opacity, className }: ShaderAnimationProps) {
       } catch (err) {
         if (process.env.NODE_ENV !== 'production') {
           console.warn(
-            'ShaderAnimation: WebGLRenderer falhou na inicialização, usando fallback',
-            err
+            'ShaderAnimation: WebGLRenderer falhou na inicialização, usando fallback CSS:',
+            (err as Error)?.message || String(err)
           );
         }
         if (!isCancelled) setHasError(true);
