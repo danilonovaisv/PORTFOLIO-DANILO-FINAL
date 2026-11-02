@@ -75,6 +75,11 @@ docs/*.pdf
 docs/*.jpg
 docs/*.png
 
+# Context7 / Docs7
+.docs7/
+docs.context7/.docs7/
+
+
 # Local Tooling & Caches
 .eslintcache
 .cursor/
@@ -183,7 +188,8 @@ toolbox
 .git-hygiene-backup/
 firebase-admin-key.json
 google-cloud-sdk/
-raw/micrograd
-raw/minGPT
-raw/nanoGPT
+# Experimental ML artifacts & tool caches
+raw/
+.fallow/
+.agents/.archive/purged-*/
 .agents/skills/wiki-brain-skill
