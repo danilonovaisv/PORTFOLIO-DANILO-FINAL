@@ -34,7 +34,9 @@ async function runVisualQA() {
     pageErrors.push(`[Page Error] ${err.message}`);
   });
 
-  await desktopPage.goto('http://127.0.0.1:3000/sobre', { waitUntil: 'networkidle' });
+  await desktopPage.goto('http://127.0.0.1:3000/sobre', {
+    waitUntil: 'networkidle',
+  });
   await desktopPage.waitForTimeout(1000);
 
   // Scroll to #origem-criativa
@@ -43,12 +45,17 @@ async function runVisualQA() {
   await desktopPage.waitForTimeout(1500);
 
   // Screenshot 1: Desktop Initial Frame (Capítulo 01)
-  const desktopInitialPath = path.join(outputDir, 'desktop-frame-01-initial.png');
+  const desktopInitialPath = path.join(
+    outputDir,
+    'desktop-frame-01-initial.png'
+  );
   await desktopPage.screenshot({ path: desktopInitialPath, fullPage: false });
   console.log(`Saved: ${desktopInitialPath}`);
 
   // Test Drawer Open on the active frame button
-  const exploreButton = originSection.locator('button:has-text("Trajetória Completa")').first();
+  const exploreButton = originSection
+    .locator('button:has-text("Trajetória Completa")')
+    .first();
   if (await exploreButton.isVisible()) {
     await exploreButton.click({ force: true });
     await desktopPage.waitForTimeout(1000);
@@ -56,7 +63,9 @@ async function runVisualQA() {
     await desktopPage.screenshot({ path: drawerPath, fullPage: false });
     console.log(`Saved: ${drawerPath}`);
 
-    const closeButton = desktopPage.locator('button[aria-label="Fechar detalhes"]');
+    const closeButton = desktopPage.locator(
+      'button[aria-label="Fechar detalhes"]'
+    );
     if (await closeButton.isVisible()) {
       await closeButton.click({ force: true });
       await desktopPage.waitForTimeout(600);
@@ -82,7 +91,9 @@ async function runVisualQA() {
     pageErrors.push(`[Mobile Page Error] ${err.message}`);
   });
 
-  await mobilePage.goto('http://127.0.0.1:3000/sobre', { waitUntil: 'networkidle' });
+  await mobilePage.goto('http://127.0.0.1:3000/sobre', {
+    waitUntil: 'networkidle',
+  });
   await mobilePage.waitForTimeout(1000);
 
   const mobileOrigin = mobilePage.locator('#origem-criativa');
@@ -93,7 +104,9 @@ async function runVisualQA() {
   const isOverflown = await mobilePage.evaluate(() => {
     return document.documentElement.scrollWidth > window.innerWidth;
   });
-  console.log(`Mobile Horizontal Overflow: ${isOverflown ? 'FAILED' : 'PASS (No overflow)'}`);
+  console.log(
+    `Mobile Horizontal Overflow: ${isOverflown ? 'FAILED' : 'PASS (No overflow)'}`
+  );
 
   const mobileInitialPath = path.join(outputDir, 'mobile-frame-01-initial.png');
   await mobilePage.screenshot({ path: mobileInitialPath, fullPage: false });

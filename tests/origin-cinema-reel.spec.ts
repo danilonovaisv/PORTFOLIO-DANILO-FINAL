@@ -109,7 +109,9 @@ test.describe('Cinema Reel — Sessão About Origin (Origem Criativa)', () => {
       await expect(drawer).toBeVisible();
 
       // Fechar pelo botão de fechar
-      const closeButton = page.locator('button[aria-label="Fechar painel"], button[aria-label="Fechar detalhes"]');
+      const closeButton = page.locator(
+        'button[aria-label="Fechar painel"], button[aria-label="Fechar detalhes"]'
+      );
       await closeButton.click();
       await expect(drawer).not.toBeVisible();
     }

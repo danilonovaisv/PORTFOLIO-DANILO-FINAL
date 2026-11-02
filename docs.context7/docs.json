@@ -1,0 +1,70 @@
+{
+  "$schema": "https://context7.com/schema/docs7.json",
+  "name": "Danilo Novais Portfolio",
+  "colors": {
+    "primary": "#0048ff"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Getting Started",
+        "pages": [
+          "index",
+          "getting-started/overview",
+          "getting-started/tech-stack",
+          "getting-started/setup"
+        ]
+      },
+      {
+        "group": "Ghost Design System",
+        "pages": [
+          "design-system/tokens",
+          "design-system/typography-and-grid",
+          "design-system/motion-choreography"
+        ]
+      },
+      {
+        "group": "Core Architecture",
+        "pages": [
+          "architecture/app-router",
+          "architecture/state-and-realtime",
+          "architecture/supabase-pipeline",
+          "architecture/security-and-auth"
+        ]
+      },
+      {
+        "group": "3D & WebGL Engine",
+        "pages": [
+          "webgl/scene-and-canvas",
+          "webgl/glsl-shaders",
+          "webgl/performance-optimization"
+        ]
+      },
+      {
+        "group": "Components & UI",
+        "pages": [
+          "components/layout-and-nav",
+          "components/home-narrative",
+          "components/portfolio-and-projects",
+          "components/visual-effects"
+        ]
+      },
+      {
+        "group": "Admin & Backoffice",
+        "pages": [
+          "admin/overview",
+          "admin/asset-manager",
+          "admin/content-store"
+        ]
+      },
+      {
+        "group": "DevOps & Deployment",
+        "pages": [
+          "devops/deployment-procedures",
+          "devops/firebase-ssr-guard",
+          "devops/verification-gates"
+        ]
+      }
+    ]
+  }
+}

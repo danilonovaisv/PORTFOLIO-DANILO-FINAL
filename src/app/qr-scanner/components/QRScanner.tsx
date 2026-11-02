@@ -13,7 +13,9 @@ interface QRScannerProps {
 
 export function QRScanner({ onScan, onError, config }: QRScannerProps) {
   const [isScanning, setIsScanning] = useState(false);
-  const [hasPermission, setHasPermission] = useState<PermissionState | null>(null);
+  const [hasPermission, setHasPermission] = useState<PermissionState | null>(
+    null
+  );
   const [cameraError, setCameraError] = useState<string | null>(null);
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const elementRef = useRef<HTMLDivElement>(null);
@@ -115,7 +117,8 @@ export function QRScanner({ onScan, onError, config }: QRScannerProps) {
         onScanFailure
       );
     } catch (err) {
-      const errorMsg = err instanceof Error ? err.message : 'Erro ao iniciar câmera';
+      const errorMsg =
+        err instanceof Error ? err.message : 'Erro ao iniciar câmera';
       setCameraError(errorMsg);
       onError(errorMsg);
       setIsScanning(false);
@@ -160,9 +163,7 @@ export function QRScanner({ onScan, onError, config }: QRScannerProps) {
             style={{ pointerEvents: 'auto' }}
             aria-label="Iniciar scanner de QR code"
           >
-            <span className="text-center">
-              Iniciar Scanner
-            </span>
+            <span className="text-center">Iniciar Scanner</span>
           </button>
         )}
 

@@ -2,7 +2,11 @@ import React from 'react';
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { AboutOrigin } from '@/components/sobre/sections/AboutOrigin';
-import { ORIGIN_CHAPTERS, ORIGIN_INTRO, ORIGIN_BRIDGE } from '@/components/sobre/origin/data';
+import {
+  ORIGIN_CHAPTERS,
+  ORIGIN_INTRO,
+  ORIGIN_BRIDGE,
+} from '@/components/sobre/origin/data';
 
 jest.mock('motion/react', () => {
   const React = require('react');
@@ -31,18 +35,28 @@ jest.mock('motion/react', () => {
         }: any,
         ref: any
       ) => {
-        return React.createElement(tag, { ...props, className, ref, style: _style }, children);
+        return React.createElement(
+          tag,
+          { ...props, className, ref, style: _style },
+          children
+        );
       }
     );
   };
 
   return {
-    motion: new Proxy({}, {
-      get: (_target, prop: string) => mockComponent(prop),
-    }),
-    m: new Proxy({}, {
-      get: (_target, prop: string) => mockComponent(prop),
-    }),
+    motion: new Proxy(
+      {},
+      {
+        get: (_target, prop: string) => mockComponent(prop),
+      }
+    ),
+    m: new Proxy(
+      {},
+      {
+        get: (_target, prop: string) => mockComponent(prop),
+      }
+    ),
     AnimatePresence: ({ children }: any) => children,
     useReducedMotion: jest.fn(() => false),
   };
@@ -106,16 +120,25 @@ describe('AboutOrigin — Cinema Reel Component & TDD Verification', () => {
     expect(section).toBeInTheDocument();
 
     // Section header
-    expect(screen.getByRole('heading', { level: 2, name: new RegExp(ORIGIN_INTRO.headline, 'i') })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: new RegExp(ORIGIN_INTRO.headline, 'i'),
+      })
+    ).toBeInTheDocument();
     expect(screen.getByText(ORIGIN_INTRO.description)).toBeInTheDocument();
 
     // Section bridge
-    expect(screen.getByRole('heading', { level: 3, name: new RegExp(ORIGIN_BRIDGE.headline, 'i') })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', {
+        level: 3,
+        name: new RegExp(ORIGIN_BRIDGE.headline, 'i'),
+      })
+    ).toBeInTheDocument();
     expect(screen.getByText(ORIGIN_BRIDGE.text)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: new RegExp(ORIGIN_BRIDGE.ctaText, 'i') })).toHaveAttribute(
-      'href',
-      ORIGIN_BRIDGE.ctaHref
-    );
+    expect(
+      screen.getByRole('link', { name: new RegExp(ORIGIN_BRIDGE.ctaText, 'i') })
+    ).toHaveAttribute('href', ORIGIN_BRIDGE.ctaHref);
   });
 
   it('renders all 4 cinema reel chapter stage frames with proper aspect ratio and fallback URLs', () => {
@@ -169,19 +192,31 @@ describe('AboutOrigin — Cinema Reel Component & TDD Verification', () => {
     render(<AboutOrigin />);
 
     // Click "Trajetória Completa" explore button on first frame
-    const exploreButtons = screen.getAllByRole('button', { name: /Trajetória Completa/i });
+    const exploreButtons = screen.getAllByRole('button', {
+      name: /Trajetória Completa/i,
+    });
     expect(exploreButtons.length).toBeGreaterThan(0);
 
     fireEvent.click(exploreButtons[0]);
 
     // Drawer aside element should now be present
-    const drawer = screen.getByRole('complementary', { name: new RegExp(`Detalhes: ${ORIGIN_CHAPTERS[0].title}`, 'i') });
+    const drawer = screen.getByRole('complementary', {
+      name: new RegExp(`Detalhes: ${ORIGIN_CHAPTERS[0].title}`, 'i'),
+    });
     expect(drawer).toBeInTheDocument();
-    expect(within(drawer).getByRole('heading', { name: new RegExp(ORIGIN_CHAPTERS[0].title, 'i') })).toBeInTheDocument();
-    expect(within(drawer).getByText(ORIGIN_CHAPTERS[0].story)).toBeInTheDocument();
+    expect(
+      within(drawer).getByRole('heading', {
+        name: new RegExp(ORIGIN_CHAPTERS[0].title, 'i'),
+      })
+    ).toBeInTheDocument();
+    expect(
+      within(drawer).getByText(ORIGIN_CHAPTERS[0].story)
+    ).toBeInTheDocument();
 
     // Close button
-    const closeButton = within(drawer).getByRole('button', { name: /Fechar detalhes/i });
+    const closeButton = within(drawer).getByRole('button', {
+      name: /Fechar detalhes/i,
+    });
     expect(closeButton).toBeInTheDocument();
     fireEvent.click(closeButton);
   });

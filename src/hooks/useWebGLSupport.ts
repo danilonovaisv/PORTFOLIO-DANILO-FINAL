@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 
 export const isWebGLAvailable = (): boolean => {
-  if (typeof window === 'undefined' || typeof window.WebGLRenderingContext === 'undefined') {
+  if (
+    typeof window === 'undefined' ||
+    typeof window.WebGLRenderingContext === 'undefined'
+  ) {
     return false;
   }
 
@@ -14,7 +17,9 @@ export const isWebGLAvailable = (): boolean => {
       canvas.getContext('experimental-webgl');
     const hasContext = Boolean(gl);
     if (gl) {
-      const ext = (gl as WebGLRenderingContext).getExtension?.('WEBGL_lose_context');
+      const ext = (gl as WebGLRenderingContext).getExtension?.(
+        'WEBGL_lose_context'
+      );
       if (ext) {
         ext.loseContext();
       }

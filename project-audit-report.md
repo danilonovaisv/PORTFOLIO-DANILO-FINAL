@@ -5,19 +5,18 @@ Gerado em: 10/29/2026, 7:44:55 PM
 ---
 
 ## ⚠️ Erro ao analisar dependências
+
 - Command failed: pnpm dlx depcheck --json
-Error: ERR_PNPM_PACKAGE_MANAGER_ADD_RESOLVE_LATEST
+  Error: ERR_PNPM_PACKAGE_MANAGER_ADD_RESOLVE_LATEST
 
   × adding a new package
   ╰─▶ Failed to resolve the latest version of depcheck: Failed to fetch
-      metadata from https://registry.npmjs.org/depcheck: HTTP status client
-      error (403 Forbidden)
-
-
-
+  metadata from https://registry.npmjs.org/depcheck: HTTP status client
+  error (403 Forbidden)
 
 ## 🌿 Branches no repositório
-- * main
+
+- - main
 - remotes/origin/HEAD -> origin/main
 - remotes/origin/main
 - remotes/origin/jules-9655539274004862663-09b62d94
@@ -68,8 +67,8 @@ Error: ERR_PNPM_PACKAGE_MANAGER_ADD_RESOLVE_LATEST
 - remotes/origin/danilo-novais-yahoo-com-br/WKSP-1-planning-portfolio-s
 - remotes/origin/docs/audit-beliefs-ghost-design-v3
 
-
 ## 🪓 Branches potencialmente obsoletas
+
 - remotes/origin/jules-9655539274004862663-09b62d94
 - remotes/origin/jules-13092686962404014069-28542d45
 - remotes/origin/jules-2823468048684140063-cc055db9
