@@ -1,0 +1,30 @@
+---
+title: 'Shaders GLSL'
+description: 'Shaders customizados de atmosfera e decaimento analógico no pós-processamento'
+---
+
+# Shaders GLSL
+
+O projeto usa dois shaders GLSL customizados, ambos em `src/components/canvas/home/hero/shaders/`.
+
+## Atmosfera
+
+O shader de atmosfera é um `ShaderMaterial` aplicado ao plano de fundo. O fragment shader calcula a distância entre o fragmento e a posição do fantasma e usa `smoothstep` para revelar o fundo em um raio que pulsa com o tempo.
+
+Uniforms: `ghostPosition`, `revealRadius`, `fadeStrength`, `baseOpacity`, `revealOpacity` e `time`.
+
+## Decaimento analógico
+
+O shader de decaimento analógico roda como `ShaderPass` no `EffectComposer`. Ele recebe a textura `tDiffuse` e aplica camadas de ruído, bleeding cromático, scanlines, vinheta, jitter e rolagem de vsync. Cada camada é controlada por um uniform próprio e só é aplicada quando seu valor passa de `0.01`.
+
+Uniforms: `tDiffuse`, `uTime`, `uResolution`, `uAnalogGrain`, `uAnalogBleeding`, `uAnalogVSync`, `uAnalogScanlines`, `uAnalogVignette`, `uAnalogJitter`, `uAnalogIntensity` e `uLimboMode`.
+
+O modo `uLimboMode` converte a imagem para escala de cinza usando luminância.
+
+## Materiais
+
+O corpo do fantasma usa `MeshStandardMaterial` com `onBeforeCompile` para deformar a base da geometria. Os olhos usam `MeshBasicMaterial` com opacidade animada.
+
+## Convenções
+
+Shaders declaram uniforms explicitamente e recebem valores a partir de `GhostSceneParams`. O estado do pass é atualizado fora do loop de renderização.

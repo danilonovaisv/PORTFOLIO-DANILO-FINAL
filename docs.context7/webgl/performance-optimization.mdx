@@ -1,0 +1,32 @@
+---
+title: 'Performance'
+description: 'Qualidade adaptativa, instancing e limites impostos ao loop de renderização'
+---
+
+# Performance
+
+O mandato é manter o frame rate acima de 50 FPS com fallback estático quando o dispositivo não acompanha.
+
+## Qualidade adaptativa
+
+O hook `usePerformanceAdaptive` define três níveis de qualidade: `high`, `medium` e `low`. O nível é rebaixado quando o dispositivo é móvel, tem quatro núcleos ou menos, ou menos de 4GB de memória. Em desktop, o hook mede o FPS por três amostras de um segundo e cai para `medium` quando o resultado fica abaixo de 30.
+
+Cada nível controla a contagem de fireflies, a contagem de partículas, o pixel ratio e o pós-processamento.
+
+| Nível    | Fireflies | Partículas | Pixel ratio |
+| :------- | :-------- | :--------- | :---------- |
+| `high`   | 20        | 50         | até 1.5     |
+| `medium` | 12        | 25         | 1.25        |
+| `low`    | 6         | 10         | 1           |
+
+## Instancing
+
+Partículas e fireflies usam `InstancedMesh` com `DynamicDrawUsage`. O loop atualiza matrizes de instância e marca `instanceMatrix.needsUpdate`, sem criar objetos novos por frame. Um único `Object3D` e um único `Vector3` são reutilizados como rascunho.
+
+## Limites do loop
+
+O loop de animação pausa quando o canvas sai da viewport, via `IntersectionObserver` com margem de 200px. O pixel ratio do renderer é limitado a 1.5 mesmo no nível `high`, porque o bloom escala de forma quadrática com a densidade.
+
+## Clima de limpeza
+
+O cleanup descarta geometrias e materiais da cena, libera o `InstancedMesh` e descarta o renderer e o composer, evitando vazamento de memória entre montagens.

@@ -1,0 +1,28 @@
+---
+title: 'Cena e Canvas'
+description: 'Montagem do renderer WebGL, câmera, iluminação e ciclo de vida da cena'
+---
+
+# Cena e Canvas
+
+A cena 3D da hero vive em `src/components/canvas/home/hero/`. O `GhostScene` monta o renderer, a câmera e a iluminação, enquanto `GhostSceneWrapper` decide se o canvas será carregado.
+
+## Carregamento
+
+O wrapper importa o `GhostScene` via `next/dynamic` com `ssr: false` e um placeholder estático. O canvas só é renderizado quando `useWebGLSupport` confirma suporte a WebGL e `NEXT_PUBLIC_DISABLE_3D` não está ativo.
+
+## Renderer
+
+O `WebGLRenderer` usa `powerPreference: 'high-performance'`, antialias e alpha. O pixel ratio é limitado a 1.5, porque o custo do bloom cresce de forma quadrática com a densidade na tela retina. O tone mapping é ACES Filmic com `outputColorSpace` em sRGB.
+
+## Câmera e luzes
+
+A câmera é uma `PerspectiveCamera` de 75 graus posicionada em `z = 20`. A iluminação combina uma luz ambiente, duas luzes direcionais de contorno e uma `PointLight` compartilhada que acompanha as partículas em movimento.
+
+## Atmosfera
+
+Um plano de 300 por 300 unidades fica atrás de tudo e roda o shader de atmosfera, que revela o fundo em torno da posição do fantasma. Ele usa `renderOrder: -1000` e `depthWrite: false`.
+
+## Ciclo de vida
+
+A inicialização roda dentro de `requestIdleCallback` para reduzir o tempo de bloqueio. Um `IntersectionObserver` com margem de 200px pausa o loop de animação quando o canvas sai da viewport. O cleanup remove o listener de resize, descarta geometrias, materiais, o `InstancedMesh` e o renderer.
