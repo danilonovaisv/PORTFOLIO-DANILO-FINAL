@@ -41,7 +41,7 @@ export default function Error({
       <h2 className="mb-4 text-2xl font-bold text-redAccent">
         Something went wrong!
       </h2>
-      <p className="mb-8 text-textInverse/60">
+      <p className="mb-8 text-textSecondary text-center max-w-md">
         Our specific error reporting system has been notified.
       </p>
       <button

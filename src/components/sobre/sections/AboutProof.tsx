@@ -48,7 +48,7 @@ export function AboutProof() {
           </p>
           <h2
             id="proof-heading"
-            className="text-h1 font-black tracking-tight text-text"
+            className="text-h1 font-extrabold tracking-tight text-text"
           >
             {PROOF.title[0]}{' '}
             <span className="text-bluePrimary">{PROOF.title[1]}</span>
@@ -64,7 +64,7 @@ export function AboutProof() {
           >
             {PROOF.metrics.map((metric) => (
               <li key={metric.label} className="text-center">
-                <p className="text-display font-black leading-none text-bluePrimary">
+                <p className="text-display font-extrabold leading-none text-bluePrimary">
                   {metric.value}
                 </p>
                 <p className="mt-2 text-small font-medium uppercase tracking-[0.16em] text-textSecondary">

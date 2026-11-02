@@ -143,7 +143,7 @@ const HeaderGlassCanvas = memo(function HeaderGlassCanvas({
 
   if (is3DDisabled || !supportsWebGL) {
     return (
-      <div className="h-full w-full bg-zinc-900 border-dashed border-2 border-zinc-700" />
+      <div className="h-full w-full bg-background/40 backdrop-blur-md rounded-full border border-white/5" />
     );
   }
 

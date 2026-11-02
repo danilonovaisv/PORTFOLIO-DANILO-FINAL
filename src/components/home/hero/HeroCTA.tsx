@@ -14,8 +14,8 @@ export default function HeroCTA() {
 
   return (
     <m.div
-      initial={shouldReduceMotion ? { opacity: 1, y: 0 } : 'initial'}
-      animate={shouldReduceMotion ? { opacity: 1, y: 0 } : 'animate'}
+      initial={shouldReduceMotion ? { opacity: 1, y: 0 } : 'hidden'}
+      animate={shouldReduceMotion ? { opacity: 1, y: 0 } : 'visible'}
       variants={ctaVariants}
       className="flex justify-center pointer-events-auto"
     >

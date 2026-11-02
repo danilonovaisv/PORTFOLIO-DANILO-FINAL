@@ -89,7 +89,7 @@ export default function HeroCopy({
         {/* Headline - Desktop & Tablet (Visual Only) -> md:block */}
         <div
           aria-hidden="true"
-          className="hidden md:block mb-20 font-display text-[clamp(4.5rem,9.5vw,10rem)] font-black leading-[0.9] tracking-[-0.07em] whitespace-nowrap pl-[env(safe-area-inset-left,0)] pr-[env(safe-area-inset-right,0)]"
+          className="hidden md:block mb-20 font-display text-[clamp(4.5rem,9.5vw,10rem)] font-extrabold leading-[0.9] tracking-[-0.07em] whitespace-nowrap pl-[env(safe-area-inset-left,0)] pr-[env(safe-area-inset-right,0)]"
         >
           {HOME_CONTENT.hero.titleDesktop.map((line, i) => (
             <React.Fragment key={`desktop-${i}`}>
@@ -104,7 +104,7 @@ export default function HeroCopy({
         {/* Headline - Mobile Only (Visual Only) -> md:hidden */}
         <div
           aria-hidden="true"
-          className="md:hidden mb-12 font-display text-[clamp(2.25rem,11vw,8rem)] font-black leading-[0.95] tracking-[-0.04em] text-balance pl-[env(safe-area-inset-left,0)] pr-[env(safe-area-inset-right,0)]"
+          className="md:hidden mb-12 font-display text-[clamp(2.25rem,11vw,8rem)] font-extrabold leading-[0.95] tracking-[-0.04em] text-balance pl-[env(safe-area-inset-left,0)] pr-[env(safe-area-inset-right,0)]"
         >
           {HOME_CONTENT.hero.titleMobile.map((line, i) => (
             <React.Fragment key={`mobile-${i}`}>
@@ -118,8 +118,8 @@ export default function HeroCopy({
 
         {/* Subheading */}
         <m.p
-          className={`hero-subtitle font-h2 type-h2 mt-6 lg:mt-9 ${
-            isMask ? 'text-white' : 'text-white/50'
+          className={`hero-subtitle text-h2 mt-6 lg:mt-9 ${
+            isMask ? 'text-white' : 'text-white/60'
           } text-[clamp(1.25rem,4.6vw,2rem)] md:text-[clamp(1.125rem,3vw,2.5rem)] font-medium leading-[1.4] md:leading-[1.2] tracking-[0.02em] md:tracking-[0.03em] max-w-full px-6 md:px-0 md:max-w-none mx-auto`}
           style={initialStyles}
         >

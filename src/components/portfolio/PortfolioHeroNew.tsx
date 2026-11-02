@@ -24,7 +24,6 @@ const HERO_POSTER = `data:image/svg+xml;utf8,${encodeURIComponent(
       </linearGradient>
     </defs>
     <rect width="1600" height="900" fill="url(#g)"/>
-    <text x="50%" y="50%" fill="${COLORS.bluePrimary}" font-size="48" font-family="Arial, sans-serif" text-anchor="middle" dominant-baseline="middle" opacity="0.6">portfolio showcase</text>
   </svg>`
 )}`;
 

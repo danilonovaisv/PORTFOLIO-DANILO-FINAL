@@ -219,8 +219,7 @@ export default function PortfolioClient({
 
       <PortfolioHeroNew />
 
-      {/* std-grid: Ghost Design System grid constraint for non-bleed sections */}
-      <div className="std-grid">
+      <main id="main-content" className="w-full flex flex-col">
         <ProjectsGallery
           projects={projects}
           onProjectSelect={handleOpenProject}
@@ -239,7 +238,7 @@ export default function PortfolioClient({
           />
         )}
         <ContactSection />
-      </div>
+      </main>
 
       <SiteFooter />
 

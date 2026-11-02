@@ -130,7 +130,7 @@ export function AboutOrigin() {
         <div
           ref={stageWrapRef}
           data-testid="origin-sticky-gallery"
-          className="relative w-full lg:w-[94vw] xl:w-[95vw] lg:max-w-[1800px] mx-auto min-h-[72dvh] sm:min-h-[78dvh] lg:h-[80dvh] lg:max-h-[840px]"
+          className="relative w-full lg:w-[94vw] xl:w-[95vw] lg:max-w-[1680px] mx-auto min-h-[72dvh] sm:min-h-[78dvh] lg:h-[80dvh] lg:max-h-[840px]"
         >
           {resolvedChapters.map((block, index) => (
             <CinemaReelStageFrame

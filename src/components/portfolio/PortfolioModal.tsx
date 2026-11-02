@@ -120,12 +120,13 @@ export const PortfolioModal = ({
             onClick={(e) => {
               if (e.target === e.currentTarget) onClose();
             }}
-            className="fixed inset-0 z-[var(--z-layer-modal)] flex h-[100dvh] w-screen flex-col overflow-x-hidden overflow-y-auto font-display selection:bg-primary selection:text-black"
+            className="fixed inset-0 z-[var(--z-layer-modal)] flex h-[100dvh] w-screen flex-col overflow-x-hidden overflow-y-auto overscroll-contain font-display selection:bg-primary selection:text-black"
+            data-lenis-prevent
           >
             {/* Ambient Background Gradient inside modal */}
             <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neutral via-background to-background opacity-80" />
 
-            <div className="fixed top-4 right-4 md:top-8 md:right-8 z-[var(--z-layer-modal-close)]">
+            <div className="fixed top-[calc(1rem+env(safe-area-inset-top,0px))] right-4 md:top-8 md:right-8 z-[var(--z-layer-modal-close)]">
               <button
                 ref={closeRef}
                 onClick={onClose}

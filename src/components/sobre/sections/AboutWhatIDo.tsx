@@ -83,12 +83,12 @@ export function AboutWhatIDo() {
         <div className="max-w-[960px] mx-auto text-center">
           <h2
             id="what-i-do-heading"
-            className="text-h2 md:text-h1 font-black tracking-tight text-text text-balance"
+            className="text-h2 md:text-h1 font-extrabold tracking-tight text-text text-balance"
           >
             Do <span className="text-bluePrimary">insight</span> ao{' '}
             <span className="text-bluePrimary">impacto</span>.
           </h2>
-          <p className="mt-2 md:mt-3 text-h3 md:text-h2 font-black tracking-tight text-text/90 text-balance">
+          <p className="mt-2 md:mt-3 text-h3 md:text-h2 font-extrabold tracking-tight text-text/90 text-balance">
             Mesmo quando você não percebe.
           </p>
         </div>
@@ -118,7 +118,7 @@ export function AboutWhatIDo() {
                 className="group flex min-h-[248px] w-[clamp(150px,10.6vw,196px)] flex-col items-center justify-start rounded-[22px] border border-bluePrimary/15 bg-neutral px-5 py-5 text-center shadow-lg shadow-bluePrimary/5 transition-[border-color,box-shadow,transform] duration-fast select-none active:scale-95 hover:border-bluePrimary/40 hover:shadow-xl hover:shadow-bluePrimary/10 focus-within:border-bluePrimary/50"
               >
                 <span
-                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-bluePrimary/30 bg-bluePrimary/10 font-sans text-h3 font-black text-blueAccent"
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-bluePrimary/30 bg-bluePrimary/10 font-sans text-h3 font-extrabold text-blueAccent"
                   aria-hidden="true"
                 >
                   {service.id.padStart(2, '0')}
@@ -144,9 +144,8 @@ export function AboutWhatIDo() {
       {/* ============================================
           MOBILE LAYOUT (< 1024px)
           Vertical stack with viewport-triggered entrance
-          Oculto da árvore de acessibilidade para evitar duplicação semântica da lista
           ============================================ */}
-      <div className="block pb-16 lg:hidden" aria-hidden="true">
+      <div className="block pb-16 lg:hidden">
         <div className="std-grid">
           <ul className="flex flex-col gap-3 p-0">
             {SERVICES.map((service, index) => {
@@ -171,7 +170,7 @@ export function AboutWhatIDo() {
                   className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl border border-bluePrimary/10 bg-neutral px-5 py-4 shadow-md shadow-bluePrimary/5 transition-[border-color,box-shadow,transform] duration-fast active:scale-95 select-none"
                 >
                   <span
-                    className="shrink-0 font-sans text-display text-2xl font-black text-blueAccent flex h-10 w-10 items-center justify-center rounded-full bg-bluePrimary/10 border border-bluePrimary/30"
+                    className="shrink-0 font-sans text-display text-2xl font-extrabold text-blueAccent flex h-10 w-10 items-center justify-center rounded-full bg-bluePrimary/10 border border-bluePrimary/30"
                     aria-hidden="true"
                   >
                     {service.id.padStart(2, '0')}

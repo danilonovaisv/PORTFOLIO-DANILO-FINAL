@@ -55,8 +55,21 @@ export default function SiteHeader({
   accentColor,
 }: SiteHeaderProps) {
   const headerRef = useRef<HTMLElement>(null);
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOnLightSection, setIsOnLightSection] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   useEffect(() => {
+    if (!isDesktop) {
+      document.documentElement.style.setProperty(
+        '--header-height',
+        'calc(60px + env(safe-area-inset-top, 0px))'
+      );
+      return;
+    }
     if (!headerRef.current) return;
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
@@ -68,13 +81,7 @@ export default function SiteHeader({
     });
     observer.observe(headerRef.current);
     return () => observer.disconnect();
-  }, []);
-  const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOnLightSection, setIsOnLightSection] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-
-  const isDesktop = useMediaQuery('(min-width: 1024px)');
+  }, [isDesktop]);
 
   // Hydration safety
   useEffect(() => {

@@ -26,7 +26,7 @@ Este é o documento de governança supremo deste workspace. Todas as operações
 - **Framework:** Next.js 16 (App Router, standalone output, Turbopack).
 - **Motor 3D:** R3F (React Three Fiber) + Three.js.
 - **Performance:** Mandato de 60FPS. Use `InstancedMesh` e evite alocações no `useFrame`.
-- **Estética:** Ghost Blue (`#0048ff`), Void Black (`#040013`), Backdrop Blur e 'TT Norms Pro'.
+- **Estética:** Ghost Blue (`#0048ff`), Void Black (`#040013`), Backdrop Blur e 'Manrope' (self-hosted variable font).
 
 ---
 
@@ -109,7 +109,7 @@ _Padronizado segundo a especificação formal de ferramentas Anthropic._
 
 #### `ui-ux-pro-max`
 
-- **O que faz:** Provê diretrizes de design editorial refinado, hierarquia tipográfica ('TT Norms Pro') e contraste AAA.
+- **O que faz:** Provê diretrizes de design editorial refinado, hierarquia tipográfica ('Manrope' variable font) e contraste AAA.
 - **Quando usar:** Criação ou polimento estético de seções de projetos, cards de mídia e páginas institucionais.
 - **Quando NÃO usar:** Para resolver falhas de compilação ou bugs de infraestrutura.
 - **Formato & Protocolo:** Invocação via `.agents/skills/ui-ux-pro-max/SKILL.md`.

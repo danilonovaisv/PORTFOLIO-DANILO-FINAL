@@ -135,6 +135,7 @@ export const ProjectCard = React.memo(function ProjectCard({
 
   const baseCardClasses = "relative overflow-hidden cursor-pointer bg-neutral border border-white/10 h-full transition-[transform,box-shadow,filter] duration-fast ease-out sm:hover:-translate-y-1 sm:hover:shadow-[0_18px_40px_rgba(0,0,0,0.4)] sm:hover:brightness-105 [contain:layout_paint] select-none";
   const mobileCardClasses = "max-sm:!w-full max-sm:!h-auto max-sm:!border-none max-sm:!bg-transparent max-sm:!aspect-square max-sm:!block max-sm:!p-0 max-sm:!m-0 max-sm:leading-none";
+  const cardPoster = project.imageLandscape || project.imageSquare || DEFAULT_VIDEO_POSTER;
 
   return (
     <m.button
@@ -175,7 +176,7 @@ export const ProjectCard = React.memo(function ProjectCard({
                media={desktopMedia}
                sizes={sizes}
                priority={priority}
-               poster={DEFAULT_VIDEO_POSTER}
+               poster={cardPoster}
                className="absolute inset-0 hidden h-full w-full md:block"
                mediaClassName={cn(
                  'transition-opacity duration-standard',
@@ -189,7 +190,7 @@ export const ProjectCard = React.memo(function ProjectCard({
                media={mobileMedia}
                sizes={sizes}
                priority={priority}
-               poster={DEFAULT_VIDEO_POSTER}
+               poster={cardPoster}
                className="absolute inset-0 block h-full w-full md:hidden"
                mediaClassName={cn(
                  'transition-opacity duration-standard',
@@ -205,7 +206,7 @@ export const ProjectCard = React.memo(function ProjectCard({
              media={desktopMedia}
              sizes={sizes}
              priority={priority}
-             poster={DEFAULT_VIDEO_POSTER}
+             poster={cardPoster}
              className="absolute inset-0 h-full w-full"
              mediaClassName={cn(
                'transition-opacity duration-standard',
@@ -222,7 +223,7 @@ export const ProjectCard = React.memo(function ProjectCard({
            <MediaCard
              media={hoverMedia}
              autoPlay={isHovered}
-             poster={DEFAULT_VIDEO_POSTER}
+             poster={cardPoster}
              preload="none"
              className="absolute inset-0 h-full w-full"
              mediaClassName={cn(
@@ -249,7 +250,7 @@ export const ProjectCard = React.memo(function ProjectCard({
           <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-blueAccent/90 mb-1 sm:mb-2 font-medium">
             {project.displayCategory}
           </p>
-          <h3 id={headingId} className="text-xl sm:text-2xl md:text-3xl font-black leading-[1.1] mb-2 sm:mb-3 text-balance tracking-tight">
+          <h3 id={headingId} className="text-xl sm:text-2xl md:text-3xl font-extrabold leading-[1.1] mb-2 sm:mb-3 text-balance tracking-tight">
             {project.title}
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-medium text-white/70">

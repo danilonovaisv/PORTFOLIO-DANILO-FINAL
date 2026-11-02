@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { useRef, useState, useEffect, useCallback } from 'react';
+import type { Group } from 'three';
 import { AnimatePresence } from 'motion/react';
 
 import { Preloader } from '@/components/ui/Preloader';
@@ -21,6 +22,7 @@ const CONFIG = {
 
 export default function HomeHero() {
   const heroRef = useRef<HTMLElement>(null);
+  const ghostRef = useRef<Group | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const supportsWebGL = useWebGLSupport();
@@ -71,7 +73,7 @@ export default function HomeHero() {
         <div className="absolute inset-0 z-[var(--z-layer-content)] pointer-events-none">
           <div className="flex items-center justify-center w-full h-[100svh] md:h-screen md:sticky md:top-0">
             <div className="w-full pointer-events-auto pb-32 md:pb-0">
-              <HeroCopy isLoaded={isLoaded || shouldReduceMotion} />
+              <HeroCopy ghostRef={ghostRef} isLoaded={isLoaded || shouldReduceMotion} />
             </div>
           </div>
         </div>
@@ -84,7 +86,7 @@ export default function HomeHero() {
         >
           <div className="sticky top-0 h-[100svh] md:h-screen w-full">
             {shouldRenderWebGL ? (
-              <GhostSceneWrapper onReady={() => {}} />
+              <GhostSceneWrapper ghostRef={ghostRef} onReady={() => {}} />
             ) : (
               <div
                 className="absolute inset-0 z-[var(--z-layer-base)] opacity-20 bg-[radial-gradient(circle_at_50%_50%,var(--color-neutral)_0%,var(--color-background)_70%)]"

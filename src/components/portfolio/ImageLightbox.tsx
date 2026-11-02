@@ -111,7 +111,7 @@ export function ImageLightbox({
           onClick={onClose}
         >
           <m.div
-            className="relative flex max-h-[90vh] max-w-6xl flex-col items-center justify-center p-2"
+            className="relative flex max-h-[90dvh] max-w-6xl flex-col items-center justify-center p-2"
             initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14, filter: 'blur(6px)' }}
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, filter: 'blur(0px)' }}
             exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14, filter: 'blur(6px)' }}
@@ -123,7 +123,7 @@ export function ImageLightbox({
               type="button"
               onClick={onClose}
               aria-label="Fechar zoom"
-              className="absolute right-2 top-2 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white transition-colors hover:bg-black/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+              className="absolute right-2 top-[calc(0.5rem+env(safe-area-inset-top,0px))] z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white transition-colors hover:bg-black/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             >
               <X size={18} />
             </button>
@@ -163,7 +163,7 @@ export function ImageLightbox({
                 <video
                   ref={videoRef}
                   src={src}
-                  className="max-h-[85vh] h-auto w-auto max-w-full object-contain object-center"
+                  className="max-h-[85dvh] h-auto w-auto max-w-full object-contain object-center"
                   controls
                   muted
                   playsInline
@@ -179,7 +179,7 @@ export function ImageLightbox({
                   width={1920}
                   height={1080}
                   sizes="90vw"
-                  className="max-h-[85vh] w-auto max-w-full object-contain"
+                  className="max-h-[85dvh] w-auto max-w-full object-contain"
                   priority
                 />
               )}

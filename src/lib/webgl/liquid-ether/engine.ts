@@ -182,6 +182,19 @@ export class Simulation {
     });
     this.pressure.update({ vel, pressure });
   }
+
+  dispose() {
+    for (const key of Object.keys(this.fbos)) {
+      this.fbos[key]?.dispose();
+    }
+    this.fbos = {};
+    this.advection?.dispose();
+    this.externalForce?.dispose();
+    this.viscous?.dispose();
+    this.divergence?.dispose();
+    this.poisson?.dispose();
+    this.pressure?.dispose();
+  }
 }
 
 export class AutoDriver {
@@ -312,6 +325,15 @@ export class Output {
     this.simulation.update();
     this.render();
   }
+
+  dispose() {
+    this.simulation?.dispose();
+    this.output.geometry?.dispose();
+    if (this.output.material instanceof THREE.Material) {
+      this.output.material.dispose();
+    }
+    this.scene.clear();
+  }
 }
 
 export interface WebGLManagerProps {
@@ -393,7 +415,9 @@ export class WebGLManager {
   }
 
   dispose() {
+    this.pause();
     window.removeEventListener('resize', this._resize);
+    this.output?.dispose();
     Mouse.dispose();
     Common.dispose();
   }

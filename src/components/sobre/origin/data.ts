@@ -12,11 +12,13 @@
  */
 
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
+import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 
 export type OriginAssetKey =
   (typeof SITE_ASSET_KEYS.about.originImages)[number];
 
 export const SUPABASE_ORIGIN_STORAGE_BASE =
+  buildSupabaseStorageUrl('site-assets', 'about/origin/origin2') ??
   'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/origin2';
 
 export type OriginLocalWebpPath =

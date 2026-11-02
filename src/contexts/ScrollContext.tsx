@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 import type Lenis from 'lenis';
 
 export interface ScrollContextType {
@@ -10,3 +10,5 @@ export interface ScrollContextType {
 export const ScrollContext = createContext<ScrollContextType>({
   lenis: null,
 });
+
+export const useLenis = () => useContext(ScrollContext).lenis;

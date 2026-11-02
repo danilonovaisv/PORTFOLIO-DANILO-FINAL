@@ -51,15 +51,15 @@ export default function ClientsBrandsSection() {
         <m.ul
           role="list"
           aria-label="Logotipos das marcas parceiras"
-          initial="hidden"
+          initial={reducedMotion ? 'show' : 'hidden'}
           whileInView="show"
           viewport={viewportConfig}
           variants={{
             hidden: {},
             show: {
               transition: {
-                staggerChildren: 0.08,
-                delayChildren: 0.1,
+                staggerChildren: reducedMotion ? 0 : 0.08,
+                delayChildren: reducedMotion ? 0 : 0.1,
               },
             },
           }}
@@ -73,13 +73,13 @@ export default function ClientsBrandsSection() {
                 key={logo.id}
                 role="listitem"
                 variants={{
-                  hidden: { opacity: 0, y: 18, filter: 'blur(4px)' },
+                  hidden: reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18, filter: 'blur(4px)' },
                   show: {
                     opacity: 1,
                     y: 0,
                     filter: 'blur(0px)',
                     transition: {
-                      duration: MOTION_TOKENS.duration.normal,
+                      duration: reducedMotion ? 0.01 : MOTION_TOKENS.duration.normal,
                       ease: GHOST_EASE,
                     },
                   },

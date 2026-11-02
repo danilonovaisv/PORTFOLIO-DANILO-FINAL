@@ -57,31 +57,57 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     }
 
     let lenis: any;
-    let rafId: number;
+    let tickerCallback: ((_time: number) => void) | null = null;
+    let gsapInstance: any = null;
+    let scrollTriggerInstance: any = null;
 
     const initLenis = async () => {
       const LenisModule = (await import('lenis')).default;
+      const { gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+
+      gsapInstance = gsap;
+      scrollTriggerInstance = ScrollTrigger;
+      gsap.registerPlugin(ScrollTrigger);
+
       lenis = new LenisModule({
         lerp: 0.08,
         wheelMultiplier: 1,
         touchMultiplier: 1.2,
       });
 
-      setLenisInstance(lenis);
-
-      function raf(time: number) {
-        lenis.raf(time);
-        rafId = requestAnimationFrame(raf);
+      if (typeof window !== 'undefined') {
+        (window as Window & { lenis?: unknown }).lenis = lenis;
       }
 
-      rafId = requestAnimationFrame(raf);
+      setLenisInstance(lenis);
+
+      // Sincroniza GSAP ScrollTrigger com as atualizações de scroll do Lenis
+      lenis.on('scroll', ScrollTrigger.update);
+
+      // GSAP ticker unificado para dirigir o loop de animação do Lenis
+      tickerCallback = (time: number) => {
+        lenis?.raf(time * 1000);
+      };
+      gsap.ticker.add(tickerCallback);
+      gsap.ticker.lagSmoothing(0);
     };
 
     initLenis();
 
     return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      if (lenis) lenis.destroy();
+      if (tickerCallback && gsapInstance) {
+        gsapInstance.ticker.remove(tickerCallback);
+      }
+      if (lenis) {
+        if (typeof window !== 'undefined' && (window as { lenis?: unknown }).lenis === lenis) {
+          (window as { lenis?: unknown }).lenis = null;
+        }
+        if (scrollTriggerInstance) {
+          lenis.off?.('scroll', scrollTriggerInstance.update);
+        }
+        lenis.destroy();
+      }
       setLenisInstance(null);
     };
   }, [

@@ -170,7 +170,7 @@ const DesktopFluidHeader = React.forwardRef<
   return (
     <header
       ref={ref}
-      className={`hidden lg:block fixed top-6 left-0 right-0 z-55 w-full pointer-events-none transition-all duration-standard ease-in-out ${
+      className={`hidden lg:block fixed top-6 left-0 right-0 z-[var(--z-layer-header)] w-full pointer-events-none transition-all duration-standard ease-in-out ${
         isLight ? 'header--light' : ''
       }`}
     >

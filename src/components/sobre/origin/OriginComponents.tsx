@@ -12,6 +12,7 @@
  */
 
 import React from 'react';
+import Image from 'next/image';
 import { m, type Variants } from 'motion/react';
 import { GHOST_EASE } from '@/config/motion';
 import type { OriginChapter } from '@/components/sobre/origin/data';
@@ -290,15 +291,14 @@ export function CinemaReelStageFrame({
         className="absolute inset-0 w-full h-full overflow-hidden"
         style={{ aspectRatio: block.dimensions.aspectRatio }}
       >
-        <img
+        <Image
           data-origin-parallax-img
           src={block.img}
           alt={`${block.title} — ${block.caption}`}
           width={block.dimensions.width}
           height={block.dimensions.height}
-          loading={block.priority ? 'eager' : 'lazy'}
-          decoding="async"
-          fetchPriority={block.priority ? 'high' : 'auto'}
+          priority={block.priority}
+          unoptimized
           draggable={false}
           className="h-full w-full object-cover object-center select-none will-change-transform scale-[1.03]"
           onError={(e) => {
@@ -587,13 +587,53 @@ export interface DetailsPanelProps {
 }
 
 export function DetailsPanel({ open, slide, onClose }: DetailsPanelProps) {
+  const closeButtonRef = React.useRef<HTMLButtonElement | null>(null);
+  const panelRef = React.useRef<HTMLElement | null>(null);
+
+  React.useEffect(() => {
+    if (!open) return;
+
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        onClose();
+        return;
+      }
+
+      if (event.key !== 'Tab' || !panelRef.current) return;
+      const focusables = panelRef.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const activeElement = document.activeElement as HTMLElement;
+
+      if (event.shiftKey && activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [open, onClose]);
+
   return (
     <>
       {/* Backdrop */}
       <div
         aria-hidden={!open}
         onClick={onClose}
-        className={`fixed inset-0 z-modal-scrim-layer transition-all duration-500 ${
+        className={`fixed inset-0 z-[var(--z-layer-modal-scrim)] transition-all duration-500 ${
           open
             ? 'pointer-events-auto bg-background/80 backdrop-blur-md opacity-100'
             : 'pointer-events-none opacity-0'
@@ -602,9 +642,10 @@ export function DetailsPanel({ open, slide, onClose }: DetailsPanelProps) {
 
       {/* Gaveta */}
       <aside
+        ref={panelRef}
         aria-hidden={!open}
         aria-label={slide ? `Detalhes: ${slide.title}` : 'Detalhes do capítulo'}
-        className="fixed top-[4dvh] right-[2dvh] sm:right-[3dvh] z-modal-layer flex flex-col text-white w-[min(580px,92vw)] h-[92dvh] rounded-[24px] sm:rounded-[32px] overflow-hidden border border-bluePrimary/30 shadow-drawer will-change-transform"
+        className="fixed top-[4dvh] right-[2dvh] sm:right-[3dvh] z-[var(--z-layer-modal)] flex flex-col text-white w-[min(580px,92vw)] h-[92dvh] rounded-[24px] sm:rounded-[32px] overflow-hidden border border-bluePrimary/30 shadow-drawer will-change-transform"
         style={{
           transform: open ? 'translateX(0)' : 'translateX(calc(100% + 5dvh))',
           transition: 'transform 600ms cubic-bezier(0.16, 1, 0.3, 1)',
@@ -623,13 +664,13 @@ export function DetailsPanel({ open, slide, onClose }: DetailsPanelProps) {
               className="relative w-full h-[28dvh] shrink-0 overflow-hidden"
               style={{ aspectRatio: slide.dimensions.aspectRatio }}
             >
-              <img
+              <Image
                 src={slide.img}
                 alt={`${slide.title} — ${slide.caption}`}
                 width={slide.dimensions.width}
                 height={slide.dimensions.height}
                 loading="lazy"
-                decoding="async"
+                unoptimized
                 draggable={false}
                 onError={(e) => {
                   const target = e.currentTarget;
@@ -649,10 +690,11 @@ export function DetailsPanel({ open, slide, onClose }: DetailsPanelProps) {
 
               {/* Botão Fechar */}
               <button
+                ref={closeButtonRef}
                 type="button"
                 onClick={onClose}
                 aria-label="Fechar detalhes"
-                className="absolute right-4 top-4 z-modal-close-layer flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-background/80 text-white backdrop-blur-md transition-colors hover:border-bluePrimary hover:bg-bluePrimary/30"
+                className="absolute right-4 top-4 z-[var(--z-layer-modal-close)] flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-background/80 text-white backdrop-blur-md transition-colors hover:border-bluePrimary hover:bg-bluePrimary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent"
               >
                 <svg
                   width="14"

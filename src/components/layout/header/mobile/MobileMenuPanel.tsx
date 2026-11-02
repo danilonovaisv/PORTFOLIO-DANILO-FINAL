@@ -1,7 +1,6 @@
 'use client';
 
 import React, { forwardRef, RefObject } from 'react';
-import { m } from 'motion/react';
 import Link from 'next/link';
 import { Mail } from 'lucide-react';
 import { Instagram, Linkedin } from '@/components/shared/icons/SocialIcons';
@@ -23,7 +22,7 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
   (
     {
       navItems,
-      accentColor,
+      accentColor: _accentColor,
       open,
       socialsRef,
       onNavigate,
@@ -93,13 +92,9 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
             ref={socialsRef}
             className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-8"
           >
-            <m.h3
-              className="sm-social-title text-sm font-medium uppercase tracking-wider"
-              initial={false}
-              animate={{ color: accentColor }}
-            >
+            <h3 className="sm-social-title text-sm font-medium uppercase tracking-wider text-blueAccent">
               Connect
-            </m.h3>
+            </h3>
             <div className="flex gap-4">
               {[
                 {
@@ -125,7 +120,7 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
                   rel="noopener noreferrer"
                   aria-label={s.label}
                   tabIndex={open ? 0 : -1}
-                  className="sm-social-link flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-colors duration-fast hover:border-primary hover:bg-primary"
+                  className="sm-social-link flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-colors duration-fast active:bg-white/20 hover:border-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent"
                 >
                   {s.icon}
                 </a>

@@ -42,9 +42,9 @@ export function ShaderAnimation() {
         float t = time * 0.05;
         float lineWidth = 0.002;
 
-        vec3 cyan = vec3(0.31, 0.9, 1.0);
-        vec3 pink = vec3(0.96, 0.004, 0.83);
-        vec3 bg = vec3(0.016, 0.0, 0.075);
+        vec3 cyan = vec3(0.31, 0.902, 1.0);
+        vec3 ghostBlue = vec3(0.0, 0.282, 1.0);
+        vec3 bg = vec3(0.0157, 0.0, 0.0745);
 
         float glow = 0.0;
         for(int j = 0; j < 3; j++){
@@ -54,7 +54,7 @@ export function ShaderAnimation() {
         }
 
         float blend = 0.5 + 0.5 * sin(t * 2.0);
-        vec3 color = bg + glow * mix(cyan, pink, blend);
+        vec3 color = bg + glow * mix(cyan, ghostBlue, blend);
 
         gl_FragColor = vec4(color, 1.0);
       }
@@ -81,13 +81,14 @@ export function ShaderAnimation() {
     scene.add(mesh);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
     container.appendChild(renderer.domElement);
 
     const onWindowResize = () => {
       const width = container.clientWidth;
       const height = container.clientHeight;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
       renderer.setSize(width, height);
       uniforms.resolution.value.x = renderer.domElement.width;
       uniforms.resolution.value.y = renderer.domElement.height;

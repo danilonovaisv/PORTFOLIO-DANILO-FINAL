@@ -168,10 +168,10 @@ const ContactForm: React.FC = () => {
 
   return (
     <m.div
-      initial={prefersReducedMotion ? {} : { opacity: 0, y: 18 }}
+      initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportConfig}
-      transition={{ duration: 0.6, ease: GHOST_EASE }}
+      transition={{ duration: prefersReducedMotion ? 0.01 : 0.6, ease: GHOST_EASE }}
       className="w-full max-w-[640px] mx-auto lg:ml-auto bg-white p-8 md:p-12 rounded-[24px] shadow-sm border border-textInverse/5"
     >
       <div className="p-0">
@@ -303,8 +303,8 @@ const ContactForm: React.FC = () => {
             <m.button
               type="submit"
               disabled={isSubmitting}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -2 }}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
               transition={{ type: 'tween', ease: GHOST_EASE, duration: 0.16 }}
               className="w-full h-[64px] md:h-[72px] flex items-center justify-center gap-3 bg-bluePrimary text-white font-bold rounded-xl transition-colors duration-fast disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 tracking-tight text-lg shadow-[0_10px_30px_-10px_rgba(0,72,255,0.3)] will-change-transform select-none"
             >

@@ -6,7 +6,7 @@ import { WebGLManager } from '@/lib/webgl/liquid-ether/engine';
 import { LiquidEtherProps } from '@/lib/webgl/liquid-ether/types';
 import { makePaletteTexture } from '@/lib/webgl/liquid-ether/utils';
 
-const DEFAULT_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
+const DEFAULT_COLORS = ['#0048ff', '#4fe6ff', '#0c1445'];
 
 /**
  * LiquidEther Component - Ghost System v3
@@ -106,6 +106,7 @@ export default function LiquidEther({
         webglRef.current.dispose();
       }
       webglRef.current = null;
+      paletteTex?.dispose();
     };
   }, [paletteTex, bgVec4]); // Recria o engine apenas se a paleta mudar radicalmente
 

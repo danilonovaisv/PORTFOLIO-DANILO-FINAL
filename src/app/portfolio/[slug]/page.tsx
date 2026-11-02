@@ -317,14 +317,14 @@ export default async function ProjectPage({ params }: Props) {
       <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 mix-blend-difference">
         <Link
           href="/portfolio"
-          className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest hover:text-primary transition-colors"
+          className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent rounded py-2"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Portfolio
         </Link>
       </nav>
 
-      <section className="relative pt-32 pb-16 px-6 md:px-12 max-w-[1800px] mx-auto">
+      <section className="relative pt-32 pb-16 px-6 md:px-12 max-w-[1680px] mx-auto">
         <div className="flex flex-col gap-6 mb-12 md:mb-20">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-display tracking-tight leading-[0.9]">

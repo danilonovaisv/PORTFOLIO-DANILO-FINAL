@@ -21,12 +21,12 @@ import type { ZoomAsset, IntroBodyBlock } from '../types';
 
 const LiquidEther = dynamic(() => import('../LiquidEther'), { ssr: false });
 
-const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
+const DEFAULT_ETHER_COLORS = ['#0048ff', '#4fe6ff', '#0c1445'];
 
 const buildEtherPalette = (baseHex: string): string[] => [
   baseHex,
   mixHex(baseHex, '#ffffff', 0.3),
-  mixHex(baseHex, '#12002c', 0.22),
+  mixHex(baseHex, '#040013', 0.22),
 ];
 
 const toIntroBodyBlocks = (

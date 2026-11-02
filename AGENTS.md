@@ -228,7 +228,7 @@ _Padronizado segundo a especificação formal de ferramentas Anthropic (O que fa
 
 #### `ui-ux-pro-max`
 
-- **O que faz:** Fornece inteligência de design editorial de ponta, balanceamento tipográfico ('TT Norms Pro'), proporções áureas de espaçamento e contraste visual AAA.
+- **O que faz:** Fornece inteligência de design editorial de ponta, balanceamento tipográfico ('Manrope'), proporções áureas de espaçamento e contraste visual AAA.
 - **Quando usar:** Na concepção visual de novas páginas, auditoria estética de cards de projetos e polimento de interfaces de alta conversão.
 - **Quando NÃO usar:** Para resolver bugs de infraestrutura, SSR ou migrações SQL.
 - **Formato & Protocolo:** Invocação via `.agents/skills/ui-ux-pro-max/SKILL.md`. Executa validações de consistência visual e hierarquia tipográfica.

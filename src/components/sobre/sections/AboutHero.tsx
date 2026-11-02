@@ -126,7 +126,7 @@ export function AboutHero() {
                       >
                         {ABOUT_CONTENT.hero.title.text}
                         {ABOUT_CONTENT.hero.title.highlight && (
-                          <span className="text-bluePrimary font-black ml-1 md:ml-2">
+                          <span className="text-bluePrimary font-extrabold ml-1 md:ml-2">
                             {ABOUT_CONTENT.hero.title.highlight}
                           </span>
                         )}
@@ -145,7 +145,7 @@ export function AboutHero() {
                           >
                             {item.text}
                             {item.highlight && (
-                              <span className="text-bluePrimary font-black ml-1 md:ml-2">
+                              <span className="text-bluePrimary font-extrabold ml-1 md:ml-2">
                                 {item.highlight}
                               </span>
                             )}

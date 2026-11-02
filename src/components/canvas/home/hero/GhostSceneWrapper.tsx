@@ -1,5 +1,6 @@
 'use client';
 
+import * as THREE from 'three';
 import dynamic from 'next/dynamic';
 import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 
@@ -15,8 +16,10 @@ const GhostScene = dynamic(
 
 export default function GhostSceneWrapper({
   onReady,
+  ghostRef,
 }: {
   onReady?: () => void;
+  ghostRef?: React.RefObject<THREE.Group | null> | React.MutableRefObject<THREE.Group | null>;
 }) {
   const is3DDisabled = process.env.NEXT_PUBLIC_DISABLE_3D === 'true';
   const supportsWebGL = useWebGLSupport();
@@ -37,7 +40,7 @@ export default function GhostSceneWrapper({
       aria-hidden="true"
       role="presentation"
     >
-      <GhostScene onReady={onReady} />
+      <GhostScene onReady={onReady} ghostRef={ghostRef} />
     </div>
   );
 }

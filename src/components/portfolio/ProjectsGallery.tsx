@@ -130,6 +130,12 @@ export const ProjectsGallery = ({
 
   useEffect(() => {
     setLiveProjects(paginatedProjects);
+    if (typeof window !== 'undefined') {
+      const globalLenis = (window as Window & { lenis?: { resize?: () => void } }).lenis;
+      if (typeof globalLenis?.resize === 'function') {
+        globalLenis.resize();
+      }
+    }
   }, [paginatedProjects]);
 
   // A rotação contínua (setInterval) foi desativada para que a ordem mude apenas ao entrar ou recarregar a página.
@@ -232,7 +238,7 @@ export const ProjectsGallery = ({
       className="relative z-20 w-full bg-background text-white pb-32"
     >
       {/* Filter Bar - Editorial Positioning */}
-      <div className="sticky top-[var(--header-height)] z-40 w-full bg-background/80 backdrop-blur-md py-6 px-6 md:px-16 border-b border-white/5">
+      <div className="sticky top-[calc(60px+env(safe-area-inset-top,0px))] md:top-[var(--header-height,80px)] z-40 w-full bg-background/80 backdrop-blur-md py-6 px-6 md:px-16 border-b border-white/5">
         <div className="mx-auto flex max-w-[1400px] items-center justify-center">
           <h2 id="portfolio-gallery-heading" className="sr-only">
             Portfolio Showcase
@@ -260,7 +266,7 @@ export const ProjectsGallery = ({
                   handleFilterKeyDown(event, index)
                 }
                 className={cn(
-                  'relative shrink-0 text-xs uppercase tracking-widest transition-[color,transform] duration-fast py-2 select-none active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+                  'relative shrink-0 inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-3.5 text-xs uppercase tracking-widest transition-[color,transform] duration-fast py-2 select-none active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
                   activeFilter === pillar.id
                     ? 'text-blueAccent'
                     : 'text-white/60 hover:text-white'

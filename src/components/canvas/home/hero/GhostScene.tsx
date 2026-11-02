@@ -1,5 +1,6 @@
 'use client';
 
+import * as THREE from 'three';
 import { useEffect, useRef } from 'react';
 import { usePerformanceAdaptive } from '@/hooks/usePerformanceAdaptive';
 import { useParticleSystem } from './hooks/useParticleSystem';
@@ -12,6 +13,7 @@ import { Preloader } from './components/Preloader';
 
 interface GhostSceneProps {
   onReady?: () => void;
+  ghostRef?: React.RefObject<THREE.Group | null> | React.MutableRefObject<THREE.Group | null>;
 }
 
 /**
@@ -19,7 +21,7 @@ interface GhostSceneProps {
  * Renders the main 3D interactive hero experience.
  * Modularized to comply with file size and architectural standards.
  */
-export default function GhostScene({ onReady }: GhostSceneProps) {
+export default function GhostScene({ onReady, ghostRef }: GhostSceneProps) {
   const mountRef = useRef<HTMLDivElement>(null);
   const performanceConfig = usePerformanceAdaptive();
 
@@ -64,6 +66,12 @@ export default function GhostScene({ onReady }: GhostSceneProps) {
   useEffect(() => {
     updateRef.current = animator.update;
   }, [animator.update]);
+
+  useEffect(() => {
+    if (ghostRef && sceneManager.ghostGroup) {
+      (ghostRef as React.MutableRefObject<THREE.Group | null>).current = sceneManager.ghostGroup;
+    }
+  }, [ghostRef, sceneManager.ghostGroup]);
 
   // 4. Lifecycle Management
   const cleanupRefs = useRef<{
