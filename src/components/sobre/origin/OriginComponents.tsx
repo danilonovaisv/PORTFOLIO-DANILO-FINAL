@@ -9,6 +9,7 @@
  *   e animações orquestradas via Framer Motion com staging e stagger progressivo
  * - CinemaReelRightRail: HUD lateral de navegação dos 4 capítulos
  * - DetailsPanel: Gaveta lateral acessível com narrativa detalhada e pilares estratégicos
+ * - CinemaReelEntrance: Full-screen entrance overlay with scanlines & SVG motion blur
  */
 
 import React from 'react';
@@ -16,6 +17,138 @@ import Image from 'next/image';
 import { m, type Variants } from 'motion/react';
 import { GHOST_EASE } from '@/config/motion';
 import type { OriginChapter } from '@/components/sobre/origin/data';
+import gsap from 'gsap';
+import { CustomEase } from 'gsap/dist/CustomEase';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(CustomEase);
+}
+
+/**
+ * CinemaReelEntrance — Full-screen entrance overlay with scanlines & SVG motion blur
+ * Used during the 3-loop auto-scroll entrance (2.5s)
+ */
+export function CinemaReelEntrance({ isPlaying, onComplete }: { isPlaying: boolean; onComplete: () => void }) {
+  const overlayRef = React.useRef<HTMLDivElement>(null);
+  const scanlinesRef = React.useRef<HTMLDivElement>(null);
+  const svgFilterRef = React.useRef<SVGFilterElement>(null);
+
+  React.useEffect(() => {
+    if (!isPlaying) return;
+
+    const overlay = overlayRef.current;
+    const scanlines = scanlinesRef.current;
+    const filter = svgFilterRef.current;
+    const feGaussianBlur = filter?.firstElementChild as SVGFEGaussianBlurElement | null;
+
+    if (!overlay || !scanlines || !filter || !feGaussianBlur) return;
+
+    // GSAP timeline for entrance (mirrors useOriginAnimations)
+    const tl = gsap.timeline({
+      onComplete: () => {
+        onComplete();
+      },
+    });
+
+    // Register custom ease
+    const naturalEase =
+      typeof window !== 'undefined'
+        ? CustomEase.create('naturalEase', GHOST_EASE.join(','))
+        : 'cubic-bezier(0.22, 1, 0.36, 1)';
+
+    const ENTRANCE_DURATION = 2.5;
+    const ENTRANCE_LOOPS = 3;
+    const CHAPTERS = 4;
+    const ENTRANCE_TOTAL_SLIDES = ENTRANCE_LOOPS * CHAPTERS;
+    const MAX_BLUR_SVG_DEVIATION = 18;
+    const segmentDuration = ENTRANCE_DURATION / ENTRANCE_TOTAL_SLIDES;
+
+    // Opacity fade-in
+    tl.to([overlay, scanlines], {
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power2.out',
+    }, 0);
+
+    for (let loop = 0; loop < ENTRANCE_LOOPS; loop++) {
+      for (let chapter = 0; chapter < CHAPTERS; chapter++) {
+        const label = `loop${loop}_ch${chapter}`;
+
+        // SVG blur
+        tl.to(
+          feGaussianBlur,
+          {
+            attr: { stdDeviation: `0 ${MAX_BLUR_SVG_DEVIATION}` },
+            duration: segmentDuration * 0.4,
+            ease: 'power2.in',
+          },
+          label
+        ).to(
+          feGaussianBlur,
+          {
+            attr: { stdDeviation: '0 0' },
+            duration: segmentDuration * 0.6,
+            ease: 'power2.out',
+          },
+          `${label}+=${segmentDuration * 0.4}`
+        );
+
+        // Scanlines pulse
+        tl.to(
+          scanlines,
+          {
+            opacity: 0.6,
+            duration: segmentDuration * 0.2,
+            ease: 'power2.in',
+          },
+          label
+        ).to(
+          scanlines,
+          {
+            opacity: 0.15,
+            duration: segmentDuration * 0.8,
+            ease: 'power2.out',
+          },
+          `${label}+=${segmentDuration * 0.2}`
+        );
+      }
+    }
+
+    return () => {
+      tl.kill();
+    };
+  }, [isPlaying, onComplete]);
+
+  if (!isPlaying) return null;
+
+  return (
+    <div
+      ref={overlayRef}
+      className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden"
+      style={{ opacity: 0 }}
+      aria-hidden="true"
+    >
+      {/* SVG Motion Blur Filter */}
+      <svg style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }}>
+        <filter id="entrance-motion-blur">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="0 0" edgeMode="duplicate" />
+        </filter>
+      </svg>
+
+      {/* Scanlines Overlay — Ghost Cyan (#4fe6ff) */}
+      <div
+        ref={scanlinesRef}
+        className="absolute inset-0"
+        style={{
+          opacity: 0,
+          mixBlendMode: 'screen',
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(79, 230, 255, 0.08) 2px, rgba(79, 230, 255, 0.08) 4px)',
+          backgroundSize: '100% 4px',
+        }}
+      />
+    </div>
+  );
+}
 
 export type ResolvedOriginChapter = OriginChapter & {
   img: string;
@@ -287,9 +420,16 @@ export function CinemaReelStageFrame({
       </div>
 
       {/* Imagem Protagonista em Alta Resolução (Supabase Storage origin2) */}
+      {/* Wrapper for parallax: height 120dvh, marginTop -60dvh, centered */}
       <div
-        className="absolute inset-0 w-full h-full overflow-hidden"
-        style={{ aspectRatio: block.dimensions.aspectRatio }}
+        data-slide-image
+        className="absolute inset-x-0 top-1/2 w-full overflow-hidden"
+        style={{
+          height: '120dvh',
+          marginTop: '-60dvh',
+          transformOrigin: 'center center',
+          willChange: 'transform',
+        }}
       >
         <Image
           data-origin-parallax-img

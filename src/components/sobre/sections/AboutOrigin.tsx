@@ -12,6 +12,7 @@ import {
   CinemaReelStageFrame,
   CinemaReelRightRail,
   DetailsPanel,
+  CinemaReelEntrance,
   type ResolvedOriginChapter,
 } from '@/components/sobre/origin/OriginComponents';
 import { useOriginAnimations } from '@/components/sobre/origin/useOriginAnimations';
@@ -37,14 +38,14 @@ export function AboutOrigin() {
     const urls = [imgUrl1, imgUrl2, imgUrl3, imgUrl4];
     return ORIGIN_CHAPTERS.map((chap, idx) => ({
       ...chap,
-      // Prioridade: Contexto dinâmico de assets -> URL canônica do Supabase Storage origin2 -> fallback local
-      img: urls[idx] || chap.supabaseUrl || chap.fallback,
+      // Prioridade: Contexto dinâmico de assets -> fallback local -> URL remota do Supabase
+      img: urls[idx] || chap.fallback || chap.supabaseUrl,
       priority: idx === 0,
     }));
   }, [imgUrl1, imgUrl2, imgUrl3, imgUrl4]);
 
   // Hook GSAP ScrollTrigger com física e curvas refinadas
-  useOriginAnimations({
+  const { entranceComplete } = useOriginAnimations({
     isClient: true,
     stageWrapRef,
     containerRef,
@@ -110,6 +111,12 @@ export function AboutOrigin() {
       </div>
 
       <OriginMask />
+
+      {/* Cinema Reel Entrance Overlay — 3-loop auto-scroll with motion blur & scanlines */}
+      <CinemaReelEntrance
+        isPlaying={!entranceComplete}
+        onComplete={() => {}}
+      />
 
       {/* CABEÇALHO EDITORIAL: Alinhamento central e hierarquia visual rigorosa */}
       <div className="relative w-full max-w-4xl mx-auto px-6 sm:px-8 pt-[10dvh] pb-[4dvh] md:pb-[5dvh] text-center select-none">

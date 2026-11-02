@@ -1,5 +1,42 @@
 # Adjustment Log
 
+## [2026-11-02T20:15] Resiliência Supabase, Circuit Breaker e Mitigação de Egress Quota (/orchestrate /debug)
+
+**Context:** Diagnóstico forense e mitigação da tempestade de erros e travamento do terminal `dev` (PID 33487):
+`[DynamicAssetImage] usando fallback para clients.clients.strip.X Error: Service for this project is restricted due to the following violations: exceed_cached_egress_quota.`
+
+**Diagnóstico & Causa Raiz:**
+1. **Restrição de Cota do Projeto Supabase:**
+   - O projeto `umkmwbkwvulxtdodzmzf` atingiu a cota de tráfego de saída em cache (`exceed_cached_egress_quota`), gerando HTTP 403 Forbidden em requisições de Storage e PostgREST.
+2. **Loop de Polling Agressivo:**
+   - `src/hooks/useRealtimeAssets.ts` não detectava restrição de conta e continuava tentando novos polls a cada 15–30s para 12 logos concorrentes.
+3. **Log Flood no Render Body:**
+   - `src/components/ui/shared/DynamicAssetImage.tsx` executava `console.warn` diretamente no corpo de renderização do componente, gerando mais de 800 linhas repetidas por frame.
+4. **Configuração Remota em Fallbacks:**
+   - `src/config/content.ts` chamava `buildSupabaseStorageUrl('site-assets', ...)` para `siteAsset`, forçando URLs remotas do Supabase que também falhavam com 403 em vez de apontar para os arquivos locais já presentes em `public/site.assets/`.
+
+**Ações Cirúrgicas Aplicadas:**
+1. **Circuit Breaker em `useRealtimeAssets.ts`:**
+   - Implementada detecção de erros de cota e restrição (`isQuotaOrRestrictionError`).
+   - Ativada a flag `isProjectRestricted`: cancela imediatamente o agendamento de polling, suspende novas tentativas de fetch que gerariam 403 e desacopla a assinatura realtime bloqueada.
+   - Atualizado `toPublicUrl` para recorrer a `getAssetUrl` e servir paths locais quando o projeto estiver sob restrição.
+2. **Higienização de Logs em `DynamicAssetImage.tsx`:**
+   - Movido o warning para `useEffect` com deduplicação via `Set<string>` por `assetKey`.
+   - Limitação para emitir no máximo uma única vez por chave e somente em `NODE_ENV !== 'production'`.
+3. **Fallback Local em `src/config/content.ts`:**
+   - Atualizada a função `siteAsset` para utilizar `getAssetUrl(path)`, garantindo resolução direta e imediata para `/site.assets/clients/clients.strip.X.svg` e demais assets locais.
+4. **Alta Disponibilidade em `/api/site-assets` & Sincronia de Store:**
+   - Em `src/app/api/site-assets/route.ts`: adicionado fallback gracioso para o snapshot pré-existente `src/config/site-assets.json` com status 200 e header `x-asset-source: static-backup` quando o Supabase estiver indisponível.
+   - Em `src/components/layout/AssetLoaderWrapper.tsx`: sincronizados os assets carregados com o `useContentStore` do Zustand, garantindo que o `useRealtimeAsset` encontre os assets imediatamente em cache sem requisições adicionais.
+   - Em `src/components/sobre/sections/AboutOrigin.tsx`: priorizado `chap.fallback` local (`/about/origin/origin2/cena-01.webp`) quando a URL remota do Supabase não for resolvida.
+
+**Validação & QA:**
+- `pnpm exec jest test/unit/hooks/useRealtimeAssets.test.ts`: **Novo teste unitário com cobertura de circuit breaker aprovado**.
+- `pnpm exec jest test/unit/`: **27/27 test suites aprovadas, 251/251 testes Jest PASS**.
+- `tsc --noEmit --strict`: **0 erros TypeScript**.
+- `eslint`: **0 erros de linting**.
+
+
 ## [2026-11-02T17:35] Auditoria Squirrelscan & Refinamento da Rota `/sobre` (/orchestrate /squirrel-audit)
 
 **Context:** Execução do workflow `/squirrel-audit` na rota `/sobre` (`https://portfoliodanilo.com/sobre`), seguido da criação do `/plan` de melhorias aprovado pelo usuário (com a diretriz explícita de nunca adicionar legendas a vídeos sem áudio).

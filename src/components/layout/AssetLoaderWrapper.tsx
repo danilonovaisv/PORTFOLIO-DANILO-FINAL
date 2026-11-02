@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { SiteAssetsProvider } from '@/contexts/site-assets';
 import { getClientSiteAssets } from '@/lib/supabase/site-assets-client';
 import type { NormalizedSiteAsset } from '@/lib/supabase/site-asset-utils';
+import { useContentStore } from '@/store/content.store';
 import ClientLayout from '@/components/layout/ClientLayout';
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
 import { installThreeConsoleFilter } from '@/lib/three-console';
@@ -35,6 +36,7 @@ export default function AssetLoaderWrapper({
       try {
         const loadedAssets = await getClientSiteAssets();
         setAssets(loadedAssets);
+        useContentStore.getState().setAssets(loadedAssets as any);
       } catch (error) {
         if (isDev) {
           console.warn(
@@ -49,7 +51,9 @@ export default function AssetLoaderWrapper({
           if (response.ok) {
             const assetsData = (await response.json()) as
               NormalizedSiteAsset[] | null;
-            setAssets(Array.isArray(assetsData) ? assetsData : []);
+            const validAssets = Array.isArray(assetsData) ? assetsData : [];
+            setAssets(validAssets);
+            useContentStore.getState().setAssets(validAssets as any);
           } else {
             if (isDev) {
               console.warn(

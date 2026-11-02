@@ -16,6 +16,8 @@ type DynamicAssetImageProps = {
   sizes?: string; // Next.js Image sizes attribute
 };
 
+const warnedFallbackKeys = new Set<string>();
+
 /**
  * Image component that automatically updates when the asset changes in the database.
  * Uses cross-fade transition for smooth updates.
@@ -40,6 +42,8 @@ export function DynamicAssetImage({
   );
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  const finalUrl = displayUrl || normalizedFallback;
+
   useEffect(() => {
     if (asset?.publicUrl && asset.publicUrl !== displayUrl) {
       setIsTransitioning(true);
@@ -51,7 +55,18 @@ export function DynamicAssetImage({
     }
   }, [asset?.publicUrl, displayUrl]);
 
-  const finalUrl = displayUrl || normalizedFallback;
+  useEffect(() => {
+    if (error && finalUrl && process.env.NODE_ENV !== 'production') {
+      if (!warnedFallbackKeys.has(assetKey)) {
+        warnedFallbackKeys.add(assetKey);
+        console.warn(
+          `[DynamicAssetImage] usando fallback para ${assetKey}:`,
+          error.message
+        );
+      }
+    }
+  }, [error, finalUrl, assetKey]);
+
   const shouldUseSupabaseLoader = Boolean(
     finalUrl &&
     !finalUrl.startsWith('/') &&
@@ -85,10 +100,6 @@ export function DynamicAssetImage({
         Asset not found
       </div>
     );
-  }
-
-  if (error && finalUrl) {
-    console.warn(`[DynamicAssetImage] usando fallback para ${assetKey}`, error);
   }
 
   return (

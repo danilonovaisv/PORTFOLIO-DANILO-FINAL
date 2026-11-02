@@ -1,7 +1,6 @@
-import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
+import { getAssetUrl } from '@/lib/utils';
 
-const siteAsset = (path: string) =>
-  buildSupabaseStorageUrl('site-assets', path);
+const siteAsset = (path: string) => getAssetUrl(path);
 
 export const HOME_CONTENT = {
   hero: {
