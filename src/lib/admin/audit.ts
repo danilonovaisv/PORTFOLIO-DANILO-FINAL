@@ -12,8 +12,6 @@ export type AdminAuditPayload = {
   errorMessage?: string | null;
 };
 
-// Local insert type — admin_audit_log was created via migration after
-// the supabase.types.ts snapshot, so it is not in the generated types.
 type AdminAuditLogInsert = {
   actor_user_id: string | null;
   actor_email: string | null;
@@ -55,11 +53,25 @@ export async function logAdminAudit(
   payload: AdminAuditPayload
 ) {
   const record = buildAdminAuditRecord(user, payload);
-  // Write to admin_audit_log (structured, with status/error fields).
+  // Map to public.audit_log: actor_user_id, action, entity, entity_id, details
   // Service role client bypasses RLS so this insert always succeeds.
+  const dbPayload = {
+    actor_user_id: record.actor_user_id,
+    action: record.action,
+    entity: record.resource,
+    entity_id: record.resource_id,
+    details: {
+      actor_email: record.actor_email,
+      status: record.status,
+      metadata: record.metadata,
+      error_code: record.error_code,
+      error_message: record.error_message,
+    },
+  };
+
   const { error } = await supabase
-    .from('admin_audit_log')
-    .insert(record as any);
+    .from('audit_log')
+    .insert(dbPayload as any);
 
   if (error) {
     // Never break admin flows due to audit insert failures.
