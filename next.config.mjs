@@ -353,7 +353,7 @@ const createNextConfig = (phase) => ({
         },
       ]),
       ...buildR2Hosts().map((hostname) => ({
-        protocol: 'https' as const,
+        protocol: 'https',
         hostname,
         port: '',
         pathname: '/**',

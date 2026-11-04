@@ -1,7 +1,6 @@
 import { buildSupabaseStorageUrl, getR2PublicUrl } from '@/lib/supabase/urls';
 import { getAssetUrl, supabaseLoader } from '@/lib/utils';
 import { RESPONSIVE_VIDEOS } from '@/lib/video-assets';
-import { BRAND } from '@/config/brand';
 
 describe('Cloudflare R2 Migration Verification Suite', () => {
   const originalEnv = process.env;
