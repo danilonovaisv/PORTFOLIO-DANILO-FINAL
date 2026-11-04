@@ -34,6 +34,20 @@ const buildSupabaseHosts = () => {
   );
 };
 
+const buildR2Hosts = () => {
+  const r2Url =
+    process.env.NEXT_PUBLIC_R2_PUBLIC_URL ?? process.env.R2_PUBLIC_URL;
+  const hosts = ['assets.portfoliodanilo.com'];
+  if (r2Url) {
+    try {
+      hosts.push(new URL(r2Url).host);
+    } catch {
+      // ignore malformed URL
+    }
+  }
+  return Array.from(new Set(hosts));
+};
+
 const supabaseHosts = buildSupabaseHosts().join(' ');
 
 // Adicionando hosts adicionais para assets do drei/three.js
@@ -74,12 +88,17 @@ const cspConfig = {
     'https://fonts.gstatic.com',
     'https://assets.codepen.io',
     ...buildSupabaseHosts(),
+    ...buildR2Hosts(),
+    'https://*.r2.dev',
   ],
   'img-src': [
     "'self'",
     'blob:',
     'data:',
     ...buildSupabaseHosts(),
+    ...buildR2Hosts(),
+    'https://*.r2.dev',
+    'https://*.r2.cloudflarestorage.com',
     'https://raw.githack.com',
     'https://dl.polyhaven.org',
     'https://www.gstatic.com',
@@ -103,6 +122,9 @@ const cspConfig = {
   'connect-src': [
     "'self'",
     ...buildSupabaseHosts(),
+    ...buildR2Hosts(),
+    'https://*.r2.dev',
+    'https://*.r2.cloudflarestorage.com',
     'https://*.supabase.co',
     'wss://*.supabase.co',
     'https://*.firebaseio.com',
@@ -124,6 +146,9 @@ const cspConfig = {
     'blob:',
     'data:',
     ...buildSupabaseHosts(),
+    ...buildR2Hosts(),
+    'https://*.r2.dev',
+    'https://*.r2.cloudflarestorage.com',
     'https://*.supabase.co',
     'https://raw.githack.com',
     'https://dl.polyhaven.org',
@@ -311,7 +336,7 @@ const createNextConfig = (phase) => ({
    * Mantida INTACTA
    */
   images: {
-    // Hosts dinâmicos com base na URL do Supabase configurada no ambiente + provedores externos aprovados
+    // Hosts dinâmicos com base na URL do Supabase e Cloudflare R2 configuradas no ambiente
     remotePatterns: [
       ...buildSupabaseHosts().flatMap((hostname) => [
         {
@@ -327,6 +352,18 @@ const createNextConfig = (phase) => ({
           pathname: '/storage/v1/render/image/public/**',
         },
       ]),
+      ...buildR2Hosts().map((hostname) => ({
+        protocol: 'https' as const,
+        hostname,
+        port: '',
+        pathname: '/**',
+      })),
+      {
+        protocol: 'https',
+        hostname: '*.r2.dev',
+        port: '',
+        pathname: '/**',
+      },
       {
         protocol: 'https',
         hostname: 'img.youtube.com',

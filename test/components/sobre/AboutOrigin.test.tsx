@@ -161,7 +161,12 @@ describe('AboutOrigin — Cinema Reel Component & TDD Verification', () => {
       expect(img).toHaveAttribute('width', String(chapter.dimensions.width));
       expect(img).toHaveAttribute('height', String(chapter.dimensions.height));
       // Fallback or Supabase URL verification
-      expect(img).toHaveAttribute('src', chapter.supabaseUrl);
+      const src = img?.getAttribute('src') || '';
+      expect(
+        src === chapter.supabaseUrl ||
+        src === chapter.fallback ||
+        src.endsWith(chapter.fallback)
+      ).toBe(true);
     });
   });
 

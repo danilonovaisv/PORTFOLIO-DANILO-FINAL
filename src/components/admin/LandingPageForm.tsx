@@ -23,6 +23,7 @@ import { type MasterProjectTemplateV2Draft } from '@/components/admin/MasterProj
 import { type MasterProjectTemplateV3Draft } from '@/components/admin/MasterProjectTemplateV3Editor';
 import { saveLandingPageAction } from '@/app/admin/(protected)/landing-pages/actions';
 import { prepareLandingPageData } from '@/lib/admin/services/landing-page-save';
+import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 import { useToast } from '@/hooks/use-toast';
 import {
   AlertDialog,
@@ -79,7 +80,7 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
   const [cover, setCover] = useState<File | null>(null);
   const [coverPreview, setCoverPreview] = useState(
     initialData?.cover
-      ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/site-assets/${initialData.cover}`
+      ? buildSupabaseStorageUrl('site-assets', initialData.cover) || ''
       : ''
   );
 
@@ -93,12 +94,12 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
             media: s.content.media?.startsWith('http')
               ? s.content.media
               : s.content.media
-                ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/site-assets/${s.content.media}`
+                ? buildSupabaseStorageUrl('site-assets', s.content.media) || undefined
                 : undefined,
             media2: s.content.media2?.startsWith('http')
               ? s.content.media2
               : s.content.media2
-                ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/site-assets/${s.content.media2}`
+                ? buildSupabaseStorageUrl('site-assets', s.content.media2) || undefined
                 : undefined,
           },
         }))

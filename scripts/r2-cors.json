@@ -1,0 +1,26 @@
+[
+  {
+    "AllowedOrigins": [
+      "https://portfoliodanilo.com",
+      "https://portfolio-danilo-novais.web.app",
+      "https://portfolio-danilo-novais.firebaseapp.com",
+      "http://localhost:3000",
+      "http://127.0.0.1:3000"
+    ],
+    "AllowedMethods": [
+      "GET",
+      "HEAD"
+    ],
+    "AllowedHeaders": [
+      "*"
+    ],
+    "ExposeHeaders": [
+      "Content-Range",
+      "Accept-Ranges",
+      "Content-Length",
+      "ETag"
+    ],
+    "MaxAgeSeconds": 86400
+  }
+]
+

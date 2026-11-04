@@ -5,6 +5,7 @@ import { SUPABASE_STORAGE_URL } from '@/config/brand';
 import {
   buildSupabaseStorageUrl,
   normalizeStoragePath,
+  getR2PublicUrl,
 } from '@/lib/supabase/urls';
 import {
   buildYoutubeEmbedUrl,
@@ -71,12 +72,6 @@ export function getAssetUrl(
   const normalized = normalizeStoragePath(normalizePath(trimmed)) ?? '';
   if (!normalized) return ASSET_PLACEHOLDER;
 
-  // Ghost System: Mandatory fallback to local site.assets folder for build stability
-  // when Supabase project is paused or inaccessible.
-  if (normalized.startsWith('site-assets/')) {
-    return `/site.assets/${normalized.slice('site-assets/'.length)}`;
-  }
-
   const explicitBucketMatch = normalized.match(
     /^(site-assets|portfolio-media)\/(.+)$/i
   );
@@ -93,6 +88,19 @@ export function getAssetUrl(
       ? 'site-assets'
       : 'portfolio-media';
   const filePath = explicitBucketMatch ? explicitBucketMatch[2] : normalized;
+
+  // Cloudflare R2 Migration: Prioritize Cloudflare R2 CDN when configured (Zero Egress)
+  const r2Url = getR2PublicUrl();
+  if (r2Url) {
+    const resolvedR2 = buildSupabaseStorageUrl(bucket, filePath);
+    if (resolvedR2) return resolvedR2;
+  }
+
+  // Ghost System: Mandatory fallback to local site.assets folder for build stability
+  // when Supabase project is paused or inaccessible.
+  if (normalized.startsWith('site-assets/')) {
+    return `/site.assets/${normalized.slice('site-assets/'.length)}`;
+  }
 
   // If we detected it's a site-asset after bucket resolution but it didn't have the explicit prefix
   if (bucket === 'site-assets') {

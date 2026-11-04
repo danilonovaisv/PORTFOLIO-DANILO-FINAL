@@ -16,6 +16,7 @@ const envSchema = z.object({
     .string()
     .min(1, 'Supabase Anon Key is required'),
   NEXT_PUBLIC_SUPABASE_FALLBACK_URL: z.string().url().optional(),
+  NEXT_PUBLIC_R2_PUBLIC_URL: z.string().url().optional(),
   NEXT_PUBLIC_SITE_URL: z
     .string()
     .url()
@@ -40,6 +41,8 @@ const processEnv = {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || defaultAnonKey,
   NEXT_PUBLIC_SUPABASE_FALLBACK_URL:
     process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL || undefined,
+  NEXT_PUBLIC_R2_PUBLIC_URL:
+    process.env.NEXT_PUBLIC_R2_PUBLIC_URL || undefined,
   NEXT_PUBLIC_SITE_URL:
     process.env.NEXT_PUBLIC_SITE_URL || 'https://danilonovais.com',
   SUPABASE_URL: process.env.SUPABASE_URL || undefined,

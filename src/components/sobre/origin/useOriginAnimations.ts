@@ -111,7 +111,9 @@ export function useOriginAnimations({
       rafRef.current = null;
     }
     if (entranceTlRef.current) {
-      entranceTlRef.current.kill();
+      if (typeof entranceTlRef.current.kill === 'function') {
+        entranceTlRef.current.kill();
+      }
       entranceTlRef.current = null;
     }
     // Remove SVG filter if we injected it

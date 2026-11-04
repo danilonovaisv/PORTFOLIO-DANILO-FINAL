@@ -1,5 +1,6 @@
 import {
   getSupabaseBaseUrl,
+  getR2PublicUrl,
   normalizeStoragePath,
   buildSupabaseStorageUrl,
   validateExternalUrl,
@@ -243,6 +244,35 @@ describe('Supabase URL Utilities', () => {
       expect(buildSupabaseStorageUrl('my-bucket', 'file.png')).toBe(
         'https://test.supabase.co/storage/v1/object/public/my-bucket/file.png'
       );
+    });
+
+    it('resolves directly to Cloudflare R2 CDN when NEXT_PUBLIC_R2_PUBLIC_URL is set', () => {
+      process.env.NEXT_PUBLIC_R2_PUBLIC_URL = 'https://assets.portfoliodanilo.com';
+      expect(buildSupabaseStorageUrl('site-assets', 'global/logos/LogoDark.svg')).toBe(
+        'https://assets.portfoliodanilo.com/site-assets/global/logos/LogoDark.svg'
+      );
+    });
+
+    it('migrates legacy Supabase URLs into Cloudflare R2 CDN URLs when R2 is set', () => {
+      process.env.NEXT_PUBLIC_R2_PUBLIC_URL = 'https://assets.portfoliodanilo.com';
+      const legacyUrl =
+        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/video.manifesto.desk.mp4';
+      expect(buildSupabaseStorageUrl('site-assets', legacyUrl)).toBe(
+        'https://assets.portfoliodanilo.com/site-assets/home/video.manifesto.desk.mp4'
+      );
+    });
+  });
+
+  describe('getR2PublicUrl', () => {
+    it('returns null when R2 env vars are not set', () => {
+      delete process.env.NEXT_PUBLIC_R2_PUBLIC_URL;
+      delete process.env.R2_PUBLIC_URL;
+      expect(getR2PublicUrl()).toBeNull();
+    });
+
+    it('returns normalized URL without trailing slashes', () => {
+      process.env.NEXT_PUBLIC_R2_PUBLIC_URL = 'https://assets.portfoliodanilo.com///';
+      expect(getR2PublicUrl()).toBe('https://assets.portfoliodanilo.com');
     });
   });
 

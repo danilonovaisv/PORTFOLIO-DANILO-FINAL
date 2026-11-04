@@ -24,6 +24,21 @@ export function getSupabaseBaseUrl(): string | null {
   return null;
 }
 
+/**
+ * Get the base Cloudflare R2 public CDN URL from environment variables.
+ * Returns null if not configured, falling back to Supabase Storage.
+ */
+export function getR2PublicUrl(): string | null {
+  const url =
+    process.env.NEXT_PUBLIC_R2_PUBLIC_URL || process.env.R2_PUBLIC_URL;
+
+  if (url) {
+    return normalizeUrl(url);
+  }
+
+  return null;
+}
+
 export function normalizeStoragePath(
   filePath?: string | null,
   bucket?: string
@@ -118,6 +133,24 @@ export function buildSupabaseStorageUrl(
   const normalizedPath = normalizeStoragePath(finalFilePath, cleanBucket);
   if (!normalizedPath) {
     return finalFilePath.startsWith('http') ? finalFilePath : null;
+  }
+
+  // Cloudflare R2 Migration: Prioritize R2 CDN endpoint when configured (Zero Egress)
+  const r2Base = getR2PublicUrl();
+  if (r2Base) {
+    const encodedPath = normalizedPath
+      .split('/')
+      .map((segment) => {
+        try {
+          return encodeURIComponent(decodeURIComponent(segment));
+        } catch {
+          return encodeURIComponent(segment);
+        }
+      })
+      .join('/');
+    const finalUrl = `${r2Base}/${cleanBucket}/${encodedPath}`;
+    debugUrl(finalUrl);
+    return finalUrl;
   }
 
   const baseUrl = getSupabaseBaseUrl();

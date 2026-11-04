@@ -4,6 +4,9 @@ const SUPABASE_PROJECT_URL =
   process.env.SUPABASE_URL ??
   '';
 
+const R2_PUBLIC_URL =
+  process.env.NEXT_PUBLIC_R2_PUBLIC_URL ?? process.env.R2_PUBLIC_URL ?? '';
+
 export const SUPABASE_STORAGE_URL = `${SUPABASE_PROJECT_URL.replace(
   /\/$/,
   ''
@@ -12,9 +15,12 @@ export const SUPABASE_STORAGE_URL = `${SUPABASE_PROJECT_URL.replace(
 const asset = (path: string) => {
   const cleanPath = path.replace(/^\/+/, '');
   // Force local path for assets in site-assets bucket to ensure 100% build integrity
-  // EXCEPT for video files which should be served from Supabase CDN for optimized streaming
+  // EXCEPT for video files which should be served from CDN for optimized streaming
   if (cleanPath.startsWith('site-assets/') && !cleanPath.endsWith('.mp4')) {
     return `/site.assets/${cleanPath.slice('site-assets/'.length)}`;
+  }
+  if (R2_PUBLIC_URL) {
+    return `${R2_PUBLIC_URL.replace(/\/$/, '')}/${cleanPath}`;
   }
   return `${SUPABASE_STORAGE_URL}/${cleanPath}`;
 };
