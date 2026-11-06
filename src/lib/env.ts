@@ -23,6 +23,12 @@ const envSchema = z.object({
     .optional()
     .default('https://danilonovais.com'),
 
+  // --- CLOUDFLARE R2 VARIABLES (Server-side S3 API) ---
+  R2_ACCOUNT_ID: z.string().optional(),
+  R2_ACCESS_KEY_ID: z.string().optional(),
+  R2_SECRET_ACCESS_KEY: z.string().optional(),
+  R2_BUCKET_NAME: z.string().optional().default('portfolio-assets'),
+
   // --- RUNTIME ---
   NODE_ENV: z
     .enum(['development', 'test', 'production'])
@@ -44,6 +50,13 @@ const processEnv = {
   NEXT_PUBLIC_R2_PUBLIC_URL: process.env.NEXT_PUBLIC_R2_PUBLIC_URL || undefined,
   NEXT_PUBLIC_SITE_URL:
     process.env.NEXT_PUBLIC_SITE_URL || 'https://danilonovais.com',
+  R2_ACCOUNT_ID:
+    process.env.R2_ACCOUNT_ID ||
+    process.env.CLOUDFLARE_ACCOUNT_ID ||
+    undefined,
+  R2_ACCESS_KEY_ID: process.env.R2_ACCESS_KEY_ID || undefined,
+  R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY || undefined,
+  R2_BUCKET_NAME: process.env.R2_BUCKET_NAME || 'portfolio-assets',
   SUPABASE_URL: process.env.SUPABASE_URL || undefined,
   NODE_ENV: process.env.NODE_ENV || 'development',
 };

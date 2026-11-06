@@ -3,42 +3,36 @@ import {
   requireAdminAccess,
   AdminAccessError,
 } from '@/lib/admin/server-access';
+import { checkR2Health } from '@/lib/storage/r2';
 
 export async function POST(_request: Request) {
   try {
-    const { supabase } = await requireAdminAccess({
+    await requireAdminAccess({
       requireServiceRole: false,
     });
 
-    // Attempt to update the site-assets bucket to enable public access and image transformations
-    const { data, error } = await supabase.storage.updateBucket('site-assets', {
-      public: true,
-      allowedMimeTypes: [
-        'image/jpeg',
-        'image/png',
-        'image/webp',
-        'image/gif',
-        'image/svg+xml',
-        'video/mp4',
-        'video/webm',
-      ],
-      fileSizeLimit: 10485760, // 10MB
-    });
+    const health = await checkR2Health();
 
-    if (error) {
+    if (!health.ok) {
       console.error(
-        '[API Admin Storage InitBucket] updateBucket failed:',
-        error
+        '[API Admin Storage InitBucket] Cloudflare R2 health check failed:',
+        health.message
       );
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return NextResponse.json(
+        {
+          error: 'SYSTEM_ERR: R2_HEALTH_CHECK_FAILED',
+          message: health.message,
+        },
+        { status: 502 }
+      );
     }
 
     return NextResponse.json(
       {
         success: true,
         message:
-          'Bucket site-assets configurado com sucesso (Transformações e limites ativados).',
-        data,
+          `Cloudflare R2 Bucket '${health.bucket}' conectado e operacional (Zero Egress).`,
+        data: health,
       },
       { status: 200 }
     );

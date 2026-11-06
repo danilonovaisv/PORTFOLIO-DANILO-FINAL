@@ -22,6 +22,7 @@ import {
   hashContent,
   CACHE_CONTROL_IMMUTABLE,
 } from '@/lib/assets/storagePath';
+import { uploadToR2 } from '@/lib/storage/r2';
 
 function normalizePath(rawPath: string) {
   return rawPath
@@ -38,7 +39,7 @@ export async function POST(request: Request) {
   const requestId = crypto.randomUUID();
 
   try {
-    const { supabase } = await requireAdminAccess({ requireServiceRole: true });
+    await requireAdminAccess({ requireServiceRole: true });
 
     let formData: FormData;
     try {
@@ -96,7 +97,6 @@ export async function POST(request: Request) {
 
     let path = '';
     let cacheControl = '3600';
-    let upsert = true;
 
     if (bucket === 'portfolio-media') {
       const hash = await hashContent(bytes);
@@ -119,7 +119,6 @@ export async function POST(request: Request) {
         hash,
       });
       cacheControl = CACHE_CONTROL_IMMUTABLE;
-      upsert = false; // Hashes make it unique, upsert is unnecessary and prevents mutability bugs
     } else {
       if (typeof rawPath !== 'string') {
         return NextResponse.json(
@@ -136,40 +135,40 @@ export async function POST(request: Request) {
       }
     }
 
-    const { data, error } = await supabase.storage
-      .from(bucket)
-      .upload(path, payload, {
+    let uploadResult;
+    try {
+      uploadResult = await uploadToR2({
+        bucket,
+        path,
+        body: payload,
         contentType: file.type || undefined,
         cacheControl,
-        upsert,
       });
-
-    if (error) {
-      console.error('[API Admin Storage Upload] Supabase upload failed:', {
+    } catch (r2Err: any) {
+      console.error('[API Admin Storage Upload] R2 upload failed:', {
         requestId,
         bucket,
         path,
-        error,
+        error: r2Err,
       });
-      const alreadyExists = error.message
-        .toLowerCase()
-        .includes('already exists');
-
-      if (bucket === 'portfolio-media' && alreadyExists) {
-        return NextResponse.json({ path }, { status: 200 });
-      }
 
       return NextResponse.json(
         {
-          error: 'SYSTEM_ERR: SUPABASE_STORAGE_UPLOAD_ERROR',
-          message: error.message || 'The storage provider rejected the upload.',
+          error: 'SYSTEM_ERR: R2_STORAGE_UPLOAD_ERROR',
+          message: r2Err?.message || 'The Cloudflare R2 storage provider rejected the upload.',
           requestId,
         },
-        { status: 400 }
+        { status: 500 }
       );
     }
 
-    return NextResponse.json({ path: data?.path || path }, { status: 200 });
+    return NextResponse.json(
+      {
+        path: uploadResult.path || path,
+        url: uploadResult.publicUrl,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     if (error instanceof AdminAccessError) {
       const status = error.code === 'unauthorized' ? 401 : 403;

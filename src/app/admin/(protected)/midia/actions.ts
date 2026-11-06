@@ -9,6 +9,7 @@ import { logAdminAudit } from '@/lib/admin/audit';
 import { requireAdminAccess } from '@/lib/admin/server-access';
 import { normalizeStoragePath } from '@/lib/supabase/urls';
 import { revalidatePath } from 'next/cache';
+import { moveInR2, deleteFromR2 } from '@/lib/storage/r2';
 
 type AssetPayload = {
   key: string;
@@ -111,11 +112,17 @@ export async function assignAssetRole(payload: AssignAssetRolePayload) {
   }
 
   if (file_path && file_path !== targetPath) {
-    const { error: moveError } = await supabase.storage
-      .from(existing.bucket)
-      .move(file_path, targetPath);
-    if (moveError) throw moveError;
-    file_path = targetPath;
+    try {
+      await moveInR2({
+        bucket: existing.bucket,
+        sourcePath: file_path,
+        destinationPath: targetPath,
+      });
+      file_path = targetPath;
+    } catch (moveError) {
+      console.error('[assignAssetRole] R2 move failed:', moveError);
+      throw moveError;
+    }
   }
 
   const { error: updateError } = await supabase
@@ -153,10 +160,14 @@ export async function removeAsset(payload: {
       payload.bucket
     );
     if (normalizedPath) {
-      const { error: storageError } = await supabase.storage
-        .from(payload.bucket)
-        .remove([normalizedPath]);
-      if (storageError) throw storageError;
+      try {
+        await deleteFromR2({
+          bucket: payload.bucket,
+          path: normalizedPath,
+        });
+      } catch (storageError) {
+        console.error('[removeAsset] Error deleting from R2:', storageError);
+      }
     }
   }
   const { error } = await supabase
