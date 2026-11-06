@@ -111,22 +111,34 @@ export default function SiteHeader({
 
   const onNavigate = useCallback(
     (href: string) => {
+      if (href === '/' && window.location.pathname === '/') {
+        setIsOpen(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
       const hash = getHashFromHref(href);
 
       if (hash) {
+        const id = hash.replace('#', '');
+        const targetEl = document.getElementById(id);
         const isHomePage = window.location.pathname === '/';
         const isTargetingCurrentPageHash =
-          href.startsWith('#') || (href.startsWith('/#') && isHomePage);
+          href.startsWith('#') ||
+          (href.startsWith('/#') && (isHomePage || !!targetEl));
 
-        if (isTargetingCurrentPageHash) {
+        if (isTargetingCurrentPageHash && targetEl) {
           setIsOpen(false);
 
           window.requestAnimationFrame(() => {
-            const didScroll = scrollToHash(hash);
-            if (!didScroll && hash === '#contact') {
-              router.push('/#contact');
-            }
+            scrollToHash(hash);
           });
+          return;
+        }
+
+        if (href.startsWith('/#') && !isHomePage) {
+          setIsOpen(false);
+          router.push(href);
           return;
         }
       }

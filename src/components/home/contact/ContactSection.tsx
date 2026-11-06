@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { m } from 'motion/react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { viewportConfig, MOTION_TOKENS, GHOST_EASE } from '@/config/motion';
@@ -12,7 +13,6 @@ import {
   Facebook,
 } from '@/components/shared/icons/SocialIcons';
 
-import { BRAND } from '@/config/brand';
 import { HOME_CONTENT } from '@/config/content';
 import { SOCIALS } from '@/config/navigation';
 import ContactForm from '@/components/home/contact/ContactForm';
@@ -65,7 +65,7 @@ export default function ContactSection() {
     },
     {
       label: 'Portfolio',
-      href: `https://${BRAND.domain}`,
+      href: '/portfolio',
       icon: <Globe className="h-5 w-5" aria-hidden="true" />,
     },
   ];
@@ -156,37 +156,77 @@ export default function ContactSection() {
 
             {/* Social Icons (Desktop) */}
             <div className="hidden lg:flex flex-wrap items-center gap-4 pt-10 border-t border-textInverse/20">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.href}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="flex h-14 w-14 items-center justify-center rounded-full border border-textInverse/30 bg-transparent text-textInverse transition-[color,background-color,border-color,transform] duration-fast will-change-transform hover:border-bluePrimary hover:bg-bluePrimary hover:text-white hover:-translate-y-0.5 active:scale-95"
-                >
-                  {social.icon}
-                  <span className="sr-only">{social.label}</span>
-                </a>
-              ))}
+              {socialLinks.map((social) => {
+                const isInternal = social.href.startsWith('/');
+                const className =
+                  'flex h-14 w-14 items-center justify-center rounded-full border border-textInverse/30 bg-transparent text-textInverse transition-[color,background-color,border-color,transform] duration-fast will-change-transform hover:border-bluePrimary hover:bg-bluePrimary hover:text-white hover:-translate-y-0.5 active:scale-95';
+
+                if (isInternal) {
+                  return (
+                    <Link
+                      key={social.href}
+                      href={social.href}
+                      aria-label={social.label}
+                      className={className}
+                    >
+                      {social.icon}
+                      <span className="sr-only">{social.label}</span>
+                    </Link>
+                  );
+                }
+
+                return (
+                  <a
+                    key={social.href}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className={className}
+                  >
+                    {social.icon}
+                    <span className="sr-only">{social.label}</span>
+                  </a>
+                );
+              })}
             </div>
           </m.div>
 
           {/* Mobile Socials - Touch-optimized with 48px targets */}
           <div className="lg:hidden flex flex-wrap justify-center gap-3 sm:gap-4 py-6 sm:py-8 border-t border-textInverse/20 w-full order-2">
-            {socialLinks.map((social) => (
-              <a
-                key={`mobile-${social.href}`}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.label}
-                className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-textInverse/30 bg-transparent text-textInverse shadow-sm transition-[color,background-color,border-color,transform] duration-fast will-change-transform active:scale-95 active:bg-bluePrimary active:border-bluePrimary active:text-white"
-              >
-                {social.icon}
-                <span className="sr-only">{social.label}</span>
-              </a>
-            ))}
+            {socialLinks.map((social) => {
+              const isInternal = social.href.startsWith('/');
+              const className =
+                'flex h-12 w-12 items-center justify-center rounded-full border-2 border-textInverse/30 bg-transparent text-textInverse shadow-sm transition-[color,background-color,border-color,transform] duration-fast will-change-transform active:scale-95 active:bg-bluePrimary active:border-bluePrimary active:text-white';
+
+              if (isInternal) {
+                return (
+                  <Link
+                    key={`mobile-${social.href}`}
+                    href={social.href}
+                    aria-label={social.label}
+                    className={className}
+                  >
+                    {social.icon}
+                    <span className="sr-only">{social.label}</span>
+                  </Link>
+                );
+              }
+
+              return (
+                <a
+                  key={`mobile-${social.href}`}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className={className}
+                >
+                  {social.icon}
+                  <span className="sr-only">{social.label}</span>
+                </a>
+              );
+            })}
           </div>
 
           {/* Right Side: Form */}

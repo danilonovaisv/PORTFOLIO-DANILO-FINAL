@@ -3,6 +3,7 @@
 import React, { useState, type MouseEvent } from 'react';
 import { m } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
+import { MotionLink } from '@/components/motion/MotionLink';
 import { BRAND } from '@/config/brand';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
@@ -151,8 +152,56 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
     return <m.div {...commonProps}>{content}</m.div>;
   }
 
+  const isExternal =
+    /^https?:\/\//.test(href) ||
+    href.startsWith('mailto:') ||
+    href.startsWith('tel:');
+
+  const handleAnchorClick = (
+    e: MouseEvent<HTMLAnchorElement | HTMLDivElement | HTMLButtonElement>
+  ) => {
+    if (onClick) {
+      onClick(e);
+      if (e.defaultPrevented) return;
+    }
+
+    const hash = href.startsWith('/#')
+      ? href.substring(1)
+      : href.startsWith('#')
+        ? href
+        : '';
+    if (hash) {
+      const id = hash.replace('#', '');
+      const el = document.getElementById(id);
+      if (el) {
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
+  if (!isExternal) {
+    return (
+      <MotionLink
+        href={href}
+        target={target}
+        rel={rel}
+        {...commonProps}
+        onClick={handleAnchorClick}
+      >
+        {content}
+      </MotionLink>
+    );
+  }
+
   return (
-    <m.a href={href} target={target} rel={rel} {...commonProps}>
+    <m.a
+      href={href}
+      target={target ?? '_blank'}
+      rel={rel ?? 'noopener noreferrer'}
+      {...commonProps}
+      onClick={handleAnchorClick}
+    >
       {content}
     </m.a>
   );

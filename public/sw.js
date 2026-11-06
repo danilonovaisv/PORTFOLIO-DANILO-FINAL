@@ -38,6 +38,9 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
+  // Skip localhost in development to avoid stale next.js chunks
+  if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') return;
+
   // Skip non-GET requests
   if (request.method !== 'GET') return;
 

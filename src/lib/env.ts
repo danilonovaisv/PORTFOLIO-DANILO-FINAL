@@ -21,7 +21,7 @@ const envSchema = z.object({
     .string()
     .url()
     .optional()
-    .default('https://danilonovais.com'),
+    .default('https://portfoliodanilo.com'),
 
   // --- CLOUDFLARE R2 VARIABLES (Server-side S3 API) ---
   R2_ACCOUNT_ID: z.string().optional(),
@@ -49,7 +49,7 @@ const processEnv = {
     process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL || undefined,
   NEXT_PUBLIC_R2_PUBLIC_URL: process.env.NEXT_PUBLIC_R2_PUBLIC_URL || undefined,
   NEXT_PUBLIC_SITE_URL:
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://danilonovais.com',
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://portfoliodanilo.com',
   R2_ACCOUNT_ID:
     process.env.R2_ACCOUNT_ID ||
     process.env.CLOUDFLARE_ACCOUNT_ID ||

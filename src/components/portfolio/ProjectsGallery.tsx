@@ -337,7 +337,7 @@ export const ProjectsGallery = ({
               <div className="col-span-full flex w-full justify-center pt-12 pb-4 md:pt-16 md:pb-8 max-sm:pt-10">
                 <AntigravityCTA
                   text="vamos trabalhar juntos"
-                  href="/#contact"
+                  href="#contact"
                   className="static"
                 />
               </div>

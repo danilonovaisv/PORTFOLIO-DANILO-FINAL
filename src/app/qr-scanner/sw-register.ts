@@ -8,6 +8,25 @@ import { useEffect } from 'react';
 export function registerSW() {
   if (typeof window === 'undefined') return;
 
+  // Em desenvolvimento, desregistrar o Service Worker e limpar caches para evitar stale chunks
+  if (process.env.NODE_ENV === 'development') {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (const registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then((keys) => {
+        for (const key of keys) {
+          caches.delete(key);
+        }
+      });
+    }
+    return;
+  }
+
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker
