@@ -164,8 +164,8 @@ describe('AboutOrigin — Cinema Reel Component & TDD Verification', () => {
       const src = img?.getAttribute('src') || '';
       expect(
         src === chapter.supabaseUrl ||
-        src === chapter.fallback ||
-        src.endsWith(chapter.fallback)
+          src === chapter.fallback ||
+          src.endsWith(chapter.fallback)
       ).toBe(true);
     });
   });

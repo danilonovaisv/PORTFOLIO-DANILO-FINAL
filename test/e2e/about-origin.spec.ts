@@ -18,7 +18,11 @@ test.describe('About Origin Section', () => {
     const expectedChapters = [
       { chapter: '01', phase: /SENSIBILIDADE/i, title: /O QUE\s*PERMANECE/i },
       { chapter: '02', phase: /CRIAÇÃO/i, title: /DO TRAÇO À\s*INTENÇÃO/i },
-      { chapter: '03', phase: /DESIGN/i, title: /A DESCOBERTA\s*DO\s*INVISÍVEL/i },
+      {
+        chapter: '03',
+        phase: /DESIGN/i,
+        title: /A DESCOBERTA\s*DO\s*INVISÍVEL/i,
+      },
       { chapter: '04', phase: /EXPANSÃO/i, title: /EXPANSÃO COM\s*PROPÓSITO/i },
     ];
 
@@ -36,17 +40,13 @@ test.describe('About Origin Section', () => {
     await expect(firstBlock).toBeVisible();
 
     // 3. Verificar a ponte conceitual final
-    await expect(page.locator('body')).toContainText(
-      /Do método à realização/i
-    );
+    await expect(page.locator('body')).toContainText(/Do método à realização/i);
     await expect(page.locator('body')).toContainText(
       /Explorar áreas de atuação/i
     );
 
     // 4. Verificar media stage (galeria do cinema reel com 4 frames)
-    const stickyGallery = page.locator(
-      '[data-testid="origin-sticky-gallery"]'
-    );
+    const stickyGallery = page.locator('[data-testid="origin-sticky-gallery"]');
     await expect(stickyGallery).toBeVisible();
     const frames = stickyGallery.locator('[data-origin-frame]');
     await expect(frames).toHaveCount(4);

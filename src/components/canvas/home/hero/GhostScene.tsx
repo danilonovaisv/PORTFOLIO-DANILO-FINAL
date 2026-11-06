@@ -13,7 +13,9 @@ import { Preloader } from './components/Preloader';
 
 interface GhostSceneProps {
   onReady?: () => void;
-  ghostRef?: React.RefObject<THREE.Group | null> | React.MutableRefObject<THREE.Group | null>;
+  ghostRef?:
+    | React.RefObject<THREE.Group | null>
+    | React.MutableRefObject<THREE.Group | null>;
 }
 
 /**
@@ -69,7 +71,8 @@ export default function GhostScene({ onReady, ghostRef }: GhostSceneProps) {
 
   useEffect(() => {
     if (ghostRef && sceneManager.ghostGroup) {
-      (ghostRef as React.MutableRefObject<THREE.Group | null>).current = sceneManager.ghostGroup;
+      (ghostRef as React.MutableRefObject<THREE.Group | null>).current =
+        sceneManager.ghostGroup;
     }
   }, [ghostRef, sceneManager.ghostGroup]);
 

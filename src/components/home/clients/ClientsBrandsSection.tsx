@@ -73,13 +73,17 @@ export default function ClientsBrandsSection() {
                 key={logo.id}
                 role="listitem"
                 variants={{
-                  hidden: reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18, filter: 'blur(4px)' },
+                  hidden: reducedMotion
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 18, filter: 'blur(4px)' },
                   show: {
                     opacity: 1,
                     y: 0,
                     filter: 'blur(0px)',
                     transition: {
-                      duration: reducedMotion ? 0.01 : MOTION_TOKENS.duration.normal,
+                      duration: reducedMotion
+                        ? 0.01
+                        : MOTION_TOKENS.duration.normal,
                       ease: GHOST_EASE,
                     },
                   },

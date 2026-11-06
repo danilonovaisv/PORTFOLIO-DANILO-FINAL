@@ -28,7 +28,13 @@ if (typeof window !== 'undefined') {
  * CinemaReelEntrance — Full-screen entrance overlay with scanlines & SVG motion blur
  * Used during the 3-loop auto-scroll entrance (2.5s)
  */
-export function CinemaReelEntrance({ isPlaying, onComplete }: { isPlaying: boolean; onComplete: () => void }) {
+export function CinemaReelEntrance({
+  isPlaying,
+  onComplete,
+}: {
+  isPlaying: boolean;
+  onComplete: () => void;
+}) {
   const overlayRef = React.useRef<HTMLDivElement>(null);
   const scanlinesRef = React.useRef<HTMLDivElement>(null);
   const svgFilterRef = React.useRef<SVGFilterElement>(null);
@@ -39,7 +45,8 @@ export function CinemaReelEntrance({ isPlaying, onComplete }: { isPlaying: boole
     const overlay = overlayRef.current;
     const scanlines = scanlinesRef.current;
     const filter = svgFilterRef.current;
-    const feGaussianBlur = filter?.firstElementChild as SVGFEGaussianBlurElement | null;
+    const feGaussianBlur =
+      filter?.firstElementChild as SVGFEGaussianBlurElement | null;
 
     if (!overlay || !scanlines || !filter || !feGaussianBlur) return;
 
@@ -64,11 +71,15 @@ export function CinemaReelEntrance({ isPlaying, onComplete }: { isPlaying: boole
     const segmentDuration = ENTRANCE_DURATION / ENTRANCE_TOTAL_SLIDES;
 
     // Opacity fade-in
-    tl.to([overlay, scanlines], {
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power2.out',
-    }, 0);
+    tl.to(
+      [overlay, scanlines],
+      {
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power2.out',
+      },
+      0
+    );
 
     for (let loop = 0; loop < ENTRANCE_LOOPS; loop++) {
       for (let chapter = 0; chapter < CHAPTERS; chapter++) {
@@ -129,9 +140,20 @@ export function CinemaReelEntrance({ isPlaying, onComplete }: { isPlaying: boole
       aria-hidden="true"
     >
       {/* SVG Motion Blur Filter */}
-      <svg style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }}>
+      <svg
+        style={{
+          position: 'absolute',
+          width: 0,
+          height: 0,
+          pointerEvents: 'none',
+        }}
+      >
         <filter id="entrance-motion-blur">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="0 0" edgeMode="duplicate" />
+          <feGaussianBlur
+            in="SourceGraphic"
+            stdDeviation="0 0"
+            edgeMode="duplicate"
+          />
         </filter>
       </svg>
 
@@ -142,7 +164,8 @@ export function CinemaReelEntrance({ isPlaying, onComplete }: { isPlaying: boole
         style={{
           opacity: 0,
           mixBlendMode: 'screen',
-          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(79, 230, 255, 0.08) 2px, rgba(79, 230, 255, 0.08) 4px)',
+          backgroundImage:
+            'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(79, 230, 255, 0.08) 2px, rgba(79, 230, 255, 0.08) 4px)',
           backgroundSize: '100% 4px',
         }}
       />

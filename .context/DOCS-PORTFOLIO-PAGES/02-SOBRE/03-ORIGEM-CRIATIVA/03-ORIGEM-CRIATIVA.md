@@ -21,10 +21,10 @@ Narrar trajetória criativa em 4 capítulos concisos, com memória visual progre
 - Heading principal da sessão:
   - `ORIGEM` (`h2`).
 - Blocos narrativos (textos atualizados 2026-11):
-  - **O QUE PERMANECE** — *Antes da técnica, o olhar. Filtrar ruído, reconhecer substância.*
-  - **DO TRAÇO À INTENÇÃO** — *Rabiscos viram direção. Instinto lapidado em rigor composicional.*
-  - **A DESCOBERTA DO INVISÍVEL** — *Design não enfeita — conduz. Invisível na tipografia, ritmo, espaço.*
-  - **EXPANSÃO COM PROPÓSITO** — *Comunicação, design, IA convergem. Tech amplifica método, não substitui visão.*
+  - **O QUE PERMANECE** — _Antes da técnica, o olhar. Filtrar ruído, reconhecer substância._
+  - **DO TRAÇO À INTENÇÃO** — _Rabiscos viram direção. Instinto lapidado em rigor composicional._
+  - **A DESCOBERTA DO INVISÍVEL** — _Design não enfeita — conduz. Invisível na tipografia, ritmo, espaço._
+  - **EXPANSÃO COM PROPÓSITO** — _Comunicação, design, IA convergem. Tech amplifica método, não substitui visão._
 - Mídia:
   - 4 imagens de apoio.
 

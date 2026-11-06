@@ -73,7 +73,10 @@ export default function HomeHero() {
         <div className="absolute inset-0 z-[var(--z-layer-content)] pointer-events-none">
           <div className="flex items-center justify-center w-full h-[100svh] md:h-screen md:sticky md:top-0">
             <div className="w-full pointer-events-auto pb-32 md:pb-0">
-              <HeroCopy ghostRef={ghostRef} isLoaded={isLoaded || shouldReduceMotion} />
+              <HeroCopy
+                ghostRef={ghostRef}
+                isLoaded={isLoaded || shouldReduceMotion}
+              />
             </div>
           </div>
         </div>

@@ -19,7 +19,9 @@ export default function GhostSceneWrapper({
   ghostRef,
 }: {
   onReady?: () => void;
-  ghostRef?: React.RefObject<THREE.Group | null> | React.MutableRefObject<THREE.Group | null>;
+  ghostRef?:
+    | React.RefObject<THREE.Group | null>
+    | React.MutableRefObject<THREE.Group | null>;
 }) {
   const is3DDisabled = process.env.NEXT_PUBLIC_DISABLE_3D === 'true';
   const supportsWebGL = useWebGLSupport();

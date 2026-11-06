@@ -69,9 +69,7 @@ export async function logAdminAudit(
     },
   };
 
-  const { error } = await supabase
-    .from('audit_log')
-    .insert(dbPayload as any);
+  const { error } = await supabase.from('audit_log').insert(dbPayload as any);
 
   if (error) {
     // Never break admin flows due to audit insert failures.

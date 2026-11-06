@@ -9,9 +9,12 @@ interface AssetItem {
 }
 
 async function verifyR2Parity() {
-  const r2Base = process.env.NEXT_PUBLIC_R2_PUBLIC_URL || process.env.R2_PUBLIC_URL;
+  const r2Base =
+    process.env.NEXT_PUBLIC_R2_PUBLIC_URL || process.env.R2_PUBLIC_URL;
   if (!r2Base) {
-    console.error('❌ Erro: Defina NEXT_PUBLIC_R2_PUBLIC_URL para executar a auditoria.');
+    console.error(
+      '❌ Erro: Defina NEXT_PUBLIC_R2_PUBLIC_URL para executar a auditoria.'
+    );
     process.exit(1);
   }
 
@@ -25,14 +28,19 @@ async function verifyR2Parity() {
   const raw = JSON.parse(fs.readFileSync(assetsFile, 'utf8'));
   const list: AssetItem[] = raw[0]?.export_json || raw;
 
-  console.log(`🔍 Iniciando auditoria de paridade para ${list.length} assets em ${cleanBase}...`);
+  console.log(
+    `🔍 Iniciando auditoria de paridade para ${list.length} assets em ${cleanBase}...`
+  );
 
   let okCount = 0;
   let failCount = 0;
   const sampleErrors: Array<{ key?: string; url: string; status: number }> = [];
 
   // Testa uma amostra representativa ou todos os assets em lotes de 20
-  const sample = list.filter((item) => item.file_path && !item.file_path.endsWith('.emptyFolderPlaceholder'));
+  const sample = list.filter(
+    (item) =>
+      item.file_path && !item.file_path.endsWith('.emptyFolderPlaceholder')
+  );
 
   for (let i = 0; i < sample.length; i += 20) {
     const chunk = sample.slice(i, i + 20);
@@ -71,4 +79,3 @@ async function verifyR2Parity() {
 }
 
 verifyR2Parity().catch(console.error);
-

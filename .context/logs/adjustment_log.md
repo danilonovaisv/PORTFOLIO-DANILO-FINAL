@@ -6,6 +6,7 @@
 `[DynamicAssetImage] usando fallback para clients.clients.strip.X Error: Service for this project is restricted due to the following violations: exceed_cached_egress_quota.`
 
 **Diagnóstico & Causa Raiz:**
+
 1. **Restrição de Cota do Projeto Supabase:**
    - O projeto `umkmwbkwvulxtdodzmzf` atingiu a cota de tráfego de saída em cache (`exceed_cached_egress_quota`), gerando HTTP 403 Forbidden em requisições de Storage e PostgREST.
 2. **Loop de Polling Agressivo:**
@@ -16,6 +17,7 @@
    - `src/config/content.ts` chamava `buildSupabaseStorageUrl('site-assets', ...)` para `siteAsset`, forçando URLs remotas do Supabase que também falhavam com 403 em vez de apontar para os arquivos locais já presentes em `public/site.assets/`.
 
 **Ações Cirúrgicas Aplicadas:**
+
 1. **Circuit Breaker em `useRealtimeAssets.ts`:**
    - Implementada detecção de erros de cota e restrição (`isQuotaOrRestrictionError`).
    - Ativada a flag `isProjectRestricted`: cancela imediatamente o agendamento de polling, suspende novas tentativas de fetch que gerariam 403 e desacopla a assinatura realtime bloqueada.
@@ -31,32 +33,34 @@
    - Em `src/components/sobre/sections/AboutOrigin.tsx`: priorizado `chap.fallback` local (`/about/origin/origin2/cena-01.webp`) quando a URL remota do Supabase não for resolvida.
 
 **Validação & QA:**
+
 - `pnpm exec jest test/unit/hooks/useRealtimeAssets.test.ts`: **Novo teste unitário com cobertura de circuit breaker aprovado**.
 - `pnpm exec jest test/unit/`: **27/27 test suites aprovadas, 251/251 testes Jest PASS**.
 - `tsc --noEmit --strict`: **0 erros TypeScript**.
 - `eslint`: **0 erros de linting**.
-
 
 ## [2026-11-02T17:35] Auditoria Squirrelscan & Refinamento da Rota `/sobre` (/orchestrate /squirrel-audit)
 
 **Context:** Execução do workflow `/squirrel-audit` na rota `/sobre` (`https://portfoliodanilo.com/sobre`), seguido da criação do `/plan` de melhorias aprovado pelo usuário (com a diretriz explícita de nunca adicionar legendas a vídeos sem áudio).
 
 **Diagnóstico & Correções Aplicadas:**
+
 1. **Purificação da Paleta Ghost (Erradicação de Violeta):**
-   - *Problema:* `src/components/sobre/beliefs/WhatMovesMeBackground.tsx` usava tom violeta `#8705f218` em gradiente radial, violando a regra soberana do Ghost System ("NO VIOLET / PURPLE on main surfaces").
-   - *Solução:* Substituído por `#0048ff15` (Ghost Blue), restabelecendo conformidade estética estrita.
+   - _Problema:_ `src/components/sobre/beliefs/WhatMovesMeBackground.tsx` usava tom violeta `#8705f218` em gradiente radial, violando a regra soberana do Ghost System ("NO VIOLET / PURPLE on main surfaces").
+   - _Solução:_ Substituído por `#0048ff15` (Ghost Blue), restabelecendo conformidade estética estrita.
 2. **Diretriz de Mídia & A11y (Vídeos Ambientais sem Áudio):**
-   - *Regra aplicada:* Vídeo do Hero em `AboutHero.tsx` é estritamente decorativo/visual e não possui áudio. Respeitada a exigência do usuário: **nenhuma faixa de legendas foi adicionada**.
+   - _Regra aplicada:_ Vídeo do Hero em `AboutHero.tsx` é estritamente decorativo/visual e não possui áudio. Respeitada a exigência do usuário: **nenhuma faixa de legendas foi adicionada**.
 3. **Ergonomia Mobile em Formulários (`enterKeyHint`):**
-   - *Problema:* `ContactForm.tsx` não definia `enterKeyHint`, alertado pelo Squirrelscan para formulários com múltiplos campos.
-   - *Solução:* Adicionado `enterKeyHint="next"` nos campos de Nome, Email e Telefone, e `enterKeyHint="send"` no campo de Mensagem.
+   - _Problema:_ `ContactForm.tsx` não definia `enterKeyHint`, alertado pelo Squirrelscan para formulários com múltiplos campos.
+   - _Solução:_ Adicionado `enterKeyHint="next"` nos campos de Nome, Email e Telefone, e `enterKeyHint="send"` no campo de Mensagem.
 4. **Ano de Copyright Dinâmico:**
-   - *Problema:* `src/config/navigation.ts` congelava o copyright em `© 2025`.
-   - *Solução:* Atualizado para `${new Date().getFullYear()}`, eliminando avisos de conteúdo defasado.
+   - _Problema:_ `src/config/navigation.ts` congelava o copyright em `© 2025`.
+   - _Solução:_ Atualizado para `${new Date().getFullYear()}`, eliminando avisos de conteúdo defasado.
 5. **Otimização de DPR em WebGL Shader (`src/components/ui/shader-lines.tsx`):**
-   - *Melhoria:* Limitado DPR a max 1.5 em telas touch/mobile (< 768px), reduzindo carga de fragment shader em até ~44% sem perda perceptível de nitidez em telas Retina.
+   - _Melhoria:_ Limitado DPR a max 1.5 em telas touch/mobile (< 768px), reduzindo carga de fragment shader em até ~44% sem perda perceptível de nitidez em telas Retina.
 
 **Validação & QA:**
+
 - `pnpm test test/components/sobre/`: **3/3 test suites passed, 9/9 testes Jest aprovados**.
 - `pnpm run typecheck`: **0 erros (TypeScript 6.0 modo estrito)**.
 - `pnpm run lint`: **0 erros de linting**.
@@ -68,6 +72,7 @@
 **Context:** Diagnóstico e resolução da falha no comando `pnpm run build:cloudflare` (ProcessId 72799): `app/api/admin/storage/init-bucket/route cannot use the edge runtime. OpenNext requires edge runtime function to be defined in a separate function.`
 
 **Causa Raiz & Correção Aplicada:**
+
 1. **Depreciação do Edge Runtime no Next.js 16 e Incompatibilidade com OpenNext:**
    - O Next.js 16 depreciou formalmente o Edge Runtime em favor do Node.js runtime.
    - O `@opennextjs/cloudflare` empacota a aplicação como um Cloudflare Worker único utilizando `nodejs_compat`. Ao encontrar `export const runtime = 'edge';` dentro de rotas de API na server function padrão, o OpenNext rejeitava o bundle (`copyTracedFiles`).
@@ -81,6 +86,7 @@
    - Removido `export const runtime = 'edge';` das 5 rotas de API, permitindo que utilizem o runtime Node.js padrão com suporte a `nodejs_compat` no Cloudflare Worker.
 
 **Validação & QA:**
+
 - `pnpm run build:cloudflare`: **Build OpenNext concluído com sucesso (`.open-next/worker.js` gerado, exit code 0)**.
 - `pnpm run build-check`: **0 erros (TypeScript estrito + ESLint limpo)**.
 - `graphify update .`: **Grafo semântico atualizado**.
@@ -92,21 +98,23 @@
 **Context:** Execução e correção da suíte completa de testes End-to-End (`test:e2e`: `PLAYWRIGHT_TEST=true NEXT_PUBLIC_PLAYWRIGHT_TEST=true playwright test`) englobando 6 projetos de browsers (`chromium`, `webkit`, `firefox`, `mobile-chrome`, `mobile-safari`, `tablet-chrome`).
 
 **Causa Raiz & Correções Aplicadas:**
+
 1. **`test/e2e/admin.spec.ts` (Mobile Safari):**
-   - *Problema:* Emulação touch do Mobile Safari ignorava o preenchimento de `input[type="email"]` via `fill()`, falhando na validação de constraint do formulário.
-   - *Solução:* Migrado para `click()` + `pressSequentially()` garantindo eventos reais de tecla.
+   - _Problema:_ Emulação touch do Mobile Safari ignorava o preenchimento de `input[type="email"]` via `fill()`, falhando na validação de constraint do formulário.
+   - _Solução:_ Migrado para `click()` + `pressSequentially()` garantindo eventos reais de tecla.
 2. **`test/e2e/ghost-system.spec.ts` & `test/e2e/about-origin.spec.ts` (Cinema Reel v3):**
-   - *Problema:* Testes procuravam por estrutura anterior da seção Origem (`[role="img"]`, texto legado).
-   - *Solução:* Sincronizados com a nova especificação v3 da seção Origem (`#origin-eyebrow`, acessibilidade em `h2#origin-heading`, regex `/O que\s*permanece/i` e `ORIGIN_BRIDGE`).
+   - _Problema:_ Testes procuravam por estrutura anterior da seção Origem (`[role="img"]`, texto legado).
+   - _Solução:_ Sincronizados com a nova especificação v3 da seção Origem (`#origin-eyebrow`, acessibilidade em `h2#origin-heading`, regex `/O que\s*permanece/i` e `ORIGIN_BRIDGE`).
 3. **`test/e2e/portfolio-pagination.spec.ts` & `src/app/portfolio/PortfolioClient.tsx` (WebKit WebSocket & Dynamic Import Race):**
-   - *Problema 1:* WebKit disparava `SecurityError: The operation is insecure` ao tentar conectar em WebSocket realtime do Supabase sob `https://supabase.test.invalid`, acionando o Error Boundary global.
-   - *Problema 2:* `ProjectsGallery` era importado via `dynamic()` em `PortfolioClient`, criando race condition de hidratação no clique das abas de filtro antes dos listeners do React serem registrados.
-   - *Solução:* Adicionado guardrail `process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true'` e `try/catch` em `PortfolioClient.tsx`, `useRealtimeAssets.ts` e `ProjectsTable.tsx`; import direto de `ProjectsGallery` em `PortfolioClient.tsx` e sinalizador `data-hydrated` com espera explícita no teste.
+   - _Problema 1:_ WebKit disparava `SecurityError: The operation is insecure` ao tentar conectar em WebSocket realtime do Supabase sob `https://supabase.test.invalid`, acionando o Error Boundary global.
+   - _Problema 2:_ `ProjectsGallery` era importado via `dynamic()` em `PortfolioClient`, criando race condition de hidratação no clique das abas de filtro antes dos listeners do React serem registrados.
+   - _Solução:_ Adicionado guardrail `process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true'` e `try/catch` em `PortfolioClient.tsx`, `useRealtimeAssets.ts` e `ProjectsTable.tsx`; import direto de `ProjectsGallery` em `PortfolioClient.tsx` e sinalizador `data-hydrated` com espera explícita no teste.
 4. **`test/e2e/mobile-menu.spec.ts` & `MobileMenuPanel.tsx` (Chromium GSAP vs CSS Transition Conflict):**
-   - *Problema:* Classe `transition-opacity duration-modal` no painel do menu mobile disputava com os ticks de interpolação do GSAP, congelando a opacidade em `0.45` no Chromium e Mobile Chrome.
-   - *Solução:* Removida a transição CSS concorrente de `MobileMenuPanel.tsx`, permitindo que o GSAP governe com suavidade e sem travas a timeline de animação.
+   - _Problema:_ Classe `transition-opacity duration-modal` no painel do menu mobile disputava com os ticks de interpolação do GSAP, congelando a opacidade em `0.45` no Chromium e Mobile Chrome.
+   - _Solução:_ Removida a transição CSS concorrente de `MobileMenuPanel.tsx`, permitindo que o GSAP governe com suavidade e sem travas a timeline de animação.
 
 **Validação & QA:**
+
 - `pnpm run test:e2e`: **132 passed (100% GREEN) em todos os 6 navegadores**.
 - `pnpm test`: **51/51 test suites aprovadas, 378/378 testes Jest passando**.
 - `pnpm run build-check`: **0 erros (TypeScript estrito + ESLint limpo)**.
@@ -119,10 +127,12 @@
 **Context:** Diagnóstico de falha no terminal do usuário durante execução do Jest (`test/mcp_config.test.ts` e console warnings em `ProjectCard.test.tsx`).
 
 **Causa Raiz (RCA):**
+
 1. O teste `test/mcp_config.test.ts` lia a configuração global `~/.gemini/antigravity/mcp_config.json`, onde o helper de aplicação desktop macOS (`Open Design Helper.app` localizado em `/Applications/Open Design.app/...`) estava registrado como servidor MCP ativo. A validação restringia rigidamente comandos STDIO apenas a `node|npx|uvx|docker|gk`, rejeitando executáveis de aplicativos desktop macOS (`.app/Contents/MacOS/` ou `/Applications/`) e outros runtimes comuns (`bun`, `deno`, `python`).
 2. O mock de `motion` e `m` em `test/components/portfolio/ProjectCard.test.tsx` repassava a prop `whileTap` diretamente para a tag DOM `<button>`, acionando advertência de console do React 19 (`React does not recognize the whileTap prop on a DOM element`).
 
 **Ações Cirúrgicas Implementadas:**
+
 1. **`test/mcp_config.test.ts`:**
    - Expandido o padrão de validação de comandos STDIO para aceitar executáveis e helpers de aplicações desktop nativas (`.app/Contents/MacOS/`, `/Applications/`), além de `python`, `bun`, `deno`, `uvx`, `gk`, `docker`, `npx` e `node`.
 2. **`test/components/portfolio/ProjectCard.test.tsx`:**
@@ -2974,8 +2984,8 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
 
 **Status:** Concluído com 100% de conformidade.
 
-
 ## [2026-11-02] [Agent Config Audit & Saneamento]
+
 - **Context Bloat:** Desativado `trigger: always_on` de 7 regras não-constitucionais. Reduzido o volume de injeção contínua de 950 linhas para 195 linhas (5 regras constitutivas), eliminando o descarte involuntário do `AGENTS.md` pelo limite de tokens da IDE.
 - **Safe Archive:** Arquivadas com segurança 5 regras legadas em vietnamita, 2 documentações deslocadas em `rules/`, 2 workflows obsoletos (`deprecated_deploy*`), 4 agentes genéricos de grande porte (`ui-ux-designer`, `firecrawl-scraper`, `typescript-pro`, `mcp-expert`) e 9 skills Cloudflare para `.agents/.archive/purged-2026-11/`.
 - **Broken References Fix:**

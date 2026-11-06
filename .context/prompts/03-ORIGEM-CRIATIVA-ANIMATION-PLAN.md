@@ -8,6 +8,7 @@
 **Design System:** Ghost System — Void Black `#040013`, Deep Blue `#0048ff`, Ghost Cyan `#4fe6ff`
 **Tipografia:** Manrope (sans), Geist Mono (labels)
 **Arquitetura da seção:**
+
 - `src/components/sobre/sections/AboutOrigin.tsx` — componente raiz
 - `src/components/sobre/origin/data.ts` — dados dos 4 capítulos (NÃO modificar)
 - `src/components/sobre/origin/OriginComponents.tsx` — componentes de render
@@ -64,12 +65,12 @@ Adaptar as técnicas de animação do arquivo de especificação cinema-reel (`p
 
 ## Arquivos a Modificar
 
-| Arquivo | Ação | Justificativa |
-|---------|------|---------------|
-| `src/components/sobre/origin/useOriginAnimations.ts` | Reescrever hook | Adicionar rAF snap loop + spring physics + reduced-motion gate |
-| `src/components/sobre/origin/OriginComponents.tsx` | Expandir | Adicionar prop `CinemaReelEntrance`, variants de motion, scanlines/mask conditionais |
-| `src/components/sobre/sections/AboutOrigin.tsx` | Expandir | Injetar SVG filter, scanlines condicional, estado `entrancePlaying`, handoff timeline → rAF |
-| `src/components/sobre/origin/data.ts` | **NÃO MODIFICAR** | Conteúdo já atualizado (versão 2026-11) — preservar 100% |
+| Arquivo                                              | Ação              | Justificativa                                                                               |
+| ---------------------------------------------------- | ----------------- | ------------------------------------------------------------------------------------------- |
+| `src/components/sobre/origin/useOriginAnimations.ts` | Reescrever hook   | Adicionar rAF snap loop + spring physics + reduced-motion gate                              |
+| `src/components/sobre/origin/OriginComponents.tsx`   | Expandir          | Adicionar prop `CinemaReelEntrance`, variants de motion, scanlines/mask conditionais        |
+| `src/components/sobre/sections/AboutOrigin.tsx`      | Expandir          | Injetar SVG filter, scanlines condicional, estado `entrancePlaying`, handoff timeline → rAF |
+| `src/components/sobre/origin/data.ts`                | **NÃO MODIFICAR** | Conteúdo já atualizado (versão 2026-11) — preservar 100%                                    |
 
 ---
 
@@ -91,22 +92,26 @@ Adaptar as técnicas de animação do arquivo de especificação cinema-reel (`p
 O agente DEVE carregar e aplicar as seguintes skills durante a execução:
 
 ### 1. `/portfolio-design-auditor:animation-vocabulary`
+
 - Mapear descrições de motion para termos técnicos GSAP/Framer Motion
 - Validar que easing, timing e física estão corretamente nomeados
 - Usar para traduzir "snap suave" → `cubic-bezier(0.16, 1, 0.3, 1)` ou similar
 
 ### 2. `/portfolio-design-auditor:animate`
+
 - Implementar motion com foco em propósito, timing e física
 - Garantir que cada animação sirva à narrativa (não é decorative)
 - Aplicar principles de interruptibilidade (Apple design)
 
 ### 3. `/anthropic-skills:apple-design`
+
 - Springs com damping 1.0 (crítico) para UI, 0.8 para momentum
 - Velocity handoff: passar velocidade do drag para spring no release
 - Interruptibilidade: animações devem reagir a input a qualquer momento
 - Reduced motion: cross-fade em vez de slide/spring
 
 ### 4. `/taste-skill:taste-skill`
+
 - Validar estética anti-slop: duas tipografias no máximo, sem glows decorativos
 - Regra two-line headlines: cada `titleLines` cabe em 2 linhas @ 390px
 - Sem eyebrows/pill badges em novos elementos
@@ -156,6 +161,7 @@ Se algum passo falhar, corrigir antes de reportar conclusão.
 ## Output Esperado
 
 Relatório com:
+
 1. Lista de arquivos modificados (com diff summary)
 2. Constantes adotadas (valores numéricos)
 3. Evidência de build passing
@@ -164,4 +170,4 @@ Relatório com:
 
 ---
 
-*Documento gerado em 2026-11-02. Referência: cinema-reel.md (especificação completa de animações).*
+_Documento gerado em 2026-11-02. Referência: cinema-reel.md (especificação completa de animações)._

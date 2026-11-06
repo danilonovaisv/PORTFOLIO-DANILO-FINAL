@@ -1,3 +1,8 @@
+# Storage Migration Pack
+storage-pack/
+*.tar.gz
+*.zip
+
 # Dependencies
 node_modules/
 node_modules_bad_*/

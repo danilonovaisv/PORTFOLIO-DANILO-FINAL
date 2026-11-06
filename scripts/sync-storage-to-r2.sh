@@ -28,6 +28,18 @@ echo "Cloudflare R2 Account: ${R2_ACCOUNT_ID}"
 echo "Cloudflare R2 Bucket: ${R2_BUCKET_NAME}"
 echo "================================================================="
 
+# Checagem de disponibilidade do rclone
+if ! command -v rclone &> /dev/null; then
+    echo "❌ O binário 'rclone' não foi encontrado no seu PATH."
+    echo "👉 Para instalar no macOS (Homebrew):"
+    echo "     brew install rclone"
+    echo ""
+    echo "👉 Ou via instalador oficial:"
+    echo "     sudo -v ; curl https://rclone.org/install.sh | sudo bash"
+    echo ""
+    exit 1
+fi
+
 # Validação preliminar de credenciais
 if [[ "${SUPABASE_ACCESS_KEY}" == "<SUPABASE_ACCESS_KEY>" || "${R2_ACCESS_KEY_ID}" == "<R2_ACCESS_KEY_ID>" ]]; then
     echo "⚠️  ATENÇÃO: Variáveis de credencial contêm placeholders."

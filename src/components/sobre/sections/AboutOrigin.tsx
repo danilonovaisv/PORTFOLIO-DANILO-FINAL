@@ -113,10 +113,7 @@ export function AboutOrigin() {
       <OriginMask />
 
       {/* Cinema Reel Entrance Overlay — 3-loop auto-scroll with motion blur & scanlines */}
-      <CinemaReelEntrance
-        isPlaying={!entranceComplete}
-        onComplete={() => {}}
-      />
+      <CinemaReelEntrance isPlaying={!entranceComplete} onComplete={() => {}} />
 
       {/* CABEÇALHO EDITORIAL: Alinhamento central e hierarquia visual rigorosa */}
       <div className="relative w-full max-w-4xl mx-auto px-6 sm:px-8 pt-[10dvh] pb-[4dvh] md:pb-[5dvh] text-center select-none">

@@ -93,7 +93,14 @@ export function useOriginAnimations({
   const rafRef = useRef<number | null>(null);
   const yRef = useRef(AUTO_START_Y);
   const targetYRef = useRef(AUTO_START_Y);
-  const dragRef = useRef({ active: false, startY: 0, startTarget: 0, velocity: 0, lastTime: 0, lastY: 0 });
+  const dragRef = useRef({
+    active: false,
+    startY: 0,
+    startTarget: 0,
+    velocity: 0,
+    lastTime: 0,
+    lastY: 0,
+  });
   const wheelLastTimeRef = useRef(0);
   const entrancePlayingRef = useRef(false);
   const entranceTlRef = useRef<gsap.core.Timeline | null>(null);
@@ -171,7 +178,8 @@ export function useOriginAnimations({
         frame.style.filter = `blur(${BLUR_MAX_PX}px)`;
         frame.style.transform = 'translate3d(0, 0, 0) scale(0.97)';
         if (masks[i]) masks[i].style.opacity = '0.65';
-        if (parallaxWrappers[i]) parallaxWrappers[i].style.transform = 'translate3d(0, 0, 0)';
+        if (parallaxWrappers[i])
+          parallaxWrappers[i].style.transform = 'translate3d(0, 0, 0)';
         return;
       }
 
@@ -225,7 +233,8 @@ export function useOriginAnimations({
 
       // Apply parallax to image wrapper
       if (parallaxWrappers[i]) {
-        parallaxWrappers[i].style.transform = `translate3d(0, ${parallaxY - dy / PARALLAX_FACTOR}px, 0)`;
+        parallaxWrappers[i].style.transform =
+          `translate3d(0, ${parallaxY - dy / PARALLAX_FACTOR}px, 0)`;
         parallaxWrappers[i].style.willChange = 'transform';
       }
     });
@@ -239,7 +248,12 @@ export function useOriginAnimations({
 
   // Entrance animation — 3 loops auto-scroll with blur & scanlines
   const runEntrance = useCallback(
-    (stageWrap: HTMLElement, frames: HTMLElement[], masks: HTMLElement[], parallaxWrappers: HTMLElement[]) => {
+    (
+      stageWrap: HTMLElement,
+      frames: HTMLElement[],
+      masks: HTMLElement[],
+      parallaxWrappers: HTMLElement[]
+    ) => {
       entrancePlayingRef.current = true;
 
       // Create SVG filter for motion blur
@@ -318,11 +332,15 @@ export function useOriginAnimations({
           : 'cubic-bezier(0.22, 1, 0.36, 1)';
 
       // Opacity fade-in parallel
-      tl.to([stageWrap, scanlines], {
-        opacity: 1,
-        duration: 0.8,
-        ease: 'power2.out',
-      }, 0);
+      tl.to(
+        [stageWrap, scanlines],
+        {
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power2.out',
+        },
+        0
+      );
 
       // 3 loops = 12 chapter transitions
       const segmentDuration = ENTRANCE_DURATION / ENTRANCE_TOTAL_SLIDES;
@@ -444,9 +462,15 @@ export function useOriginAnimations({
       if (!container || !stageWrap) return;
 
       const ctx = gsap.context(() => {
-        const frames = Array.from(stageWrap.querySelectorAll<HTMLElement>('[data-origin-frame]'));
-        const parallaxWrappers = Array.from(stageWrap.querySelectorAll<HTMLElement>('[data-slide-image]'));
-        const masks = Array.from(stageWrap.querySelectorAll<HTMLElement>('[data-origin-mask]'));
+        const frames = Array.from(
+          stageWrap.querySelectorAll<HTMLElement>('[data-origin-frame]')
+        );
+        const parallaxWrappers = Array.from(
+          stageWrap.querySelectorAll<HTMLElement>('[data-slide-image]')
+        );
+        const masks = Array.from(
+          stageWrap.querySelectorAll<HTMLElement>('[data-origin-mask]')
+        );
         const rail = document.querySelector<HTMLElement>('[data-origin-rail]');
 
         if (frames.length === 0) return;
@@ -528,7 +552,10 @@ export function useOriginAnimations({
           if (now - wheelLastTimeRef.current < 16) return; // throttle ~60fps
           wheelLastTimeRef.current = now;
 
-          const delta = Math.max(-WHEEL_CLAMP_PX, Math.min(WHEEL_CLAMP_PX, e.deltaY));
+          const delta = Math.max(
+            -WHEEL_CLAMP_PX,
+            Math.min(WHEEL_CLAMP_PX, e.deltaY)
+          );
           targetYRef.current -= delta * 0.01; // convert px to vh-ish
           // Clamp to loop bounds
           const maxY = TOP_PAD_VH;
@@ -572,7 +599,9 @@ export function useOriginAnimations({
           dragRef.current.lastTime = now;
 
           // Move target directly (suspend spring)
-          targetYRef.current = dragRef.current.startTarget - (e.clientY - dragRef.current.startY) * 0.01;
+          targetYRef.current =
+            dragRef.current.startTarget -
+            (e.clientY - dragRef.current.startY) * 0.01;
           // Clamp
           const maxY = TOP_PAD_VH;
           const minY = TOP_PAD_VH - (TOTAL_SLOTS - 1) * PITCH_VH;
@@ -588,7 +617,9 @@ export function useOriginAnimations({
           // Snap logic on release
           const velocity = dragRef.current.velocity * 1000; // px/s
           const currentTarget = targetYRef.current;
-          const slotCenterY = TOP_PAD_VH - Math.round((TOP_PAD_VH - currentTarget) / PITCH_VH) * PITCH_VH;
+          const slotCenterY =
+            TOP_PAD_VH -
+            Math.round((TOP_PAD_VH - currentTarget) / PITCH_VH) * PITCH_VH;
           const delta = slotCenterY - currentTarget;
           const absDelta = Math.abs(delta);
 
@@ -653,7 +684,9 @@ export function useOriginAnimations({
       if (!stageWrap) return;
 
       const ctx = gsap.context(() => {
-        const frames = stageWrap.querySelectorAll<HTMLElement>('[data-origin-frame]');
+        const frames = stageWrap.querySelectorAll<HTMLElement>(
+          '[data-origin-frame]'
+        );
 
         frames.forEach((frame, i) => {
           gsap.set(frame, {

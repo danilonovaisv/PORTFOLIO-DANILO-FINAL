@@ -84,7 +84,9 @@ export const useLERPScroll = (
       gallery.style.height = `${wrapperHeight}px`;
 
       if (typeof window !== 'undefined') {
-        const globalLenis = (window as Window & { lenis?: { resize?: () => void } }).lenis;
+        const globalLenis = (
+          window as Window & { lenis?: { resize?: () => void } }
+        ).lenis;
         if (typeof globalLenis?.resize === 'function') {
           globalLenis.resize();
         }

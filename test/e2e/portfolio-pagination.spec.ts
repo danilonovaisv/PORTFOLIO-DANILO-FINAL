@@ -5,7 +5,11 @@ const cardLocator = '[id^=\"portfolio-card-\"]';
 
 test('paginação mantém limite e estados first/last', async ({ page }) => {
   await page.goto('/portfolio', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('#portfolio-gallery')).toHaveAttribute('data-hydrated', 'true', { timeout: 15000 });
+  await expect(page.locator('#portfolio-gallery')).toHaveAttribute(
+    'data-hydrated',
+    'true',
+    { timeout: 15000 }
+  );
 
   await expect(page.getByRole('tab', { name: /All Cases/i })).toHaveAttribute(
     'aria-selected',
@@ -33,11 +37,17 @@ test('paginação mantém limite e estados first/last', async ({ page }) => {
 
 test('filtro reseta página para 1', async ({ page }) => {
   await page.goto('/portfolio?page=2', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('#portfolio-gallery')).toHaveAttribute('data-hydrated', 'true', { timeout: 15000 });
+  await expect(page.locator('#portfolio-gallery')).toHaveAttribute(
+    'data-hydrated',
+    'true',
+    { timeout: 15000 }
+  );
 
   const tabVideos = page.getByRole('tab', { name: /Videos & Motions/i });
   await tabVideos.click();
-  await expect(tabVideos).toHaveAttribute('aria-selected', 'true', { timeout: 10000 });
+  await expect(tabVideos).toHaveAttribute('aria-selected', 'true', {
+    timeout: 10000,
+  });
   await expect(page).toHaveURL(/category=motion/);
   await expect(page).not.toHaveURL(/page=2/);
 
@@ -52,11 +62,17 @@ test('All Cases limpa category da URL e permanece ativo ao abrir a página', asy
   await page.goto('/portfolio?category=motion', {
     waitUntil: 'domcontentloaded',
   });
-  await expect(page.locator('#portfolio-gallery')).toHaveAttribute('data-hydrated', 'true', { timeout: 15000 });
+  await expect(page.locator('#portfolio-gallery')).toHaveAttribute(
+    'data-hydrated',
+    'true',
+    { timeout: 15000 }
+  );
 
   const tabAllCases = page.getByRole('tab', { name: /All Cases/i });
   await tabAllCases.click();
-  await expect(tabAllCases).toHaveAttribute('aria-selected', 'true', { timeout: 10000 });
+  await expect(tabAllCases).toHaveAttribute('aria-selected', 'true', {
+    timeout: 10000,
+  });
 
   await expect(page).not.toHaveURL(/category=motion/);
   await expect(tabAllCases).toHaveAttribute('aria-selected', 'true');

@@ -27,4 +27,3 @@ export const Z_INDEX = {
 } as const;
 
 export type ZIndexLayer = keyof typeof Z_INDEX;
-

@@ -100,7 +100,10 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
         gsapInstance.ticker.remove(tickerCallback);
       }
       if (lenis) {
-        if (typeof window !== 'undefined' && (window as { lenis?: unknown }).lenis === lenis) {
+        if (
+          typeof window !== 'undefined' &&
+          (window as { lenis?: unknown }).lenis === lenis
+        ) {
           (window as { lenis?: unknown }).lenis = null;
         }
         if (scrollTriggerInstance) {

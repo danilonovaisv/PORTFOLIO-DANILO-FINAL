@@ -1,4 +1,5 @@
 # 👻 Auditoria Estratégica: Portfólio Danilo Novais (Ghost System v3.0)
+
 **Data:** 02 de Novembro de 2026  
 **Target:** `PORTFOLIO-DANILO-FINAL` (`portfoliodanilo.com`)  
 **Governança:** `/agents-orquestrator` + `/audit` (Anthropic Tool & Skill Protocol)  
@@ -12,6 +13,7 @@
 O portfólio de Danilo Novais apresenta uma identidade visual marcante e de alta ambição estética, unindo renderização 3D WebGL (Three.js/R3F), rolagem suave cinemática (Lenis), tipografia editorial moderna e um robusto backend desacoplado no Supabase. O projeto compila com **0 erros** de TypeScript e possui suíte automatizada Jest com **50/50 test suites e 375 testes unitários 100% aprovados**.
 
 Contudo, a inspeção aprofundada revelou inconsistências críticas sob a superfície de código de produção:
+
 1. **Quebra na Sincronização 3D/2D:** O efeito assinatura do Hero — onde a máscara 2D de revelação de texto acompanha o Ghost 3D (`useGhostReveal`) — está inoperante porque a referência do fantasma não é repassada para o componente de cópia, congelando a revelação no centro e deixando o texto editorial com baixo contraste.
 2. **Gargalos e Vazamento Severo de VRAM:** O engine de simulação fluida `LiquidEther` vaza 7 Render Targets (FBOs) e passes de shader a cada desmontagem de página por ausência de rotina de descarte (`dispose`), com risco iminente de crash (OOM) no navegador.
 3. **Descompasso Temporal de Scroll:** O loop de rolagem suave do Lenis não está integrado aos tickers do GSAP ScrollTrigger, gerando tremores e stutter visual em seções pinadas da página `/sobre`.
@@ -38,66 +40,72 @@ Contudo, a inspeção aprofundada revelou inconsistências críticas sob a super
 ### 🔴 P0 — Bloqueantes (Zero Tolerance Mandate)
 
 #### AUD-01 — Vazamento Crítico de VRAM e RenderTargets (FBO) no Unmount de LiquidEther
+
 - **Target:** `src/components/projects/templates/LiquidEther.tsx:101-110` e `src/lib/webgl/liquid-ether/engine.ts:395-400`
 - **Category:** Engineering
 - **Priority:** P0
 - **Type:** Issue
 - **Observation:** O engine de simulação fluida aloca 7 `WebGLRenderTarget` (FBOs), 6 passes de shader e uma `CanvasTexture`. Ao desmontar o componente, `dispose()` chama apenas `Mouse.dispose()` e `Common.dispose()`, deixando os 7 FBOs e materiais alocados indefinidamente na memória da GPU.
 - **Evidence:** `engine.ts` linhas 395-400 não invoca nenhum descarte de `this.output` ou `this.output.simulation`. A classe `Simulation` (linhas 15-185) cria `vel_0`, `vel_1`, `vel_viscous0`, `vel_viscous1`, `div`, `pressure_0`, `pressure_1`, mas não possui método `dispose()`.
-- **Relevant Principle:** *Disposal Lifecycle Mandate*. Recursos de GPU devem ser explicitamente liberados para evitar esgotamento de VRAM e crash de contexto WebGL.
+- **Relevant Principle:** _Disposal Lifecycle Mandate_. Recursos de GPU devem ser explicitamente liberados para evitar esgotamento de VRAM e crash de contexto WebGL.
 - **Why It Matters:** Navegar entre cases de projeto esgota a memória de vídeo do dispositivo, provocando crash do navegador em smartphones ou travamento permanente do WebGL.
 - **Recommendation:** Implementar método `dispose()` completo em `Simulation` e `Output`, liberando todos os FBOs (`fbo.dispose()`), geometrias, materiais e a `paletteTex`.
 - **Acceptance Criteria:** Ao desmontar `LiquidEther`, o heap da GPU inspecionado via Chrome DevTools deve desalocar 100% dos render targets.
 
 #### AUD-02 — Máscara Editorial 2D Desconectada do Ghost 3D no Hero
+
 - **Target:** `src/components/home/hero/HomeHero.tsx:74` e `src/components/home/hero/HeroCopy.tsx:13-31`
 - **Category:** Engineering / Visual Design
 - **Priority:** P0
 - **Type:** Issue
 - **Observation:** O efeito em que o Ghost 3D revela o texto com alto contraste através de máscara radial (`--ghost-x`, `--ghost-y`) está inoperante. `HomeHero.tsx` instancia `<HeroCopy />` sem passar a prop `ghostRef`, e `GhostSceneWrapper` não exporta a referência do grupo 3D.
 - **Evidence:** Em `useGhostReveal.ts` linha 19: `if (!enabled || !ghostRef?.current || !revealRef.current) return;`. Como `ghostRef` é `undefined`, o listener `requestAnimationFrame` é abortado. As variáveis CSS permanecem congeladas em `50vw 50vh`.
-- **Relevant Principle:** *Ghost Interaction Integrity & Editorial Legibility*. Elementos 3D e tipografia editorial devem sincronizar dinamicamente sem pontas soltas.
+- **Relevant Principle:** _Ghost Interaction Integrity & Editorial Legibility_. Elementos 3D e tipografia editorial devem sincronizar dinamicamente sem pontas soltas.
 - **Why It Matters:** O texto fora do centro da tela permanece apagado em `text-white/25` (contraste 1.9:1, abaixo de WCAG AA), destruindo o impacto editorial da Hero.
 - **Recommendation:** Expor a referência de `ghostGroup` através de callback/store em `GhostSceneWrapper` e repassar para `HeroCopy`, atualizando `--ghost-x` e `--ghost-y` conforme o fantasma vagueia.
 - **Acceptance Criteria:** As variáveis CSS acompanham dinamicamente o Ghost 3D e o texto sob ele é revelado em branco puro de alto contraste.
 
 #### AUD-03 — Colisão do Header Mobile com Filtros Sticky da Galeria
+
 - **Target:** `src/components/layout/header/SiteHeader.tsx:59-71` e `src/components/portfolio/ProjectsGallery.tsx:235`
 - **Category:** Responsive
 - **Priority:** P0
 - **Type:** Issue
 - **Observation:** Em dispositivos móveis (`!isDesktop`), `DesktopFluidHeader` não é renderizado e o `ResizeObserver` nunca é acionado, deixando a variável CSS `--header-height` indefinida. Na galeria, a barra de filtros é configurada como `sticky top-[var(--header-height)]`. Sem valor, fixa-se em `top: 0` sob a barra móvel de navegação, ficando invisível e inatingível.
 - **Evidence:** `SiteHeader.tsx:175-199` anexa `headerRef` apenas no desktop; `MobileHeaderBar.tsx` possui `min-h-[60px] + env(safe-area-inset-top)`.
-- **Relevant Principle:** *Mobile Viewport Layering Integrity*. Controles interativos nunca devem ficar obstruídos por barras fixas de navegação.
+- **Relevant Principle:** _Mobile Viewport Layering Integrity_. Controles interativos nunca devem ficar obstruídos por barras fixas de navegação.
 - **Why It Matters:** Em smartphones, o usuário não consegue visualizar nem tocar nos botões de filtro de categorias durante o scroll.
 - **Recommendation:** Injetar fallback resiliente: `top-[calc(60px+env(safe-area-inset-top,0px))] md:top-[var(--header-height,80px)]` em `ProjectsGallery.tsx`.
 - **Acceptance Criteria:** A barra de filtros sticky permanece plenamente visível e operável abaixo da `MobileHeaderBar` em telas móveis.
 
 #### AUD-04 — Desincronização Crítica entre Lenis Smooth Scroll e GSAP ScrollTrigger
+
 - **Target:** `src/components/layout/SmoothScroll.tsx:62-78` e `src/components/sobre/origin/useOriginAnimations.ts:43-120`
 - **Category:** Engineering
 - **Priority:** P0
 - **Type:** Issue
 - **Observation:** O Lenis roda em um loop isolado de `requestAnimationFrame` sem notificar o GSAP ScrollTrigger. As seções pinadas e scrubs da página `/sobre` escutam a posição nativa do DOM, gerando descompasso temporal e jitter visual severo durante a rolagem.
 - **Evidence:** Em `SmoothScroll.tsx`, não há chamada a `lenis.on('scroll', ScrollTrigger.update)` nem sincronização com `gsap.ticker.add((time) => lenis.raf(time * 1000))`.
-- **Relevant Principle:** *Ghost Scroll Sync Principle & GSAP Interoperability Mandate*. Animações acionadas por scroll devem compartilhar um clock unificado.
+- **Relevant Principle:** _Ghost Scroll Sync Principle & GSAP Interoperability Mandate_. Animações acionadas por scroll devem compartilhar um clock unificado.
 - **Why It Matters:** Causa tremores, engasgos e quebra da fluidez etérea na seção cinematográfica de Origem (`/sobre`).
 - **Recommendation:** Conectar o Lenis ao ticker do GSAP e registrar `ScrollTrigger.update` no evento de scroll do Lenis.
 - **Acceptance Criteria:** A rolagem na página `/sobre` transcorre sem tremores (jitter) ou saltos de posição.
 
 #### AUD-05 — Inexistência de `src/constants/z-indices.ts` e Classes Fantasmas no Tailwind v4
+
 - **Target:** `src/constants/z-indices.ts` e `src/components/layout/header/DesktopFluidHeader.tsx:173`
 - **Category:** Engineering
 - **Priority:** P0
 - **Type:** Issue
 - **Observation:** O arquivo canônico de governança `src/constants/z-indices.ts` não existe no repositório. Componentes utilizam classes fantasmas como `z-55`, `z-110` e `focus:z-1300`, que não existem no Tailwind CSS v4, computando como `z-index: auto` no navegador.
 - **Evidence:** `DesktopFluidHeader.tsx` possui `className="... z-55 ..."`. No Tailwind v4, a variável `@theme` é `--z-layer-header: 55;`, o que não gera classe utilitária automática `z-55`.
-- **Relevant Principle:** *Stacking Context & Token Single Source of Truth*. O gerenciamento de z-index deve ser centralizado e imune a classes arbitrárias não compiladas.
+- **Relevant Principle:** _Stacking Context & Token Single Source of Truth_. O gerenciamento de z-index deve ser centralizado e imune a classes arbitrárias não compiladas.
 - **Why It Matters:** Elementos com z-index positivo básico cobrem o cabeçalho global ou desordenam a sobreposição com o WebGL e o cursor.
 - **Recommendation:** Criar `src/constants/z-indices.ts` e substituir classes fantasmas por `z-[var(--z-layer-header)]`.
 - **Acceptance Criteria:** Arquivo de constantes criado; header computa `z-index: 55` verificado em runtime.
 
 #### AUD-06 — Texto de Erro Invisível em `src/app/error.tsx` (Preto sobre Preto)
+
 - **Target:** `src/app/error.tsx:44`
 - **Category:** Accessibility
 - **Priority:** P0
@@ -110,6 +118,7 @@ Contudo, a inspeção aprofundada revelou inconsistências críticas sob a super
 - **Acceptance Criteria:** Mensagem de erro atinge contraste visual >= 7:1 (nível AAA).
 
 #### AUD-07 — Lista de Serviços Suprimida da Árvore de Acessibilidade no Mobile
+
 - **Target:** `src/components/sobre/sections/AboutWhatIDo.tsx:101-149`
 - **Category:** Accessibility
 - **Priority:** P0
@@ -132,7 +141,7 @@ Contudo, a inspeção aprofundada revelou inconsistências críticas sob a super
 - **AUD-12 (Visual / Engineering):** Shaders com tons magenta / rosa choque (`ShaderSection.tsx:45-57` vec3 pink), violando a paleta Ghost.
 - **AUD-13 (Engineering):** Inversão de Camadas de Stacking: Canvas 3D (z: 30) renderizado sobre o texto editorial (z: 20) na Hero.
 - **AUD-14 (Engineering):** Ausência de verificação preflight de WebGL em `ShaderSection.tsx` e `LiquidEther.tsx` (risco de exceção não tratada).
-- **AUD-15 (Motion):** Dupla interpolação (*Double-LERP*) e descompasso de bounds em `useLERPScroll.ts` e `ProjectsGallery.tsx`.
+- **AUD-15 (Motion):** Dupla interpolação (_Double-LERP_) e descompasso de bounds em `useLERPScroll.ts` e `ProjectsGallery.tsx`.
 - **AUD-16 (Motion):** Variantes de animação desconectadas no `HeroCTA.tsx` (`initial="initial"` vs `hidden`/`visible` em `hero.ts`).
 - **AUD-17 (Motion):** Aborto precoce da animação de saída no `AssetLightbox.tsx` (`if (!asset) return null` antes de `<AnimatePresence>`).
 - **AUD-18 (Mobile / A11y):** Botões de filtro da galeria com tap targets de ~25x32px, violando WCAG 2.5.5 (mínimo 44x44px).
@@ -186,6 +195,7 @@ Contudo, a inspeção aprofundada revelou inconsistências críticas sob a super
 ## 4. Proposed Experience
 
 Após a aplicação do plano de remediação:
+
 1. **Hero 3D Cinemática e Acessível:** O Ghost 3D guia organicamente a revelação do texto institucional sem obstruir a leitura; a tipografia atinge contraste AAA dinâmico.
 2. **Navegação Mobile Fluida e Sem Obstruções:** A barra de filtros fixa-se com perfeição milimétrica abaixo do header móvel; modais respeitam as safe areas do iPhone e fecham via swipe com uma mão só.
 3. **Scroll Unificado e Sedoso:** A rolagem suave do Lenis dita o ritmo das seções pinadas do GSAP sem jitter; a galeria de projetos responde com tração imediata sem duplo LERP.
@@ -289,7 +299,7 @@ Fase 5: Polimento Estético, Performance & Validação Final (P2/P3)
 ## 12. Risks & 13. Rollback Considerations
 
 - **Risco:** A sincronização do ticker do GSAP com o Lenis pode alterar o timing de seções pinadas.
-  - *Mitigação:* Isolar a alteração em `SmoothScroll.tsx` e validar visualmente a seção `/sobre` antes e depois.
+  - _Mitigação:_ Isolar a alteração em `SmoothScroll.tsx` e validar visualmente a seção `/sobre` antes e depois.
 - **Rollback:** Todo o trabalho de implementação será executado em commits atômicos por fase. Em caso de regressão, `git revert` atômico restaura o estado verificado anterior em segundos.
 
 ---
@@ -298,16 +308,16 @@ Fase 5: Polimento Estético, Performance & Validação Final (P2/P3)
 
 Todas as 5 Fases do plano de remediação foram executadas com rigor cirúrgico e validadas:
 
-| Fase | Escopo | Status | Evidência de Validação |
-| :--- | :--- | :--- | :--- |
-| **Fase 1: Bloqueantes (7 P0s)** | Descarte FBOs LiquidEther (AUD-01), sincronização Ghost 3D/2D (AUD-02), header mobile sticky bar (AUD-03), Lenis-GSAP ticker sync (AUD-04), `z-indices.ts` centralizado (AUD-05), contraste error.tsx (AUD-06), lista de serviços AboutWhatIDo (AUD-07). | ✅ **100% CONCLUÍDO** | `pnpm run build-check` PASS, `test/unit/z-indices.test.ts` criado e PASS. |
-| **Fase 2: Higienização Visual** | Remoção de violeta/roxo em LiquidEther/Header (AUD-08, AUD-09), eliminação de placeholders e texto Arial em posters SVG (AUD-10), fallback elegante sem tracejado em HeaderGlassCanvas (AUD-11), remoção de pink nos shaders (AUD-12), tipografia Manrope canônica sincronizada (AUD-27). | ✅ **100% CONCLUÍDO** | Cores hex estritamente `#0048ff`, `#4fe6ff`, `#040013`. Zero classes `font-h2`/`type-h2`. |
-| **Fase 3: Motion & Mobile** | Variantes ctaVariants no HeroCTA (AUD-15), desacoplamento LERP e `lenis.resize()` (AUD-16), AnimatePresence com exit em AssetLightbox (AUD-17), botões de filtro 44x44px touch (AUD-18), `data-lenis-prevent` e `overscroll-contain` em modais (AUD-19, AUD-20), unidades `dvh` e safe-areas (AUD-21). | ✅ **100% CONCLUÍDO** | 51/51 test suites Jest aprovadas, tap targets auditados. |
-| **Fase 4: A11y, SEO & Grid** | Desaninhamento do `.std-grid` redundante em PortfolioClient (AUD-22), desbloqueio de `/_next/*` em `robots.ts` e redirect 308 de `/projects` para `/portfolio` (AUD-23, AUD-46), correção de contraste em Connect e menu mobile acessível (AUD-24, AUD-25), `focus-visible` em links do footer e botão voltar de case pages (AUD-44), calha 1680px universal (AUD-45). | ✅ **100% CONCLUÍDO** | Acessibilidade WCAG 2.2 AA/AAA em todas as telas; sitemap e robots.txt otimizados para crawlers. |
-| **Fase 5: Polimento & Performance** | Substituição de `font-black` por `font-extrabold` (800) sem faux-bolding (AUD-28), limitador DPR 1.5 em shaders WebGL (AUD-33), gates completos de `prefers-reduced-motion` em marcas e formulário de contato (AUD-36). | ✅ **100% CONCLUÍDO** | **0 erros de compilação**, **51/51 test suites**, **378/378 testes Jest aprovados**. |
+| Fase                                | Escopo                                                                                                                                                                                                                                                                                                                                                                 | Status                | Evidência de Validação                                                                           |
+| :---------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- | :----------------------------------------------------------------------------------------------- |
+| **Fase 1: Bloqueantes (7 P0s)**     | Descarte FBOs LiquidEther (AUD-01), sincronização Ghost 3D/2D (AUD-02), header mobile sticky bar (AUD-03), Lenis-GSAP ticker sync (AUD-04), `z-indices.ts` centralizado (AUD-05), contraste error.tsx (AUD-06), lista de serviços AboutWhatIDo (AUD-07).                                                                                                               | ✅ **100% CONCLUÍDO** | `pnpm run build-check` PASS, `test/unit/z-indices.test.ts` criado e PASS.                        |
+| **Fase 2: Higienização Visual**     | Remoção de violeta/roxo em LiquidEther/Header (AUD-08, AUD-09), eliminação de placeholders e texto Arial em posters SVG (AUD-10), fallback elegante sem tracejado em HeaderGlassCanvas (AUD-11), remoção de pink nos shaders (AUD-12), tipografia Manrope canônica sincronizada (AUD-27).                                                                              | ✅ **100% CONCLUÍDO** | Cores hex estritamente `#0048ff`, `#4fe6ff`, `#040013`. Zero classes `font-h2`/`type-h2`.        |
+| **Fase 3: Motion & Mobile**         | Variantes ctaVariants no HeroCTA (AUD-15), desacoplamento LERP e `lenis.resize()` (AUD-16), AnimatePresence com exit em AssetLightbox (AUD-17), botões de filtro 44x44px touch (AUD-18), `data-lenis-prevent` e `overscroll-contain` em modais (AUD-19, AUD-20), unidades `dvh` e safe-areas (AUD-21).                                                                 | ✅ **100% CONCLUÍDO** | 51/51 test suites Jest aprovadas, tap targets auditados.                                         |
+| **Fase 4: A11y, SEO & Grid**        | Desaninhamento do `.std-grid` redundante em PortfolioClient (AUD-22), desbloqueio de `/_next/*` em `robots.ts` e redirect 308 de `/projects` para `/portfolio` (AUD-23, AUD-46), correção de contraste em Connect e menu mobile acessível (AUD-24, AUD-25), `focus-visible` em links do footer e botão voltar de case pages (AUD-44), calha 1680px universal (AUD-45). | ✅ **100% CONCLUÍDO** | Acessibilidade WCAG 2.2 AA/AAA em todas as telas; sitemap e robots.txt otimizados para crawlers. |
+| **Fase 5: Polimento & Performance** | Substituição de `font-black` por `font-extrabold` (800) sem faux-bolding (AUD-28), limitador DPR 1.5 em shaders WebGL (AUD-33), gates completos de `prefers-reduced-motion` em marcas e formulário de contato (AUD-36).                                                                                                                                                | ✅ **100% CONCLUÍDO** | **0 erros de compilação**, **51/51 test suites**, **378/378 testes Jest aprovados**.             |
 
 **Veredito:** 🟢 **AUDIT APPROVED — CERTIFICADO DE EXCELÊNCIA GHOST SYSTEM v3.0 EMITIDO.**
 
 ---
-*Relatório consolidado e certificado sob o protocolo soberano do Ghost System.*
 
+_Relatório consolidado e certificado sob o protocolo soberano do Ghost System._

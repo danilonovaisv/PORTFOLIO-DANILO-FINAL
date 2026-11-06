@@ -7,13 +7,8 @@
       "http://localhost:3000",
       "http://127.0.0.1:3000"
     ],
-    "AllowedMethods": [
-      "GET",
-      "HEAD"
-    ],
-    "AllowedHeaders": [
-      "*"
-    ],
+    "AllowedMethods": ["GET", "HEAD"],
+    "AllowedHeaders": ["*"],
     "ExposeHeaders": [
       "Content-Range",
       "Accept-Ranges",
@@ -23,4 +18,3 @@
     "MaxAgeSeconds": 86400
   }
 ]
-

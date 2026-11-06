@@ -23,7 +23,9 @@ jest.mock('@/lib/supabase/client', () => ({
     channel: mockChannel,
     removeChannel: jest.fn().mockResolvedValue(undefined as never),
     auth: {
-      getSession: jest.fn().mockResolvedValue({ data: { session: null } } as never),
+      getSession: jest
+        .fn()
+        .mockResolvedValue({ data: { session: null } } as never),
     },
     realtime: {
       setAuth: jest.fn(),
@@ -87,6 +89,8 @@ describe('useRealtimeAsset Hook & Circuit Breaker', () => {
     });
 
     expect(result.current.error).not.toBeNull();
-    expect(result.current.error?.message).toContain('exceed_cached_egress_quota');
+    expect(result.current.error?.message).toContain(
+      'exceed_cached_egress_quota'
+    );
   });
 });

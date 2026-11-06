@@ -247,14 +247,18 @@ describe('Supabase URL Utilities', () => {
     });
 
     it('resolves directly to Cloudflare R2 CDN when NEXT_PUBLIC_R2_PUBLIC_URL is set', () => {
-      process.env.NEXT_PUBLIC_R2_PUBLIC_URL = 'https://assets.portfoliodanilo.com';
-      expect(buildSupabaseStorageUrl('site-assets', 'global/logos/LogoDark.svg')).toBe(
+      process.env.NEXT_PUBLIC_R2_PUBLIC_URL =
+        'https://assets.portfoliodanilo.com';
+      expect(
+        buildSupabaseStorageUrl('site-assets', 'global/logos/LogoDark.svg')
+      ).toBe(
         'https://assets.portfoliodanilo.com/site-assets/global/logos/LogoDark.svg'
       );
     });
 
     it('migrates legacy Supabase URLs into Cloudflare R2 CDN URLs when R2 is set', () => {
-      process.env.NEXT_PUBLIC_R2_PUBLIC_URL = 'https://assets.portfoliodanilo.com';
+      process.env.NEXT_PUBLIC_R2_PUBLIC_URL =
+        'https://assets.portfoliodanilo.com';
       const legacyUrl =
         'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/video.manifesto.desk.mp4';
       expect(buildSupabaseStorageUrl('site-assets', legacyUrl)).toBe(
@@ -271,7 +275,8 @@ describe('Supabase URL Utilities', () => {
     });
 
     it('returns normalized URL without trailing slashes', () => {
-      process.env.NEXT_PUBLIC_R2_PUBLIC_URL = 'https://assets.portfoliodanilo.com///';
+      process.env.NEXT_PUBLIC_R2_PUBLIC_URL =
+        'https://assets.portfoliodanilo.com///';
       expect(getR2PublicUrl()).toBe('https://assets.portfoliodanilo.com');
     });
   });

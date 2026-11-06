@@ -168,10 +168,15 @@ const ContactForm: React.FC = () => {
 
   return (
     <m.div
-      initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+      initial={
+        prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }
+      }
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportConfig}
-      transition={{ duration: prefersReducedMotion ? 0.01 : 0.6, ease: GHOST_EASE }}
+      transition={{
+        duration: prefersReducedMotion ? 0.01 : 0.6,
+        ease: GHOST_EASE,
+      }}
       className="w-full max-w-[640px] mx-auto lg:ml-auto bg-white p-8 md:p-12 rounded-[24px] shadow-sm border border-textInverse/5"
     >
       <div className="p-0">
