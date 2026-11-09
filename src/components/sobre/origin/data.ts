@@ -17,8 +17,10 @@ import { getR2PublicAssetUrl } from '@/lib/supabase/urls';
 export type OriginAssetKey =
   (typeof SITE_ASSET_KEYS.about.originImages)[number];
 
-export const SUPABASE_ORIGIN_STORAGE_BASE =
-  getR2PublicAssetUrl('site-assets', 'about/origin/origin2');
+export const SUPABASE_ORIGIN_STORAGE_BASE = getR2PublicAssetUrl(
+  'site-assets',
+  'about/origin/origin2'
+);
 
 export type OriginLocalWebpPath =
   | '/about/origin/origin2/cena-01.webp'

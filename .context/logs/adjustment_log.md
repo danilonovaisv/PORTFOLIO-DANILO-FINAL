@@ -5,12 +5,14 @@
 **Context:** Auditoria e migração completa de caminhos de assets do Supabase Storage para Cloudflare R2 (Zero Egress CDN Architecture) no Ghost System.
 
 **Diagnóstico & Causa Raiz:**
+
 1. **Política R2 Direta vs CDN:** Subdomínio `pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev` com acesso público desativado por política do Cloudflare (403 Forbidden), enquanto o domínio customizado `https://assets.portfoliodanilo.com` está 100% ativo e configurado com cache de borda.
 2. **URLs Hardcoded em Código:** `src/lib/video-assets.ts` possuía 10 URLs completas para o Supabase Storage como parâmetros de fallback na função `resolveVideo`. Em `src/components/sobre/origin/data.ts`, `SUPABASE_ORIGIN_STORAGE_BASE` mantinha como fallback estático a URL legada do Supabase.
 3. **Mapeamento Quebrado na Seção Origem:** As chaves `about.origin_image.1` a `4` em `src/config/site-assets.json` referenciavam caminhos legados inexistentes (`about/origin/about.origin_image.X.webp`), enquanto os arquivos reais em WebP no R2 são `about/origin/origin2/cena-01.webp` a `cena-04.webp`.
 4. **Discrepância de Registros:** 134 assets armazenados em `public/supabase.storage.objects.json` não estavam indexados em `assets.json` e `src/config/site-assets.json`.
 
 **Ações Cirúrgicas Aplicadas:**
+
 1. **Helper Client-Safe R2 em `src/lib/supabase/urls.ts`:** Criada a função `getR2PublicAssetUrl(bucket, filePath)` que resolve caminhos de forma segura em runtime sem puxar o SDK da AWS para o bundle do cliente.
 2. **Refatoração de `src/lib/video-assets.ts`:** Simplificada a assinatura de `resolveVideo(path)` para receber apenas o caminho relativo e resolver via `getR2PublicAssetUrl('site-assets', path)`. Removidas todas as 10 strings de URL Supabase hardcoded.
 3. **Atualização da Seção Origem (`src/components/sobre/origin/data.ts`):** `SUPABASE_ORIGIN_STORAGE_BASE` atualizado para resolver dinamicamente via `getR2PublicAssetUrl`, apontando exclusivamente para `https://assets.portfoliodanilo.com/site-assets/about/origin/origin2`.
@@ -22,11 +24,11 @@
 5. **Relatório de Conformidade:** Gerado `.context/logs/r2-migration-verification.md` com status por categoria, verificação de CSP e zero erros críticos.
 
 **Validação & QA:**
+
 - `pnpm run typecheck`: **0 erros TypeScript**.
 - `pnpm run lint`: **0 erros ESLint**.
 - `pnpm test`: **53 test suites PASS, 391/391 testes aprovados**.
 - `git grep "umkmwbkwvulxtdodzmzf.supabase.co" src/`: **Zero URLs de storage remanescentes no código de produção**.
-
 
 ## [2026-11-02T20:15] Resiliência Supabase, Circuit Breaker e Mitigação de Egress Quota (/orchestrate /debug)
 
