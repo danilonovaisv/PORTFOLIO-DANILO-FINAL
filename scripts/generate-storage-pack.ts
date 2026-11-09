@@ -21,9 +21,13 @@ function ensureDir(dirPath: string) {
 }
 
 async function main() {
-  console.log('=================================================================');
+  console.log(
+    '================================================================='
+  );
   console.log('  Gerador de Pack de Pastas do Storage -> Cloudflare R2');
-  console.log('=================================================================');
+  console.log(
+    '================================================================='
+  );
 
   if (!fs.existsSync(ASSETS_JSON)) {
     console.error(`❌ Arquivo ${ASSETS_JSON} não encontrado.`);
@@ -36,13 +40,17 @@ async function main() {
   const list: AssetRecord[] = raw[0]?.export_json || raw;
 
   const validItems = list.filter(
-    (item) => item.file_path && !item.file_path.endsWith('.emptyFolderPlaceholder')
+    (item) =>
+      item.file_path && !item.file_path.endsWith('.emptyFolderPlaceholder')
   );
 
   console.log(`📋 Total de itens catalogados: ${validItems.length}`);
 
   // Mapear diretórios e arquivos por diretório
-  const dirMap = new Map<string, { filename: string; fullRelPath: string; url: string; bucket: string }[]>();
+  const dirMap = new Map<
+    string,
+    { filename: string; fullRelPath: string; url: string; bucket: string }[]
+  >();
 
   for (const item of validItems) {
     const bucket = item.bucket || 'site-assets';
@@ -60,7 +68,9 @@ async function main() {
     dirMap.get(relFolder)!.push({ filename, fullRelPath, url, bucket });
   }
 
-  console.log(`📁 Criando estrutura de ${dirMap.size} pastas no storage-pack/...`);
+  console.log(
+    `📁 Criando estrutura de ${dirMap.size} pastas no storage-pack/...`
+  );
 
   let alreadyPresentCount = 0;
   let missingCount = 0;
@@ -71,7 +81,9 @@ async function main() {
 
     const checklistLines: string[] = [];
     checklistLines.push(`# Checklist de Arquivos: ${folderRel}`);
-    checklistLines.push(`> Adicione os arquivos abaixo diretamente nesta pasta.\n`);
+    checklistLines.push(
+      `> Adicione os arquivos abaixo diretamente nesta pasta.\n`
+    );
     checklistLines.push(`| Status | Nome do Arquivo | Caminho Completo |`);
     checklistLines.push(`| :---: | :--- | :--- |`);
 
@@ -82,11 +94,18 @@ async function main() {
 
       const destFilePath = path.join(PACK_ROOT, f.fullRelPath);
       // Checar se já temos localmente em public/site.assets
-      const localCandidate = path.join(LOCAL_ASSETS, path.relative(f.bucket, f.fullRelPath));
+      const localCandidate = path.join(
+        LOCAL_ASSETS,
+        path.relative(f.bucket, f.fullRelPath)
+      );
 
       let existsInPack = fs.existsSync(destFilePath);
 
-      if (!existsInPack && fs.existsSync(localCandidate) && !fs.statSync(localCandidate).isDirectory()) {
+      if (
+        !existsInPack &&
+        fs.existsSync(localCandidate) &&
+        !fs.statSync(localCandidate).isDirectory()
+      ) {
         ensureDir(path.dirname(destFilePath));
         fs.copyFileSync(localCandidate, destFilePath);
         existsInPack = true;
@@ -94,14 +113,21 @@ async function main() {
 
       if (existsInPack) {
         alreadyPresentCount++;
-        checklistLines.push(`| ✅ PRESENTE | \`${f.filename}\` | \`${f.fullRelPath}\` |`);
+        checklistLines.push(
+          `| ✅ PRESENTE | \`${f.filename}\` | \`${f.fullRelPath}\` |`
+        );
       } else {
         missingCount++;
-        checklistLines.push(`| ⏳ PENDENTE | \`${f.filename}\` | \`${f.fullRelPath}\` |`);
+        checklistLines.push(
+          `| ⏳ PENDENTE | \`${f.filename}\` | \`${f.fullRelPath}\` |`
+        );
       }
     }
 
-    fs.writeFileSync(path.join(fullTargetDir, '_CHECKLIST.md'), checklistLines.join('\n'));
+    fs.writeFileSync(
+      path.join(fullTargetDir, '_CHECKLIST.md'),
+      checklistLines.join('\n')
+    );
   }
 
   // Também verificar se há arquivos locais em public/site.assets que não estavam em assets.json
@@ -166,12 +192,16 @@ Este diretório contém **toda a estrutura de pastas e projetos do Supabase Stor
 
   fs.writeFileSync(path.join(PACK_ROOT, 'README.md'), readmeContent);
 
-  console.log('\n=================================================================');
+  console.log(
+    '\n================================================================='
+  );
   console.log(`✅ Pack gerado com sucesso em: ${PACK_ROOT}`);
   console.log(`📁 ${dirMap.size} pastas criadas`);
   console.log(`📦 ${alreadyPresentCount} arquivos já populados no pack`);
   console.log(`⏳ ${missingCount} arquivos pendentes`);
-  console.log('=================================================================');
+  console.log(
+    '================================================================='
+  );
 }
 
 main().catch(console.error);

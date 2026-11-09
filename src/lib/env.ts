@@ -51,9 +51,7 @@ const processEnv = {
   NEXT_PUBLIC_SITE_URL:
     process.env.NEXT_PUBLIC_SITE_URL || 'https://portfoliodanilo.com',
   R2_ACCOUNT_ID:
-    process.env.R2_ACCOUNT_ID ||
-    process.env.CLOUDFLARE_ACCOUNT_ID ||
-    undefined,
+    process.env.R2_ACCOUNT_ID || process.env.CLOUDFLARE_ACCOUNT_ID || undefined,
   R2_ACCESS_KEY_ID: process.env.R2_ACCESS_KEY_ID || undefined,
   R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY || undefined,
   R2_BUCKET_NAME: process.env.R2_BUCKET_NAME || 'portfolio-assets',

@@ -4,6 +4,7 @@ import { createStaticClient } from '@/lib/supabase/static';
 import { listProjects } from '@/lib/supabase/queries/projects';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
 import { getCanonicalSiteUrl } from '@/lib/seo';
+import { logger } from '@/lib/logger';
 
 export const dynamic = 'force-static';
 
@@ -62,7 +63,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     projectUrls = [...landingPageUrls, ...filteredProjectUrls];
   } catch (error) {
-    console.warn(
+    logger.warn(
       'Sitemap: Error fetching data from Supabase, using fallback.',
       error
     );

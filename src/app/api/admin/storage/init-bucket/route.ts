@@ -30,8 +30,7 @@ export async function POST(_request: Request) {
     return NextResponse.json(
       {
         success: true,
-        message:
-          `Cloudflare R2 Bucket '${health.bucket}' conectado e operacional (Zero Egress).`,
+        message: `Cloudflare R2 Bucket '${health.bucket}' conectado e operacional (Zero Egress).`,
         data: health,
       },
       { status: 200 }

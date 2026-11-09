@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { logger } from '@/lib/logger';
 
 export default function Error({
   error,
@@ -29,7 +30,7 @@ export default function Error({
           keepalive: true,
         });
       } catch (err) {
-        console.warn('Falha ao enviar erro para /api/report-error:', err);
+        logger.warn('Falha ao enviar erro para /api/report-error:', err);
       }
     };
 

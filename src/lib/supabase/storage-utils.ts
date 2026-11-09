@@ -1,8 +1,4 @@
-import {
-  listFromR2,
-  moveInR2,
-  deleteManyFromR2,
-} from '@/lib/storage/r2';
+import { listFromR2, moveInR2, deleteManyFromR2 } from '@/lib/storage/r2';
 
 /**
  * List all files in Cloudflare R2 under a given bucket and prefix.
@@ -16,7 +12,10 @@ export async function listAllFiles(
   try {
     return await listFromR2({ bucket, prefix });
   } catch (err) {
-    console.error(`[storage-utils] Error listing files from R2 (${bucket}/${prefix}):`, err);
+    console.error(
+      `[storage-utils] Error listing files from R2 (${bucket}/${prefix}):`,
+      err
+    );
     return [];
   }
 }

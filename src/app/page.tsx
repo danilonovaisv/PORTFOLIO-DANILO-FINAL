@@ -28,6 +28,7 @@ import { buildFallbackProjects } from '@/lib/portfolio/fallbacks';
 import JsonLd from '@/components/ui/JsonLd';
 import { SITE_ASSET_KEYS, SITE_ASSET_PRELOADS } from '@/config/site-assets';
 import { shuffleProjects } from '@/lib/portfolio/shuffle-projects';
+import { logger } from '@/lib/logger';
 
 import {
   normalizeMetaDescription,
@@ -119,7 +120,7 @@ export default async function HomePage() {
     featuredProjects = shuffleProjects(mapped, deterministicSeed);
 
     if (featuredProjects.length === 0) {
-      console.warn('[Home] No projects returned, using fallback projects.');
+      logger.warn('[Home] No projects returned, using fallback projects.');
       featuredProjects = shuffleProjects(
         buildFallbackProjects(),
         deterministicSeed
@@ -133,7 +134,7 @@ export default async function HomePage() {
         : cause
           ? String(cause)
           : undefined;
-    console.error(
+    logger.error(
       'Error fetching projects:',
       error?.message || error?.constructor?.name || error,
       causeMsg ? `(cause: ${causeMsg})` : ''

@@ -27,7 +27,9 @@ const accessKeyId = process.env.R2_ACCESS_KEY_ID;
 const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
 
 if (!accessKeyId || !secretAccessKey) {
-  console.error('❌ R2_ACCESS_KEY_ID ou R2_SECRET_ACCESS_KEY não encontrados em .env.local');
+  console.error(
+    '❌ R2_ACCESS_KEY_ID ou R2_SECRET_ACCESS_KEY não encontrados em .env.local'
+  );
   process.exit(1);
 }
 
@@ -57,7 +59,10 @@ const MIME_MAP: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
 };
 
-function getFilesRecursively(dir: string, baseDir: string): { fullPath: string; relPath: string }[] {
+function getFilesRecursively(
+  dir: string,
+  baseDir: string
+): { fullPath: string; relPath: string }[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   let results: { fullPath: string; relPath: string }[] = [];
 
@@ -78,12 +83,20 @@ function getFilesRecursively(dir: string, baseDir: string): { fullPath: string; 
 async function uploadPack() {
   const isDryRun = process.argv.includes('--dry-run');
 
-  console.log('=================================================================');
-  console.log(`  Upload Storage Pack -> Cloudflare R2 (portfolio-assets)${isDryRun ? ' [DRY-RUN]' : ''}`);
-  console.log('=================================================================');
+  console.log(
+    '================================================================='
+  );
+  console.log(
+    `  Upload Storage Pack -> Cloudflare R2 (portfolio-assets)${isDryRun ? ' [DRY-RUN]' : ''}`
+  );
+  console.log(
+    '================================================================='
+  );
   console.log(`Endpoint: https://${accountId}.r2.cloudflarestorage.com`);
   console.log(`Bucket:   ${bucketName}`);
-  console.log('=================================================================');
+  console.log(
+    '================================================================='
+  );
 
   const packDir = path.resolve(process.cwd(), 'storage-pack');
   if (!fs.existsSync(packDir)) {
@@ -96,8 +109,12 @@ async function uploadPack() {
   console.log(`📦 Encontrados ${files.length} arquivos de mídia para envio.\n`);
 
   if (files.length === 0) {
-    console.log('ℹ️  Nenhum arquivo de mídia encontrado no storage-pack/ ainda.');
-    console.log('👉 Adicione seus arquivos nas pastas de storage-pack/ e execute novamente.');
+    console.log(
+      'ℹ️  Nenhum arquivo de mídia encontrado no storage-pack/ ainda.'
+    );
+    console.log(
+      '👉 Adicione seus arquivos nas pastas de storage-pack/ e execute novamente.'
+    );
     return;
   }
 
@@ -115,7 +132,9 @@ async function uploadPack() {
         const contentType = MIME_MAP[ext] || 'application/octet-stream';
 
         if (isDryRun) {
-          console.log(`[DRY-RUN ${fileIndex}/${files.length}] Seria enviado: ${key} (${contentType})`);
+          console.log(
+            `[DRY-RUN ${fileIndex}/${files.length}] Seria enviado: ${key} (${contentType})`
+          );
           success++;
           return;
         }
@@ -132,18 +151,29 @@ async function uploadPack() {
             })
           );
           success++;
-          console.log(`[${fileIndex}/${files.length}] ✅ Enviado: ${key} (${contentType})`);
+          console.log(
+            `[${fileIndex}/${files.length}] ✅ Enviado: ${key} (${contentType})`
+          );
         } catch (err: any) {
           failed++;
-          console.error(`[${fileIndex}/${files.length}] ❌ Erro ao enviar ${key}:`, err.message);
+          console.error(
+            `[${fileIndex}/${files.length}] ❌ Erro ao enviar ${key}:`,
+            err.message
+          );
         }
       })
     );
   }
 
-  console.log('\n=================================================================');
-  console.log(`🏁 Concluído: ${success} arquivos processados, ${failed} falhas.`);
-  console.log('=================================================================');
+  console.log(
+    '\n================================================================='
+  );
+  console.log(
+    `🏁 Concluído: ${success} arquivos processados, ${failed} falhas.`
+  );
+  console.log(
+    '================================================================='
+  );
 }
 
 uploadPack().catch(console.error);

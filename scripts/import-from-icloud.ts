@@ -28,32 +28,89 @@ const IMAGE_EXTS = new Set(['.webp', '.png', '.jpg', '.jpeg', '.svg', '.gif']);
 const ROUTE_RULES: { icloudFolder: string; destPrefix: string }[] = [
   { icloudFolder: 'NESTLE', destPrefix: 'site-assets/landing-pages/nestle' },
   { icloudFolder: 'NESTLE', destPrefix: 'portfolio-media/nestle' },
-  { icloudFolder: 'SWIFT/SWIF-WEEK', destPrefix: 'site-assets/landing-pages/swift-week' },
-  { icloudFolder: 'SWIFT/SWIF-WEEK', destPrefix: 'portfolio-media/swift/swift-week' },
+  {
+    icloudFolder: 'SWIFT/SWIF-WEEK',
+    destPrefix: 'site-assets/landing-pages/swift-week',
+  },
+  {
+    icloudFolder: 'SWIFT/SWIF-WEEK',
+    destPrefix: 'portfolio-media/swift/swift-week',
+  },
   { icloudFolder: 'SWIFT', destPrefix: 'site-assets/landing-pages/swift' },
   { icloudFolder: 'SWIFT', destPrefix: 'portfolio-media/swift' },
   { icloudFolder: 'TCOTTON', destPrefix: 'site-assets/landing-pages/tcotton' },
   { icloudFolder: 'TCOTTON', destPrefix: 'portfolio-media/tcotton' },
   { icloudFolder: 'TOPZ', destPrefix: 'site-assets/landing-pages/topz' },
   { icloudFolder: 'TOPZ', destPrefix: 'portfolio-media/topz' },
-  { icloudFolder: 'SITE-ANTISSEMITISMO', destPrefix: 'site-assets/landing-pages/conid' },
+  {
+    icloudFolder: 'SITE-ANTISSEMITISMO',
+    destPrefix: 'site-assets/landing-pages/conid',
+  },
   { icloudFolder: 'SITE-ANTISSEMITISMO', destPrefix: 'portfolio-media/conib' },
-  { icloudFolder: 'PRONTOS-PARA-POST/ANIMALE', destPrefix: 'site-assets/landing-pages/animale' },
-  { icloudFolder: 'PRONTOS-PARA-POST/ANIMALE', destPrefix: 'portfolio-media/animale' },
-  { icloudFolder: 'PRONTOS-PARA-POST/CBRE', destPrefix: 'site-assets/landing-pages/cbre' },
-  { icloudFolder: 'PRONTOS-PARA-POST/CBRE', destPrefix: 'portfolio-media/cbre' },
-  { icloudFolder: 'PRONTOS-PARA-POST/DNTRO', destPrefix: 'site-assets/landing-pages/dntro' },
-  { icloudFolder: 'PRONTOS-PARA-POST/DNTRO', destPrefix: 'portfolio-media/dntro' },
-  { icloudFolder: 'PRONTOS-PARA-POST/DOLCE GUSTO', destPrefix: 'portfolio-media/dolce-gusto' },
-  { icloudFolder: 'PRONTOS-PARA-POST/EUDORA', destPrefix: 'portfolio-media/eudora' },
-  { icloudFolder: 'PRONTOS-PARA-POST/GLAD', destPrefix: 'site-assets/landing-pages/glad' },
-  { icloudFolder: 'PRONTOS-PARA-POST/GLAD', destPrefix: 'portfolio-media/down-qu-mica' },
-  { icloudFolder: 'PRONTOS-PARA-POST/HELLMAS', destPrefix: 'portfolio-media/hellmann-s' },
-  { icloudFolder: 'PRONTOS-PARA-POST/HONDA', destPrefix: 'portfolio-media/civic' },
-  { icloudFolder: 'PRONTOS-PARA-POST/MAPFRE', destPrefix: 'site-assets/landing-pages/mapfre' },
-  { icloudFolder: 'PRONTOS-PARA-POST/MAPFRE', destPrefix: 'portfolio-media/fundaci-n-mapfre' },
-  { icloudFolder: 'PRONTOS-PARA-POST/MERCADO PAGO', destPrefix: 'portfolio-media/mercado-livre' },
-  { icloudFolder: 'PRONTOS-PARA-POST/AMBEV', destPrefix: 'portfolio-media/bees' },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/ANIMALE',
+    destPrefix: 'site-assets/landing-pages/animale',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/ANIMALE',
+    destPrefix: 'portfolio-media/animale',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/CBRE',
+    destPrefix: 'site-assets/landing-pages/cbre',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/CBRE',
+    destPrefix: 'portfolio-media/cbre',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/DNTRO',
+    destPrefix: 'site-assets/landing-pages/dntro',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/DNTRO',
+    destPrefix: 'portfolio-media/dntro',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/DOLCE GUSTO',
+    destPrefix: 'portfolio-media/dolce-gusto',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/EUDORA',
+    destPrefix: 'portfolio-media/eudora',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/GLAD',
+    destPrefix: 'site-assets/landing-pages/glad',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/GLAD',
+    destPrefix: 'portfolio-media/down-qu-mica',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/HELLMAS',
+    destPrefix: 'portfolio-media/hellmann-s',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/HONDA',
+    destPrefix: 'portfolio-media/civic',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/MAPFRE',
+    destPrefix: 'site-assets/landing-pages/mapfre',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/MAPFRE',
+    destPrefix: 'portfolio-media/fundaci-n-mapfre',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/MERCADO PAGO',
+    destPrefix: 'portfolio-media/mercado-livre',
+  },
+  {
+    icloudFolder: 'PRONTOS-PARA-POST/AMBEV',
+    destPrefix: 'portfolio-media/bees',
+  },
   { icloudFolder: 'ZE-DELIVERY', destPrefix: 'site-assets/clients' },
   { icloudFolder: 'ZE-DELIVERY', destPrefix: 'portfolio-media/ze-delivery' },
 ];
@@ -74,9 +131,13 @@ interface Match {
 }
 
 async function runImport() {
-  console.log('=================================================================');
+  console.log(
+    '================================================================='
+  );
   console.log('  Importador Automático: iCloud -> Storage Pack');
-  console.log('=================================================================');
+  console.log(
+    '================================================================='
+  );
 
   if (!fs.existsSync(ICLOUD_BASE)) {
     console.error(`❌ Diretório iCloud não encontrado: ${ICLOUD_BASE}`);
@@ -92,7 +153,12 @@ async function runImport() {
 
   // 1. Escanear arquivos no iCloud
   console.log('🔍 Indexando arquivos no iCloud...');
-  const mediaFiles: { fullPath: string; fileName: string; relPath: string; ext: string }[] = [];
+  const mediaFiles: {
+    fullPath: string;
+    fileName: string;
+    relPath: string;
+    ext: string;
+  }[] = [];
 
   function scan(dir: string) {
     try {
@@ -122,7 +188,9 @@ async function runImport() {
   }
 
   scan(ICLOUD_BASE);
-  console.log(`📦 Encontrados ${mediaFiles.length} arquivos de mídia no iCloud.`);
+  console.log(
+    `📦 Encontrados ${mediaFiles.length} arquivos de mídia no iCloud.`
+  );
 
   const matches: Match[] = [];
   const resolvedKeys = new Set<string>();
@@ -141,7 +209,9 @@ async function runImport() {
       continue;
     }
 
-    const matchingRules = ROUTE_RULES.filter((r) => destKey.startsWith(r.destPrefix));
+    const matchingRules = ROUTE_RULES.filter((r) =>
+      destKey.startsWith(r.destPrefix)
+    );
 
     let candidates = mediaFiles;
     if (matchingRules.length > 0) {
@@ -172,7 +242,9 @@ async function runImport() {
     }
 
     // 2. Busca por Hash (thumb-hellmanns-16-9.d08e71a295035fae.webp -> thumb-hellmanns-16-9)
-    const hashMatch = destBaseName.match(/^(.+)\.[a-f0-9]{8,16}\.([a-z0-9]+)$/i);
+    const hashMatch = destBaseName.match(
+      /^(.+)\.[a-f0-9]{8,16}\.([a-z0-9]+)$/i
+    );
     if (hashMatch) {
       const baseNameWithoutHash = hashMatch[1];
       const ext = hashMatch[2];
@@ -203,7 +275,9 @@ async function runImport() {
     if (matchingRules.length > 0) {
       const destNorm = normalize(path.basename(destBaseName, destExt));
       const normalizedCandidate = candidates.find((c) => {
-        const cNorm = normalize(path.basename(c.fileName, path.extname(c.fileName)));
+        const cNorm = normalize(
+          path.basename(c.fileName, path.extname(c.fileName))
+        );
         return cNorm === destNorm;
       });
 
@@ -242,18 +316,30 @@ async function runImport() {
     }
   }
 
-  console.log(`\n=================================================================`);
+  console.log(
+    `\n=================================================================`
+  );
   console.log(`📊 Balanço do Mapeamento:`);
-  console.log(`  - Já existiam no storage-pack: ${resolvedKeys.size - matches.length}`);
+  console.log(
+    `  - Já existiam no storage-pack: ${resolvedKeys.size - matches.length}`
+  );
   console.log(`  - Novos encontrados no iCloud:  ${matches.length}`);
-  console.log(`  - Total Coberto:               ${resolvedKeys.size} de ${list.length}`);
-  console.log(`  - Pendentes restantes:         ${list.length - resolvedKeys.size}`);
-  console.log(`=================================================================\n`);
+  console.log(
+    `  - Total Coberto:               ${resolvedKeys.size} de ${list.length}`
+  );
+  console.log(
+    `  - Pendentes restantes:         ${list.length - resolvedKeys.size}`
+  );
+  console.log(
+    `=================================================================\n`
+  );
 
   const isExecute = process.argv.includes('--execute');
 
   if (isExecute && matches.length > 0) {
-    console.log(`🚀 Copiando e convertendo ${matches.length} arquivos para storage-pack/...`);
+    console.log(
+      `🚀 Copiando e convertendo ${matches.length} arquivos para storage-pack/...`
+    );
     let count = 0;
 
     for (const m of matches) {
@@ -266,20 +352,28 @@ async function runImport() {
       const destExt = path.extname(m.destFile).toLowerCase();
 
       try {
-        if (destExt === '.webp' && srcExt !== '.webp' && IMAGE_EXTS.has(srcExt)) {
+        if (
+          destExt === '.webp' &&
+          srcExt !== '.webp' &&
+          IMAGE_EXTS.has(srcExt)
+        ) {
           // Converter JPG/PNG para WebP via Sharp
           await sharp(m.sourceFile).webp({ quality: 85 }).toFile(m.destFile);
         } else {
           fs.copyFileSync(m.sourceFile, m.destFile);
         }
         count++;
-        process.stdout.write(`\rCopiados: [${count}/${matches.length}] ${path.basename(m.destFile)}`);
+        process.stdout.write(
+          `\rCopiados: [${count}/${matches.length}] ${path.basename(m.destFile)}`
+        );
       } catch (err: any) {
         console.error(`\n❌ Erro ao copiar ${m.destKey}:`, err.message);
       }
     }
 
-    console.log(`\n\n✅ Sucesso! ${count} arquivos integrados com perfeição ao storage-pack.`);
+    console.log(
+      `\n\n✅ Sucesso! ${count} arquivos integrados com perfeição ao storage-pack.`
+    );
   } else if (!isExecute) {
     console.log('💡 Para aplicar a cópia física dos arquivos, execute:');
     console.log('   pnpm exec tsx scripts/import-from-icloud.ts --execute\n');

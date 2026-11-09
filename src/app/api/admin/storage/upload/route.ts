@@ -155,7 +155,9 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error: 'SYSTEM_ERR: R2_STORAGE_UPLOAD_ERROR',
-          message: r2Err?.message || 'The Cloudflare R2 storage provider rejected the upload.',
+          message:
+            r2Err?.message ||
+            'The Cloudflare R2 storage provider rejected the upload.',
           requestId,
         },
         { status: 500 }

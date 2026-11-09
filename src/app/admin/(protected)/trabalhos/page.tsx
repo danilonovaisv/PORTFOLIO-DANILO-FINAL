@@ -323,7 +323,7 @@ function Filters({
         <div className="md:col-span-5 flex items-end gap-2">
           <button
             type="submit"
-            className="flex-1 rounded-lg bg-white/5 border border-white/5 py-2.5 font-mono text-[10px] uppercase tracking-widest text-white transition-all hover:bg-white/10 active:scale-[0.98]"
+            className="flex-1 rounded-lg bg-white/5 border border-white/5 py-2.5 font-mono text-[10px] uppercase tracking-widest text-white transition-all hover:bg-white/10 active:opacity-90"
           >
             Execute_Query
           </button>

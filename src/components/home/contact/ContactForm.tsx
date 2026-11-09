@@ -313,7 +313,7 @@ const ContactForm: React.FC = () => {
               type="submit"
               disabled={isSubmitting}
               whileHover={prefersReducedMotion ? undefined : { y: -2 }}
-              whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+              whileTap={prefersReducedMotion ? undefined : { opacity: 0.9 }}
               transition={{ type: 'tween', ease: GHOST_EASE, duration: 0.16 }}
               className="w-full h-[64px] md:h-[72px] flex items-center justify-center gap-3 bg-bluePrimary text-white font-bold rounded-xl transition-colors duration-fast disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 tracking-tight text-lg shadow-[0_10px_30px_-10px_rgba(0,72,255,0.3)] will-change-transform select-none"
             >

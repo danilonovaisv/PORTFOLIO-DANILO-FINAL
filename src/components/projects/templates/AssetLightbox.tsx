@@ -99,6 +99,7 @@ export function AssetLightbox({ asset, onClose }: AssetLightboxProps) {
           role="dialog"
           aria-modal="true"
           aria-label="Pré-visualização ampliada do asset"
+          data-lenis-prevent
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) onClose();
           }}
@@ -108,15 +109,14 @@ export function AssetLightbox({ asset, onClose }: AssetLightboxProps) {
         >
           <m.div
             ref={panelRef}
-            initial={{ opacity: 0, scale: 0.96 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{
               opacity: 1,
-              scale: 1,
               y: dragOffset,
             }}
-            exit={{ opacity: 0, scale: 0.96 }}
+            exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.25, ease: GHOST_EASE }}
-            className="relative flex max-h-[92dvh] w-full max-w-6xl flex-col overflow-hidden border border-white/15 bg-black transition-transform will-change-transform"
+            className="relative flex max-h-[92dvh] w-full max-w-6xl flex-col overflow-hidden border border-white/15 bg-black transition-transform will-change-transform overscroll-contain"
           >
             <button
               ref={closeButtonRef}

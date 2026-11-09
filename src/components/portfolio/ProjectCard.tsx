@@ -147,7 +147,7 @@ export const ProjectCard = React.memo(function ProjectCard({
       onClick={handleClick}
       aria-haspopup={isModalDestination ? 'dialog' : undefined}
       aria-labelledby={headingId}
-      whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+      whileTap={reduceMotion ? undefined : { opacity: 0.9 }}
       className={cn(
         baseCardClasses,
         sizeClasses[size],

@@ -25,7 +25,9 @@ const accessKeyId = process.env.R2_ACCESS_KEY_ID;
 const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
 
 if (!accessKeyId || !secretAccessKey) {
-  console.error('❌ R2_ACCESS_KEY_ID ou R2_SECRET_ACCESS_KEY não configurados em .env.local');
+  console.error(
+    '❌ R2_ACCESS_KEY_ID ou R2_SECRET_ACCESS_KEY não configurados em .env.local'
+  );
   process.exit(1);
 }
 
@@ -56,12 +58,18 @@ const MIME_MAP: Record<string, string> = {
 };
 
 async function syncAssets() {
-  console.log('=================================================================');
+  console.log(
+    '================================================================='
+  );
   console.log('  Sincronizador S3: Supabase Storage -> Cloudflare R2');
-  console.log('=================================================================');
+  console.log(
+    '================================================================='
+  );
   console.log(`Endpoint R2: https://${accountId}.r2.cloudflarestorage.com`);
   console.log(`R2 Bucket:   ${bucketName}`);
-  console.log('=================================================================');
+  console.log(
+    '================================================================='
+  );
 
   const assetsFilePath = path.resolve(process.cwd(), 'assets.json');
   if (!fs.existsSync(assetsFilePath)) {
@@ -94,7 +102,11 @@ async function syncAssets() {
           `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/${bucket}/${item.file_path}`;
 
         // 1. Verificar se existe cópia local antes de tentar rede
-        const localCandidate = path.resolve(process.cwd(), 'public/site.assets', item.file_path);
+        const localCandidate = path.resolve(
+          process.cwd(),
+          'public/site.assets',
+          item.file_path
+        );
         let buffer: Buffer | null = null;
         let contentType: string = 'application/octet-stream';
 
@@ -112,7 +124,8 @@ async function syncAssets() {
             }
             const ab = await res.arrayBuffer();
             buffer = Buffer.from(ab);
-            contentType = res.headers.get('content-type') || 'application/octet-stream';
+            contentType =
+              res.headers.get('content-type') || 'application/octet-stream';
           } catch (fetchErr: any) {
             console.error(`[FETCH ERROR] ${sourceUrl}:`, fetchErr.message);
             failCount++;
@@ -140,10 +153,14 @@ async function syncAssets() {
     );
   }
 
-  console.log('\n=================================================================');
+  console.log(
+    '\n================================================================='
+  );
   console.log(`✅ Concluídos com sucesso: ${successCount}`);
   console.log(`⚠️  Falhas ou bloqueados pelo Supabase (402): ${failCount}`);
-  console.log('=================================================================');
+  console.log(
+    '================================================================='
+  );
 }
 
 syncAssets().catch(console.error);

@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
+import { logger } from '@/lib/logger';
 
 interface ErrorProps {
   error: Error & { digest?: string };
@@ -11,7 +12,7 @@ interface ErrorProps {
 export default function SobreError({ error, reset }: ErrorProps) {
   useEffect(() => {
     // Log técnico preservado exclusivamente para telemetria/observabilidade
-    console.error('SobreRouteErrorBoundary:', error);
+    logger.error('SobreRouteErrorBoundary:', error);
   }, [error]);
 
   return (

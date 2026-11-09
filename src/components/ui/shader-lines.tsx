@@ -127,15 +127,25 @@ function ShaderAnimationInternal({ opacity, className }: ShaderAnimationProps) {
             }
           }
    
-          // Blue -> Purple -> Blue gradient mapping (Awwwards design signature)
-          vec3 blue1 = vec3(0.15, 0.40, 1.00);
-          vec3 purple = vec3(0.70, 0.15, 1.00);
-          vec3 blue2 = vec3(0.10, 0.30, 0.95);
-   
+          // Blue -> Ghost Cyan -> Blue gradient mapping (Ghost Design System)
+          vec3 ghostBlue = vec3(0.00, 0.282, 1.00);
+          vec3 ghostCyan = vec3(0.31, 0.902, 1.00);
+          vec3 deepBlue = vec3(0.00, 0.15, 0.75);
+
           float xNorm = (uv.x + 1.0) * 0.5;
-          vec3 gradColor = mix(blue1, purple, smoothstep(0.0, 0.5, xNorm));
-          gradColor = mix(gradColor, blue2, smoothstep(0.5, 1.0, xNorm));
-          gradColor = mix(gradColor, vec3(0.45, 0.20, 0.90), sin(time * 0.25) * 0.15 + 0.1);
+          vec3 gradColor = mix(ghostBlue, ghostCyan, smoothstep(0.0, 0.5, xNorm));
+          gradColor = mix(gradColor, deepBlue, smoothstep(0.5, 1.0, xNorm));
+          gradColor = mix(gradColor, ghostBlue, sin(time * 0.25) * 0.15 + 0.1);
+
+
+
+
+
+
+
+
+
+
    
           gl_FragColor = vec4(clamp(gradColor * lineIntensity, 0.0, 1.0), 1.0);
         }
