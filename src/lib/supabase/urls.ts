@@ -39,6 +39,28 @@ export function getR2PublicUrl(): string | null {
   return null;
 }
 
+/**
+ * Get public asset URL directly from Cloudflare R2 CDN (Zero Egress).
+ * Client-safe helper without server-only SDK dependencies.
+ */
+export function getR2PublicAssetUrl(bucket: string, filePath: string): string {
+  const r2Base = getR2PublicUrl() || 'https://assets.portfoliodanilo.com';
+  const cleanBucket = bucket.replace(/^\/+|\/+$/g, '');
+  const normalized =
+    normalizeStoragePath(filePath, cleanBucket) || filePath.replace(/^\/+/, '');
+  const encodedPath = normalized
+    .split('/')
+    .map((seg) => {
+      try {
+        return encodeURIComponent(decodeURIComponent(seg));
+      } catch {
+        return encodeURIComponent(seg);
+      }
+    })
+    .join('/');
+  return `${r2Base.replace(/\/+$/, '')}/${cleanBucket}/${encodedPath}`;
+}
+
 export function normalizeStoragePath(
   filePath?: string | null,
   bucket?: string

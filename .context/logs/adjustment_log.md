@@ -1,5 +1,33 @@
 # Adjustment Log
 
+## [2026-11-09T20:10] Migração Cloudflare R2, Unificação de Registros e Desacoplamento Supabase Storage (/orchestrate /plan)
+
+**Context:** Auditoria e migração completa de caminhos de assets do Supabase Storage para Cloudflare R2 (Zero Egress CDN Architecture) no Ghost System.
+
+**Diagnóstico & Causa Raiz:**
+1. **Política R2 Direta vs CDN:** Subdomínio `pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev` com acesso público desativado por política do Cloudflare (403 Forbidden), enquanto o domínio customizado `https://assets.portfoliodanilo.com` está 100% ativo e configurado com cache de borda.
+2. **URLs Hardcoded em Código:** `src/lib/video-assets.ts` possuía 10 URLs completas para o Supabase Storage como parâmetros de fallback na função `resolveVideo`. Em `src/components/sobre/origin/data.ts`, `SUPABASE_ORIGIN_STORAGE_BASE` mantinha como fallback estático a URL legada do Supabase.
+3. **Mapeamento Quebrado na Seção Origem:** As chaves `about.origin_image.1` a `4` em `src/config/site-assets.json` referenciavam caminhos legados inexistentes (`about/origin/about.origin_image.X.webp`), enquanto os arquivos reais em WebP no R2 são `about/origin/origin2/cena-01.webp` a `cena-04.webp`.
+4. **Discrepância de Registros:** 134 assets armazenados em `public/supabase.storage.objects.json` não estavam indexados em `assets.json` e `src/config/site-assets.json`.
+
+**Ações Cirúrgicas Aplicadas:**
+1. **Helper Client-Safe R2 em `src/lib/supabase/urls.ts`:** Criada a função `getR2PublicAssetUrl(bucket, filePath)` que resolve caminhos de forma segura em runtime sem puxar o SDK da AWS para o bundle do cliente.
+2. **Refatoração de `src/lib/video-assets.ts`:** Simplificada a assinatura de `resolveVideo(path)` para receber apenas o caminho relativo e resolver via `getR2PublicAssetUrl('site-assets', path)`. Removidas todas as 10 strings de URL Supabase hardcoded.
+3. **Atualização da Seção Origem (`src/components/sobre/origin/data.ts`):** `SUPABASE_ORIGIN_STORAGE_BASE` atualizado para resolver dinamicamente via `getR2PublicAssetUrl`, apontando exclusivamente para `https://assets.portfoliodanilo.com/site-assets/about/origin/origin2`.
+4. **Sincronização dos 4 Catálogos de Assets (`assets.json`):**
+   - Incorporados os 134 assets faltantes de `public/supabase.storage.objects.json` em `assets.json` e `src/config/site-assets.json`.
+   - Todas as 857 entradas tiveram `file_url` atualizadas para o domínio CDN `https://assets.portfoliodanilo.com/`.
+   - Sincronizados `docs/assets.json`, `.context/assets.json` e `.context/DOCS-PORTFOLIO-PAGES/04-ADMIN/assets-site.json` para paridade exata de contagem (857 itens).
+   - Atualizado `public/supabase.storage.objects.json` (549 itens com URLs apontando para R2 CDN).
+5. **Relatório de Conformidade:** Gerado `.context/logs/r2-migration-verification.md` com status por categoria, verificação de CSP e zero erros críticos.
+
+**Validação & QA:**
+- `pnpm run typecheck`: **0 erros TypeScript**.
+- `pnpm run lint`: **0 erros ESLint**.
+- `pnpm test`: **53 test suites PASS, 391/391 testes aprovados**.
+- `git grep "umkmwbkwvulxtdodzmzf.supabase.co" src/`: **Zero URLs de storage remanescentes no código de produção**.
+
+
 ## [2026-11-02T20:15] Resiliência Supabase, Circuit Breaker e Mitigação de Egress Quota (/orchestrate /debug)
 
 **Context:** Diagnóstico forense e mitigação da tempestade de erros e travamento do terminal `dev` (PID 33487):
@@ -2997,3 +3025,19 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
   - Unificado e tornado canônico o workflow `/deploy` (`.agents/workflows/deploy.md`) com SSR Guardrail e preflight Firebase/Supabase.
   - Modernizado `/debug` (`.agents/workflows/debug.md`) alinhado à metodologia científica de causa raiz.
 - **Manifest & Architecture Sync:** Atualizados `.agents/AGENTS_MANIFEST.md` e `.agents/ARCHITECTURE.md` com métricas exatas e verificadas.
+
+## [2026-11-09] [Email Migration & DNS Failover Cloudflare + Zoho]
+
+- **Objetivo:** Migração do e-mail institucional `danilo@portfoliodanilo.com` de Google Workspace para Cloudflare Email Routing + Zoho Mail com failover de alta disponibilidade.
+- **Cloudflare Email Routing:**
+  - Habilitado na zona `portfoliodanilo.com` via API (`POST /zones/{zone_id}/email/routing/enable`).
+  - Criada regra de roteamento ativo: `danilo@portfoliodanilo.com` ➔ `dannovaisv@gmail.com` (`id: d6f30141a976454a943f4fae082e8df4`).
+  - Adicionado registro DKIM do Cloudflare Email Routing (`cf2024-1._domainkey.portfoliodanilo.com`).
+- **Zoho Mail & Autenticação DNS:**
+  - SPF unificado ativo: `v=spf1 include:_spf.mx.cloudflare.net include:zoho.com ~all`.
+  - DKIM do Zoho Mail configurado e propagado: `zmail._domainkey.portfoliodanilo.com`.
+  - Verificação do Zoho preservada: `zoho-verification=zb47636580.zmverify.zoho.com`.
+- **Topologia de Failover MX:**
+  - Primário (Cloudflare): `route1.mx.cloudflare.net` (10), `route2.mx.cloudflare.net` (20), `route3.mx.cloudflare.net` (30).
+  - Secundário / Backup (Zoho Mail): `mx.zoho.com` (40), `mx2.zoho.com` (50), `mx3.zoho.com` (60).
+  - Registros antigos do Google Workspace (`smtp.google.com`) descontinuados sem downtime.

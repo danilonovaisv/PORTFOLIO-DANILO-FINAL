@@ -1,0 +1,533 @@
+{
+  "summary": {
+    "totalSupabase": 545,
+    "totalProject": 415,
+    "onlyInSupabase": 134,
+    "onlyInProject": 4,
+    "r2BaseUrl": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev"
+  },
+  "onlyInSupabase": [
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/master-v3-logo-81f7590b-b653-42d5-b448-11b46767affe.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/master-v3-logo-81f7590b-b653-42d5-b448-11b46767affe.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/nestle/Receitinhas-moca.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/nestle/Receitinhas-moca.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/master-v3-grid-block-1789478978857-9-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/master-v3-grid-block-1789478978857-9-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/master-v3-grid-block-1789478959543-8-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/master-v3-grid-block-1789478959543-8-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/master-v3-grid-block-1789647656378-12-m2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/master-v3-grid-block-1789647656378-12-m2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "images:videos/404.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/images:videos/404.webp"
+    },
+    {
+      "bucket": "portfolio-media",
+      "file_path": "nestl/brand-campaigns/assets-do-projeto/cover-16x9/thumb-nestle-16-9.63a36567aa9ee520.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/portfolio-media/nestl/brand-campaigns/assets-do-projeto/cover-16x9/thumb-nestle-16-9.63a36567aa9ee520.webp"
+    },
+    {
+      "bucket": "portfolio-media",
+      "file_path": "nestl/brand-campaigns/assets-do-projeto/cover-1x1/thumb-nestle-1-1.0e1ef137fb2ceb32.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/portfolio-media/nestl/brand-campaigns/assets-do-projeto/cover-1x1/thumb-nestle-1-1.0e1ef137fb2ceb32.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/anima-03.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/anima-03.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/master-v3-grid-block-1789478947596-7-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/master-v3-grid-block-1789478947596-7-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/master-v3-grid-block-1789478942076-6-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/master-v3-grid-block-1789478942076-6-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/master-v3-grid-block-1789478752041-4-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/master-v3-grid-block-1789478752041-4-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/master-v3-grid-block-1789478481308-0-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/master-v3-grid-block-1789478481308-0-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/master-v3-grid-block-1789478754524-5-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/master-v3-grid-block-1789478754524-5-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/master-v3-grid-block-1789478650691-3-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/master-v3-grid-block-1789478650691-3-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/master-v3-grid-block-1789478942076-6-m2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/master-v3-grid-block-1789478942076-6-m2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/master-v3-grid-block-1789478650691-3-m2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/master-v3-grid-block-1789478650691-3-m2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/master-v3-grid-block-1789479414756-10-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/master-v3-grid-block-1789479414756-10-m1.webp"
+    },
+    {
+      "bucket": "portfolio-media",
+      "file_path": "cartoon-network/packing/assets-do-projeto/cover-16x9/thumb-16-9.4e7b48e091c2bfec.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/portfolio-media/cartoon-network/packing/assets-do-projeto/cover-16x9/thumb-16-9.4e7b48e091c2bfec.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-hero-7c212015-8908-485a-8a9e-7109e2d98ac3.png",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-hero-7c212015-8908-485a-8a9e-7109e2d98ac3.png"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-logo-edb1a8be-9157-434e-b68d-32b91a297815.png",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-logo-edb1a8be-9157-434e-b68d-32b91a297815.png"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-2-16.9.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-2-16.9.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-02.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-02.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/04-expansao/camada-1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/04-expansao/camada-1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/03-design/camada-0.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/03-design/camada-0.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/02-criacao/camada-1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/02-criacao/camada-1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/02-criacao/camada-0.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/02-criacao/camada-0.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/nestle-nutrition-health-abrafarma-future-trends-2026/hero/camada-1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/nestle-nutrition-health-abrafarma-future-trends-2026/hero/camada-1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-grid-block-1785208773761-11-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-grid-block-1785208773761-11-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-grid-block-1785208270231-0-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-grid-block-1785208270231-0-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-2-1.1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-2-1.1.webp"
+    },
+    {
+      "bucket": "portfolio-media",
+      "file_path": "cartoon-network/packing/assets-do-projeto/cover-1x1/thumb-1-1.3715a95d534711b4.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/portfolio-media/cartoon-network/packing/assets-do-projeto/cover-1x1/thumb-1-1.3715a95d534711b4.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-grid-block-1785208300297-4-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-grid-block-1785208300297-4-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-grid-block-1785208313898-7-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-grid-block-1785208313898-7-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-grid-block-1785208290184-2-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-grid-block-1785208290184-2-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/thumb/camada-0.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/thumb/camada-0.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-4/anima-9.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-4/anima-9.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-4/anima-7.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-4/anima-7.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-5/camada-2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/camada-2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/ANIMA-FOTO/CAMADA-2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/ANIMA-FOTO/CAMADA-2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-1-1.1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-1-1.1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-grid-block-1785208317763-8-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-grid-block-1785208317763-8-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-grid-block-1785208770511-10-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-grid-block-1785208770511-10-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-grid-block-1785208308114-6-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-grid-block-1785208308114-6-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/thumb/camada-2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/thumb/camada-2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-grid-block-1785208773761-11-m2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-grid-block-1785208773761-11-m2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-grid-block-1785208302380-5-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-grid-block-1785208302380-5-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-grid-block-1785208770511-10-m2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-grid-block-1785208770511-10-m2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-grid-block-1785208290184-2-m2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-grid-block-1785208290184-2-m2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/campanhas-digitais/master-v3-grid-block-1785208313898-7-m2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/campanhas-digitais/master-v3-grid-block-1785208313898-7-m2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-1/2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-1/2.webp"
+    },
+    {
+      "bucket": "portfolio-media",
+      "file_path": "ze/branding/assets-do-projeto/cover-16x9/logo-ze-16-9.65c4c9bb80ac7971.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/portfolio-media/ze/branding/assets-do-projeto/cover-16x9/logo-ze-16-9.65c4c9bb80ac7971.webp"
+    },
+    {
+      "bucket": "portfolio-media",
+      "file_path": "ze/branding/assets-do-projeto/cover-1x1/logo-ze-1-1.7c68bd0077140696.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/portfolio-media/ze/branding/assets-do-projeto/cover-1x1/logo-ze-1-1.7c68bd0077140696.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-1-16.9.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-1-16.9.webp"
+    },
+    {
+      "bucket": "portfolio-media",
+      "file_path": "ze/branding/assets-do-projeto/home-featured-logo/logo-ze-16-9.65c4c9bb80ac7971.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/portfolio-media/ze/branding/assets-do-projeto/home-featured-logo/logo-ze-16-9.65c4c9bb80ac7971.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/thumb/camada-1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/thumb/camada-1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-1/6.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-1/6.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/03-design/camada-2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/03-design/camada-2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/bg-1.1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/bg-1.1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/magalu-empresas-videos-inteligencia-artificial/master-v3-hero-fc36b1c7-07e6-4528-9785-94ddcc498544.png",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/magalu-empresas-videos-inteligencia-artificial/master-v3-hero-fc36b1c7-07e6-4528-9785-94ddcc498544.png"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/topz/thumb/camada-3.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/topz/thumb/camada-3.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/magalu-empresas-videos-inteligencia-artificial/master-v3-logo-a8fdcee4-5b1d-429d-a1b1-7d1cba3c4600.png",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/magalu-empresas-videos-inteligencia-artificial/master-v3-logo-a8fdcee4-5b1d-429d-a1b1-7d1cba3c4600.png"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-1/3.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-1/3.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-4/anima-6.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-4/anima-6.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-4/anima-4.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-4/anima-4.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/04-expansao/camada-2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/04-expansao/camada-2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/03-design/camada-1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/03-design/camada-1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-6/camada-2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-6/camada-2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/02-criacao/camada-3.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/02-criacao/camada-3.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/nestle-nutrition-health-abrafarma-future-trends-2026/hero/camada-0.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/nestle-nutrition-health-abrafarma-future-trends-2026/hero/camada-0.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-0-16.9.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-0-16.9.webp"
+    },
+    {
+      "bucket": "portfolio-media",
+      "file_path": "magalu-empresas/aivideo/assets-do-projeto/cover-16x9/magalu-16-9.ca6509a1c808c9e6.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/portfolio-media/magalu-empresas/aivideo/assets-do-projeto/cover-16x9/magalu-16-9.ca6509a1c808c9e6.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/bg-16.9.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/bg-16.9.webp"
+    },
+    {
+      "bucket": "portfolio-media",
+      "file_path": "magalu-empresas/aivideo/assets-do-projeto/cover-1x1/magalu-1-1.2d033ce50980e2e9.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/portfolio-media/magalu-empresas/aivideo/assets-do-projeto/cover-1x1/magalu-1-1.2d033ce50980e2e9.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-1/9.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-1/9.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-4/anima-5.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-4/anima-5.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-6/camada-1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-6/camada-1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/04-expansao/camada-0.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/04-expansao/camada-0.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/04-expansao/camada-3.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/04-expansao/camada-3.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/03-design/camada-3.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/03-design/camada-3.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/02-criacao/camada-2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/02-criacao/camada-2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/nestle-nutrition-health-abrafarma-future-trends-2026/hero/camada-2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/nestle-nutrition-health-abrafarma-future-trends-2026/hero/camada-2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-0-1.1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-thumb/camada-0-1.1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-hero-c25fd535-601f-4143-af21-8373ac763e27.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-hero-c25fd535-601f-4143-af21-8373ac763e27.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-logo-38540f49-6cd5-4ed6-8d6d-205f2fe569e1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-logo-38540f49-6cd5-4ed6-8d6d-205f2fe569e1.webp"
+    },
+    {
+      "bucket": "portfolio-media",
+      "file_path": "bidaya/ai-case/assets-do-projeto/cover-16x9/thumb-16-9.cae9e3d095a461ad.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/portfolio-media/bidaya/ai-case/assets-do-projeto/cover-16x9/thumb-16-9.cae9e3d095a461ad.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-1/5.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-1/5.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-grid-block-1785317502805-12-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-grid-block-1785317502805-12-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/anima-6/camada-0.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-6/camada-0.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-grid-block-1785317227273-8-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-grid-block-1785317227273-8-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-grid-block-1785317501322-11-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-grid-block-1785317501322-11-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-grid-block-1785317575855-16-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-grid-block-1785317575855-16-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-grid-block-1785317696338-30-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-grid-block-1785317696338-30-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-grid-block-1785317690288-26-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-grid-block-1785317690288-26-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/conid/master-v3-hero-4449c61a-4984-4d06-9aaa-2d1f1b3f2a88.png",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/conid/master-v3-hero-4449c61a-4984-4d06-9aaa-2d1f1b3f2a88.png"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-grid-block-1785317225106-6-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/zevi-identidade-visual-branding-cafe-premium/master-v3-grid-block-1785317225106-6-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/bidaya-parfums-scents-without-borders/master-v3-grid-block-1789643898860-8-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/bidaya-parfums-scents-without-borders/master-v3-grid-block-1789643898860-8-m1.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/conid/master-v3-logo-96cd26b1-1943-4784-81fd-7c45ee3c509f.png",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/conid/master-v3-logo-96cd26b1-1943-4784-81fd-7c45ee3c509f.png"
+    },
+    {
+      "bucket": "portfolio-media",
+      "file_path": "bidaya/ai-case/assets-do-projeto/cover-1x1/thumb-1-1.f0b1ec55504e7f86.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/portfolio-media/bidaya/ai-case/assets-do-projeto/cover-1x1/thumb-1-1.f0b1ec55504e7f86.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "landing-pages/conid/master-v3-grid-block-1789435183276-0-m1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/landing-pages/conid/master-v3-grid-block-1789435183276-0-m1.webp"
+    }
+  ],
+  "onlyInProject": [
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/about.origin_image.2.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/about.origin_image.2.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/about.origin_image.4.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/about.origin_image.4.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/about.origin_image.3.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/about.origin_image.3.webp"
+    },
+    {
+      "bucket": "site-assets",
+      "file_path": "about/origin/about.origin_image.1.webp",
+      "r2_url": "https://pub-59d93bb33c6e4f23a9a29196b4deaf1e.r2.dev/site-assets/about/origin/about.origin_image.1.webp"
+    }
+  ]
+}
