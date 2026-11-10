@@ -214,23 +214,27 @@ function normalizeMasterTemplateV3(
   const record = asRecord(value);
   if (!record) return null;
 
-  const template = asString(record.template);
+  // Defensive: handle malformed input where fields are nested under `data: {}`
+  const dataRecord = asRecord(record.data);
+  const mergedRecord = dataRecord ? { ...record, ...dataRecord } : record;
+
+  const template = asString(mergedRecord.template);
   const isV3Hero = template === MASTER_PROJECT_TEMPLATE_V3_HERO;
   const hasMasterFields =
     template === MASTER_PROJECT_TEMPLATE_V3 ||
     isV3Hero ||
-    Array.isArray(record.gallery_grid);
+    Array.isArray(mergedRecord.gallery_grid);
 
   if (!hasMasterFields) return null;
 
   const defaults = createDefaultMasterProjectTemplateV3(fallback);
   const projectTitle =
-    asString(record.project_title) ?? fallback.title ?? defaults.project_title;
+    asString(mergedRecord.project_title) ?? fallback.title ?? defaults.project_title;
   const fallbackAlt = `Capa de ${projectTitle}`;
   const logoFallbackAlt = `Logo de ${projectTitle}`;
 
-  const heroCoverRecord = asRecord(record.hero_cover_image);
-  const heroTopMediaRecord = asRecord(record.hero_top_media);
+  const heroCoverRecord = asRecord(mergedRecord.hero_cover_image);
+  const heroTopMediaRecord = asRecord(mergedRecord.hero_top_media);
   const rawTopSrc = asString(heroTopMediaRecord?.src);
   const rawTopHtml = asString(heroTopMediaRecord?.html);
   const topKind = asString(heroTopMediaRecord?.kind);
@@ -239,8 +243,8 @@ function normalizeMasterTemplateV3(
     topKind === 'html' || rawTopHtml || (rawTopSrc && isHtmlMedia(rawTopSrc))
   );
 
-  const heroLogoRecordRaw = asRecord(record.hero_logo_image);
-  const clientLogoRecordRaw = asRecord(record.client_logo_image);
+  const heroLogoRecordRaw = asRecord(mergedRecord.hero_logo_image);
+  const clientLogoRecordRaw = asRecord(mergedRecord.client_logo_image);
 
   const logoSrcCandidate =
     asString(heroLogoRecordRaw?.src) ?? asString(clientLogoRecordRaw?.src);
@@ -285,17 +289,17 @@ function normalizeMasterTemplateV3(
     ? normalizeAsset(clientLogoRecord, logoFallbackAlt)
     : (defaults.client_logo_image ?? heroLogoAsset);
 
-  const galleryGrid = Array.isArray(record.gallery_grid)
-    ? record.gallery_grid
+  const galleryGrid = Array.isArray(mergedRecord.gallery_grid)
+    ? mergedRecord.gallery_grid
         .map((item, index) => normalizeLandingBlock(item, index, fallbackAlt))
         .filter((item): item is LandingPageBlock => item !== null)
     : defaults.gallery_grid;
 
-  const navigationRecord = asRecord(record.navigation);
-  const ctaRecord = asRecord(record.cta);
-  const seoRecord = asRecord(record.seo);
+  const navigationRecord = asRecord(mergedRecord.navigation);
+  const ctaRecord = asRecord(mergedRecord.cta);
+  const seoRecord = asRecord(mergedRecord.seo);
 
-  const rawHeroMediaType = asString(record.hero_media_type);
+  const rawHeroMediaType = asString(mergedRecord.hero_media_type);
   const hasRecoveredOrDirectHtml = Boolean(recoveredHtml);
   const hasDirectVideoOrImage = Boolean(
     heroTopMediaRecord &&
@@ -330,7 +334,7 @@ function normalizeMasterTemplateV3(
       ? MASTER_PROJECT_TEMPLATE_V3_HERO
       : MASTER_PROJECT_TEMPLATE_V3,
     project_slug:
-      asString(record.project_slug) ?? fallback.slug ?? defaults.project_slug,
+      asString(mergedRecord.project_slug) ?? fallback.slug ?? defaults.project_slug,
     hero_cover_image: heroCoverRecord
       ? normalizeAsset(
           heroCoverRecord,
@@ -360,22 +364,22 @@ function normalizeMasterTemplateV3(
       : {}),
     project_title: projectTitle,
     project_subtitle:
-      asString(record.project_subtitle) ?? defaults.project_subtitle,
-    project_client: asString(record.project_client) ?? defaults.project_client,
-    project_year: asNumber(record.project_year) ?? defaults.project_year,
-    project_tags: asStringArray(record.project_tags),
-    project_services: asStringArray(record.project_services),
+      asString(mergedRecord.project_subtitle) ?? defaults.project_subtitle,
+    project_client: asString(mergedRecord.project_client) ?? defaults.project_client,
+    project_year: asNumber(mergedRecord.project_year) ?? defaults.project_year,
+    project_tags: asStringArray(mergedRecord.project_tags),
+    project_services: asStringArray(mergedRecord.project_services),
     project_summary:
-      asString(record.project_summary) ??
-      asString(record.summary) ??
+      asString(mergedRecord.project_summary) ??
+      asString(mergedRecord.summary) ??
       defaults.project_summary,
-    intro_headline: asString(record.intro_headline) ?? defaults.intro_headline,
+    intro_headline: asString(mergedRecord.intro_headline) ?? defaults.intro_headline,
     intro_body:
-      asV3IntroBlocks(record.intro_body ?? record.intro_paragraphs) ??
-      asIntroParagraphs(record.intro_body ?? record.intro_paragraphs),
+      asV3IntroBlocks(mergedRecord.intro_body ?? mergedRecord.intro_paragraphs) ??
+      asIntroParagraphs(mergedRecord.intro_body ?? mergedRecord.intro_paragraphs),
     highlight_color:
-      asString(record.highlight_color) ?? defaults.highlight_color,
-    theme_color: asString(record.theme_color) ?? defaults.theme_color,
+      asString(mergedRecord.highlight_color) ?? defaults.highlight_color,
+    theme_color: asString(mergedRecord.theme_color) ?? defaults.theme_color,
     gallery_grid: galleryGrid,
     navigation: {
       back_label:

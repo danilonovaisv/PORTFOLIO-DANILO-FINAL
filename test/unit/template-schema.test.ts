@@ -103,4 +103,50 @@ describe('Master Project Template V3 Schema & Defaults', () => {
       expect(parsed.data.hero_top_media?.html).toContain('glad.mp4');
     }
   });
+
+  it('handles malformed fallback with gallery_grid nested under data: {}', () => {
+    const rawContent = {
+      template: 'master-project-v3-alpa',
+      data: {
+        project_title: 'Zevi',
+        project_subtitle: 'Direção de Arte',
+        project_client: 'Zevi Corp',
+        project_year: 2026,
+        project_tags: ['Branding'],
+        project_services: ['Identity'],
+        intro_headline: 'A essência da marca',
+        intro_body: ['Narrativa do projeto.'],
+        hero_cover_image: {
+          src: 'site-assets/projects/campaign/cover.webp',
+          alt: 'Zevi Cover',
+          kind: 'image',
+        },
+        gallery_grid: [
+          {
+            id: 'block-1',
+            type: 'text' as const,
+            content: { text: 'Intro block' },
+          },
+          {
+            id: 'block-2',
+            type: 'image' as const,
+            content: { media: 'site-assets/projects/image1.webp', alt: 'Image' },
+          },
+        ],
+      },
+    };
+
+    const parsed = parseLandingPageContent(rawContent, {
+      title: 'Zevi',
+      slug: 'zevi',
+    });
+
+    expect(parsed.template).toBe('master-project-v3-alpa');
+    if (parsed.template === 'master-project-v3-alpa') {
+      expect(parsed.data.project_title).toBe('Zevi');
+      expect(parsed.data.gallery_grid).toHaveLength(2);
+      expect(parsed.data.gallery_grid[0]?.type).toBe('text');
+      expect(parsed.data.gallery_grid[1]?.type).toBe('image');
+    }
+  });
 });
