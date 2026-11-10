@@ -10,27 +10,80 @@ import { landingPageMutationSchema } from '@/lib/admin/schemas/landing-page';
 export type SaveLandingPageInput = z.infer<typeof landingPageMutationSchema>;
 
 export async function listLandingPagesAction() {
-  const { supabase } = await requireAdminAccess();
-  const { data, error } = await supabase
-    .from('landing_pages')
-    .select('id, title, slug, created_at, content')
-    .order('created_at', { ascending: false });
+  try {
+    const { supabase } = await requireAdminAccess();
+    const { data, error } = await supabase
+      .from('landing_pages')
+      .select('id, title, slug, created_at, content')
+      .order('created_at', { ascending: false });
 
-  if (error) throw error;
-  return data ?? [];
+    if (!error && data && data.length > 0) {
+      return data;
+    }
+    if (error) {
+      console.warn('[listLandingPagesAction] Supabase query warning:', error.message);
+    }
+  } catch (err) {
+    console.warn('[listLandingPagesAction] Supabase connection failed, attempting D1 fallback:', err instanceof Error ? err.message : err);
+  }
+
+  // Fallback para Cloudflare D1 Database
+  try {
+    const { getCloudflareContext } = await import('@opennextjs/cloudflare');
+    const { env } = await getCloudflareContext({ async: true });
+    const db = (env as unknown as { DB?: any })?.DB;
+    if (db) {
+      const stmt = db.prepare('SELECT id, title, slug, created_at, content FROM landing_pages ORDER BY created_at DESC');
+      const { results } = await stmt.all();
+      if (results && results.length > 0) {
+        return results.map((row: any) => ({
+          ...row,
+          content: typeof row.content === 'string' ? JSON.parse(row.content || '[]') : row.content
+        }));
+      }
+    }
+  } catch (d1Err) {
+    console.warn('[listLandingPagesAction] D1 fallback failed:', d1Err instanceof Error ? d1Err.message : d1Err);
+  }
+
+  return [];
 }
 
 export async function getLandingPageAction(id: string) {
   const parsedId = z.string().uuid().parse(id);
-  const { supabase } = await requireAdminAccess();
-  const { data, error } = await supabase
-    .from('landing_pages')
-    .select('id, title, slug, cover, content')
-    .eq('id', parsedId)
-    .single();
+  try {
+    const { supabase } = await requireAdminAccess();
+    const { data, error } = await supabase
+      .from('landing_pages')
+      .select('id, title, slug, cover, content')
+      .eq('id', parsedId)
+      .single();
 
-  if (error) throw error;
-  return data;
+    if (!error && data) return data;
+  } catch (err) {
+    console.warn('[getLandingPageAction] Supabase query failed, trying D1 fallback:', err instanceof Error ? err.message : err);
+  }
+
+  // Fallback para Cloudflare D1 Database
+  try {
+    const { getCloudflareContext } = await import('@opennextjs/cloudflare');
+    const { env } = await getCloudflareContext({ async: true });
+    const db = (env as unknown as { DB?: any })?.DB;
+    if (db) {
+      const stmt = db.prepare('SELECT id, title, slug, cover, content FROM landing_pages WHERE id = ?').bind(parsedId);
+      const row = await stmt.first();
+      if (row) {
+        return {
+          ...row,
+          content: typeof (row as any).content === 'string' ? JSON.parse((row as any).content || '[]') : (row as any).content
+        };
+      }
+    }
+  } catch (d1Err) {
+    console.warn('[getLandingPageAction] D1 fallback failed:', d1Err instanceof Error ? d1Err.message : d1Err);
+  }
+
+  return null;
 }
 
 export async function saveLandingPageAction(input: SaveLandingPageInput) {

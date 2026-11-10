@@ -44,11 +44,22 @@ export default function Error({
           <span>⚠️</span> Critical Administrative Failure
         </h2>
       </div>
-      <p className="mb-8 text-textSecondary max-w-lg">
+      <p className="mb-2 text-textSecondary max-w-lg">
         SYSTEM_ERR: UNEXPECTED_ADMINISTRATIVE_DATA_FAILURE. Recommended action:
-        reload page or verify Supabase core connectivity.
+        reload page or verify session authentication.
       </p>
+      {error?.message && (
+        <div className="mb-8 p-3 rounded bg-white/5 border border-white/10 text-xs font-mono text-redAccent/80 max-w-lg break-all">
+          {error.message}
+        </div>
+      )}
       <div className="flex gap-4">
+        <button
+          onClick={() => (window.location.href = '/admin/login')}
+          className="rounded-lg bg-[#0048ff] px-6 py-3 font-bold text-white transition-all hover:bg-[#0048ff]/80"
+        >
+          RE-AUTHENTICATE
+        </button>
         <button
           onClick={() => reset()}
           className="rounded-lg bg-redAccent px-6 py-3 font-bold text-text transition-all hover:bg-redAccent/80"

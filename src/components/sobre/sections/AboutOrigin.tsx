@@ -34,12 +34,19 @@ export function AboutOrigin() {
   const imgUrl3 = useSiteAssetUrl(ORIGIN_CHAPTERS[2].imageId);
   const imgUrl4 = useSiteAssetUrl(ORIGIN_CHAPTERS[3].imageId);
 
+  const CANONICAL_ORIGIN_URLS = [
+    'https://assets.portfoliodanilo.com/site-assets/about/origin/origin2/cena-01.webp',
+    'https://assets.portfoliodanilo.com/site-assets/about/origin/origin2/cena-02.webp',
+    'https://assets.portfoliodanilo.com/site-assets/about/origin/origin2/cena-03.webp',
+    'https://assets.portfoliodanilo.com/site-assets/about/origin/origin2/cena-04.webp',
+  ];
+
   const resolvedChapters: ResolvedOriginChapter[] = useMemo(() => {
     const urls = [imgUrl1, imgUrl2, imgUrl3, imgUrl4];
     return ORIGIN_CHAPTERS.map((chap, idx) => ({
       ...chap,
-      // Prioridade: Contexto dinâmico de assets -> fallback local -> URL remota do Supabase
-      img: urls[idx] || chap.fallback || chap.supabaseUrl,
+      // Prioridade: URL canônica R2 CDN -> Contexto dinâmico -> fallback local
+      img: CANONICAL_ORIGIN_URLS[idx] || urls[idx] || chap.supabaseUrl || chap.fallback,
       priority: idx === 0,
     }));
   }, [imgUrl1, imgUrl2, imgUrl3, imgUrl4]);
