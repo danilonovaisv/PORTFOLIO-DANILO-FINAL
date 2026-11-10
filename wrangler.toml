@@ -10,3 +10,10 @@ binding = "ASSETS"
 [[r2_buckets]]
 binding = "PORTFOLIO_ASSETS"
 bucket_name = "portfolio-assets"
+
+
+# === D1 DATABASE (CORRIGIDO) ===
+[[d1_databases]]
+binding = "DB"
+database_name = "portfolio-db"
+database_uuid = "SEU_UUID_AQUI"
