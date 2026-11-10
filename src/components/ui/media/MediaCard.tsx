@@ -26,6 +26,7 @@ type MediaCardProps = {
   preload?: 'none' | 'metadata' | 'auto';
   objectPosition?: string;
   preserveVideoFrame?: boolean;
+  unoptimized?: boolean;
   'aria-hidden'?: boolean | 'true' | 'false';
 };
 
@@ -44,6 +45,7 @@ export function MediaCard({
   preload = 'metadata',
   objectPosition = 'center',
   preserveVideoFrame = false,
+  unoptimized,
   'aria-hidden': ariaHidden,
 }: MediaCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -181,6 +183,7 @@ export function MediaCard({
           fill
           sizes={sizes}
           quality={60}
+          unoptimized={unoptimized || /\.(svg|gif)$/i.test(resolvedSrc) || /thumb-honda/i.test(resolvedSrc)}
           className={mediaClasses}
           loading={priority ? 'eager' : 'lazy'}
           priority={priority}

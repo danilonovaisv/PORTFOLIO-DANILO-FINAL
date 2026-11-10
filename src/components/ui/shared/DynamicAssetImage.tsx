@@ -67,8 +67,13 @@ export function DynamicAssetImage({
     }
   }, [error, finalUrl, assetKey]);
 
+  const isSvg = Boolean(
+    finalUrl?.toLowerCase().includes('.svg')
+  );
+
   const shouldUseSupabaseLoader = Boolean(
     finalUrl &&
+    !isSvg &&
     !finalUrl.startsWith('/') &&
     !finalUrl.startsWith('data:') &&
     !finalUrl.startsWith('blob:')

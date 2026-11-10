@@ -1,5 +1,47 @@
 # Adjustment Log
 
+## [2026-11-10T12:55] Otimização de Assets: Bypass de Loader para SVGs e Unoptimized para WebP Animado
+
+**Context:** Resolução de warnings no console de desenvolvimento reportados pelo runtime do Next.js Image component para SVGs (Clients brands / proof) e WebP animado (thumb-honda).
+
+**Alterações Realizadas:**
+1. `src/components/ui/shared/DynamicAssetImage.tsx`:
+   - Adicionada verificação `isSvg` impedindo a aplicação de `supabaseLoader` em arquivos vetoriais SVG, eliminando o aviso `Image with src ... has a "loader" property that does not implement width`.
+2. `src/components/ui/media/MediaCard.tsx`:
+   - Adicionada prop `unoptimized?: boolean` em `MediaCardProps`.
+   - Implementado bypass automático de otimização (`unoptimized={unoptimized || /\.(svg|gif)$/i.test(resolvedSrc) || /thumb-honda/i.test(resolvedSrc)}`) para imagens vetoriais e animações WebP/GIF.
+
+**Validação:**
+- `pnpm run build-check`: **0 erros TypeScript, 0 erros ESLint**.
+
+
+## [2026-11-10T12:40] Migração Supabase Auth & DB Ativo (dpejskjpghoozbpfxkpf), Restauração de Login e Deploy (/orchestrate)
+
+**Context:** Resolução definitiva do bloqueio de login (`exceed_cached_egress_quota`) originado pelo estouro de cota do projeto legado `umkmwbkwvulxtdodzmzf`. Migrado o Auth e a base relacional para o projeto ativo `dpejskjpghoozbpfxkpf` com CDN Zero-Egress via Cloudflare R2 (`https://assets.portfoliodanilo.com`).
+
+**Diagnóstico & Resolução:**
+1. **Identificação da Causa-Raiz:** O projeto Supabase antigo `umkmwbkwvulxtdodzmzf` encontrava-se com restrição global no gateway (`exceed_cached_egress_quota`), rejeitando chamadas de autenticação em `/auth/v1/token` e queries REST com erro 403.
+2. **Setup do Projeto Ativo (`dpejskjpghoozbpfxkpf`):**
+   - Criadas todas as tabelas: `portfolio_projects`, `landing_pages`, `portfolio_tags`, `portfolio_project_tags`, `site_assets` e `admin_audit_log`.
+   - Implementada a função `public.is_admin()` e triggers automáticos `trg_set_timestamp_*`.
+   - Ativada a view segura `public_projects_view` com `security_invoker = true`.
+   - Aplicadas políticas RLS completas garantindo leitura pública de projetos publicados e controle de escrita exclusivo a administradores.
+3. **RBAC & Permissões:**
+   - Concedida a permissão `{ "role": "admin" }` nos metadados de autenticação (`auth.users`) para `danilo_novais@yahoo.com.br` e `dannovaisv@gmail.com`.
+4. **Seed de Dados com Mídias Cloudflare R2:**
+   - Cadastrados 857 assets de `assets.json` em `public.site_assets`.
+   - Cadastrados 19 projetos em `public.portfolio_projects` vinculados às respectivas landing pages e tags com URLs apontando para `https://assets.portfoliodanilo.com/`.
+5. **Atualização de Variáveis e CI/CD:**
+   - Atualizados `.env.local` e `.env` com as chaves e URL do projeto `dpejskjpghoozbpfxkpf`.
+   - Atualizados os segredos do repositório no GitHub Actions (`gh secret set`).
+   - Disparado o build e deploy para Cloudflare Workers (`workflow_dispatch` + push), concluído com sucesso (`Run 42846427642`).
+
+**Validação & QA:**
+- `pnpm run build-check`: **0 erros TypeScript, 0 erros ESLint**.
+- `jest test/security/admin-authz.test.ts test/unit/authz.test.ts`: **16/16 testes aprovados**.
+- Verificação anon HTTP em `dpejskjpghoozbpfxkpf`: **19 projetos e 857 assets acessíveis via CDN**.
+- Verificação de borda em produção (`https://portfoliodanilo.com/admin/login`): **HTTP 200 OK com cabeçalhos `Cache-Control: private, no-store, no-cache, must-revalidate`**.
+
 ## [2026-11-09T21:58] Auditoria Completa do Painel Admin, Autenticação, RBAC e Cloudflare R2 (/context7-mcp /analyze-admin /orchestrate)
 
 **Context:** Auditoria ponta a ponta do painel Admin (`/admin/login`, `/admin/reset-password`, `/auth/callback`, `/admin/(protected)/**`) e adequação às novas configurações de RBAC, Cloudflare R2 Storage, Turnstile Captcha e Cache-Control de borda.
