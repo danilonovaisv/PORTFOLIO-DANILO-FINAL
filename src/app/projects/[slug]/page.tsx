@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { getFallbackLandingPage } from '@/lib/projects/landing-page-fallback';
 import { notFound } from 'next/navigation';
 import ProjectRenderer from '@/components/projects/ProjectRenderer';
 import SiteFooter from '@/components/layout/SiteFooter';
@@ -75,11 +76,23 @@ export async function generateMetadata({
     : resolvedSearch?.from;
   const supabase = await createClient();
 
-  const { data: project } = (await supabase
-    .from('landing_pages')
-    .select('title, cover, content, slug')
-    .eq('slug', slug)
-    .single()) as { data: LandingPageRecord | null; error: unknown };
+  let project: LandingPageRecord | null = null;
+  try {
+    const res = (await supabase
+      .from('landing_pages')
+      .select('title, cover, content, slug')
+      .eq('slug', slug)
+      .single()) as { data: LandingPageRecord | null; error: unknown };
+    if (!res.error && res.data) {
+      project = res.data;
+    }
+  } catch {
+    // ignore
+  }
+
+  if (!project) {
+    project = getFallbackLandingPage(slug);
+  }
 
   if (!project) return { title: 'Projeto não encontrado' };
 
@@ -128,18 +141,28 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = (await params) ?? { slug: '' };
   const supabase = await createClient();
 
-  const { data: project, error } = (await supabase
-    .from('landing_pages')
-    .select('*')
-    .eq('slug', slug)
-    .single()) as {
-    data: LandingPageRecord | null;
-    error: { message: string } | null;
-  };
-
-  if (error || !project) {
-    notFound();
+  let project: LandingPageRecord | null = null;
+  try {
+    const res = (await supabase
+      .from('landing_pages')
+      .select('*')
+      .eq('slug', slug)
+      .single()) as {
+      data: LandingPageRecord | null;
+      error: { message: string } | null;
+    };
+    if (!res.error && res.data) {
+      project = res.data;
+    }
+  } catch {
+    // ignore
   }
+
+  if (!project) {
+    project = getFallbackLandingPage(slug);
+  }
+
+  if (!project) notFound();
 
   const parsed = parseLandingPageContent(project.content, {
     slug: project.slug,
