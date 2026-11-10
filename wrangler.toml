@@ -17,3 +17,11 @@ bucket_name = "portfolio-assets"
 binding = "DB"
 database_name = "portfolio-db"
 database_uuid = "d9467c4e-7198-4077-a849-639b45612d5b"
+
+# === RUNTIME VARIABLES (Sincronizado com Cloudflare Dashboard) ===
+[vars]
+CLOUDFLARE_ONLY = "true"
+NEXT_PUBLIC_R2_PUBLIC_URL = "https://assets.portfoliodanilo.com"
+R2_BUCKET_NAME = "portfolio-assets"
+S3_API_URL = "https://f48c066525478bcaf66928b32ed721d2.r2.cloudflarestorage.com"
+TURNSTILE_SITE_KEY = "0x4AAAAAAAACgcpmYImvbq_qQg"
