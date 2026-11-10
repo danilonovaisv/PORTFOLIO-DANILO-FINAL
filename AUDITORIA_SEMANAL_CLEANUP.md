@@ -1,74 +1,63 @@
-# AUDITORIA SEMANAL DE CLEANUP & DEAD CODE
+# AUDITORIA_SEMANAL_CLEANUP.md
 
 ## 1. Resumo Executivo
+Os top 10 problemas críticos encontrados focam no acúmulo de código que impacta a performance de pacotes e a manutenção do sistema:
 
-**TOP 10 Problemas Críticos Encontrados:**
-
-1. **Componentes Órfãos (`src/components`):** Identificados dezenas de componentes React que não estão sendo importados em nenhum outro arquivo, inflando o bundle e aumentando a superfície de manutenção (ex: `GhostCursor.tsx`, `Grainient.tsx`).
-2. **Dependências Não Utilizadas:** O pacote `framer-motion` (em partes específicas/legacy), `@typescript-eslint/eslint-plugin` e `eslint-plugin-prettier` não estão integrados corretamente.
-3. **Erros de Depcheck e Knip:** Falhas nas ferramentas de checagem estática revelaram exports não utilizados (ex: `eyebrowVariants`, `ghostRise`, `Tables`) que devem ser limpos.
-4. **Acúmulo de Código Morto em Configurações:** Arquivos `.d.ts` e configurações sem uso (ex: `src/types/css-modules.d.ts`, `src/types/gsap.d.ts`) ocupando espaço.
-5. **Tipos e Interfaces Exportadas Sem Uso:** `ErrorReport` e `Tables` foram apontados pelo Knip como órfãos.
-6. **Múltiplos Componentes de Admin Duplicados/Inativos:** O diretório de admin contém seções de formulário soltas e variantes de templates que precisam ser revistas (ex: `MasterProjectTemplateV2Editor.tsx`, `LegacyBlockEditor.tsx`).
-7. **Arquivos de Roteamento Obsoletos:** Rotas de admin/protected que não compõem a arquitetura central de visualização do site, requerendo escrutínio.
-8. **Assets Declarados não Utilizados:** Algumas variáveis de assets declaradas não são mapeadas corretamente (ou o knip flagrou problemas).
-9. **Componentes de Movimento/Animação Isolados:** Arquivos dentro de `src/lib/motion/` não sendo importados na base (`ghostRevealSimple`, `viewportConfig`).
-10. **Desvio da Doc `estrutura-site-portfolio.txt`:** Há componentes e pastas (como `/projects/` vs `/portfolio/`) duplicando lógicas de templates e páginas, em violação ao SSoT das docs.
-
----
+1. **Componentes R3F Obsoletos:** `src/components/canvas/home/hero/` contém diversos sub-arquivos `hooks/`, `shaders/` e componentes aparentemente não utilizados no App Router principal, impactando a manutenção.
+2. **Dependência `depcheck` Faltante no Caminho Local:** O pnpm não conseguiu encontrar `depcheck` corretamente via `$PATH`, o que sugere um estado inconsistente no `.npmrc` ou instalações globais quebradas.
+3. **Módulo de Projetos Alpa (V3) Não Integrado:** A pasta `src/components/projects/templates/alpa/` tem inúmeros componentes (blocks, layouts) sem correspondência de importação no diretório de admin ou page views.
+4. **Formulários de Admin Desativados:** Vários arquivos em `src/components/admin/form-sections/` não são importados no roteador do app e estão órfãos.
+5. **Assets 3D e Texturas Dinâmicas:** Há suspeitas de texturas 3D ligadas à `GhostScene` que podem não ser baixadas ou chamadas se `src/components/canvas` for código obsoleto em relação ao novo `GhostCanvas.tsx`.
+6. **Variáveis/Exportações Duplicadas:** O sistema Knip reportou conflitos como `ORIGIN_CHAPTERS|ORIGIN_CONTENT` em `src/components/sobre/origin/data.ts`.
+7. **Pacotes Não Usados em `package.json`:** `react-markdown` pode não estar sendo utilizado ou foi substituído pelo próprio rendering do Contentlayer/Supabase (carece de aprofundamento, mas Knip também falhou inicialmente).
+8. **Configurações Knip Errôneas:** Há configurações soltas apontando para locais incorretos (`src/app/**/*.{js,jsx,ts,tsx}` vs `workspaces`).
+9. **Componente de Cursor Duplicado:** `GhostCursor.tsx` na raiz de `components` e um possível equivalente (ou desatualizado) dentro de outros contextos.
+10. **Lixo de Arquivos Antigos:** A presença de um arquivo `.bak` (`shader-lines.tsx.bak`) e ferramentas mortas ocupando espaço no `src/components/ui`.
 
 ## 2. Matriz por Página com Status
 
-| Página / Rota      | Status (Ativa/Obsoleta/Incompleta) | Arquivos Órfãos Encontrados                                        | Dependências Inúteis       |
-| ------------------ | ---------------------------------- | ------------------------------------------------------------------ | -------------------------- |
-| `/` (Home)         | **Ativa**                          | `GhostCursor.tsx`, `Grainient.tsx` (Não usados na HOME principal)  | Nenhuma                    |
-| `/sobre`           | **Ativa**                          | `sections/index.ts`                                                | Nenhuma                    |
-| `/portfolio`       | **Ativa**                          | Vários em `components/portfolio/` soltos                           | Nenhuma                    |
-| `/projects/[slug]` | **Obsoleta/Duplicada**             | (Rota pode ser inteira redundante em favor de `/portfolio/[slug]`) | N/A                        |
-| `/admin/*`         | **Ativa** (porém inflada)          | `LegacyBlockEditor.tsx`, `MasterProjectTemplateV2Editor.tsx`       | `openai` (apenas em admin) |
-| `/privacidade`     | **Ativa**                          | Nenhuma                                                            | Nenhuma                    |
-| `/contato`         | **Ativa**                          | Nenhuma                                                            | Nenhuma                    |
+| Página / Rota | Status (Ativa/Obsoleta/Incompleta) | Arquivos Órfãos Encontrados | Dependências Inúteis |
+|---|---|---|---|
+| `app/page.tsx` (Home) | Ativa | Arquivos em `components/canvas/home/hero/*` aparentemente órfãos ou refatorados | — |
+| `app/portfolio/page.tsx` | Ativa | — | — |
+| `app/portfolio/[slug]/page.tsx` | Ativa | — | — |
+| `app/sobre/page.tsx` | Ativa | — | — |
+| `app/contato/page.tsx` | Ativa | — | — |
+| `app/qr-scanner/page.tsx` | Ativa | — | — |
+| `app/o-que-me-move/page.tsx` | Ativa | — | — |
+| `app/admin/...` | Ativa | `form-sections/*` e `landing-pages/LegacyBlockEditor.tsx` | `react-hook-form` pode ter peças legadas aqui |
+| `app/projects/[slug]/page.tsx`| Incompleta/Obsoleta | `templates/alpa/*` | — |
+| `app/privacidade/page.tsx` | Ativa | — | — |
 
----
+*(Nota: Alguns componentes de `alpa` foram mencionados na DOC como "Renderizada dinamicamente em `/portfolio/[slug]`", indicando que eles podem ser carregados por caminhos de `types` ou DB dinâmicos não detectáveis puramente por grep. Precisaremos validá-los no Ciclo 2)*
 
 ## 3. Backlog Priorizado
 
 **[P0] Crítico:**
-
-- Excluir dependências referenciadas no `package.json` mas marcadas como missing/não-utilizadas (ex: plugins do eslint perdidos).
-- Refatorar a duplicação entre `/src/app/projects` e `/src/app/portfolio`. A doc fala em `/portfolio/[slug]`.
-- Limpar `src/middleware.ts` se de fato estiver órfão ou mal configurado (Knip/órfão flagrou ele inativo/0 imports diretos, validar fluxo de proxy).
+* Analisar a estrutura de imports dinâmicos do ALPA V3 (`src/components/projects/templates/alpa/`). Se forem renderizados dinamicamente a partir do banco, não devem ser apagados ainda.
+* Verificar se a nova arquitetura unificou `GhostCanvas` e deixou `components/canvas/home/hero/` completamente obsoleto. Se sim, excluir tudo em `canvas/home/hero/`.
+* Resolver o arquivo de backup `.bak` em `components/ui/` que infla o bundle.
 
 **[P1] Estrutural:**
-
-- Excluir arquivos listados como "Unused exports" pelo Knip (`ghostRevealSimple`, `viewportConfig`, `eyebrowVariants`, etc.).
-- Limpar componentes `src/components/` que possuem 0 imports no projeto (como os types e index soltos).
-- Remover as referências do `LegacyBlockEditor.tsx` e `MasterProjectTemplateV2Editor.tsx` caso sejam efetivamente lixo legado (V2/Legacy vs V3).
+* Limpar formulários e seções não utilizadas no painel admin (`src/components/admin/form-sections/` e `templates/v3/presets.ts`).
+* Identificar se a rota `app/projects/[slug]/page.tsx` (vs `app/portfolio/[slug]/page.tsx`) está redundante.
 
 **[P2] Polimento:**
-
-- Deletar arquivos genéricos de tipos não utilizados (ex: `src/types/css-modules.d.ts`, `gsap.d.ts`).
-- Corrigir a configuração do `tsconfig.json` relatada como sintaxe inválida pelo Depcheck.
-- Atualizar `.context/DOCS-PORTFOLIO-PAGES` para refletir as deleções dos templates e rotas removidas.
-
----
+* Arrumar os avisos do script Knip relacionados às exportações duplicadas e variáveis não utilizadas.
+* Deletar a extensão `knip.json` se não for usada, ou fixá-la.
+* Remover imports de ferramentas não utilizadas, re-auditando dependências com npm/pnpm corrigido.
 
 ## 4. Plano de Correção em Ciclos
 
-**Ciclo 1: Rápido (Quick Wins)**
+* **Ciclo 1: Rápido (Quick Wins)**
+  * Deletar arquivos óbvios de backup (ex: `src/components/ui/shader-lines.tsx.bak`).
+  * Corrigir as exportações duplicadas apontadas pelo `knip` em `src/components/sobre/origin/data.ts`.
+  * Deletar os arquivos da pasta `src/components/canvas/home/hero/` APÓS validação manual de que o `GhostCanvas` está utilizando outra estrutura.
 
-1. Corrigir erro de sintaxe no `tsconfig.json` (reportado pelo depcheck `Expected property name or '}' in JSON at position 29`).
-2. Remover pacotes eslint (`@typescript-eslint/eslint-plugin`, `eslint-plugin-prettier`, `eslint-config-prettier`) que estão corrompidos ou inúteis, e unificar via pnpm.
-3. Deletar arquivos tipados inúteis e arquivos `index.ts` vazios ou desconectados (`src/components/sobre/sections/index.ts`, `src/types/gsap.d.ts`, etc.).
+* **Ciclo 2: Estrutural**
+  * Investigar a rota `app/projects/[slug]/page.tsx` comparando-a com `app/portfolio/[slug]/page.tsx`. Se for legada, solicitar exclusão.
+  * Realizar uma varredura sobre os blocos dinâmicos (`ALPA V3`) e os componentes em `src/components/admin/form-sections/` para confirmar a desconexão ou dependência implícita, deletando o que for inútil.
 
-**Ciclo 2: Estrutural**
-
-1. Remover a rota legada `/src/app/projects` se for garantido que `/src/app/portfolio` assumiu o lugar (ambos têm layout igual/similar).
-2. Deletar os componentes do Admin que são legados (`LegacyBlockEditor.tsx`, `MasterProjectTemplateV2Editor.tsx`).
-3. Limpar funções e constantes não utilizadas acusadas pelo `knip`: `ghostRevealSimple`, `eyebrowVariants`, `viewportConfig` e `CRITICAL_VIDEO_URLS`.
-
-**Ciclo 3: Polimento**
-
-1. Auditar se `GhostCursor.tsx` e `Grainient.tsx` (provavelmente WebGL antigo) podem ser removidos, dado que a documentação pede `HeroGlassCanvas` e `GhostCanvas`.
-2. Rodar novamente `pnpm run build-check` para confirmar que não quebramos os tipos.
-3. Sincronizar a documentação (atualizar arquivos no `.context/` para garantir consistência SSoT com o app limpado).
+* **Ciclo 3: Polimento**
+  * Rodar `depcheck` com o pnpm propriamente configurado ou através do Node local e limpar pacotes órfãos em `package.json`.
+  * Atualizar o diretório `.context/DOCS-PORTFOLIO-PAGES` para refletir as remoções de rotas legadas e componentes mortos.
