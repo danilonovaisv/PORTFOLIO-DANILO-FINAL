@@ -238,6 +238,14 @@ const createNextConfig = (phase) => ({
             value: cspHeader,
           },
           {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
           },
@@ -263,6 +271,14 @@ const createNextConfig = (phase) => ({
           {
             key: 'Content-Security-Policy',
             value: cspHeader,
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
           },
           {
             key: 'Referrer-Policy',
@@ -410,7 +426,7 @@ const createNextConfig = (phase) => ({
     qualities: [25, 50, 60, 70, 75, 80, 90, 100],
 
     dangerouslyAllowSVG: true,
-    // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;", // Movido para headers globais
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
   // Ignora erros de typescript no build (CRÍTICO para deploy em ambiente instável)

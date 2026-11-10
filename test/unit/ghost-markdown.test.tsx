@@ -31,9 +31,12 @@ jest.mock('react-markdown', () => {
           <Paragraph>
             Texto com {Strong && <Strong>negrito</Strong>} e{' '}
             {LinkComp && (
-              <LinkComp href="https://portfoliodanilo.com">
-                link externo
-              </LinkComp>
+              <>
+                <LinkComp href="https://portfoliodanilo.com">
+                  link externo
+                </LinkComp>
+                <LinkComp href="javascript:alert(1)">link perigoso</LinkComp>
+              </>
             )}
           </Paragraph>
         )}
@@ -79,6 +82,10 @@ describe('GhostMarkdown Component', () => {
     expect(link).toHaveAttribute('href', 'https://portfoliodanilo.com');
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+
+    // Verify dangerous javascript: links are neutralized
+    const unsafeLink = screen.getByRole('link', { name: 'link perigoso' });
+    expect(unsafeLink).toHaveAttribute('href', '#');
 
     // Verify unescaping of literal \\n
     const rawNormalized = screen.getByTestId('raw-normalized-text');

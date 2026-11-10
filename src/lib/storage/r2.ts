@@ -16,7 +16,7 @@ export function getR2Config() {
   const accountId =
     process.env.R2_ACCOUNT_ID ||
     process.env.CLOUDFLARE_ACCOUNT_ID ||
-    'f48c066525478bcaf66928b32ed721d2';
+    '';
   const bucketName = process.env.R2_BUCKET_NAME || 'portfolio-assets';
   const accessKeyId = process.env.R2_ACCESS_KEY_ID;
   const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
@@ -37,9 +37,9 @@ export function getR2Client(): S3Client {
 
   const { accountId, accessKeyId, secretAccessKey } = getR2Config();
 
-  if (!accessKeyId || !secretAccessKey) {
+  if (!accountId || !accessKeyId || !secretAccessKey) {
     throw new Error(
-      'SYSTEM_ERR: R2_CREDENTIALS_MISSING — R2_ACCESS_KEY_ID or R2_SECRET_ACCESS_KEY not configured on server.'
+      'SYSTEM_ERR: R2_CREDENTIALS_MISSING — R2_ACCOUNT_ID, R2_ACCESS_KEY_ID or R2_SECRET_ACCESS_KEY not configured on server.'
     );
   }
 

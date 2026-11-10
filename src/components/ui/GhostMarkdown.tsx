@@ -34,6 +34,22 @@ function resolveAlignmentClass(textAlign?: TextConfig['textAlign']) {
   }[textAlign];
 }
 
+function sanitizeMarkdownUrl(url?: string | null): string {
+  if (!url || typeof url !== 'string') return '#';
+  const trimmed = url.trim();
+  if (
+    trimmed.startsWith('https://') ||
+    trimmed.startsWith('http://') ||
+    trimmed.startsWith('mailto:') ||
+    trimmed.startsWith('tel:') ||
+    trimmed.startsWith('/') ||
+    trimmed.startsWith('#')
+  ) {
+    return trimmed;
+  }
+  return '#';
+}
+
 export function GhostMarkdown({
   content,
   className,
@@ -162,11 +178,12 @@ export function GhostMarkdown({
         <em className="italic text-white/90">{children}</em>
       ),
       a: ({ href, children, node: _node, ...props }: any) => {
+        const safeHref = sanitizeMarkdownUrl(href);
         const isExternal =
-          href?.startsWith('http://') || href?.startsWith('https://');
+          safeHref.startsWith('http://') || safeHref.startsWith('https://');
         return (
           <a
-            href={href}
+            href={safeHref}
             className="text-blueAccent underline underline-offset-4 transition-colors hover:text-blueAccent/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent"
             {...(isExternal
               ? { target: '_blank', rel: 'noopener noreferrer' }

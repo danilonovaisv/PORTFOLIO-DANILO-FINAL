@@ -70,7 +70,43 @@ function normalizePayload(raw: Record<string, unknown>) {
   return { message, stack, component, url, userAgent, timestamp, metadata };
 }
 
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const RATE_LIMIT_MAX_REQUESTS = 10;
+const ipRequestHistory = new Map<string, number[]>();
+
+function getClientIp(request: Request): string {
+  const forwarded = request.headers.get('x-forwarded-for');
+  if (forwarded) return forwarded.split(',')[0]?.trim() || 'unknown';
+  return request.headers.get('x-real-ip') || 'unknown';
+}
+
+function isRateLimited(ip: string): boolean {
+  if (ip === 'unknown') return false;
+  const now = Date.now();
+  const entries = ipRequestHistory.get(ip) ?? [];
+  const recent = entries.filter(
+    (timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS
+  );
+
+  if (recent.length >= RATE_LIMIT_MAX_REQUESTS) {
+    ipRequestHistory.set(ip, recent);
+    return true;
+  }
+
+  recent.push(now);
+  ipRequestHistory.set(ip, recent);
+  return false;
+}
+
 export async function POST(req: Request) {
+  const ip = getClientIp(req);
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { error: 'RATE_LIMIT_EXCEEDED', message: 'Too many error reports. Please wait.' },
+      { status: 429 }
+    );
+  }
+
   try {
     const rawBody = (await req.json()) as Record<string, unknown>;
 

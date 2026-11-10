@@ -1,5 +1,34 @@
 # Adjustment Log
 
+## [2026-11-10T18:50] Ghost System Security Hardening & Vulnerability Remediation (/orchestrate /security-audit)
+
+**Context:** Auditoria de segurança defensiva ponta a ponta na base de código do Portfólio Danilo Novais sob os protocolos `/orchestrate` e `/security-audit`.
+
+**Vulnerabilidades Corrigidas:**
+1. **[C01 - CRÍTICA] Backdoor Removido (`src/app/api/dev-bridge/route.ts`):**
+   - Removido arquivo de endpoint desprotegido que permitia leitura, escrita e exclusão arbitrária de arquivos do servidor.
+2. **[H01 - ALTA] Desindexação de Bancos de Credenciais GCloud (`.agent_config/`):**
+   - Executado `git rm -r --cached .agent_config/` para remover `access_tokens.db`, `credentials.db` do controle de versão.
+   - Atualizado `.gitignore` para bloquear toda a pasta `.agent_config/`.
+3. **[H02 - ALTA] Sanitização XSS em `src/components/ui/HTMLVideoBlock.tsx`:**
+   - Adicionada função `sanitizeHtmlSnippet` que remove `<script>`, `<style>`, tags de incorporação direta (`<object>`, `<embed>`), attributes inline `on*` (`onerror`, `onload`, etc.) e esquemas `javascript:`/`vbscript:`.
+   - Atualizada a detecção `isFullHtmlDoc` para incluir tags `<iframe>`, roteando-as com segurança para o iframe sandboxed com `srcDoc`.
+4. **[H03 - ALTA] Remoção de Hardcoded Cloudflare Account ID (`src/lib/storage/r2.ts`):**
+   - Eliminado fallback `'f48c066525478bcaf66928b32ed721d2'` do código. Validação rigorosa em `getR2Client()` exigindo `R2_ACCOUNT_ID` nas variáveis de ambiente.
+5. **[M01 - MÉDIA] Rate Limiting em `src/app/api/report-error/route.ts`:**
+   - Implementado rate limiting baseado em IP (janela de 60s, máximo de 10 requisições) para prevenir Denial of Service (DoS) e exaustão de conexões no Supabase.
+6. **[M02 & M03 - MÉDIA] Hardening de Headers HTTP e CSP de Imagens (`next.config.mjs`):**
+   - Adicionados cabeçalhos de segurança globais `X-Content-Type-Options: nosniff` e `X-Frame-Options: DENY`.
+   - Ativada `contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"` no bloco `images` para blindar rendering de SVGs com `dangerouslyAllowSVG`.
+7. **[L01 - BAIXA] Sanitização de URLs em Markdown (`src/components/ui/GhostMarkdown.tsx`):**
+   - Adicionada `sanitizeMarkdownUrl` prevenindo a execução de links com pseudo-protocolos `javascript:`.
+
+**Validação & QA:**
+- `pnpm run build-check`: **0 erros TypeScript (tsc --strict), 0 erros ESLint**.
+- `pnpm test`: **54/54 test suites aprovadas, 397/397 testes unitários PASS**.
+- `graphify update .`: Grafo semântico AST atualizado com 26.310 nós e 31.269 arestas.
+
+
 ## [2026-11-10T12:55] Otimização de Assets: Bypass de Loader para SVGs e Unoptimized para WebP Animado
 
 **Context:** Resolução de warnings no console de desenvolvimento reportados pelo runtime do Next.js Image component para SVGs (Clients brands / proof) e WebP animado (thumb-honda).

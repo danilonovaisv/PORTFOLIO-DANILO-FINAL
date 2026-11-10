@@ -18,6 +18,18 @@ interface HTMLVideoBlockProps {
   allowFullscreenToggle?: boolean;
 }
 
+function sanitizeHtmlSnippet(rawHtml: string): string {
+  if (!rawHtml || typeof rawHtml !== 'string') return '';
+  return rawHtml
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/<\/?(object|embed|applet|meta|link|base|form)\b[^>]*>/gi, '')
+    .replace(/\s+on[a-zA-Z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '')
+    .replace(
+      /\b(href|src|action)\s*=\s*(?:"\s*(?:javascript|vbscript):[^"]*"|'\s*(?:javascript|vbscript):[^']*'|[^\s>]*(?:javascript|vbscript):[^\s>]*)/gi,
+      '$1="about:blank"'
+    );
+}
+
 export function HTMLVideoBlock({
   html,
   media,
@@ -52,10 +64,15 @@ export function HTMLVideoBlock({
     setIsFullscreen((prev) => !prev);
   }, []);
 
-  // If html contains a full HTML document (e.g., <!DOCTYPE html> or <html> tag), render as srcDoc iframe
+  // If html contains a full HTML document or embedded iframe, render as srcDoc iframe
   const isFullHtmlDoc = Boolean(
-    html && /<!doctype\b|<html\b|<script\b/i.test(html)
+    html && /<!doctype\b|<html\b|<script\b|<iframe\b/i.test(html)
   );
+
+  const sanitizedSnippet = React.useMemo(() => {
+    if (!html || isFullHtmlDoc) return '';
+    return sanitizeHtmlSnippet(html);
+  }, [html, isFullHtmlDoc]);
 
   const sanitizedHtmlDoc = React.useMemo(() => {
     if (!html || !isFullHtmlDoc) return html;
@@ -183,7 +200,7 @@ export function HTMLVideoBlock({
                 'flex h-full w-full items-center justify-center bg-transparent',
                 embeddedVideoClasses
               )}
-              dangerouslySetInnerHTML={{ __html: html || '' }}
+              dangerouslySetInnerHTML={{ __html: sanitizedSnippet }}
             />
           )}
         </div>
@@ -311,7 +328,7 @@ export function HTMLVideoBlock({
                 'flex h-full w-full items-center justify-center bg-transparent',
                 embeddedVideoClasses
               )}
-              dangerouslySetInnerHTML={{ __html: html }}
+              dangerouslySetInnerHTML={{ __html: sanitizedSnippet }}
             />
           </div>
           {renderFullscreenOverlay()}
@@ -346,7 +363,7 @@ export function HTMLVideoBlock({
               'p-4 flex items-center justify-center bg-transparent',
               embeddedVideoClasses
             )}
-            dangerouslySetInnerHTML={{ __html: html }}
+            dangerouslySetInnerHTML={{ __html: sanitizedSnippet }}
           />
         </div>
         {renderFullscreenOverlay()}
