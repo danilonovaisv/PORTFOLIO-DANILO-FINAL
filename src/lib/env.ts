@@ -57,8 +57,7 @@ const processEnv = {
   R2_BUCKET_NAME: process.env.R2_BUCKET_NAME || 'portfolio-assets',
   SUPABASE_URL: process.env.SUPABASE_URL || undefined,
   NODE_ENV: process.env.NODE_ENV || 'development',
-  CLOUDFLARE_ONLY:
-    process.env.CLOUDFLARE_ONLY === 'true' || undefined,
+  CLOUDFLARE_ONLY: process.env.CLOUDFLARE_ONLY === 'true' || undefined,
 };
 
 const parsed = envSchema.safeParse(processEnv);
