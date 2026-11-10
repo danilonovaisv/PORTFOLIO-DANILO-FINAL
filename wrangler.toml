@@ -16,4 +16,4 @@ bucket_name = "portfolio-assets"
 [[d1_databases]]
 binding = "DB"
 database_name = "portfolio-db"
-database_uuid = "SEU_UUID_AQUI"
+database_uuid = "d9467c4e-7198-4077-a849-639b45612d5b"
