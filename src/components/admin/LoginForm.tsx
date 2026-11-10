@@ -5,10 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { createClientComponentClient } from '@/lib/supabase/client';
 import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 import { buildAbsoluteAuthUrl } from '@/lib/auth/redirects';
-import {
-  isCaptchaErrorMessage,
-  mapSupabaseAuthError,
-} from '@/lib/supabase/auth-messages';
+import { mapSupabaseAuthError } from '@/lib/supabase/auth-messages';
 import { getTurnstileSiteKey } from '@/lib/turnstile';
 import Script from 'next/script';
 
@@ -81,7 +78,14 @@ export default function LoginForm() {
 
   useEffect(() => {
     const checkSession = async () => {
+      const authError = searchParams.get('error');
       const supabase = createClientComponentClient();
+
+      if (authError === 'forbidden') {
+        await supabase.auth.signOut().catch(() => undefined);
+        return;
+      }
+
       const {
         data: { session },
       } = await supabase.auth.getSession();
@@ -93,7 +97,7 @@ export default function LoginForm() {
       }
     };
     checkSession();
-  }, [router]);
+  }, [router, searchParams]);
 
   const isBusy = busyAction !== null || isRedirecting;
   const authCallbackUrl = buildAbsoluteAuthUrl('/auth/callback?next=/admin');
@@ -169,7 +173,7 @@ export default function LoginForm() {
         });
 
         if (signUpError) {
-          if (isCaptchaErrorMessage(signUpError)) resetTurnstile();
+          resetTurnstile();
           setError(mapSupabaseAuthError(signUpError));
           return;
         }
@@ -197,7 +201,7 @@ export default function LoginForm() {
         });
 
       if (signInError) {
-        if (isCaptchaErrorMessage(signInError)) resetTurnstile();
+        resetTurnstile();
         setError(mapSupabaseAuthError(signInError));
         return;
       }
@@ -207,6 +211,7 @@ export default function LoginForm() {
         return;
       }
 
+      resetTurnstile();
       setError('SYSTEM_ERR: SESSION_ESTABLISH_FAILURE — RETRY');
     });
   };
@@ -226,7 +231,7 @@ export default function LoginForm() {
       });
 
       if (magicLinkError) {
-        if (isCaptchaErrorMessage(magicLinkError)) resetTurnstile();
+        resetTurnstile();
         setError(mapSupabaseAuthError(magicLinkError));
         return;
       }
@@ -250,7 +255,7 @@ export default function LoginForm() {
         });
 
       if (recoveryError) {
-        if (isCaptchaErrorMessage(recoveryError)) resetTurnstile();
+        resetTurnstile();
         setError(mapSupabaseAuthError(recoveryError));
         return;
       }
@@ -350,7 +355,9 @@ export default function LoginForm() {
             name="password"
             type="password"
             required
-            autoComplete="current-password"
+            autoComplete={
+              mode === 'signup' ? 'new-password' : 'current-password'
+            }
             className="rounded border border-white/10 bg-white/[0.03] px-4 py-3 font-mono text-sm text-white focus:border-bluePrimary/50 focus:ring-1 focus:ring-bluePrimary/20 focus:outline-none transition-all"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

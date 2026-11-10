@@ -35,6 +35,18 @@ export function mapSupabaseAuthError(error: ErrorLike): string {
     return 'SYSTEM_ERR: AUTH_SESSION_FAILED — RETRY_SESSION';
   }
 
+  if (message === 'forbidden' || message.includes('access_forbidden')) {
+    return 'SYSTEM_ERR: ACCESS_FORBIDDEN — ACCOUNT_NOT_AUTHORIZED_FOR_ADMIN';
+  }
+
+  if (message === 'auth_callback_failed') {
+    return 'SYSTEM_ERR: AUTH_CALLBACK_FAILED — SESSION_EXCHANGE_REJECTED';
+  }
+
+  if (message === 'missing_config') {
+    return 'SYSTEM_ERR: SUPABASE_CONFIG_MISSING — VERIFY_ENVIRONMENT_KEYS';
+  }
+
   if (isCaptchaErrorMessage(rawMessage)) {
     return 'SYSTEM_ERR: SECURITY_VERIFICATION_FAILED — REFRESH_CAPTCHA_AND_RETRY';
   }

@@ -184,6 +184,15 @@ export function AssetCard({ asset }: Props) {
             className="object-cover transition-transform duration-modal group-hover:scale-105"
             unoptimized={previewUrl.toLowerCase().endsWith('.svg')}
           />
+        ) : asset.asset_type === 'video' && previewUrl ? (
+          <video
+            src={previewUrl}
+            muted
+            playsInline
+            loop
+            autoPlay
+            className="h-full w-full object-cover"
+          />
         ) : (
           <div className="flex h-full w-full items-center justify-center font-mono text-[9px] uppercase tracking-widest text-white/20">
             [ {asset.asset_type}_PREVIEW_NULL ]

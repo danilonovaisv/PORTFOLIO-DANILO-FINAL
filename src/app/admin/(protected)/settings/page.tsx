@@ -6,9 +6,12 @@ import {
   createAdminClient,
   isServiceRoleConfigured,
 } from '@/lib/supabase/admin';
+import { getAllowedAdminEmails } from '@/lib/admin/authz';
 import { extractLegacyTokenValue, maskTokenSecret } from '@/lib/admin/tokens';
 import { listAdminUsers } from '@/lib/admin/admin-users';
 import { requireAdminAccess } from '@/lib/admin/server-access';
+import { getR2Config } from '@/lib/storage/r2';
+import { getTurnstileSiteKey } from '@/lib/turnstile';
 import { SettingsForm } from './SettingsForm';
 
 const getSupabasePublicKeyStatus = () => {
@@ -88,6 +91,13 @@ export default async function SettingsPage() {
   }
 
   const hasOpenAIKeyEnv = Boolean(process.env.OPENAI_API_KEY);
+  const r2Config = getR2Config();
+  const hasR2S3Credentials = Boolean(
+    r2Config.accessKeyId && r2Config.secretAccessKey
+  );
+  const hasR2CdnUrl = Boolean(r2Config.publicBaseUrl);
+  const hasTurnstileKey = Boolean(getTurnstileSiteKey());
+  const allowedAdminCount = getAllowedAdminEmails().size;
 
   const credentialFields = [
     {
@@ -101,6 +111,22 @@ export default async function SettingsPage() {
     {
       name: 'Supabase Service Role',
       status: isServiceRoleConfigured() ? 'Configurado' : 'Ausente',
+    },
+    {
+      name: 'Cloudflare R2 CDN',
+      status: hasR2CdnUrl ? 'Configurado' : 'Ausente',
+    },
+    {
+      name: 'Cloudflare R2 S3 API',
+      status: hasR2S3Credentials ? 'Configurado' : 'Ausente',
+    },
+    {
+      name: 'Cloudflare Turnstile',
+      status: hasTurnstileKey ? 'Configurado' : 'Ausente',
+    },
+    {
+      name: `Admin Allowlist (${allowedAdminCount})`,
+      status: allowedAdminCount > 0 ? 'Configurado' : 'Ausente',
     },
     {
       name: 'OpenAI API Key',

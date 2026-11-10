@@ -8,6 +8,7 @@ import {
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
   MASTER_PROJECT_TEMPLATE_V3,
+  MASTER_PROJECT_TEMPLATE_V3_HERO,
   type ProjectTemplateId,
 } from '@/types/project-template';
 
@@ -28,6 +29,8 @@ function getTemplateFromContent(content: unknown): ProjectTemplateId {
       return MASTER_PROJECT_TEMPLATE_V2;
     if (template === MASTER_PROJECT_TEMPLATE_V3)
       return MASTER_PROJECT_TEMPLATE_V3;
+    if (template === MASTER_PROJECT_TEMPLATE_V3_HERO)
+      return MASTER_PROJECT_TEMPLATE_V3_HERO;
   }
   return LEGACY_PROJECT_TEMPLATE;
 }
@@ -160,18 +163,22 @@ export default async function LandingPagesListPage(props: Props) {
                             className={`inline-flex items-center rounded border px-2 py-0.5 font-mono text-[9px] uppercase tracking-tighter ${
                               page.template === MASTER_PROJECT_TEMPLATE ||
                               page.template === MASTER_PROJECT_TEMPLATE_V2 ||
-                              page.template === MASTER_PROJECT_TEMPLATE_V3
+                              page.template === MASTER_PROJECT_TEMPLATE_V3 ||
+                              page.template === MASTER_PROJECT_TEMPLATE_V3_HERO
                                 ? 'border-[#0048ff]/30 bg-[#0048ff]/10 text-[#0048ff]'
                                 : 'border-white/10 bg-white/5 text-white/40'
                             }`}
                           >
                             {page.template === MASTER_PROJECT_TEMPLATE_V3
                               ? 'MASTER_V3'
-                              : page.template === MASTER_PROJECT_TEMPLATE
-                                ? 'MASTER_V1'
-                                : page.template === MASTER_PROJECT_TEMPLATE_V2
-                                  ? 'MASTER_V2'
-                                  : 'LEGACY_ENV'}
+                              : page.template ===
+                                  MASTER_PROJECT_TEMPLATE_V3_HERO
+                                ? 'MASTER_V3_HERO'
+                                : page.template === MASTER_PROJECT_TEMPLATE
+                                  ? 'MASTER_V1'
+                                  : page.template === MASTER_PROJECT_TEMPLATE_V2
+                                    ? 'MASTER_V2'
+                                    : 'LEGACY_ENV'}
                           </span>
                         </td>
                         <td className="px-6 py-5">
@@ -228,12 +235,14 @@ export default async function LandingPagesListPage(props: Props) {
                         className={`inline-flex items-center rounded border px-2 py-0.5 font-mono text-[9px] uppercase tracking-tighter ${
                           page.template === MASTER_PROJECT_TEMPLATE ||
                           page.template === MASTER_PROJECT_TEMPLATE_V2 ||
-                          page.template === MASTER_PROJECT_TEMPLATE_V3
+                          page.template === MASTER_PROJECT_TEMPLATE_V3 ||
+                          page.template === MASTER_PROJECT_TEMPLATE_V3_HERO
                             ? 'border-[#0048ff]/30 bg-[#0048ff]/10 text-[#0048ff]'
                             : 'border-white/10 bg-white/5 text-white/40'
                         }`}
                       >
-                        {page.template === MASTER_PROJECT_TEMPLATE_V3
+                        {page.template === MASTER_PROJECT_TEMPLATE_V3 ||
+                        page.template === MASTER_PROJECT_TEMPLATE_V3_HERO
                           ? 'V3'
                           : 'LEGACY'}
                       </span>
@@ -327,6 +336,9 @@ function Filters({
         >
           <option value="">ALL_ARCHITECTURES</option>
           <option value="master-project-v3-alpa">MASTER_V3_ALPA</option>
+          <option value="master-project-v3-hero-alpa">
+            MASTER_V3_HERO_ALPA
+          </option>
           <option value="master-project-v2">MASTER_V2</option>
           <option value="master-project-v1">MASTER_V1</option>
           <option value="legacy-blocks">LEGACY_ENV</option>

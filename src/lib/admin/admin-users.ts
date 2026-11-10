@@ -2,6 +2,7 @@ import {
   createAdminClient,
   isServiceRoleConfigured,
 } from '@/lib/supabase/admin';
+import { getAllowedAdminEmails } from '@/lib/admin/authz';
 import type { Database } from '@/lib/supabase.types';
 
 export const ADMIN_USER_ROLES = ['owner', 'editor'] as const;
@@ -74,9 +75,15 @@ export async function listAdminUsers(): Promise<AdminUserListItem[]> {
   const authUsers = authResult.data.users ?? [];
   const rowMap = new Map(rows.map((row) => [row.user_id, row]));
 
+  const allowedEmails = getAllowedAdminEmails();
   const candidates = authUsers.filter((user) => {
     const appRole = String(user.app_metadata?.role ?? '').toLowerCase();
-    return rowMap.has(user.id) || ADMIN_APP_ROLES.has(appRole);
+    const email = user.email?.trim().toLowerCase() ?? '';
+    return (
+      rowMap.has(user.id) ||
+      ADMIN_APP_ROLES.has(appRole) ||
+      (Boolean(email) && allowedEmails.has(email))
+    );
   });
 
   return candidates

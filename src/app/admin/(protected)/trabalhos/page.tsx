@@ -313,6 +313,9 @@ function Filters({
           >
             <option value="">All_Templates</option>
             <option value="master-project-v3-alpa">V3_ALPA_ATOMIC</option>
+            <option value="master-project-v3-hero-alpa">
+              V3_HERO_ALPA_ATOMIC
+            </option>
             <option value="master-project-v2">V2_MASTER_GRID</option>
             <option value="master-project-v1">V1_MASTER_CORE</option>
             <option value="legacy-blocks">LEGACY_BLOCKS</option>

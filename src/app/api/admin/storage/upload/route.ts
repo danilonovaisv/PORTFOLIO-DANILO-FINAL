@@ -39,7 +39,7 @@ export async function POST(request: Request) {
   const requestId = crypto.randomUUID();
 
   try {
-    await requireAdminAccess({ requireServiceRole: true });
+    await requireAdminAccess({ requireServiceRole: false });
 
     let formData: FormData;
     try {

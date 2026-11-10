@@ -5,14 +5,21 @@ import type { User } from '@supabase/supabase-js';
 // 'editor' maps to the 'editor' role in the admin_users table.
 const ADMIN_ROLES = new Set(['admin', 'owner', 'super_admin', 'editor']);
 
-function parseAllowedEmails(): Set<string> {
+export const DEFAULT_ADMIN_EMAILS = [
+  'danilo@portfoliodanilo.com',
+  'dannovaisv@gmail.com',
+  'danilonovaisv@gmail.com',
+  'danilo_novais@yahoo.com.br',
+] as const;
+
+export function getAllowedAdminEmails(): Set<string> {
   const raw = process.env.ADMIN_ALLOWED_EMAILS ?? '';
-  return new Set(
-    raw
-      .split(',')
-      .map((email) => email.trim().toLowerCase())
-      .filter(Boolean)
-  );
+  const envEmails = raw
+    .split(',')
+    .map((email) => email.trim().toLowerCase())
+    .filter(Boolean);
+
+  return new Set([...DEFAULT_ADMIN_EMAILS, ...envEmails]);
 }
 
 export function isAdminUser(user: User | null | undefined): boolean {
@@ -24,8 +31,8 @@ export function isAdminUser(user: User | null | undefined): boolean {
   }
 
   if (user.email) {
-    const allowedEmails = parseAllowedEmails();
-    if (allowedEmails.has(user.email.toLowerCase())) {
+    const allowedEmails = getAllowedAdminEmails();
+    if (allowedEmails.has(user.email.trim().toLowerCase())) {
       return true;
     }
   }

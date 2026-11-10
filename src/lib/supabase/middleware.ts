@@ -13,6 +13,8 @@ export async function updateSession(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
   const isLoginPage = pathname === '/admin/login';
+  const isResetPasswordPage = pathname === '/admin/reset-password';
+  const isAuthPublicPage = isLoginPage || isResetPasswordPage;
   const isAdminRoute = pathname.startsWith('/admin');
   const isAuthCallbackRoute = pathname.startsWith('/auth/callback');
 
@@ -24,7 +26,7 @@ export async function updateSession(request: NextRequest) {
     console.warn(
       '[Middleware] Missing Supabase credentials. Define NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY.'
     );
-    if (isAdminRoute && !isLoginPage) {
+    if (isAdminRoute && !isAuthPublicPage) {
       const url = request.nextUrl.clone();
       url.pathname = '/admin/login';
       return NextResponse.redirect(url);
@@ -68,15 +70,19 @@ export async function updateSession(request: NextRequest) {
     );
   }
 
+  const isAuthorizedAdmin =
+    Boolean(user) && (!shouldEnforceAdminRole() || isAdminUser(user));
+
   // Handle Auth Logic
-  if (user && isLoginPage) {
+  if (isAuthorizedAdmin && isLoginPage) {
     const url = request.nextUrl.clone();
     url.pathname = '/admin';
+    url.search = '';
     return NextResponse.redirect(url);
   }
 
-  // Protect /admin routes (except login)
-  if (isAdminRoute && !isLoginPage) {
+  // Protect /admin routes (except public auth pages)
+  if (isAdminRoute && !isAuthPublicPage) {
     if (!user) {
       const url = request.nextUrl.clone();
       url.pathname = '/admin/login';
@@ -85,7 +91,8 @@ export async function updateSession(request: NextRequest) {
 
     if (shouldEnforceAdminRole() && !isAdminUser(user)) {
       const url = request.nextUrl.clone();
-      url.pathname = '/';
+      url.pathname = '/admin/login';
+      url.search = '?error=forbidden';
       return NextResponse.redirect(url);
     }
   }

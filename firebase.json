@@ -47,6 +47,24 @@
         ]
       },
       {
+        "source": "/admin/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "private, no-store, no-cache, must-revalidate"
+          }
+        ]
+      },
+      {
+        "source": "/auth/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "private, no-store, no-cache, must-revalidate"
+          }
+        ]
+      },
+      {
         "source": "/api/**",
         "headers": [
           {

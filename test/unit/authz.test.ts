@@ -73,7 +73,7 @@ describe('isAdminUser', () => {
     expect(isAdminUser(user)).toBe(true);
   });
 
-  it('should treat unset, empty, or comma-only ADMIN_ALLOWED_EMAILS as no allowed emails', () => {
+  it('should treat unset, empty, or comma-only ADMIN_ALLOWED_EMAILS as only default admin emails', () => {
     // Unset
     delete process.env.ADMIN_ALLOWED_EMAILS;
     let user = createUser({}, {}, 'admin@example.com');
@@ -88,6 +88,12 @@ describe('isAdminUser', () => {
     process.env.ADMIN_ALLOWED_EMAILS = ',,,  ,';
     user = createUser({}, {}, 'admin@example.com');
     expect(isAdminUser(user)).toBe(false);
+
+    // Default admin emails are always authorized
+    expect(isAdminUser(createUser({}, {}, 'danilo@portfoliodanilo.com'))).toBe(true);
+    expect(isAdminUser(createUser({}, {}, 'dannovaisv@gmail.com'))).toBe(true);
+    expect(isAdminUser(createUser({}, {}, 'danilonovaisv@gmail.com'))).toBe(true);
+    expect(isAdminUser(createUser({}, {}, 'danilo_novais@yahoo.com.br'))).toBe(true);
   });
 
   it('should return false for regular user', () => {

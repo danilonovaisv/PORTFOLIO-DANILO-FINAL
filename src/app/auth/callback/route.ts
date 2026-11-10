@@ -1,13 +1,14 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import { buildAbsoluteAuthUrl, sanitizeNextPath } from '@/lib/auth/redirects';
+import { sanitizeNextPath } from '@/lib/auth/redirects';
 import { getSupabasePublicKey, getSupabasePublicUrl } from '@/lib/supabase/env';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
   const next = sanitizeNextPath(searchParams.get('next'), '/admin');
+  const origin = request.nextUrl.origin;
 
   if (code) {
     const cookieStore = await cookies();
@@ -17,7 +18,7 @@ export async function GET(request: NextRequest) {
 
     if (!supabaseUrl || !supabaseKey) {
       return NextResponse.redirect(
-        buildAbsoluteAuthUrl('/admin/login?error=missing_config')
+        new URL('/admin/login?error=missing_config', origin)
       );
     }
 
@@ -25,7 +26,7 @@ export async function GET(request: NextRequest) {
       cookieOptions: {
         name: '__session',
         sameSite: 'lax',
-        secure: true,
+        secure: process.env.NODE_ENV === 'production',
       },
       cookies: {
         getAll() {
@@ -45,12 +46,12 @@ export async function GET(request: NextRequest) {
 
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      return NextResponse.redirect(buildAbsoluteAuthUrl(next));
+      return NextResponse.redirect(new URL(next, origin));
     }
   }
 
   // Something went wrong, redirect to login with error
   return NextResponse.redirect(
-    buildAbsoluteAuthUrl('/admin/login?error=auth_callback_failed')
+    new URL('/admin/login?error=auth_callback_failed', origin)
   );
 }

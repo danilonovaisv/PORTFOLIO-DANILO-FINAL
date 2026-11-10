@@ -1,5 +1,35 @@
 # Adjustment Log
 
+## [2026-11-09T21:58] Auditoria Completa do Painel Admin, Autenticação, RBAC e Cloudflare R2 (/context7-mcp /analyze-admin /orchestrate)
+
+**Context:** Auditoria ponta a ponta do painel Admin (`/admin/login`, `/admin/reset-password`, `/auth/callback`, `/admin/(protected)/**`) e adequação às novas configurações de RBAC, Cloudflare R2 Storage, Turnstile Captcha e Cache-Control de borda.
+
+**Diagnóstico & Causas-Raiz Confirmadas (H1–H6):**
+
+1. **H1 — Bloqueio de `/admin/reset-password` e Loop de Redirect em `?error=forbidden` (`src/lib/supabase/middleware.ts`):**
+   - O middleware tratava apenas `/admin/login` como rota pública de autenticação, bloqueando `/admin/reset-password` para usuários não logados.
+   - Em `/admin/login`, qualquer sessão autenticada era redirecionada para `/admin` sem validar `isAdminUser(user)`, gerando loop infinito com `/admin/(protected)/layout.tsx` quando o usuário não possuía permissão administrativa.
+2. **H2 — RBAC e Lista de E-mails Administrativos (`src/lib/admin/authz.ts`, `src/lib/admin/admin-users.ts`, `.env.example`):**
+   - `shouldEnforceAdminRole()` força validação em produção (`NODE_ENV === 'production'`). Consolidada a lista padrão resiliente `DEFAULT_ADMIN_EMAILS` com `danilo@portfoliodanilo.com`, `dannovaisv@gmail.com`, `danilonovaisv@gmail.com` e `danilo_novais@yahoo.com.br`.
+3. **H3 — Cache Público em Rotas Autenticadas (`next.config.mjs` & `firebase.json`):**
+   - Adicionada regra explícita `Cache-Control: private, no-store, no-cache, must-revalidate` para `/admin/:path*`, `/auth/:path*` e `/api/:path*`, garantindo preservação do cookie `__session` no Firebase Hosting SSR e Cloudflare CDN.
+4. **H4 — Callback OAuth / Magic Link / Recovery (`src/app/auth/callback/route.ts`):**
+   - Alinhado `cookieOptions` para `name: '__session'`, `sameSite: 'lax'` e `secure: process.env.NODE_ENV === 'production'`, preservando `request.nextUrl.origin` no redirecionamento pós-login.
+5. **H5 — Reset de Token Turnstile Single-Use e Tratamento de `?error=forbidden` (`src/components/admin/LoginForm.tsx` & `src/lib/supabase/auth-messages.ts`):**
+   - O widget Cloudflare Turnstile agora é resetado em qualquer falha de autenticação (pois o token é de uso único no Supabase Auth).
+   - Em `?error=forbidden`, o `LoginForm` exibe imediatamente o alerta de permissão negada e encerra a sessão sem permissão para permitir troca de conta sem loop.
+6. **H6 — Upload e Preview Cloudflare R2 + Template V3 (`SLOT_03` e `MASTER_PROJECT_TEMPLATE_V3_HERO`):**
+   - `src/app/api/admin/storage/upload/route.ts`: ajustado para `requireServiceRole: false` (upload S3 direto no Cloudflare R2).
+   - `GalleryManager.tsx`, `MediaAssetField.tsx` e `AssetCard.tsx`: resolução de paths relativos para a CDN `https://assets.portfoliodanilo.com` e suporte a preview de `<video>`.
+   - `landing-page.ts` e `landing-page-save.ts`: suporte completo ao `SLOT_03` (`file3`, `media3`, `alt3`, `poster3`, `mediaType3`, `html3`) em blocos `media-3x`.
+   - `ProjectForm.tsx`, `trabalhos/page.tsx` e `landing-pages/page.tsx`: reconhecimento e filtro da variante `MASTER_PROJECT_TEMPLATE_V3_HERO`.
+   - `settings/page.tsx`: expansão da `Integration_Matrix` com diagnósticos de Cloudflare R2 CDN, R2 S3 API, Turnstile e Admin Allowlist (RBAC).
+
+**Validação & QA:**
+
+- `pnpm run build-check`: **0 erros TypeScript, 0 erros ESLint**.
+- `pnpm exec jest`: **53 test suites PASS, 395/395 testes aprovados** (incluindo novos testes para `DEFAULT_ADMIN_EMAILS` e `SLOT_03`).
+
 ## [2026-11-09T20:10] Migração Cloudflare R2, Unificação de Registros e Desacoplamento Supabase Storage (/orchestrate /plan)
 
 **Context:** Auditoria e migração completa de caminhos de assets do Supabase Storage para Cloudflare R2 (Zero Egress CDN Architecture) no Ghost System.

@@ -50,10 +50,6 @@ export function MediaAssetField({
   const isVideo = selectedMode === 'video';
   const isYoutube = selectedMode === 'youtube';
   const isHtml = selectedMode === 'html';
-  const preview = value.previewUrl || value.src;
-  const missingAlt =
-    requireAlt && !isVideo && !isYoutube && !isHtml && !value.alt?.trim();
-  const youtubeId = preview ? extractYouTubeId(preview) : null;
   const sourceValidation =
     value.src && !value.file && !isHtml
       ? resolveLandingAsset(
@@ -61,6 +57,19 @@ export function MediaAssetField({
           isYoutube ? 'youtube' : isVideo ? 'video' : 'image'
         )
       : null;
+  const preview =
+    value.previewUrl ||
+    (sourceValidation?.ok ? sourceValidation.asset.url : value.src);
+  const canRenderImagePreview =
+    Boolean(preview) &&
+    (preview.startsWith('http://') ||
+      preview.startsWith('https://') ||
+      preview.startsWith('/') ||
+      preview.startsWith('blob:') ||
+      preview.startsWith('data:'));
+  const missingAlt =
+    requireAlt && !isVideo && !isYoutube && !isHtml && !value.alt?.trim();
+  const youtubeId = preview ? extractYouTubeId(preview) : null;
   const invalidSource = sourceValidation ? !sourceValidation.ok : false;
   const errorMessage = isYoutube
     ? 'SYSTEM_ERR: INVALID_YOUTUBE_URL'
@@ -255,7 +264,7 @@ export function MediaAssetField({
                 playsInline
               />
             )
-          ) : (
+          ) : canRenderImagePreview ? (
             <Image
               src={preview}
               alt={value.alt || 'System_Preview'}
@@ -263,7 +272,7 @@ export function MediaAssetField({
               className="object-cover"
               unoptimized
             />
-          )}
+          ) : null}
         </div>
       )}
     </div>

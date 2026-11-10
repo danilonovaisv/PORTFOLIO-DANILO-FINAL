@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Trash2, ArrowUp, ArrowDown } from 'lucide-react';
 import Image from 'next/image';
+import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 
 export type GalleryItem = {
   id: string;
@@ -118,7 +119,12 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
 
       <div className="space-y-2">
         {items.map((item, index) => {
-          const mediaSrc = item.file ? previewUrls[item.id] : item.path;
+          const mediaSrc = item.file
+            ? previewUrls[item.id]
+            : item.path
+              ? (buildSupabaseStorageUrl('portfolio-media', item.path) ??
+                item.path)
+              : undefined;
           const isVid =
             isVideoUrl(mediaSrc) ||
             (item.file && item.file.type.startsWith('video/'));

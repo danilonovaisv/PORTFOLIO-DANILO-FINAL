@@ -21,10 +21,13 @@ export function sanitizeMasterV3BlockContent(
   const source = { ...(content ?? {}) };
   const media = normalizeOptionalText(source.media ?? source.media1);
   const media2 = normalizeOptionalText(source.media2);
+  const media3 = normalizeOptionalText(source.media3);
   const alt = normalizeOptionalText(source.alt ?? source.alt1);
   const alt2 = normalizeOptionalText(source.alt2);
+  const alt3 = normalizeOptionalText(source.alt3);
   const poster = normalizeOptionalText(source.poster ?? source.poster1);
   const poster2 = normalizeOptionalText(source.poster2);
+  const poster3 = normalizeOptionalText(source.poster3);
 
   delete source.media1;
   delete source.alt1;
@@ -32,18 +35,23 @@ export function sanitizeMasterV3BlockContent(
   delete source.file;
   delete source.file1;
   delete source.file2;
+  delete source.file3;
   delete source.previewUrl;
   delete source.previewUrl1;
   delete source.previewUrl2;
+  delete source.previewUrl3;
 
   return {
     ...source,
     media,
     media2,
+    media3,
     alt,
     alt2,
+    alt3,
     poster,
     poster2,
+    poster3,
   };
 }
 
@@ -203,8 +211,10 @@ export const toMasterV3Draft = (
       order: block.order ?? index,
       file: null,
       file2: null,
+      file3: null,
       previewUrl: '',
       previewUrl2: '',
+      previewUrl3: '',
     })),
   };
 };

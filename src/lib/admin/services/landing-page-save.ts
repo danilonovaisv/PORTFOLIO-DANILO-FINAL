@@ -417,6 +417,7 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: UploadAsset) {
       };
       let mediaPath = block.content.media;
       let media2Path = block.content.media2;
+      let media3Path = block.content.media3;
 
       const isBlockHtml1 =
         block.type === 'html-video' ||
@@ -446,17 +447,37 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: UploadAsset) {
         );
       }
 
+      const isBlockHtml3 =
+        block.content.mediaType3 === 'html' ||
+        Boolean(block.content.html3) ||
+        isHtmlMedia(media3Path);
+
+      if (block.file3) {
+        const path = await upload(block.file3, `master-v3-grid-${block.id}-m3`);
+        if (path) media3Path = path;
+      } else if (media3Path && !isBlockHtml3) {
+        media3Path = normalizePersistedAsset(
+          media3Path,
+          block.content.mediaType3
+        );
+      }
+
       const posterPath = block.content.poster
         ? normalizePersistedAsset(block.content.poster, 'image')
         : '';
       const poster2Path = block.content.poster2
         ? normalizePersistedAsset(block.content.poster2, 'image')
         : '';
+      const poster3Path = block.content.poster3
+        ? normalizePersistedAsset(block.content.poster3, 'image')
+        : '';
 
       const finalHtml1 =
         block.content.html || (isBlockHtml1 ? mediaPath : undefined);
       const finalHtml2 =
         block.content.html2 || (isBlockHtml2 ? media2Path : undefined);
+      const finalHtml3 =
+        block.content.html3 || (isBlockHtml3 ? media3Path : undefined);
 
       return {
         ...block,
@@ -464,17 +485,23 @@ async function saveMasterTemplateV3(ctx: SaveContext, upload: UploadAsset) {
           ...block.content,
           media: mediaPath,
           media2: media2Path,
+          media3: media3Path,
           html: finalHtml1,
           html2: finalHtml2,
+          html3: finalHtml3,
           mediaType: isBlockHtml1 ? 'html' : block.content.mediaType,
           mediaType2: isBlockHtml2 ? 'html' : block.content.mediaType2,
+          mediaType3: isBlockHtml3 ? 'html' : block.content.mediaType3,
           poster: posterPath,
           poster2: poster2Path,
+          poster3: poster3Path,
         }),
         file: null,
         file2: null,
+        file3: null,
         previewUrl: '',
         previewUrl2: '',
+        previewUrl3: '',
       };
     })
   );

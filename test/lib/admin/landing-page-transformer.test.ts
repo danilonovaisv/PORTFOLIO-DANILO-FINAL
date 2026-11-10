@@ -90,6 +90,9 @@ describe('landing-page V3 transformer', () => {
           media2: undefined,
           alt2: undefined,
           poster2: undefined,
+          media3: undefined,
+          alt3: undefined,
+          poster3: undefined,
         },
       },
       {
@@ -103,12 +106,15 @@ describe('landing-page V3 transformer', () => {
           media2: undefined,
           alt2: undefined,
           poster2: undefined,
+          media3: undefined,
+          alt3: undefined,
+          poster3: undefined,
         },
       },
     ]);
   });
 
-  it('removes legacy/transient aliases from block content', () => {
+  it('removes legacy/transient aliases from block content and preserves SLOT_03 fields', () => {
     const sanitized = sanitizeMasterV3BlockContent({
       media1: 'media/cover.webp',
       alt1: 'Cover',
@@ -118,6 +124,11 @@ describe('landing-page V3 transformer', () => {
       media2: 'media/detail.webp',
       alt2: 'Detail',
       previewUrl2: '/blob/detail',
+      media3: 'media/third.webp',
+      alt3: 'Third',
+      poster3: 'poster3.webp',
+      file3: 'transient-3',
+      previewUrl3: '/blob/third',
     });
 
     expect(sanitized).toEqual({
@@ -127,6 +138,9 @@ describe('landing-page V3 transformer', () => {
       media2: 'media/detail.webp',
       alt2: 'Detail',
       poster2: undefined,
+      media3: 'media/third.webp',
+      alt3: 'Third',
+      poster3: 'poster3.webp',
     });
   });
 });

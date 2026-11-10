@@ -29,6 +29,7 @@ import {
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
   MASTER_PROJECT_TEMPLATE_V3,
+  MASTER_PROJECT_TEMPLATE_V3_HERO,
 } from '@/types/project-template';
 
 import { ProjectBasicDetailsSection } from './form-sections/ProjectBasicDetailsSection';
@@ -155,11 +156,14 @@ export function ProjectForm({
             (page.content as { template?: string }).template ===
               MASTER_PROJECT_TEMPLATE_V2 ||
             (page.content as { template?: string }).template ===
-              MASTER_PROJECT_TEMPLATE_V3)
+              MASTER_PROJECT_TEMPLATE_V3 ||
+            (page.content as { template?: string }).template ===
+              MASTER_PROJECT_TEMPLATE_V3_HERO)
             ? ((page.content as { template?: string }).template as
                 | typeof MASTER_PROJECT_TEMPLATE
                 | typeof MASTER_PROJECT_TEMPLATE_V2
-                | typeof MASTER_PROJECT_TEMPLATE_V3)
+                | typeof MASTER_PROJECT_TEMPLATE_V3
+                | typeof MASTER_PROJECT_TEMPLATE_V3_HERO)
             : LEGACY_PROJECT_TEMPLATE;
 
         return {
