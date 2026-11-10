@@ -12,6 +12,7 @@ import {
   mapDbProjectToPortfolioProject,
   mapStaticProjectToPortfolioProject,
 } from '@/lib/portfolio/project-mappers';
+import { buildFallbackProjects } from '@/lib/portfolio/fallbacks';
 import type { PortfolioProject } from '@/types/project';
 import { getAssetUrl, isVideo } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
@@ -151,6 +152,13 @@ async function getProject(slug: string): Promise<PortfolioProject | undefined> {
       (p) => p.slug === slug || normalizeSlug(p.slug || '') === normalizedRequested
     );
     return mapStaticProjectToPortfolioProject(staticProject, index);
+  }
+
+  const fallbackCatalogProject = buildFallbackProjects().find(
+    (p) => p.slug === slug || normalizeSlug(p.slug || '') === normalizedRequested
+  );
+  if (fallbackCatalogProject) {
+    return fallbackCatalogProject;
   }
 
   return undefined;

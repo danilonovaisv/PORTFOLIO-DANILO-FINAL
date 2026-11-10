@@ -3043,3 +3043,13 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
   - Primário (Cloudflare): `route1.mx.cloudflare.net` (10), `route2.mx.cloudflare.net` (20), `route3.mx.cloudflare.net` (30).
   - Secundário / Backup (Zoho Mail): `mx.zoho.com` (40), `mx2.zoho.com` (50), `mx3.zoho.com` (60).
   - Registros antigos do Google Workspace (`smtp.google.com`) descontinuados sem downtime.
+
+## [2026-11-09] [Desacoplamento de Imagens: 04-PORTFOLIO-SHOWCASE vs 05-FEATURED-PROJECTS vs 03-PORTFOLIO]
+
+- **Contexto:** Na Home (`05-FEATURED-PROJECTS`) e na página `/portfolio` (`03-GALLERY` / `04-PROJECT-CARDS`), os cards de projetos estavam exibindo as mesmas imagens das stripes do `04-PORTFOLIO-SHOWCASE` (`Branding-Project.webp` / `projects/campaign/cover.webp` e `Key-Visual.webp` / `projects/key_vision/hero.webp`), ignorando as capas dedicadas configuradas no Admin (`url_landscape` e `url_square`) ou caindo em fallbacks legados.
+- **Alterações Aplicadas:**
+  - **`src/lib/portfolio/card-media.ts`**: Expandido `LEGACY_PROJECT_MEDIA_PATTERN` para identificar `projects/<slug>/cover.*` e `home/showcase/*`. Garantida prioridade estrita de `primaryCover` e `secondaryCover` (`url_landscape` e `url_square` configurados no Admin) sobre `thumbnailMedia` legado.
+  - **`src/lib/portfolio/project-mappers.ts`**: Em `mapDbProjectToPortfolioProject`, priorizadas as capas dedicadas (`url_landscape` e `url_square`) em `primaryImageCandidates` e descartado `thumbnailMedia` legado quando `hasDedicatedCovers` é verdadeiro.
+  - **`src/components/home/featured-projects/FeaturedProjectCardFrame.tsx`**: Priorizada a mídia de capa do card (`desktopMedia` / `mobileMedia`) sobre `hoverMedia` (que podia puxar vídeos da galeria interna do modal e sobrescrever a capa configurada no Admin).
+  - **`src/config/content.ts` & `src/lib/portfolio/fallbacks.ts`**: Substituídos os paths legados do showcase por 20 projetos reais do acervo `portfolio-media/` no Cloudflare R2 CDN, com suporte ao filtro `featuredOnHomeOnly` na Home (`src/app/page.tsx`) e resolução de slug em `/portfolio/[slug]`.
+- **Verificação:** `pnpm run build-check` (0 erros) e 53 suítes Jest (395 testes PASS).

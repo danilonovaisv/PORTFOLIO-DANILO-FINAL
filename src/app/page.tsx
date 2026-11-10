@@ -122,7 +122,7 @@ export default async function HomePage() {
     if (featuredProjects.length === 0) {
       logger.warn('[Home] No projects returned, using fallback projects.');
       featuredProjects = shuffleProjects(
-        buildFallbackProjects(),
+        buildFallbackProjects({ featuredOnHomeOnly: true }),
         deterministicSeed
       );
     }
@@ -141,7 +141,7 @@ export default async function HomePage() {
     );
 
     featuredProjects = shuffleProjects(
-      buildFallbackProjects(),
+      buildFallbackProjects({ featuredOnHomeOnly: true }),
       deterministicSeed
     );
   }

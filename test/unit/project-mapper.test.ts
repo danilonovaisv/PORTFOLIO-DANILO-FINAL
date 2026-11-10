@@ -120,4 +120,43 @@ describe('mapDbProjectToPortfolioProject', () => {
       landingSlug: 'case-landing',
     });
   });
+
+  it('prioritizes admin url_landscape and url_square over legacy thumbnail_path', () => {
+    const dbProject = {
+      id: 'proj-admin-covers',
+      slug: 'civic-key-visual',
+      title: 'Honda Civic',
+      client_name: 'Honda',
+      brand_name: null,
+      year: 2024,
+      project_type: 'Brand & Campaigns',
+      short_label: 'Brand',
+      description: 'Desc',
+      thumbnail_path: 'projects/campaign/cover.webp',
+      hero_image_path: 'home/showcase/Key-Visual.webp',
+      url_landscape:
+        'civic/key-visual/assets-do-projeto/cover-16x9/thumb-honda.c2d0c6ccb21001ea.webp',
+      url_square:
+        'civic/key-visual/assets-do-projeto/cover-1x1/thumb-honda.c2d0c6ccb21001ea.webp',
+      gallery: [],
+      featured_on_home: true,
+      featured_on_portfolio: true,
+      is_published: true,
+      created_at: null,
+      updated_at: null,
+    };
+
+    const mapped = mapDbProjectToPortfolioProject(dbProject as any, 0);
+
+    expect(mapped.image).toContain(
+      'civic/key-visual/assets-do-projeto/cover-16x9/thumb-honda.c2d0c6ccb21001ea.webp'
+    );
+    expect(mapped.imageLandscape).toContain(
+      'civic/key-visual/assets-do-projeto/cover-16x9/thumb-honda.c2d0c6ccb21001ea.webp'
+    );
+    expect(mapped.imageSquare).toContain(
+      'civic/key-visual/assets-do-projeto/cover-1x1/thumb-honda.c2d0c6ccb21001ea.webp'
+    );
+    expect(mapped.thumbnailMedia).toBeUndefined();
+  });
 });

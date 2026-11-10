@@ -63,13 +63,25 @@ export const HOME_CONTENT = {
   featuredProjects: [
     {
       id: 1,
-      slug: 'magic-radio-branding',
-      title: 'Magic — devolvendo a magia ao rádio',
-      category: 'branding & campanha',
-      client: 'Magic',
-      year: 2023,
-      tags: ['Branding', 'Campaign'],
-      img: siteAsset('projects/creative-direction/hero.webp'),
+      slug: 'key-vision',
+      landingPageSlug: 'key-vision',
+      title: 'Honda Civic — Key Visual & Campanha',
+      category: 'Brand & Campaigns',
+      client: 'Honda',
+      year: 2024,
+      tags: ['Key Visual', 'Art Direction', 'Campaign'],
+      img: siteAsset(
+        'portfolio-media/civic/key-visual/assets-do-projeto/cover-16x9/thumb-honda.c2d0c6ccb21001ea.webp'
+      ),
+      imgSquare: siteAsset(
+        'portfolio-media/civic/key-visual/assets-do-projeto/cover-1x1/thumb-honda.c2d0c6ccb21001ea.webp'
+      ),
+      homeFeatured: {
+        enabled: true,
+        cardStyle: 'ANIMATED_BG_THUMB_OVERLAY_5' as const,
+        logoPath:
+          'portfolio-media/civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda-a85702e811bf9bb0.b265753cbbc12865.webp',
+      },
       layout: {
         // Otimizado: 'min-h' previne overflow de texto, 'aspect' mantém proporção visual
         h: 'min-h-[400px] md:h-[500px] aspect-[4/5] md:aspect-auto',
@@ -79,13 +91,19 @@ export const HOME_CONTENT = {
     },
     {
       id: 2,
-      slug: 'branding-project-01',
-      title: 'Uma marca ousada e consistente',
-      category: 'Branding',
-      client: 'Cliente confidencial',
-      year: 2022,
-      tags: ['Strategy', 'Identity'],
-      img: siteAsset('projects/campaign/cover.webp'),
+      slug: 'campanhas-digitais',
+      landingPageSlug: 'campanhas-digitais',
+      title: 'Nescafé Dolce Gusto — Ecossistema Digital',
+      category: 'Brand & Campaigns',
+      client: 'Nestlé Dolce Gusto',
+      year: 2024,
+      tags: ['Branding', 'Campaign', 'Key Visual'],
+      img: siteAsset(
+        'portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-16x9/thumb-dg-16-9.8ef92ed37a30b3b2.webp'
+      ),
+      imgSquare: siteAsset(
+        'portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-1x1/thumb-dg-1-1.1e424f3b05e8f5a8.webp'
+      ),
       layout: {
         h: 'min-h-[400px] md:h-[500px] aspect-[4/5] md:aspect-auto',
         cols: 'md:col-span-7',
@@ -94,13 +112,19 @@ export const HOME_CONTENT = {
     },
     {
       id: 3,
-      slug: 'key-visual-campaign',
-      title: 'Key visual para campanha sazonal',
-      category: 'Campanha',
-      client: 'Cliente confidencial',
-      year: 2021,
-      tags: ['Art Direction'],
-      img: siteAsset('projects/key-vision/gallery/converted-5-webp.webp'),
+      slug: 'swift',
+      landingPageSlug: 'swift',
+      title: 'Swift — Campanha Sazonal & Motion',
+      category: 'Videos & Motions',
+      client: 'Swift',
+      year: 2024,
+      tags: ['Motion', 'Campaign', 'Art Direction'],
+      img: siteAsset(
+        'portfolio-media/swift/swift-kvs/assets-do-projeto/cover-16x9/thumb-swift-16-9.1507b4336165323f.mp4'
+      ),
+      imgSquare: siteAsset(
+        'portfolio-media/swift/swift-kvs/assets-do-projeto/cover-1x1/thumb-swift-1-1.27eb9f106724b5fb.mp4'
+      ),
       layout: {
         // Otimizado: Altura maior para destaque full-width
         h: 'min-h-[400px] md:h-[600px]',
@@ -110,13 +134,19 @@ export const HOME_CONTENT = {
     },
     {
       id: 4,
-      slug: 'webdesigner-motion',
-      title: 'Experiência web em movimento',
-      category: 'Web & Motion',
-      client: 'Cliente confidencial',
-      year: 2023,
-      tags: ['UX/UI', 'Animation'],
-      img: siteAsset('projects/key_vision/hero.webp'),
+      slug: 'conid',
+      landingPageSlug: 'conid',
+      title: 'Conib — Plataforma & Experiência Digital',
+      category: 'Websites & Tech',
+      client: 'Conib',
+      year: 2024,
+      tags: ['UX/UI', 'Web Design', 'Platform'],
+      img: siteAsset(
+        'portfolio-media/conib/website/assets-do-projeto/cover-16x9/thumb-16-9.12da695978c19ce4.webp'
+      ),
+      imgSquare: siteAsset(
+        'portfolio-media/conib/website/assets-do-projeto/cover-1x1/thumb-1-1.e36c592987d0fd48.webp'
+      ),
       layout: {
         h: 'min-h-[400px] md:h-[400px] aspect-video md:aspect-auto',
         cols: 'md:col-span-8',

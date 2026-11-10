@@ -113,13 +113,14 @@ export default function FeaturedProjectCardFrame({
   const bothAreVideos =
     desktopMedia?.kind === 'video' && mobileMedia?.kind === 'video';
 
-  const activeSingleMedia =
-    hoverMedia ??
-    (desktopMedia && mobileMedia && baseMediaDiffers
+  const primaryActiveMedia =
+    desktopMedia && mobileMedia && baseMediaDiffers
       ? isMobile
         ? mobileMedia
         : desktopMedia
-      : (desktopMedia ?? mobileMedia));
+      : (desktopMedia ?? mobileMedia);
+
+  const activeSingleMedia = primaryActiveMedia ?? hoverMedia;
 
   return (
     <div

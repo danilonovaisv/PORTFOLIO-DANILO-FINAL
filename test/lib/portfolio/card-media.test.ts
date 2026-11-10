@@ -1,7 +1,9 @@
 import {
   getCardMediaCandidates,
+  isLegacyProjectMediaAsset,
   resolveProjectMedia,
 } from '@/lib/portfolio/card-media';
+import { buildFallbackProjects } from '@/lib/portfolio/fallbacks';
 import type { PortfolioProject } from '@/types/project';
 
 const baseProject: PortfolioProject = {
@@ -94,5 +96,53 @@ describe('portfolio card media resolver', () => {
       fit: undefined,
       alt: undefined,
     });
+  });
+
+  it('always prioritizes dedicated admin covers (imageLandscape/imageSquare) over legacy thumbnailMedia', () => {
+    const media = resolveProjectMedia(
+      {
+        ...baseProject,
+        imageLandscape:
+          'https://assets.portfoliodanilo.com/portfolio-media/civic/key-visual/assets-do-projeto/cover-16x9/thumb-honda.c2d0c6ccb21001ea.webp',
+        imageSquare:
+          'https://assets.portfoliodanilo.com/portfolio-media/civic/key-visual/assets-do-projeto/cover-1x1/thumb-honda.c2d0c6ccb21001ea.webp',
+        thumbnailMedia:
+          'https://assets.portfoliodanilo.com/portfolio-media/projects/campaign/cover.webp',
+      },
+      'landscape'
+    );
+
+    expect(media?.src).toContain('civic/key-visual/assets-do-projeto/cover-16x9');
+  });
+
+  it('detects legacy project cover and showcase assets in isLegacyProjectMediaAsset', () => {
+    expect(
+      isLegacyProjectMediaAsset(
+        'https://assets.portfoliodanilo.com/portfolio-media/projects/campaign/cover.webp'
+      )
+    ).toBe(true);
+    expect(
+      isLegacyProjectMediaAsset(
+        'https://assets.portfoliodanilo.com/site-assets/home/showcase/Branding-Project.webp'
+      )
+    ).toBe(true);
+    expect(
+      isLegacyProjectMediaAsset(
+        'https://assets.portfoliodanilo.com/portfolio-media/civic/key-visual/assets-do-projeto/cover-16x9/thumb-honda.c2d0c6ccb21001ea.webp'
+      )
+    ).toBe(false);
+  });
+
+  it('ensures fallback projects never reuse portfolio showcase assets', () => {
+    const fallbacks = buildFallbackProjects();
+    expect(fallbacks.length).toBeGreaterThanOrEqual(16);
+
+    for (const project of fallbacks) {
+      expect(project.image).not.toContain('home/showcase/');
+      expect(project.image).not.toContain('projects/campaign/cover.webp');
+      expect(project.image).not.toContain('projects/key_vision/hero.webp');
+      expect(project.imageLandscape).not.toContain('home/showcase/');
+      expect(project.imageSquare).not.toContain('home/showcase/');
+    }
   });
 });

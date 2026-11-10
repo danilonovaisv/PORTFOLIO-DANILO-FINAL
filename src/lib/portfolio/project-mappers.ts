@@ -456,18 +456,19 @@ export function mapDbProjectToPortfolioProject(
     resolveProjectMedia(project.hero_image_path);
   const thumbnailIsVideo = isVideo(thumbnailMedia);
   const heroMedia = resolveProjectMedia(project.hero_image_path);
+  const hasDedicatedCovers = Boolean(landscapeUrl || squareUrl);
   const shouldPreferStructuredCardMedia =
-    Boolean(landscapeUrl || squareUrl) &&
-    (isLegacyProjectMediaAsset(thumbnailMedia) ||
-      isLegacyProjectMediaAsset(heroMedia));
+    hasDedicatedCovers ||
+    isLegacyProjectMediaAsset(thumbnailMedia) ||
+    isLegacyProjectMediaAsset(heroMedia);
   // Dedicated static hero fallback (never a video)
   const heroImageUrl = !isVideo(project.hero_image_path)
     ? resolveProjectMedia(project.hero_image_path)
     : undefined;
   const primaryImageCandidates = [
-    !thumbnailIsVideo ? thumbnailMedia : undefined,
     staticLandscapeUrl,
     staticSquareUrl,
+    !thumbnailIsVideo ? thumbnailMedia : undefined,
     heroImageUrl,
     // Filter gallery to only include non-video entries
     ...gallery.filter((url) => !isVideo(url)),
@@ -522,7 +523,10 @@ export function mapDbProjectToPortfolioProject(
     image: primaryImage,
     imageLandscape: landscapeUrl ?? undefined,
     imageSquare: squareUrl ?? undefined,
-    thumbnailMedia: thumbnailMedia ?? undefined,
+    thumbnailMedia:
+      hasDedicatedCovers && isLegacyProjectMediaAsset(thumbnailMedia)
+        ? undefined
+        : (thumbnailMedia ?? undefined),
     type,
     layout,
     detail,

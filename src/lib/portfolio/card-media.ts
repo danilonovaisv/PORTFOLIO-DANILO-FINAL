@@ -3,7 +3,7 @@ import type { MediaFormat, ProjectMedia } from '@/lib/media/media-format';
 import { isVideo } from '@/lib/utils';
 
 const LEGACY_PROJECT_MEDIA_PATTERN =
-  /(?:^|\/)projects\/[^/]+\/(?:thumb|hero)\.(?:avif|gif|jpe?g|png|webp|mp4|m4v|mov)$/i;
+  /(?:^|\/)(?:projects\/[^/]+\/(?:thumb|hero|cover)|home\/showcase\/[^/]+)\.(?:avif|gif|jpe?g|png|webp|mp4|m4v|mov|webm)$/i;
 
 const stripAssetDecorators = (value?: string | null) =>
   value?.split('?')[0].split('#')[0] ?? '';
@@ -123,8 +123,10 @@ function getCardMediaCandidateRecords(
     ];
   }
 
+  const hasDedicatedAdminCover = Boolean(primaryCover || secondaryCover);
   const shouldPreferDedicatedCover =
-    hasStructuredCover && isLegacyProjectMediaAsset(project.thumbnailMedia);
+    hasDedicatedAdminCover ||
+    (hasStructuredCover && isLegacyProjectMediaAsset(project.thumbnailMedia));
 
   const orderedCandidates: MediaCandidate[] = shouldPreferDedicatedCover
     ? [
