@@ -16,6 +16,7 @@ bucket_name = "portfolio-assets"
 [[d1_databases]]
 binding = "DB"
 database_name = "portfolio-db"
+database_id = "d9467c4e-7198-4077-a849-639b45612d5b"
 
 # === RUNTIME VARIABLES (Sincronizado com Cloudflare Dashboard) ===
 [vars]
