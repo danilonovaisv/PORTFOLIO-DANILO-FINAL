@@ -211,14 +211,14 @@ export function ShaderSection() {
       className="relative flex h-[650px] w-full flex-col items-center justify-center overflow-hidden"
       style={{ background: '#040013' }}
     >
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-[var(--z-layer-base,0)]">
         <ShaderAnimation />
       </div>
 
       {/* Editorial Overlay */}
-      <div className="absolute inset-0 z-[5] bg-radial-gradient from-transparent via-background/40 to-background opacity-60 pointer-events-none" />
+      <div className="absolute inset-0 z-[var(--z-layer-glass,10)] bg-radial-gradient from-transparent via-background/40 to-background opacity-60 pointer-events-none" />
 
-      <div className="relative z-10 px-6 max-w-[1680px] w-full text-center">
+      <div className="relative z-[var(--z-layer-content,20)] px-6 max-w-[1680px] w-full text-center">
         <m.span
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
