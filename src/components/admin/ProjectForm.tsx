@@ -358,8 +358,13 @@ export function ProjectForm({
         const landingPageId =
           values.landing_page_id === '' ? null : values.landing_page_id;
 
+        const userDestinationType = values.destination?.type;
+        const isExplicitExternalDestination =
+          userDestinationType === 'external_url' || userDestinationType === 'page';
+
         let finalDestination = values.destination;
-        if (landingPageId) {
+        if (landingPageId && !isExplicitExternalDestination) {
+          // Only auto-assign internal_landing if user didn't explicitly choose external_url or page
           const selectedLp = landingPagesWithTemplate.find(
             (lp) => lp.id === landingPageId
           );
@@ -373,6 +378,7 @@ export function ProjectForm({
           !finalDestination ||
           finalDestination.type === 'internal_landing'
         ) {
+          // Default to modal when no destination set, or when user chose internal_landing without a landing page
           finalDestination = { type: 'modal' };
         }
 
