@@ -91,18 +91,14 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
           id: s.id || uuidv4(),
           content: {
             ...s.content,
-            media: s.content.media?.startsWith('http')
-              ? s.content.media
-              : s.content.media
-                ? buildSupabaseStorageUrl('site-assets', s.content.media) ||
-                  undefined
-                : undefined,
-            media2: s.content.media2?.startsWith('http')
-              ? s.content.media2
-              : s.content.media2
-                ? buildSupabaseStorageUrl('site-assets', s.content.media2) ||
-                  undefined
-                : undefined,
+            media: s.content.media
+              ? buildSupabaseStorageUrl('site-assets', s.content.media) ||
+                undefined
+              : undefined,
+            media2: s.content.media2
+              ? buildSupabaseStorageUrl('site-assets', s.content.media2) ||
+                undefined
+              : undefined,
           },
         }))
       : []
