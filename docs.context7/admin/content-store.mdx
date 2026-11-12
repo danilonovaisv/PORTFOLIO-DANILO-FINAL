@@ -7,21 +7,21 @@ description: 'Modelo de dados, edição de conteúdo e sincronização com o fro
 
 ## Princípio
 
-Textos, títulos e links não são hardcoded no React. Todo conteúdo de marketing vive no Supabase e é editado pelo painel.
+Textos, títulos e links não são hardcoded no React. Todo conteúdo de marketing vive no Cloudflare D1 e é editado pelo painel.
 
 ## Modelo de dados
 
-Todas as tabelas seguem `snake_case` e carregam `created_at` e `updated_at`. Chaves estrangeiras e colunas de busca são indexadas.
+As tabelas (`portfolio_projects`, `landing_pages`, `portfolio_tags`, `portfolio_project_tags`, `site_assets`) seguem `snake_case` e carregam `created_at` e `updated_at`. Chaves estrangeiras e colunas de busca são indexadas.
 
 ## Fluxo de edição
 
 1. O conteúdo é alterado no `/admin`.
-2. A alteração é persistida no PostgreSQL.
-3. A subscription da tabela propaga o novo valor para o frontend.
+2. A alteração é persistida no D1 pelo binding `DB`.
+3. A rota afetada é revalidada e serve o novo valor no próximo render.
 
 ## Migrations
 
-Alterações de schema entram como arquivo versionado em `supabase/migrations/`. Colunas em produção não são alteradas manualmente.
+Alterações de schema entram como arquivo versionado em `cloudflare/migrations/`. Colunas em produção não são alteradas manualmente.
 
 ## Consistência
 

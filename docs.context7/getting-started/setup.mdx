@@ -9,7 +9,7 @@ description: 'Instalação, variáveis de ambiente e comandos de desenvolvimento
 
 - Node.js 20 ou superior.
 - pnpm (gerenciador oficial do projeto).
-- Acesso ao projeto Supabase e ao Firebase Hosting.
+- Acesso ao projeto Cloudflare (D1 e R2), ao projeto Supabase (autenticação do `/admin`) e ao Firebase Hosting.
 
 ## Instalação
 
@@ -20,7 +20,9 @@ pnpm run dev
 
 ## Variáveis de ambiente
 
-As chaves do Supabase e do Firebase ficam em `.env.local` e nunca são commitadas. As variáveis devem ser validadas em runtime antes do build.
+As chaves ficam em `.env.local` e nunca são commitadas. As variáveis devem ser validadas em runtime antes do build.
+
+O conteúdo é lido do Cloudflare D1 pelo binding `DB`, configurado no `wrangler.toml` (`database_name = "portfolio-db"`). A mídia é servida pelo Cloudflare R2, que exige `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID` e `R2_SECRET_ACCESS_KEY` no servidor, além de `R2_BUCKET_NAME` (padrão `portfolio-assets`) e `NEXT_PUBLIC_R2_PUBLIC_URL` para o CDN público.
 
 ## Comandos
 
