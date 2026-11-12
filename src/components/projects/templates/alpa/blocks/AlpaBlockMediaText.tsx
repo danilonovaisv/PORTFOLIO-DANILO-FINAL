@@ -90,6 +90,7 @@ export function AlpaBlockMediaText({
             src={resolvedMedia.asset.url}
             alt={alt || ''}
             fill
+            sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover transition-opacity duration-normal group-hover:opacity-90"
           />
         </button>

@@ -84,6 +84,7 @@ export function AlpaBlockGrid2Col({
                   src={resolved.asset.url}
                   alt={col.alt || ''}
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover transition-opacity duration-normal group-hover:opacity-90"
                 />
               </button>
