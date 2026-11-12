@@ -2,6 +2,7 @@ import type { DbAsset } from '@/types/admin';
 import {
   buildSupabaseStorageUrl,
   normalizeStoragePath,
+  parsePublicSupabaseStorageUrl,
   validateExternalUrl,
 } from '@/lib/supabase/urls';
 
@@ -25,7 +26,12 @@ export function normalizeAssetRecord(asset: DbAsset): NormalizedSiteAsset {
     .replace(/,+$/g, '')
     .trim();
 
-  const cleanPath = normalizeStoragePath(asset.file_path, cleanBucket);
+  const parsedSourceUrl = parsePublicSupabaseStorageUrl(asset.file_path);
+  const effectiveBucket = parsedSourceUrl?.bucket || cleanBucket;
+  const cleanPath = normalizeStoragePath(
+    parsedSourceUrl ? parsedSourceUrl.filePath : asset.file_path,
+    effectiveBucket
+  );
   const fixClientsPath = (path?: string | null) => {
     if (!path) return path;
     // Casos importados com prefixo duplicado "clients.clients.strip.X.svg"
@@ -44,9 +50,9 @@ export function normalizeAssetRecord(asset: DbAsset): NormalizedSiteAsset {
 
   // Corrige bucket para media de portfólio que foram importadas com o bucket errado
   const resolvedBucket =
-    cleanBucket === 'site-assets' && resolvedPath?.startsWith('projects/')
+    effectiveBucket === 'site-assets' && resolvedPath?.startsWith('projects/')
       ? 'portfolio-media'
-      : cleanBucket;
+      : effectiveBucket;
 
   const inferPageFromValue = (value?: string | null) => {
     if (!value) return undefined;

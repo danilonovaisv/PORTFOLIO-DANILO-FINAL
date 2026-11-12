@@ -1,7 +1,8 @@
 import type { MetadataRoute } from 'next';
-import { HOME_CONTENT } from '@/config/content';
-import { createStaticClient } from '@/lib/supabase/static';
-import { listProjects } from '@/lib/supabase/queries/projects';
+import { getD1Database } from '@/lib/d1/client';
+import { listProjectsFromD1 } from '@/lib/d1/projects';
+import { getRecoveredDbProjects } from '@/lib/portfolio/fallbacks';
+import { FALLBACK_LANDING_PAGES } from '@/lib/projects/landing-page-fallback';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
 import { getCanonicalSiteUrl } from '@/lib/seo';
 import { logger } from '@/lib/logger';
@@ -9,46 +10,51 @@ import { logger } from '@/lib/logger';
 export const dynamic = 'force-static';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Always emit canonical production URLs in sitemap.
   const baseUrl = getCanonicalSiteUrl().replace(/\/$/, '');
 
   let projectUrls: MetadataRoute.Sitemap = [];
 
   try {
-    const supabase = createStaticClient();
-    const dbProjects = await listProjects({}, supabase);
+    const db = await getD1Database();
+    let dbProjects: DbProjectWithTags[] = db
+      ? await listProjectsFromD1(db, { publishedOnly: true })
+      : [];
 
-    projectUrls = dbProjects.map((project: DbProjectWithTags) => ({
-      url: `${baseUrl}/portfolio/${project.slug.replace(/_/g, '-')}`,
-      lastModified: new Date(project.updated_at || new Date()),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    }));
-
-    // Landing Pages have priority for deduplication if slugs match
-    const { data: landingPages } = await supabase
-      .from('landing_pages')
-      .select('slug, updated_at');
-
-    const landingSlugs = new Set<string>();
-    let landingPageUrls: MetadataRoute.Sitemap = [];
-
-    if (landingPages) {
-      landingPageUrls = (
-        landingPages as { slug: string; updated_at?: string }[]
-      ).map((page) => {
-        const cleanSlug = page.slug.replace(/_/g, '-');
-        landingSlugs.add(cleanSlug);
-        return {
-          url: `${baseUrl}/projects/${cleanSlug}`,
-          lastModified: new Date(page.updated_at || new Date()),
-          changeFrequency: 'monthly' as const,
-          priority: 0.8,
-        };
-      });
+    if (dbProjects.length === 0) {
+      dbProjects = getRecoveredDbProjects();
     }
 
-    // Exclude portfolio URLs that exist as landing pages to preserve single canonical URL
+    let landingRows: Array<{ slug: string; created_at?: string | null }> = [];
+    if (db) {
+      try {
+        const result = await db
+          .prepare('SELECT slug, created_at FROM landing_pages')
+          .all<{ slug: string; created_at?: string | null }>();
+        landingRows = result.results ?? [];
+      } catch {
+        landingRows = [];
+      }
+    }
+
+    if (landingRows.length === 0) {
+      landingRows = FALLBACK_LANDING_PAGES.map((page) => ({
+        slug: page.slug,
+        created_at: page.created_at ?? null,
+      }));
+    }
+
+    const landingSlugs = new Set<string>();
+    const landingPageUrls: MetadataRoute.Sitemap = landingRows.map((page) => {
+      const cleanSlug = page.slug.replace(/_/g, '-');
+      landingSlugs.add(cleanSlug);
+      return {
+        url: `${baseUrl}/projects/${cleanSlug}`,
+        lastModified: new Date(page.created_at || new Date()),
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+      };
+    });
+
     const filteredProjectUrls = dbProjects
       .filter((project: DbProjectWithTags) => {
         const cleanSlug = project.slug.replace(/_/g, '-');
@@ -64,19 +70,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     projectUrls = [...landingPageUrls, ...filteredProjectUrls];
   } catch (error) {
     logger.warn(
-      'Sitemap: Error fetching data from Supabase, using fallback.',
+      'Sitemap: Error fetching data from D1, using recovered catalog.',
       error
     );
 
-    projectUrls = HOME_CONTENT.featuredProjects.map((project) => ({
-      url: `${baseUrl}/portfolio/${project.slug}`,
+    projectUrls = FALLBACK_LANDING_PAGES.map((page) => ({
+      url: `${baseUrl}/projects/${page.slug.replace(/_/g, '-')}`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
-      priority: 0.7,
+      priority: 0.8,
     }));
   }
 
-  // Canonical base URLs (without query params to avoid non-canonical indexing)
   const staticUrls: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -110,7 +115,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Deduplicate all URLs by canonical url string
   const seenUrls = new Set<string>();
   const combinedSitemap: MetadataRoute.Sitemap = [];
 

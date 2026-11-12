@@ -4,8 +4,10 @@ const SUPABASE_PROJECT_URL =
   process.env.SUPABASE_URL ??
   '';
 
-const R2_PUBLIC_URL =
-  process.env.NEXT_PUBLIC_R2_PUBLIC_URL ?? process.env.R2_PUBLIC_URL ?? '';
+const getEffectiveR2PublicUrl = () =>
+  process.env.NEXT_PUBLIC_R2_PUBLIC_URL ??
+  process.env.R2_PUBLIC_URL ??
+  (process.env.NODE_ENV !== 'test' ? 'https://assets.portfoliodanilo.com' : '');
 
 export const SUPABASE_STORAGE_URL = `${SUPABASE_PROJECT_URL.replace(
   /\/$/,
@@ -19,8 +21,9 @@ const asset = (path: string) => {
   if (cleanPath.startsWith('site-assets/') && !cleanPath.endsWith('.mp4')) {
     return `/site.assets/${cleanPath.slice('site-assets/'.length)}`;
   }
-  if (R2_PUBLIC_URL) {
-    return `${R2_PUBLIC_URL.replace(/\/$/, '')}/${cleanPath}`;
+  const r2PublicUrl = getEffectiveR2PublicUrl();
+  if (r2PublicUrl) {
+    return `${r2PublicUrl.replace(/\/$/, '')}/${cleanPath}`;
   }
   return `${SUPABASE_STORAGE_URL}/${cleanPath}`;
 };

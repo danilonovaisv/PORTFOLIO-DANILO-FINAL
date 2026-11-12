@@ -8,19 +8,12 @@ import AssetLoaderWrapper from '@/components/layout/AssetLoaderWrapper';
 import SmoothScroll from '@/components/layout/SmoothScroll';
 import MotionConfigProvider from '@/components/motion/MotionConfigProvider';
 
-import { env } from '@/lib/env';
-
 export const metadata: Metadata = siteMetadata;
 export const viewport: Viewport = siteViewport;
 
-// Define a function to safely get environment variables
-function getSupabaseBaseUrl(): string {
-  return (
-    env.NEXT_PUBLIC_SUPABASE_URL ||
-    env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL ||
-    ''
-  ).replace(/\/$/, '');
-}
+const R2_CDN_URL = (
+  process.env.NEXT_PUBLIC_R2_PUBLIC_URL || 'https://assets.portfoliodanilo.com'
+).replace(/\/+$/, '');
 
 export default function RootLayout({
   children,
@@ -32,8 +25,7 @@ export default function RootLayout({
     if (value) cssVars[name] = value;
   };
 
-  const supabaseBaseUrl = getSupabaseBaseUrl();
-  setVar('--supabase-url', supabaseBaseUrl);
+  setVar('--r2-public-url', R2_CDN_URL);
 
   // Use default values from BRAND config for initial render
   setVar('--logo-light-url', BRAND.assets.logos.logoLight);
@@ -64,16 +56,12 @@ export default function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        {/* DNS Prefetch for external resources */}
+        {/* DNS Prefetch & Preconnect for CDN resources */}
         <link rel="dns-prefetch" href="https://assets.codepen.io" />
-        <link
-          rel="dns-prefetch"
-          href={getSupabaseBaseUrl().replace(/\/+$/, '')}
-        />
-        {/* Preconnect to Supabase storage for faster LCP image delivery */}
+        <link rel="dns-prefetch" href={R2_CDN_URL} />
         <link
           rel="preconnect"
-          href={getSupabaseBaseUrl().replace(/\/+$/, '')}
+          href={R2_CDN_URL}
           crossOrigin="anonymous"
         />
       </head>

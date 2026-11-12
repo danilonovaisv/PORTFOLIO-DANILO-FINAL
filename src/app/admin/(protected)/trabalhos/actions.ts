@@ -2,6 +2,14 @@
 
 import { revalidatePath } from 'next/cache';
 import { upsertProject, deleteProject } from '@/lib/supabase/queries/projects';
+import { getD1Database } from '@/lib/d1/client';
+import {
+  deleteProjectInD1,
+  getAdminProjectByIdFromD1,
+  getLandingPagesByIdsFromD1,
+  getProjectIdBySlugFromD1,
+  upsertProjectInD1,
+} from '@/lib/d1/admin';
 import {
   projectMutationSchema,
   type ProjectMutationInput,
@@ -42,13 +50,18 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
 
   try {
     const { supabase } = await requireAdminAccess({ requireServiceRole: true });
+    const d1 = await getD1Database();
 
     // Validate slug uniqueness before any writes
-    const { data: existing } = await supabase
-      .from('portfolio_projects')
-      .select('id')
-      .eq('slug', newSlug)
-      .maybeSingle();
+    const existing = d1
+      ? await getProjectIdBySlugFromD1(d1, newSlug)
+      : (
+          await supabase
+            .from('portfolio_projects')
+            .select('id')
+            .eq('slug', newSlug)
+            .maybeSingle()
+        ).data;
 
     if (existing && existing.id !== input.id) {
       return errorResponse(
@@ -67,13 +80,17 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
     let previousLandingPageId: string | null = null;
 
     if (input.id) {
-      const { data: oldProject } = await supabase
-        .from('portfolio_projects')
-        .select(
-          'slug, client_slug, url_landscape, url_square, gallery, home_featured, landing_page_id'
-        )
-        .eq('id', input.id)
-        .single();
+      const oldProject: any = d1
+        ? await getAdminProjectByIdFromD1(d1, input.id)
+        : (
+            await supabase
+              .from('portfolio_projects')
+              .select(
+                'slug, client_slug, url_landscape, url_square, gallery, home_featured, landing_page_id'
+              )
+              .eq('id', input.id)
+              .single()
+          ).data;
 
       if (oldProject) {
         previousLandingPageId = oldProject.landing_page_id ?? null;
@@ -82,7 +99,7 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
           url_square: oldProject.url_square,
           gallery: Array.isArray(oldProject.gallery)
             ? oldProject.gallery
-                .map((item) => {
+                .map((item: unknown) => {
                   if (!item || typeof item !== 'object') return null;
                   const path =
                     'path' in item && typeof item.path === 'string'
@@ -92,7 +109,9 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
                   if (!path) return null;
                   return { path };
                 })
-                .filter((item): item is { path: string } => Boolean(item))
+                .filter((item: { path: string } | null): item is { path: string } =>
+                  Boolean(item)
+                )
             : [],
           home_featured:
             oldProject.home_featured &&
@@ -101,11 +120,12 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
               : null,
         };
 
-        const oldV4 = `v4/${oldProject.client_slug}/${oldProject.slug}`;
+        const oldClientSlug = String(oldProject.client_slug || client_slug);
+        const oldV4 = `v4/${oldClientSlug}/${oldProject.slug}`;
         const newV4 = `v4/${client_slug}/${newSlug}`;
-        const oldNew = `${oldProject.client_slug}/${oldProject.slug}/project-assets`;
+        const oldNew = `${oldClientSlug}/${oldProject.slug}/project-assets`;
         const newNew = `${client_slug}/${newSlug}/project-assets`;
-        const oldProjects = `${oldProject.client_slug}/projects/${oldProject.slug}`;
+        const oldProjects = `${oldClientSlug}/projects/${oldProject.slug}`;
         const newProjects = `${client_slug}/projects/${newSlug}`;
 
         // Only register folders that actually changed
@@ -152,93 +172,101 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
     }
 
     // ── DB UPDATE FIRST (atomic from DB's perspective) ──────────────────
-    // If DB fails, storage is untouched → state remains consistent.
-    // If storage move fails later, DB has the correct target paths and
-    // old files remain accessible until cleanup or re-rename resolves.
-    const updatedProject = await upsertProject({
-      ...projectData,
-      client_slug,
-      slug: newSlug,
-      url_landscape: finalUrlLandscape,
-      url_square: finalUrlSquare,
-      gallery: finalGallery as unknown as any,
-      destination: (projectData.destination ?? null) as any,
-      tagIds: tags,
-    });
+    const updatedProject = d1
+      ? await upsertProjectInD1(d1, {
+          ...projectData,
+          client_slug,
+          slug: newSlug,
+          url_landscape: finalUrlLandscape,
+          url_square: finalUrlSquare,
+          gallery: finalGallery as unknown as any,
+          destination: (projectData.destination ?? null) as any,
+          tagIds: tags,
+        })
+      : await upsertProject({
+          ...projectData,
+          client_slug,
+          slug: newSlug,
+          url_landscape: finalUrlLandscape,
+          url_square: finalUrlSquare,
+          gallery: finalGallery as unknown as any,
+          destination: (projectData.destination ?? null) as any,
+          tagIds: tags,
+        });
 
-    // ── STORAGE MOVE AFTER DB WRITE ──────────────────────────────────────
-    const storageMoveFailures: string[] = [];
-    const storageRewrites: StoragePathRewrite[] = [];
+    // Legacy Supabase storage reconciliation only when running without D1/R2
+    if (!d1) {
+      const storageMoveFailures: string[] = [];
+      const storageRewrites: StoragePathRewrite[] = [];
 
-    if (oldFolderV4 && newFolderV4) {
-      storageRewrites.push({ from: oldFolderV4, to: newFolderV4 });
-      const { failed } = await moveProjectFolder(
-        supabase,
-        'portfolio-media',
-        oldFolderV4,
-        newFolderV4
-      );
-      storageMoveFailures.push(...failed);
-    }
-    if (oldFolderNew && newFolderNew) {
-      storageRewrites.push({ from: oldFolderNew, to: newFolderNew });
-      const { failed } = await moveProjectFolder(
-        supabase,
-        'portfolio-media',
-        oldFolderNew,
-        newFolderNew
-      );
-      storageMoveFailures.push(...failed);
-    }
-    if (oldFolderProjects && newFolderProjects) {
-      storageRewrites.push({ from: oldFolderProjects, to: newFolderProjects });
-      const { failed } = await moveProjectFolder(
-        supabase,
-        'portfolio-media',
-        oldFolderProjects,
-        newFolderProjects
-      );
-      storageMoveFailures.push(...failed);
-    }
-
-    if (storageMoveFailures.length > 0) {
-      // Log for admin visibility — not critical since DB paths are correct
-      // and old files remain accessible. Cleanup functions will reconcile.
-      console.error(
-        '[WORKS_ENGINE] Partial storage rename failure — files still at old path:',
-        storageMoveFailures
-      );
-    }
-
-    const nextProjectSnapshot: ProjectStorageSnapshot = {
-      url_landscape: finalUrlLandscape,
-      url_square: finalUrlSquare,
-      gallery: Array.isArray(finalGallery) ? finalGallery : [],
-      home_featured:
-        projectData.home_featured &&
-        typeof projectData.home_featured === 'object'
-          ? (projectData.home_featured as ProjectStorageSnapshot['home_featured'])
-          : null,
-    };
-
-    const orphanedPaths = findRemovedProjectStoragePaths(
-      previousProjectSnapshot,
-      nextProjectSnapshot,
-      storageRewrites
-    );
-
-    if (orphanedPaths.length > 0) {
-      const { failed } = await deleteStorageFiles(
-        supabase,
-        'portfolio-media',
-        orphanedPaths
-      );
-
-      if (failed.length > 0) {
-        console.error(
-          '[WORKS_ENGINE] Partial storage cleanup failure — orphaned files may remain:',
-          failed
+      if (oldFolderV4 && newFolderV4) {
+        storageRewrites.push({ from: oldFolderV4, to: newFolderV4 });
+        const { failed } = await moveProjectFolder(
+          supabase,
+          'portfolio-media',
+          oldFolderV4,
+          newFolderV4
         );
+        storageMoveFailures.push(...failed);
+      }
+      if (oldFolderNew && newFolderNew) {
+        storageRewrites.push({ from: oldFolderNew, to: newFolderNew });
+        const { failed } = await moveProjectFolder(
+          supabase,
+          'portfolio-media',
+          oldFolderNew,
+          newFolderNew
+        );
+        storageMoveFailures.push(...failed);
+      }
+      if (oldFolderProjects && newFolderProjects) {
+        storageRewrites.push({ from: oldFolderProjects, to: newFolderProjects });
+        const { failed } = await moveProjectFolder(
+          supabase,
+          'portfolio-media',
+          oldFolderProjects,
+          newFolderProjects
+        );
+        storageMoveFailures.push(...failed);
+      }
+
+      if (storageMoveFailures.length > 0) {
+        console.error(
+          '[WORKS_ENGINE] Partial storage rename failure — files still at old path:',
+          storageMoveFailures
+        );
+      }
+
+      const nextProjectSnapshot: ProjectStorageSnapshot = {
+        url_landscape: finalUrlLandscape,
+        url_square: finalUrlSquare,
+        gallery: Array.isArray(finalGallery) ? finalGallery : [],
+        home_featured:
+          projectData.home_featured &&
+          typeof projectData.home_featured === 'object'
+            ? (projectData.home_featured as ProjectStorageSnapshot['home_featured'])
+            : null,
+      };
+
+      const orphanedPaths = findRemovedProjectStoragePaths(
+        previousProjectSnapshot,
+        nextProjectSnapshot,
+        storageRewrites
+      );
+
+      if (orphanedPaths.length > 0) {
+        const { failed } = await deleteStorageFiles(
+          supabase,
+          'portfolio-media',
+          orphanedPaths
+        );
+
+        if (failed.length > 0) {
+          console.error(
+            '[WORKS_ENGINE] Partial storage cleanup failure — orphaned files may remain:',
+            failed
+          );
+        }
       }
     }
 
@@ -250,9 +278,6 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
       revalidatePath(`/portfolio/${updatedProject.slug}`);
     }
 
-    // If the project's linked landing page changed, revalidate the public
-    // landing routes for both the previous and the next slug so cached pages
-    // pick up the new association.
     const nextLandingPageId = projectData.landing_page_id ?? null;
     if (previousLandingPageId !== nextLandingPageId) {
       const landingIds = [previousLandingPageId, nextLandingPageId].filter(
@@ -260,10 +285,14 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
       );
 
       if (landingIds.length > 0) {
-        const { data: landingPages } = await supabase
-          .from('landing_pages')
-          .select('slug')
-          .in('id', landingIds);
+        const landingPages = d1
+          ? await getLandingPagesByIdsFromD1(d1, landingIds)
+          : (
+              await supabase
+                .from('landing_pages')
+                .select('slug')
+                .in('id', landingIds)
+            ).data;
 
         landingPages?.forEach((page) => {
           if (page?.slug) {
@@ -285,6 +314,15 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
 export async function deleteProjectAction(id: string) {
   try {
     const { supabase } = await requireAdminAccess({ requireServiceRole: true });
+    const d1 = await getD1Database();
+
+    if (d1) {
+      await deleteProjectInD1(d1, id);
+      revalidatePath('/admin/trabalhos');
+      revalidatePath('/portfolio');
+      revalidatePath('/');
+      return { ok: true };
+    }
 
     const { data: oldProject } = await supabase
       .from('portfolio_projects')

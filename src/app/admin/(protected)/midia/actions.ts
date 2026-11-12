@@ -10,6 +10,17 @@ import { requireAdminAccess } from '@/lib/admin/server-access';
 import { normalizeStoragePath } from '@/lib/supabase/urls';
 import { revalidatePath } from 'next/cache';
 import { moveInR2, deleteFromR2 } from '@/lib/storage/r2';
+import { getD1Database } from '@/lib/d1/client';
+import {
+  deleteSiteAssetInD1,
+  getSiteAssetByIdFromD1,
+  getSiteAssetByKeyFromD1,
+  healLandingPagesBucketInD1,
+  toggleSiteAssetActiveInD1,
+  updateSiteAssetFilePathInD1,
+  updateSiteAssetRoleInD1,
+  upsertSiteAssetInD1,
+} from '@/lib/d1/admin';
 
 type AssetPayload = {
   key: string;
@@ -29,26 +40,42 @@ type AssetPayload = {
 
 export async function upsertAsset(payload: AssetPayload) {
   const { supabase, user } = await requireAdminAccess();
+  const d1 = await getD1Database();
   const normalizedPath = payload.file_path
     ? normalizeStoragePath(payload.file_path, payload.bucket ?? 'site-assets')
     : null;
   let filePath = normalizedPath;
 
   if (!filePath) {
-    const { data: existing, error: existingError } = await supabase
-      .from('site_assets')
-      .select('file_path')
-      .eq('key', payload.key)
-      .maybeSingle();
+    if (d1) {
+      const existing = await getSiteAssetByKeyFromD1(d1, payload.key);
+      filePath = existing?.file_path ?? null;
+    } else {
+      const { data: existing, error: existingError } = await supabase
+        .from('site_assets')
+        .select('file_path')
+        .eq('key', payload.key)
+        .maybeSingle();
 
-    if (existingError) throw existingError;
-    filePath = existing?.file_path ?? null;
+      if (existingError) throw existingError;
+      filePath = existing?.file_path ?? null;
+    }
   }
 
   if (!filePath) {
     throw new Error(
       'SYSTEM_ERR: FILE_OR_EXISTING_PATH_REQUIRED — PROVIDE_ASSET_OR_KEEP_PATH'
     );
+  }
+
+  if (d1) {
+    await upsertSiteAssetInD1(d1, {
+      ...payload,
+      file_path: filePath,
+      bucket: payload.bucket ?? 'site-assets',
+    });
+    refreshAssetRoutes();
+    return;
   }
 
   const { error } = await supabase.from('site_assets').upsert(
@@ -86,14 +113,20 @@ type AssignAssetRolePayload = {
 
 export async function assignAssetRole(payload: AssignAssetRolePayload) {
   const { supabase, user } = await requireAdminAccess();
-  const { data: existing, error: fetchError } = await supabase
-    .from('site_assets')
-    .select('bucket,file_path')
-    .eq('id', payload.assetId)
-    .single();
+  const d1 = await getD1Database();
 
-  if (fetchError || !existing) {
-    throw fetchError ?? new Error('SYSTEM_ERR: ASSET_NOT_FOUND');
+  const existing = d1
+    ? await getSiteAssetByIdFromD1(d1, payload.assetId)
+    : (
+        await supabase
+          .from('site_assets')
+          .select('bucket,file_path')
+          .eq('id', payload.assetId)
+          .single()
+      ).data;
+
+  if (!existing) {
+    throw new Error('SYSTEM_ERR: ASSET_NOT_FOUND');
   }
 
   const currentPath = normalizeStoragePath(existing.file_path, existing.bucket);
@@ -125,6 +158,19 @@ export async function assignAssetRole(payload: AssignAssetRolePayload) {
     }
   }
 
+  if (d1) {
+    await updateSiteAssetRoleInD1(d1, payload.assetId, {
+      key: payload.role.key,
+      page: payload.role.page,
+      asset_type: payload.role.asset_type,
+      description: payload.role.description,
+      sort_order: payload.role.sort_order ?? null,
+      file_path,
+    });
+    refreshAssetRoutes();
+    return;
+  }
+
   const { error: updateError } = await supabase
     .from('site_assets')
     .update({
@@ -154,6 +200,8 @@ export async function removeAsset(payload: {
   file_path?: string | null;
 }) {
   const { supabase, user } = await requireAdminAccess();
+  const d1 = await getD1Database();
+
   if (payload.file_path) {
     const normalizedPath = normalizeStoragePath(
       payload.file_path,
@@ -170,6 +218,13 @@ export async function removeAsset(payload: {
       }
     }
   }
+
+  if (d1) {
+    await deleteSiteAssetInD1(d1, payload.id);
+    refreshAssetRoutes();
+    return;
+  }
+
   const { error } = await supabase
     .from('site_assets')
     .delete()
@@ -199,6 +254,7 @@ export async function updateAssetFilePath(payload: {
   bucket?: string;
 }) {
   const { supabase, user } = await requireAdminAccess();
+  const d1 = await getD1Database();
   const normalizedPath = normalizeStoragePath(
     payload.file_path,
     payload.bucket ?? 'site-assets'
@@ -208,6 +264,12 @@ export async function updateAssetFilePath(payload: {
     throw new Error(
       'SYSTEM_ERR: INVALID_FILE_PATH — ASSET_PATH_UPDATE_REJECTED'
     );
+  }
+
+  if (d1) {
+    await updateSiteAssetFilePathInD1(d1, payload.id, normalizedPath);
+    refreshAssetRoutes();
+    return;
   }
 
   const { error } = await supabase
@@ -242,6 +304,14 @@ export async function toggleAssetActive(payload: {
   is_active: boolean;
 }) {
   const { supabase, user } = await requireAdminAccess();
+  const d1 = await getD1Database();
+
+  if (d1) {
+    await toggleSiteAssetActiveInD1(d1, payload.id, payload.is_active);
+    refreshAssetRoutes();
+    return;
+  }
+
   const { error } = await supabase
     .from('site_assets')
     .update({ is_active: payload.is_active })
@@ -278,8 +348,21 @@ function refreshAssetRoutes() {
 
 export async function healLandingPagesBucketAction() {
   const { supabase, user } = await requireAdminAccess();
+  const d1 = await getD1Database();
 
-  // 1. Fetch all corrupted assets
+  if (d1) {
+    const fixedCount = await healLandingPagesBucketInD1(d1);
+    refreshAssetRoutes();
+    return {
+      success: true,
+      fixedCount,
+      message:
+        fixedCount === 0
+          ? 'SYSTEM_OK: NO_CORRUPT_LANDING_PAGE_BUCKETS_FOUND'
+          : `SYSTEM_OK: ${fixedCount}_ASSETS_RECONSTRUCTED_SUCCESSFULLY`,
+    };
+  }
+
   const { data: corruptedAssets, error: fetchError } = await supabase
     .from('site_assets')
     .select('id, file_path')
@@ -301,9 +384,7 @@ export async function healLandingPagesBucketAction() {
 
   let fixedCount = 0;
 
-  // 2. Fix each asset to rewrite file_path along with the bucket
   const updatePromises = corruptedAssets.map(async (asset) => {
-    // Ensure landing-pages/ prefix exists for storage synchronization.
     let newPath = asset.file_path || '';
     if (newPath && !newPath.startsWith('landing-pages/')) {
       newPath = `landing-pages/${newPath}`;

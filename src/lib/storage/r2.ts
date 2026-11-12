@@ -14,9 +14,7 @@ let cachedClient: S3Client | null = null;
 
 export function getR2Config() {
   const accountId =
-    process.env.R2_ACCOUNT_ID ||
-    process.env.CLOUDFLARE_ACCOUNT_ID ||
-    '';
+    process.env.R2_ACCOUNT_ID || process.env.CLOUDFLARE_ACCOUNT_ID || '';
   const bucketName = process.env.R2_BUCKET_NAME || 'portfolio-assets';
   const accessKeyId = process.env.R2_ACCESS_KEY_ID;
   const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;

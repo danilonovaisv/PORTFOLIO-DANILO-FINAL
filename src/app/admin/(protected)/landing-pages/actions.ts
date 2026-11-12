@@ -6,84 +6,88 @@ import { logAdminAudit } from '@/lib/admin/audit';
 import { requireAdminAccess } from '@/lib/admin/server-access';
 import type { TablesInsert, TablesUpdate } from '@/lib/supabase.types';
 import { landingPageMutationSchema } from '@/lib/admin/schemas/landing-page';
+import { getD1Database } from '@/lib/d1/client';
+import {
+  deleteLandingPageInD1,
+  saveLandingPageInD1,
+} from '@/lib/d1/admin';
 
 export type SaveLandingPageInput = z.infer<typeof landingPageMutationSchema>;
 
+function parseContentJson(raw: unknown) {
+  if (typeof raw !== 'string') return raw;
+  try {
+    return JSON.parse(raw || '[]');
+  } catch {
+    return [];
+  }
+}
+
 export async function listLandingPagesAction() {
-  try {
-    const { supabase } = await requireAdminAccess();
-    const { data, error } = await supabase
-      .from('landing_pages')
-      .select('id, title, slug, created_at, content')
-      .order('created_at', { ascending: false });
+  await requireAdminAccess();
 
-    if (!error && data && data.length > 0) {
-      return data;
-    }
-    if (error) {
-      console.warn('[listLandingPagesAction] Supabase query warning:', error.message);
-    }
-  } catch (err) {
-    console.warn('[listLandingPagesAction] Supabase connection failed, attempting D1 fallback:', err instanceof Error ? err.message : err);
+  const d1 = await getD1Database();
+  if (d1) {
+    const { results } = await d1
+      .prepare(
+        'SELECT id, title, slug, created_at, content FROM landing_pages ORDER BY created_at DESC'
+      )
+      .all<Record<string, unknown>>();
+    return (results ?? []).map((row) => ({
+      ...row,
+      content: parseContentJson(row.content),
+    }));
   }
 
-  // Fallback para Cloudflare D1 Database
-  try {
-    const { getCloudflareContext } = await import('@opennextjs/cloudflare');
-    const { env } = await getCloudflareContext({ async: true });
-    const db = (env as unknown as { DB?: any })?.DB;
-    if (db) {
-      const stmt = db.prepare('SELECT id, title, slug, created_at, content FROM landing_pages ORDER BY created_at DESC');
-      const { results } = await stmt.all();
-      if (results && results.length > 0) {
-        return results.map((row: any) => ({
-          ...row,
-          content: typeof row.content === 'string' ? JSON.parse(row.content || '[]') : row.content
-        }));
-      }
-    }
-  } catch (d1Err) {
-    console.warn('[listLandingPagesAction] D1 fallback failed:', d1Err instanceof Error ? d1Err.message : d1Err);
-  }
+  const { supabase } = await requireAdminAccess();
+  const { data, error } = await supabase
+    .from('landing_pages')
+    .select('id, title, slug, created_at, content')
+    .order('created_at', { ascending: false });
 
-  return [];
+  if (error) {
+    console.warn('[listLandingPagesAction] Supabase query warning:', error.message);
+    return [];
+  }
+  return data ?? [];
 }
 
 export async function getLandingPageAction(id: string) {
   const parsedId = z.string().uuid().parse(id);
-  try {
-    const { supabase } = await requireAdminAccess();
-    const { data, error } = await supabase
-      .from('landing_pages')
-      .select('id, title, slug, cover, content')
-      .eq('id', parsedId)
-      .single();
+  const { supabase } = await requireAdminAccess();
 
-    if (!error && data) return data;
-  } catch (err) {
-    console.warn('[getLandingPageAction] Supabase query failed, trying D1 fallback:', err instanceof Error ? err.message : err);
-  }
-
-  // Fallback para Cloudflare D1 Database
-  try {
-    const { getCloudflareContext } = await import('@opennextjs/cloudflare');
-    const { env } = await getCloudflareContext({ async: true });
-    const db = (env as unknown as { DB?: any })?.DB;
-    if (db) {
-      const stmt = db.prepare('SELECT id, title, slug, cover, content FROM landing_pages WHERE id = ?').bind(parsedId);
-      const row = await stmt.first();
-      if (row) {
-        return {
-          ...row,
-          content: typeof (row as any).content === 'string' ? JSON.parse((row as any).content || '[]') : (row as any).content
-        };
-      }
+  const d1 = await getD1Database();
+  if (d1) {
+    const row = await d1
+      .prepare('SELECT id, title, slug, cover, content FROM landing_pages WHERE id = ? LIMIT 1')
+      .bind(parsedId)
+      .first<{
+        id: string;
+        title: string;
+        slug: string;
+        cover: string | null;
+        content: unknown;
+      }>();
+    if (row) {
+      return {
+        id: row.id,
+        title: row.title,
+        slug: row.slug,
+        cover: row.cover,
+        content: parseContentJson(row.content),
+      };
     }
-  } catch (d1Err) {
-    console.warn('[getLandingPageAction] D1 fallback failed:', d1Err instanceof Error ? d1Err.message : d1Err);
+    return null;
   }
 
-  return null;
+  const { data, error } = await supabase
+    .from('landing_pages')
+    .select('id, title, slug, cover, content')
+    .eq('id', parsedId)
+    .single();
+
+  if (error) return null;
+  return data;
 }
 
 export async function saveLandingPageAction(input: SaveLandingPageInput) {
@@ -91,6 +95,23 @@ export async function saveLandingPageAction(input: SaveLandingPageInput) {
   const { supabase, user } = await requireAdminAccess({
     requireServiceRole: true,
   });
+
+  const d1 = await getD1Database();
+  if (d1) {
+    const result = await saveLandingPageInD1(d1, {
+      id: parsed.id,
+      title: parsed.title,
+      slug: parsed.slug,
+      cover: parsed.cover ?? null,
+      content: parsed.content,
+    });
+
+    revalidatePath('/admin/landing-pages');
+    revalidatePath('/portfolio');
+    revalidatePath('/');
+    revalidatePath(`/projects/${parsed.slug}`);
+    return { ok: true as const, id: result.id };
+  }
 
   const payload: TablesUpdate<'landing_pages'> = {
     title: parsed.title,
@@ -174,7 +195,18 @@ export async function deleteLandingPageAction(id: string) {
     requireServiceRole: true,
   });
 
-  // Capture slug BEFORE delete so we can revalidate the public landing route.
+  const d1 = await getD1Database();
+  if (d1) {
+    const existing = await deleteLandingPageInD1(d1, parsedId);
+    revalidatePath('/admin/landing-pages');
+    revalidatePath('/portfolio');
+    revalidatePath('/');
+    if (existing?.slug) {
+      revalidatePath(`/projects/${existing.slug}`);
+    }
+    return { ok: true as const };
+  }
+
   const { data: existing } = await supabase
     .from('landing_pages')
     .select('slug')

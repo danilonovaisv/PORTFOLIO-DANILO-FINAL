@@ -4,6 +4,12 @@ export const fetchCache = 'force-no-store';
 
 import { notFound } from 'next/navigation';
 import { requireAdminAccess } from '@/lib/admin/server-access';
+import { getD1Database } from '@/lib/d1/client';
+import {
+  getAdminProjectByIdFromD1,
+  listLandingPageSummariesFromD1,
+  listTagsFromD1,
+} from '@/lib/d1/admin';
 import { ProjectForm } from '@/components/admin/ProjectForm';
 import { AdminHeader } from '@/components/admin/AdminHeader';
 import type { DbProject } from '@/types/admin';
@@ -17,27 +23,50 @@ export default async function EditProjectPage(props: Props) {
   const { id } = params;
   const { supabase } = await requireAdminAccess();
 
-  const [
-    { data: project, error: projectError },
-    { data: tags },
-    { data: landingPages },
-  ] = await Promise.all([
-    supabase
-      .from('portfolio_projects')
-      .select('*, project_tags:portfolio_project_tags(tag_id)')
-      .eq('id', id)
-      .single(),
-    supabase
-      .from('portfolio_tags')
-      .select('*')
-      .order('label', { ascending: true }),
-    supabase
-      .from('landing_pages')
-      .select('id, title, slug, content')
-      .order('title', { ascending: true }),
-  ]);
+  const d1 = await getD1Database();
+  let project: any = null;
+  let tags: any[] = [];
+  let landingPages: any[] = [];
 
-  if (projectError || !project) {
+  if (d1) {
+    const [d1Project, d1Tags, d1Lps] = await Promise.all([
+      getAdminProjectByIdFromD1(d1, id),
+      listTagsFromD1(d1),
+      listLandingPageSummariesFromD1(d1),
+    ]);
+    project = d1Project;
+    tags = d1Tags;
+    landingPages = d1Lps;
+  } else {
+    const [
+      { data: sbProject, error: projectError },
+      { data: sbTags },
+      { data: sbLandingPages },
+    ] = await Promise.all([
+      supabase
+        .from('portfolio_projects')
+        .select('*, project_tags:portfolio_project_tags(tag_id)')
+        .eq('id', id)
+        .single(),
+      supabase
+        .from('portfolio_tags')
+        .select('*')
+        .order('label', { ascending: true }),
+      supabase
+        .from('landing_pages')
+        .select('id, title, slug, content')
+        .order('title', { ascending: true }),
+    ]);
+
+    if (projectError || !sbProject) {
+      notFound();
+    }
+    project = sbProject;
+    tags = sbTags ?? [];
+    landingPages = sbLandingPages ?? [];
+  }
+
+  if (!project) {
     notFound();
   }
 

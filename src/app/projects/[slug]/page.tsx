@@ -1,4 +1,5 @@
-import { createClient } from '@/lib/supabase/server';
+import { getD1Database } from '@/lib/d1/client';
+import { getLandingPageBySlugFromD1 } from '@/lib/d1/projects';
 import { getFallbackLandingPage } from '@/lib/projects/landing-page-fallback';
 import { notFound } from 'next/navigation';
 import ProjectRenderer from '@/components/projects/ProjectRenderer';
@@ -64,6 +65,75 @@ function toAbsoluteUrl(siteUrl: string, value?: string | null): string | null {
   return `${siteUrl.replace(/\/$/, '')}${normalized}`;
 }
 
+function hasNonEmptyLandingContent(content: unknown): boolean {
+  if (!content) return false;
+  if (typeof content === 'string') {
+    const trimmed = content.trim();
+    if (!trimmed || trimmed === '[]' || trimmed === '{}') return false;
+    try {
+      return hasNonEmptyLandingContent(JSON.parse(trimmed));
+    } catch {
+      return false;
+    }
+  }
+  if (Array.isArray(content)) return content.length > 0;
+  if (typeof content === 'object') {
+    const record = content as Record<string, unknown>;
+    if (Array.isArray(record.gallery_grid) && record.gallery_grid.length > 0) {
+      return true;
+    }
+    if (record.hero_cover_image || record.hero_top_media || record.project_title) {
+      return true;
+    }
+    return Object.keys(record).length > 0;
+  }
+  return false;
+}
+
+async function resolveLandingPageRecord(
+  slug: string
+): Promise<LandingPageRecord | null> {
+  const fallback = getFallbackLandingPage(slug);
+  try {
+    const db = await getD1Database();
+    if (db) {
+      const d1Record = await getLandingPageBySlugFromD1(db, slug);
+      if (d1Record) {
+        if (hasNonEmptyLandingContent(d1Record.content)) {
+          return {
+            id: d1Record.id,
+            slug: d1Record.slug,
+            title: d1Record.title,
+            cover: d1Record.cover,
+            content: d1Record.content,
+          };
+        }
+        if (fallback) {
+          return {
+            id: d1Record.id,
+            slug: d1Record.slug,
+            title: d1Record.title || fallback.title,
+            cover: d1Record.cover || fallback.cover,
+            content: fallback.content,
+          };
+        }
+      }
+    }
+  } catch {
+    // Fallback to curated static R2 recovery record when D1 is unavailable.
+  }
+
+  return fallback
+    ? {
+        id: fallback.id,
+        slug: fallback.slug,
+        title: fallback.title,
+        cover: fallback.cover,
+        content: fallback.content,
+      }
+    : null;
+}
+
 export async function generateMetadata({
   params,
   searchParams,
@@ -74,25 +144,8 @@ export async function generateMetadata({
   const fromParam = Array.isArray(resolvedSearch?.from)
     ? resolvedSearch.from[0]
     : resolvedSearch?.from;
-  const supabase = await createClient();
 
-  let project: LandingPageRecord | null = null;
-  try {
-    const res = (await supabase
-      .from('landing_pages')
-      .select('title, cover, content, slug')
-      .eq('slug', slug)
-      .single()) as { data: LandingPageRecord | null; error: unknown };
-    if (!res.error && res.data) {
-      project = res.data;
-    }
-  } catch {
-    // ignore
-  }
-
-  if (!project) {
-    project = getFallbackLandingPage(slug);
-  }
+  const project = await resolveLandingPageRecord(slug);
 
   if (!project) return { title: 'Projeto não encontrado' };
 
@@ -139,28 +192,7 @@ export async function generateMetadata({
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = (await params) ?? { slug: '' };
-  const supabase = await createClient();
-
-  let project: LandingPageRecord | null = null;
-  try {
-    const res = (await supabase
-      .from('landing_pages')
-      .select('*')
-      .eq('slug', slug)
-      .single()) as {
-      data: LandingPageRecord | null;
-      error: { message: string } | null;
-    };
-    if (!res.error && res.data) {
-      project = res.data;
-    }
-  } catch {
-    // ignore
-  }
-
-  if (!project) {
-    project = getFallbackLandingPage(slug);
-  }
+  const project = await resolveLandingPageRecord(slug);
 
   if (!project) notFound();
 

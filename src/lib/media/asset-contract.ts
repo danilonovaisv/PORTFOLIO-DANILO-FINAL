@@ -1,6 +1,8 @@
 import {
   buildSupabaseStorageUrl,
+  isSignedOrPrivateStorageUrl,
   normalizeStoragePath,
+  parsePublicSupabaseStorageUrl,
 } from '@/lib/supabase/urls';
 import { isHtmlMedia } from '@/lib/portfolio/card-media';
 
@@ -126,6 +128,20 @@ export function resolveSupabaseUrl(
   if (!trimmed) return null;
   if (trimmed.startsWith('data:') || trimmed.startsWith('blob:')) return null;
   if (isLocalPublicAsset(trimmed)) return trimmed;
+
+  if (isSignedOrPrivateStorageUrl(trimmed)) {
+    try {
+      const parsed = new URL(trimmed);
+      return parsed.protocol === 'https:' ? trimmed : null;
+    } catch {
+      return null;
+    }
+  }
+
+  const parsedSupabase = parsePublicSupabaseStorageUrl(trimmed);
+  if (parsedSupabase) {
+    return buildSupabaseStorageUrl(parsedSupabase.bucket, trimmed);
+  }
 
   if (isAbsoluteHttpUrl(trimmed) && !trimmed.includes('/storage/v1/')) {
     try {

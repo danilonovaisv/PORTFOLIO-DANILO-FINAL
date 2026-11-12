@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import PortfolioClient from '@/app/portfolio/PortfolioClient';
-import { listProjects, listProjectsPaged } from '@/lib/supabase/queries/projects';
+import { getD1Database } from '@/lib/d1/client';
+import {
+  listProjectsFromD1,
+  listProjectsPagedFromD1,
+} from '@/lib/d1/projects';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
-import { createStaticClient } from '@/lib/supabase/static';
 import type { PortfolioProject } from '@/types/project';
-import { getSupabasePublicKey } from '@/lib/supabase/env';
 import {
   ENABLE_SERVER_PAGINATION,
   PORTFOLIO_PAGE_SIZE,
@@ -156,35 +158,27 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
         activeFilter.categories?.includes(project.category)
       )
       : fallbackProjects;
-    const hasSupabaseEnv =
-      Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
-      Boolean(getSupabasePublicKey());
 
-    if (hasSupabaseEnv) {
-      const supabase = createStaticClient();
+    const db = await getD1Database();
+    if (db) {
       if (ENABLE_SERVER_PAGINATION) {
-        const { data: dbProjects, count } = await listProjectsPaged(
-          {
-            projectTypes: activeFilter.projectTypes
-              ? [...activeFilter.projectTypes]
-              : undefined,
-          },
-          { page: initialPage, pageSize: PORTFOLIO_PAGE_SIZE },
-          supabase
-        );
-        totalProjectsCount = count ?? 0;
+        const { items: dbProjects, total } = await listProjectsPagedFromD1(db, {
+          projectTypes: activeFilter.projectTypes
+            ? [...activeFilter.projectTypes]
+            : undefined,
+          page: initialPage,
+          pageSize: PORTFOLIO_PAGE_SIZE,
+        });
+        totalProjectsCount = total;
         projects = dbProjects.map((project: DbProjectWithTags, index: number) =>
           mapDbProjectToPortfolioProject(project, index)
         );
       } else {
-        const dbProjects = await listProjects(
-          {
-            projectTypes: activeFilter.projectTypes
-              ? [...activeFilter.projectTypes]
-              : undefined,
-          },
-          supabase
-        );
+        const dbProjects = await listProjectsFromD1(db, {
+          projectTypes: activeFilter.projectTypes
+            ? [...activeFilter.projectTypes]
+            : undefined,
+        });
         projects = dbProjects.map((project: DbProjectWithTags, index: number) =>
           mapDbProjectToPortfolioProject(project, index)
         );
@@ -192,36 +186,46 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
         totalProjectsCount = projects.length;
       }
 
-      // If the database is empty (common in local dev/CI), fall back to curated static projects
-      if (projects.length === 0) {
-        console.warn('[Portfolio] No projects returned from Supabase, using fallback projects.');
-        projects = filteredFallbackProjects;
-        projects = shuffleProjects(projects);
-        totalProjectsCount = filteredFallbackProjects.length;
+      if (projects.length === 0 && initialPage === 1) {
+        console.warn('[Portfolio] No projects returned from D1, using canonical R2 recovery projects.');
+        const orderedFallback = shuffleProjects(filteredFallbackProjects, 42);
+        totalProjectsCount = orderedFallback.length;
+        projects = ENABLE_SERVER_PAGINATION
+          ? orderedFallback.slice(0, PORTFOLIO_PAGE_SIZE)
+          : orderedFallback;
       }
     } else {
-      console.warn('[Portfolio] Supabase env vars missing, using fallback projects.');
-      projects = filteredFallbackProjects;
-      projects = shuffleProjects(projects);
-      totalProjectsCount = filteredFallbackProjects.length;
+      const orderedFallback = shuffleProjects(filteredFallbackProjects, 42);
+      totalProjectsCount = orderedFallback.length;
+      projects = ENABLE_SERVER_PAGINATION
+        ? orderedFallback.slice(
+            (initialPage - 1) * PORTFOLIO_PAGE_SIZE,
+            initialPage * PORTFOLIO_PAGE_SIZE
+          )
+        : orderedFallback;
     }
   } catch (error) {
     const errMsg = error instanceof Error
       ? (error.message || error.constructor.name)
       : String(error);
-    // AggregateError (fetch network failure) nests the real cause inside .errors[]
     const cause = (error as any)?.cause ?? (error as any)?.errors?.[0];
     const causeMsg = cause instanceof Error ? cause.message : cause ? String(cause) : undefined;
     console.error('[Portfolio] Error occurred:', errMsg, causeMsg ? `(cause: ${causeMsg})` : '');
 
     const fallbackProjects = buildFallbackProjects();
-    projects = activeFilter.categories?.length
+    const filtered = activeFilter.categories?.length
       ? fallbackProjects.filter((project) =>
         activeFilter.categories?.includes(project.category)
       )
       : fallbackProjects;
-    projects = shuffleProjects(projects);
-    totalProjectsCount = projects.length;
+    const orderedFallback = shuffleProjects(filtered, 42);
+    totalProjectsCount = orderedFallback.length;
+    projects = ENABLE_SERVER_PAGINATION
+      ? orderedFallback.slice(
+          (initialPage - 1) * PORTFOLIO_PAGE_SIZE,
+          initialPage * PORTFOLIO_PAGE_SIZE
+        )
+      : orderedFallback;
   }
 
   return (

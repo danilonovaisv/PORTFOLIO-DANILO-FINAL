@@ -7,7 +7,9 @@ import type {
 } from '@/types/project';
 import {
   buildSupabaseStorageUrl,
+  isSignedOrPrivateStorageUrl,
   normalizeStoragePath,
+  parsePublicSupabaseStorageUrl,
 } from '@/lib/supabase/urls';
 import { normalizeHomeFeaturedConfig } from '@/lib/portfolio/home-featured';
 import { isLegacyProjectMediaAsset } from '@/lib/portfolio/card-media';
@@ -390,13 +392,19 @@ function resolveProjectMedia(path?: string | null): string | undefined {
   const raw = path.trim();
   if (!raw) return undefined;
 
-  if (
-    raw.startsWith('http://') ||
-    raw.startsWith('https://') ||
-    raw.startsWith('blob:') ||
-    raw.startsWith('data:')
-  ) {
+  if (raw.startsWith('blob:') || raw.startsWith('data:')) {
     return raw;
+  }
+
+  if (raw.startsWith('http://') || raw.startsWith('https://')) {
+    if (isSignedOrPrivateStorageUrl(raw)) {
+      return raw;
+    }
+    const parsedSupabase = parsePublicSupabaseStorageUrl(raw);
+    if (parsedSupabase) {
+      return buildSupabaseStorageUrl(parsedSupabase.bucket, raw) ?? raw;
+    }
+    return buildSupabaseStorageUrl('portfolio-media', raw) ?? raw;
   }
 
   if (raw.startsWith('#') || LOCAL_PUBLIC_ASSET_PATTERN.test(raw)) {

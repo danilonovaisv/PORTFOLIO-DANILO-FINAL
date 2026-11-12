@@ -8,7 +8,6 @@ import PortfolioHeroNew from '@/components/portfolio/PortfolioHeroNew';
 import ClientsBrandsSection from '@/components/home/clients/ClientsBrandsSection';
 import ContactSection from '@/components/home/contact/ContactSection';
 import SiteFooter from '@/components/layout/SiteFooter';
-import { createClientComponentClient } from '@/lib/supabase/client';
 import { ProjectsGallery } from '@/components/portfolio/ProjectsGallery';
 
 const PortfolioModal = dynamic(() => import('@/components/portfolio/PortfolioModal').then((mod) => mod.PortfolioModal), { ssr: false });
@@ -27,53 +26,12 @@ export default function PortfolioClient({
   totalProjectsCount,
 }: PortfolioClientProps) {
   const router = useRouter();
-  const [supabase] = useState(() => createClientComponentClient());
   const [selectedProject, setSelectedProject] =
     useState<PortfolioProject | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showClientsBrands, setShowClientsBrands] = useState(false);
   const lastFocusedRef = useRef<HTMLElement | null>(null);
   const brandsSentinelRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (
-      process.env.NODE_ENV === 'production' ||
-      process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true'
-    ) {
-      return;
-    }
-
-    try {
-      const channel = supabase
-        .channel('portfolio_projects_public')
-        .on(
-          'postgres_changes',
-          {
-            event: '*',
-            schema: 'public',
-            table: 'portfolio_projects',
-          },
-          () => {
-            router.refresh();
-          }
-        )
-        .subscribe((_status, err) => {
-          if (err) {
-            console.warn('[PortfolioClient] Realtime subscription error:', err);
-          }
-        });
-
-      return () => {
-        try {
-          void supabase.removeChannel(channel);
-        } catch {
-          // ignore cleanup errors
-        }
-      };
-    } catch (e) {
-      console.warn('[PortfolioClient] Realtime setup failed:', e);
-    }
-  }, [router, supabase]);
 
   // Scroll-to-anchor on first paint when the URL contains a `#portfolio-card-*`
   // hash. Cards are emitted by ProjectCard with id `portfolio-card-<slug>-<index>`,
