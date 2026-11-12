@@ -149,13 +149,22 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
   let projects: PortfolioProject[] = [];
   let totalProjectsCount = 0;
 
-  try {
-    const fallbackProjects = buildFallbackProjects();
-    const filteredFallbackProjects = activeFilter.categories?.length
-      ? fallbackProjects.filter((project) =>
+  const fallbackProjects = buildFallbackProjects();
+  const filteredFallbackProjects = activeFilter.categories?.length
+    ? fallbackProjects.filter((project) =>
         activeFilter.categories?.includes(project.category)
       )
-      : fallbackProjects;
+    : fallbackProjects;
+
+  const paginateFallbackProjects = (list: PortfolioProject[]) => {
+    if (!ENABLE_SERVER_PAGINATION) {
+      return shuffleProjects(list);
+    }
+    const offset = (initialPage - 1) * PORTFOLIO_PAGE_SIZE;
+    return list.slice(offset, offset + PORTFOLIO_PAGE_SIZE);
+  };
+
+  try {
     const hasSupabaseEnv =
       Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
       Boolean(getSupabasePublicKey());
@@ -195,14 +204,12 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
       // If the database is empty (common in local dev/CI), fall back to curated static projects
       if (projects.length === 0) {
         console.warn('[Portfolio] No projects returned from Supabase, using fallback projects.');
-        projects = filteredFallbackProjects;
-        projects = shuffleProjects(projects);
+        projects = paginateFallbackProjects(filteredFallbackProjects);
         totalProjectsCount = filteredFallbackProjects.length;
       }
     } else {
       console.warn('[Portfolio] Supabase env vars missing, using fallback projects.');
-      projects = filteredFallbackProjects;
-      projects = shuffleProjects(projects);
+      projects = paginateFallbackProjects(filteredFallbackProjects);
       totalProjectsCount = filteredFallbackProjects.length;
     }
   } catch (error) {
@@ -214,14 +221,8 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
     const causeMsg = cause instanceof Error ? cause.message : cause ? String(cause) : undefined;
     console.error('[Portfolio] Error occurred:', errMsg, causeMsg ? `(cause: ${causeMsg})` : '');
 
-    const fallbackProjects = buildFallbackProjects();
-    projects = activeFilter.categories?.length
-      ? fallbackProjects.filter((project) =>
-        activeFilter.categories?.includes(project.category)
-      )
-      : fallbackProjects;
-    projects = shuffleProjects(projects);
-    totalProjectsCount = projects.length;
+    projects = paginateFallbackProjects(filteredFallbackProjects);
+    totalProjectsCount = filteredFallbackProjects.length;
   }
 
   return (

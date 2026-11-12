@@ -7,7 +7,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const FALLBACK_DATA = require('../src/lib/projects/landing-page-fallback').FALLBACK_LANDING_PAGES;
+const FALLBACK_DATA =
+  require('../src/lib/projects/landing-page-fallback').FALLBACK_LANDING_PAGES;
 
 console.log('🔄 Gerando script de recuperação de Landing Pages...\n');
 
@@ -19,7 +20,7 @@ let sql = `-- Recovery SQL for Landing Pages (D1 Compatible)
 for (const page of FALLBACK_DATA) {
   const safeContent = JSON.stringify(page.content).replace(/'/g, "''");
   const safeCover = page.cover ? `'${page.cover.replace(/'/g, "''")}'` : 'NULL';
-  
+
   sql += `-- Project: ${page.slug}\n`;
   sql += `INSERT OR REPLACE INTO landing_pages (id, title, slug, cover, content, created_at)\n`;
   sql += `VALUES (\n`;
@@ -36,11 +37,18 @@ sql += `-- Índice para busca por slug
 CREATE INDEX IF NOT EXISTS idx_landing_pages_slug ON landing_pages(slug);\n`;
 
 // Salvar arquivo
-const outputPath = path.join(__dirname, '../migration-landing-pages-recovery.sql');
+const outputPath = path.join(
+  __dirname,
+  '../migration-landing-pages-recovery.sql'
+);
 fs.writeFileSync(outputPath, sql);
 
 console.log(`✅ Arquivo gerado: ${outputPath}`);
 console.log('\n📌 Para aplicar:');
-console.log(`   npx wrangler d1 execute portfolio-db --remote < migration-landing-pages-recovery.sql`);
+console.log(
+  `   npx wrangler d1 execute portfolio-db --remote < migration-landing-pages-recovery.sql`
+);
 console.log('\n🔍 Páginas recuperadas:');
-FALLBACK_DATA.forEach(p => console.log(`   • /projects/${p.slug} → ${p.title}`));
+FALLBACK_DATA.forEach((p) =>
+  console.log(`   • /projects/${p.slug} → ${p.title}`)
+);

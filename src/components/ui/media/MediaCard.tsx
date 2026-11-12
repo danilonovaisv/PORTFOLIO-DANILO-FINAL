@@ -183,7 +183,11 @@ export function MediaCard({
           fill
           sizes={sizes}
           quality={60}
-          unoptimized={unoptimized || /\.(svg|gif)$/i.test(resolvedSrc) || /thumb-honda/i.test(resolvedSrc)}
+          unoptimized={
+            unoptimized ||
+            /\.(svg|gif)$/i.test(resolvedSrc) ||
+            /thumb-honda/i.test(resolvedSrc)
+          }
           className={mediaClasses}
           loading={priority ? 'eager' : 'lazy'}
           priority={priority}

@@ -46,7 +46,11 @@ export function AboutOrigin() {
     return ORIGIN_CHAPTERS.map((chap, idx) => ({
       ...chap,
       // Prioridade: URL canônica R2 CDN -> Contexto dinâmico -> fallback local
-      img: CANONICAL_ORIGIN_URLS[idx] || urls[idx] || chap.supabaseUrl || chap.fallback,
+      img:
+        CANONICAL_ORIGIN_URLS[idx] ||
+        urls[idx] ||
+        chap.supabaseUrl ||
+        chap.fallback,
       priority: idx === 0,
     }));
   }, [imgUrl1, imgUrl2, imgUrl3, imgUrl4]);

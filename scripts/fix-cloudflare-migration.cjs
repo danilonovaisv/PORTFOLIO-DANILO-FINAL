@@ -52,7 +52,7 @@ let openNext = fs.readFileSync(openNextPath, 'utf-8');
 
 if (!openNext.includes('d1:')) {
   openNext = openNext.replace(
-    "export default defineCloudflareConfig();",
+    'export default defineCloudflareConfig();',
     `export default defineCloudflareConfig({
   d1: {
     binding: 'DB',
@@ -94,7 +94,10 @@ if (!env.includes("'CLOUDFLARE_ONLY'")) {
 
 // 4. Gerar schema D1 básico
 const migrationDir = path.join(__dirname, '../supabase/migrations');
-const migrationFile = path.join(migrationDir, '20261110000000_create_d1_schema.sql');
+const migrationFile = path.join(
+  migrationDir,
+  '20261110000000_create_d1_schema.sql'
+);
 
 if (!fs.existsSync(migrationFile)) {
   const schema = `-- D1 Schema for Cloudflare Migration

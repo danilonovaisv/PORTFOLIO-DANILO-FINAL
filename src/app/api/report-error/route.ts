@@ -102,7 +102,10 @@ export async function POST(req: Request) {
   const ip = getClientIp(req);
   if (isRateLimited(ip)) {
     return NextResponse.json(
-      { error: 'RATE_LIMIT_EXCEEDED', message: 'Too many error reports. Please wait.' },
+      {
+        error: 'RATE_LIMIT_EXCEEDED',
+        message: 'Too many error reports. Please wait.',
+      },
       { status: 429 }
     );
   }

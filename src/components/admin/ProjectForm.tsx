@@ -360,7 +360,8 @@ export function ProjectForm({
 
         const userDestinationType = values.destination?.type;
         const isExplicitExternalDestination =
-          userDestinationType === 'external_url' || userDestinationType === 'page';
+          userDestinationType === 'external_url' ||
+          userDestinationType === 'page';
 
         let finalDestination = values.destination;
         if (landingPageId && !isExplicitExternalDestination) {

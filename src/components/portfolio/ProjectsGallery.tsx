@@ -8,7 +8,7 @@ import React, {
   useState,
   type RefObject,
 } from 'react';
-import { m, AnimatePresence } from 'motion/react';
+import { m } from 'motion/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useLERPScroll } from '@/hooks/useLERPScroll';
@@ -321,71 +321,73 @@ export const ProjectsGallery = ({
                 getTrackClasses()
               )}
             >
-              <AnimatePresence mode="popLayout">
-                {items.map((item, index) => (
-                  <ProjectCard
-                    key={item.project.id}
-                    project={item.project}
-                    index={index}
-                    size={item.size}
-                    onClick={onProjectSelect || onOpenProject}
-                    priority={index < 4}
-                  />
-                ))}
-              </AnimatePresence>
-
-              <div className="col-span-full flex w-full justify-center pt-12 pb-4 md:pt-16 md:pb-8 max-sm:pt-10">
-                <AntigravityCTA
-                  text="vamos trabalhar juntos"
-                  href="#contact"
-                  className="static"
+              {items.map((item, index) => (
+                <ProjectCard
+                  key={item.project.id}
+                  project={item.project}
+                  index={index}
+                  size={item.size}
+                  onClick={onProjectSelect || onOpenProject}
+                  priority={index < 4}
                 />
-              </div>
-
-              {/* Pagination Controls */}
-              {totalPages > 1 && (
-                <div className="col-span-full mt-16 mb-8 flex justify-center items-center gap-6">
-                  <button
-                    onClick={() => goToPage(Math.max(1, currentPage - 1))}
-                    disabled={currentPage === 1}
-                    aria-label="Página anterior"
-                    aria-controls="portfolio-filter-panel"
-                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-[color,transform] duration-fast select-none active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed hover:text-blueAccent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                  >
-                    <span className="relative z-10 flex items-center gap-2">
-                      <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                      </svg>
-                      Voltar
-                    </span>
-                  </button>
-                  <span
-                    className="text-white/40 font-mono text-sm tracking-widest"
-                    aria-live="polite"
-                    role="status"
-                  >
-                    {currentPage} / {totalPages}
-                  </span>
-                  <button
-                    onClick={() => goToPage(Math.min(totalPages, currentPage + 1))}
-                    disabled={currentPage === totalPages}
-                    aria-label="Próxima página"
-                    aria-controls="portfolio-filter-panel"
-                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-[color,transform] duration-fast select-none active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed hover:text-blueAccent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                  >
-                    <span className="relative z-10 flex items-center gap-2">
-                      Avançar
-                      <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </span>
-                  </button>
-                </div>
-              )}
+              ))}
             </div>
           )}
         </Container>
       </div>
+
+      {items.length > 0 && (
+        <Container className="relative z-[var(--z-layer-glass)]">
+          <div className="w-full flex justify-center pt-12 pb-4 md:pt-16 md:pb-8 max-sm:pt-10">
+            <AntigravityCTA
+              text="vamos trabalhar juntos"
+              href="#contact"
+              className="static"
+            />
+          </div>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="mt-16 mb-8 flex justify-center items-center gap-6">
+              <button
+                onClick={() => goToPage(Math.max(1, currentPage - 1))}
+                disabled={currentPage === 1}
+                aria-label="Página anterior"
+                aria-controls="portfolio-filter-panel"
+                className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-[color,transform] duration-fast select-none active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed hover:text-blueAccent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                  Voltar
+                </span>
+              </button>
+              <span
+                className="text-white/40 font-mono text-sm tracking-widest"
+                aria-live="polite"
+                role="status"
+              >
+                {currentPage} / {totalPages}
+              </span>
+              <button
+                onClick={() => goToPage(Math.min(totalPages, currentPage + 1))}
+                disabled={currentPage === totalPages}
+                aria-label="Próxima página"
+                aria-controls="portfolio-filter-panel"
+                className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-[color,transform] duration-fast select-none active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed hover:text-blueAccent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  Avançar
+                  <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          )}
+        </Container>
+      )}
     </section>
   );
 };

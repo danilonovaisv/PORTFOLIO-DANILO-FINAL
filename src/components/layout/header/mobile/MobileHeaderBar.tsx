@@ -14,6 +14,33 @@ interface MobileHeaderBarProps {
   isLight?: boolean;
   menuOpen?: boolean;
 }
+const containerVariants: Variants = {
+  hidden: { y: -64, opacity: 0 },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: MOTION_TOKENS.duration.normal,
+      ease: GHOST_EASE,
+      staggerChildren: MOTION_TOKENS.stagger.normal,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: -15, filter: 'blur(8px)' },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: MOTION_TOKENS.duration.normal,
+      ease: GHOST_EASE,
+    },
+  },
+};
+
 export default function MobileHeaderBar({
   logoUrl,
   onLogoClick,
@@ -21,33 +48,6 @@ export default function MobileHeaderBar({
   isLight = false,
   menuOpen = false,
 }: MobileHeaderBarProps) {
-  const containerVariants: Variants = {
-    hidden: { y: -64, opacity: 0 },
-    show: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: MOTION_TOKENS.duration.normal,
-        ease: GHOST_EASE,
-        staggerChildren: MOTION_TOKENS.stagger.normal,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: -15, filter: 'blur(8px)' },
-    show: {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      transition: {
-        duration: MOTION_TOKENS.duration.normal,
-        ease: GHOST_EASE,
-      },
-    },
-  };
-
   return (
     <m.header
       variants={containerVariants}

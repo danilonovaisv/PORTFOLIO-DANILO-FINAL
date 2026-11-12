@@ -1,10 +1,42 @@
 # Adjustment Log
 
+## [2026-11-11T20:20] Cloudflare R2 Asset URL Recovery & Reconciliation (/orchestrate cloudflare-asset-recovery)
+
+**Context:** Auditoria completa, reconciliação e recuperação de URLs legadas do Supabase Storage para Cloudflare R2 CDN (`https://assets.portfoliodanilo.com`, bucket `portfolio-assets`) na branch `fix/cloudflare-r2-asset-references`.
+
+**Alterações Realizadas:**
+
+1. **`src/lib/supabase/urls.ts`:**
+   - Adicionados `isSignedOrPrivateStorageUrl()` e `parsePublicSupabaseStorageUrl()` com suporte a rotas `/storage/v1/object/public/` e `/storage/v1/render/image/public/`, normalização de barras duplicadas, prefixos repetidos e segmentos URL-encoded.
+   - Atualizado `buildSupabaseStorageUrl()` para extrair automaticamente o bucket da URL pública Supabase (evitando prefixo duplo `site-assets/portfolio-media/`), preservar URLs assinadas/privadas e normalizar URLs já migradas do R2.
+2. **`src/lib/utils.ts`:**
+   - Atualizados `getAssetUrl()`, `supabaseLoader()` e `getGhostAssetUrl()` para normalizar URLs absolutas públicas legadas do Supabase para R2 quando `getR2PublicUrl()` está ativo, mantendo URLs assinadas, externas, locais (`/site.assets/`, `/assets/`), `data:` e `blob:` intactas.
+3. **`src/lib/media/asset-contract.ts`, `src/lib/portfolio/project-mappers.ts`, `src/lib/supabase/site-asset-utils.ts`:**
+   - Atualizados `resolveSupabaseUrl()`, `resolveProjectMedia()` e `normalizeAssetRecord()` para respeitar o bucket original da URL pública Supabase e proteger URLs assinadas/externas.
+4. **`src/config/brand.ts` & `src/components/admin/LandingPageForm.tsx`:**
+   - Adicionado fallback de runtime para `https://assets.portfoliodanilo.com` em `brand.ts` fora de `NODE_ENV === 'test'` (preservando `SUPABASE_STORAGE_URL` para testes e fallback legado) e removido bypass HTTP em `LandingPageForm.tsx`.
+5. **Artefatos de Auditoria & Testes TDD/E2E:**
+   - Gerados `.agents/artifacts/asset-recovery/01-repository-audit.md`, `02-asset-inventory.json`, `03-reconciliation-report.md`, `04-unresolved-assets.csv` e `05-r2-integrity-audit.md`.
+   - Criados `test/unit/r2-url-recovery.test.ts` (15 testes) e `test/e2e/r2-asset-recovery.spec.ts`.
+
+**Achados Remotos & Lacunas (Read-Only):**
+
+- Bucket R2 `portfolio-assets`: 387 objetos listados via `ListObjectsV2`, todos respondendo HTTP 200 em `https://assets.portfoliodanilo.com` (incluindo `thumb-glad.ead956218f26b9c0.webp`).
+- D1 `portfolio_projects`: 35/40 URLs únicas respondem HTTP 200; 5 URLs (covers de `bidaya-parfums-scents-without-borders`, `nestle` e `ai-video` 16x9) + `cartoon-network` (em `fallbacks.ts`) e ~266 entradas antigas de `landing-pages/*` em `site_assets` retornam 404 por estarem ausentes no bucket R2.
+- D1 `landing_pages`: todos os 19 registros possuem `content = "[]"`.
+
+**Validação:**
+
+- `pnpm run build-check` + `pnpm test`: 55/55 suítes Jest, 413/413 testes PASS.
+- `pnpm run build:cloudflare`: OpenNext build concluído (`.open-next/worker.js`).
+- Playwright Chromium E2E (`r2-asset-recovery.spec.ts`, `portfolio.spec.ts`, `home.spec.ts`, `about.spec.ts`): 8/8 PASS.
+
 ## [2026-11-10T18:50] Ghost System Security Hardening & Vulnerability Remediation (/orchestrate /security-audit)
 
 **Context:** Auditoria de segurança defensiva ponta a ponta na base de código do Portfólio Danilo Novais sob os protocolos `/orchestrate` e `/security-audit`.
 
 **Vulnerabilidades Corrigidas:**
+
 1. **[C01 - CRÍTICA] Backdoor Removido (`src/app/api/dev-bridge/route.ts`):**
    - Removido arquivo de endpoint desprotegido que permitia leitura, escrita e exclusão arbitrária de arquivos do servidor.
 2. **[H01 - ALTA] Desindexação de Bancos de Credenciais GCloud (`.agent_config/`):**
@@ -24,16 +56,17 @@
    - Adicionada `sanitizeMarkdownUrl` prevenindo a execução de links com pseudo-protocolos `javascript:`.
 
 **Validação & QA:**
+
 - `pnpm run build-check`: **0 erros TypeScript (tsc --strict), 0 erros ESLint**.
 - `pnpm test`: **54/54 test suites aprovadas, 397/397 testes unitários PASS**.
 - `graphify update .`: Grafo semântico AST atualizado com 26.310 nós e 31.269 arestas.
-
 
 ## [2026-11-10T12:55] Otimização de Assets: Bypass de Loader para SVGs e Unoptimized para WebP Animado
 
 **Context:** Resolução de warnings no console de desenvolvimento reportados pelo runtime do Next.js Image component para SVGs (Clients brands / proof) e WebP animado (thumb-honda).
 
 **Alterações Realizadas:**
+
 1. `src/components/ui/shared/DynamicAssetImage.tsx`:
    - Adicionada verificação `isSvg` impedindo a aplicação de `supabaseLoader` em arquivos vetoriais SVG, eliminando o aviso `Image with src ... has a "loader" property that does not implement width`.
 2. `src/components/ui/media/MediaCard.tsx`:
@@ -41,14 +74,15 @@
    - Implementado bypass automático de otimização (`unoptimized={unoptimized || /\.(svg|gif)$/i.test(resolvedSrc) || /thumb-honda/i.test(resolvedSrc)}`) para imagens vetoriais e animações WebP/GIF.
 
 **Validação:**
-- `pnpm run build-check`: **0 erros TypeScript, 0 erros ESLint**.
 
+- `pnpm run build-check`: **0 erros TypeScript, 0 erros ESLint**.
 
 ## [2026-11-10T12:40] Migração Supabase Auth & DB Ativo (dpejskjpghoozbpfxkpf), Restauração de Login e Deploy (/orchestrate)
 
 **Context:** Resolução definitiva do bloqueio de login (`exceed_cached_egress_quota`) originado pelo estouro de cota do projeto legado `umkmwbkwvulxtdodzmzf`. Migrado o Auth e a base relacional para o projeto ativo `dpejskjpghoozbpfxkpf` com CDN Zero-Egress via Cloudflare R2 (`https://assets.portfoliodanilo.com`).
 
 **Diagnóstico & Resolução:**
+
 1. **Identificação da Causa-Raiz:** O projeto Supabase antigo `umkmwbkwvulxtdodzmzf` encontrava-se com restrição global no gateway (`exceed_cached_egress_quota`), rejeitando chamadas de autenticação em `/auth/v1/token` e queries REST com erro 403.
 2. **Setup do Projeto Ativo (`dpejskjpghoozbpfxkpf`):**
    - Criadas todas as tabelas: `portfolio_projects`, `landing_pages`, `portfolio_tags`, `portfolio_project_tags`, `site_assets` e `admin_audit_log`.
@@ -66,6 +100,7 @@
    - Disparado o build e deploy para Cloudflare Workers (`workflow_dispatch` + push), concluído com sucesso (`Run 42846427642`).
 
 **Validação & QA:**
+
 - `pnpm run build-check`: **0 erros TypeScript, 0 erros ESLint**.
 - `jest test/security/admin-authz.test.ts test/unit/authz.test.ts`: **16/16 testes aprovados**.
 - Verificação anon HTTP em `dpejskjpghoozbpfxkpf`: **19 projetos e 857 assets acessíveis via CDN**.
@@ -3154,3 +3189,18 @@ Detected `EPERM` issues in `~/.npm`. Run `sudo chown -R $(whoami) ~/.npm` to fix
   - **`src/components/home/featured-projects/FeaturedProjectCardFrame.tsx`**: Priorizada a mídia de capa do card (`desktopMedia` / `mobileMedia`) sobre `hoverMedia` (que podia puxar vídeos da galeria interna do modal e sobrescrever a capa configurada no Admin).
   - **`src/config/content.ts` & `src/lib/portfolio/fallbacks.ts`**: Substituídos os paths legados do showcase por 20 projetos reais do acervo `portfolio-media/` no Cloudflare R2 CDN, com suporte ao filtro `featuredOnHomeOnly` na Home (`src/app/page.tsx`) e resolução de slug em `/portfolio/[slug]`.
 - **Verificação:** `pnpm run build-check` (0 erros) e 53 suítes Jest (395 testes PASS).
+
+## [2026-11-11] [Debug & Estabilização da Suíte E2E Playwright (162/162 PASS)]
+
+- **Contexto:** Após a recuperação das URLs de assets para Cloudflare R2, a execução completa de `pnpm run test:e2e` apresentava 25 falhas distribuídas entre os 6 projetos de navegador (`chromium`, `webkit`, `firefox`, `mobile-chrome`, `mobile-safari`, `tablet-chrome`).
+- **Causas Raiz & Correções Aplicadas:**
+  - **`src/app/portfolio/page.tsx`**: Quando o Supabase retornava 0 projetos (ou variáveis ausentes/erro de rede), os caminhos de fallback retornavam todos os 20 projetos sem aplicar `ENABLE_SERVER_PAGINATION` nem `PORTFOLIO_PAGE_SIZE` (`15`), mantendo 20 cards na página 1. Criado `paginateFallbackProjects` determinístico para fatiar o fallback conforme `initialPage` e `PORTFOLIO_PAGE_SIZE`, preservando `totalProjectsCount`.
+  - **`src/components/portfolio/ProjectsGallery.tsx`**: Removido `<AnimatePresence mode="popLayout">` ao redor dos cards paginados (que não possuíam animação `exit` e mantinham os 15 cards anteriores no DOM junto aos 5 da página 2, somando 20 cards no Firefox) e movidos CTA e controles de paginação para fora do wrapper `galleryWrapperRef`/`trackRef` gerenciado por `useLERPScroll` (evitando reposicionamento `fixed`/`translateY` contínuo durante clique no botão "Próxima página" no WebKit).
+  - **`src/lib/supabase/client.ts`**: `createClientComponentClient()` verificava apenas `process.env.PLAYWRIGHT_TEST`, ignorado no bundle do browser Next.js, fazendo WebKit e Mobile Safari dispararem requisições reais para `https://supabase.test.invalid` e gerarem `pageerror`s. Adicionada checagem de `process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true'`, ajustado `createMockClient()` para retornar `[]` em `site_assets` e `public_projects_view` (preservando os projetos fallback na Home), adicionado `.maybeSingle()` exigido por `useRealtimeAssets.ts`, e tornado `channel().on()` encadeável.
+  - **`src/components/sobre/origin/useOriginAnimations.ts`**: No breakpoint `< 1024px`, todos os frames recebiam `autoAlpha: 0` inicialmente, mantendo o primeiro capítulo (`data-origin-block="1"`) oculto antes do scroll no Mobile Safari. Garantido estado inicial visível (`isInitiallyVisible = isReduced || i === 0`).
+  - **`src/components/layout/header/mobile/MobileHeaderBar.tsx`**: Movidas `containerVariants` e `itemVariants` para constantes de módulo fora do render, evitando recriação durante re-renders na hidratação da Home.
+  - **`test/e2e/ghost-system.spec.ts`**: Atualizada asserção de copy desatualizada (`/Antes de qualquer técnica/i`) para refletir o texto canônico atual em `src/components/sobre/origin/data.ts` (`/Antes da técnica, o olhar/i`).
+- **Verificação:**
+  - `pnpm run build-check` (`tsc --noEmit` + `eslint`): 0 erros (9 warnings pré-existentes).
+  - `pnpm test` (Jest): `55 passed, 55 total` (`413 passed, 413 total`).
+  - `pnpm run test:e2e` (Playwright nos 6 navegadores): `162 passed (3.2m)`, 0 falhas.

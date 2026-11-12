@@ -132,7 +132,8 @@ export const ORIGIN_CHAPTERS: OriginChapter[] = [
     discipline: 'Direção de Arte & Observação',
     principle: 'A essência resiste ao ruído passageiro.',
     imageId: SITE_ASSET_KEYS.about.originImages[0],
-    supabaseUrl: 'https://assets.portfoliodanilo.com/site-assets/about/origin/origin2/cena-01.webp',
+    supabaseUrl:
+      'https://assets.portfoliodanilo.com/site-assets/about/origin/origin2/cena-01.webp',
     fallback: '/about/origin/origin2/cena-01.webp',
     dimensions: {
       width: 2500,
@@ -166,7 +167,8 @@ export const ORIGIN_CHAPTERS: OriginChapter[] = [
     discipline: 'Identidade Visual & Composição',
     principle: 'O improviso no papel ganha direção e propósito.',
     imageId: SITE_ASSET_KEYS.about.originImages[1],
-    supabaseUrl: 'https://assets.portfoliodanilo.com/site-assets/about/origin/origin2/cena-02.webp',
+    supabaseUrl:
+      'https://assets.portfoliodanilo.com/site-assets/about/origin/origin2/cena-02.webp',
     fallback: '/about/origin/origin2/cena-02.webp',
     dimensions: {
       width: 2500,
@@ -201,7 +203,8 @@ export const ORIGIN_CHAPTERS: OriginChapter[] = [
     discipline: 'Design de Sistemas & Experiência',
     principle: 'O design verdadeiro conduz sem precisar gritar.',
     imageId: SITE_ASSET_KEYS.about.originImages[2],
-    supabaseUrl: 'https://assets.portfoliodanilo.com/site-assets/about/origin/origin2/cena-03.webp',
+    supabaseUrl:
+      'https://assets.portfoliodanilo.com/site-assets/about/origin/origin2/cena-03.webp',
     fallback: '/about/origin/origin2/cena-03.webp',
     dimensions: {
       width: 2500,
@@ -236,7 +239,8 @@ export const ORIGIN_CHAPTERS: OriginChapter[] = [
     principle:
       'Tecnologia e inteligência artificial a serviço da sensibilidade humana.',
     imageId: SITE_ASSET_KEYS.about.originImages[3],
-    supabaseUrl: 'https://assets.portfoliodanilo.com/site-assets/about/origin/origin2/cena-04.webp',
+    supabaseUrl:
+      'https://assets.portfoliodanilo.com/site-assets/about/origin/origin2/cena-04.webp',
     fallback: '/about/origin/origin2/cena-04.webp',
     dimensions: {
       width: 2500,

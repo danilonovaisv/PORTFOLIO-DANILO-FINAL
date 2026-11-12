@@ -130,7 +130,10 @@ describe('Master Project Template V3 Schema & Defaults', () => {
           {
             id: 'block-2',
             type: 'image' as const,
-            content: { media: 'site-assets/projects/image1.webp', alt: 'Image' },
+            content: {
+              media: 'site-assets/projects/image1.webp',
+              alt: 'Image',
+            },
           },
         ],
       },

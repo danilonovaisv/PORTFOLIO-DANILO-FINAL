@@ -689,11 +689,12 @@ export function useOriginAnimations({
         );
 
         frames.forEach((frame, i) => {
+          const isInitiallyVisible = isReduced || i === 0;
           gsap.set(frame, {
             position: 'relative',
             clipPath: 'none',
-            filter: isReduced ? 'none' : 'blur(8px)',
-            autoAlpha: isReduced ? 1 : 0,
+            filter: isInitiallyVisible ? 'none' : 'blur(8px)',
+            autoAlpha: isInitiallyVisible ? 1 : 0,
             marginBottom: '2.5rem',
             height: 'auto',
             minHeight: '72dvh',

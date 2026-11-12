@@ -3,7 +3,10 @@ import {
   isSignedOrPrivateStorageUrl,
 } from '@/lib/supabase/urls';
 import { getAssetUrl, getGhostAssetUrl, supabaseLoader } from '@/lib/utils';
-import { resolveLandingAsset, resolveSupabaseUrl } from '@/lib/media/asset-contract';
+import {
+  resolveLandingAsset,
+  resolveSupabaseUrl,
+} from '@/lib/media/asset-contract';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
 
 const R2_CDN = 'https://assets.portfoliodanilo.com';
@@ -200,4 +203,3 @@ describe('Cloudflare R2 Legacy URL Recovery (TDD)', () => {
     });
   });
 });
-

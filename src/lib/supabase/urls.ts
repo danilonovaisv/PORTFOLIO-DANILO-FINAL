@@ -294,7 +294,8 @@ export function buildSupabaseStorageUrl(
   const parsedSupabase = parsePublicSupabaseStorageUrl(trimmed);
   const isHttp =
     trimmed.startsWith('http://') || trimmed.startsWith('https://');
-  const isSupabaseUrl = Boolean(parsedSupabase) || trimmed.includes('/storage/v1/');
+  const isSupabaseUrl =
+    Boolean(parsedSupabase) || trimmed.includes('/storage/v1/');
 
   // Handle already-migrated R2 CDN URLs (normalize duplicate slashes / duplicate virtual prefixes)
   if (isHttp && !isSupabaseUrl) {
@@ -309,12 +310,16 @@ export function buildSupabaseStorageUrl(
         const cleanSegments = collapseSlashesAndDecodeSegments(url.pathname);
         const firstSeg = cleanSegments.split('/')[0];
         const r2Bucket = KNOWN_VIRTUAL_BUCKETS.has(firstSeg) ? firstSeg : '';
-        let r2Rel = r2Bucket ? cleanSegments.slice(r2Bucket.length + 1) : cleanSegments;
+        let r2Rel = r2Bucket
+          ? cleanSegments.slice(r2Bucket.length + 1)
+          : cleanSegments;
         while (r2Bucket && r2Rel.startsWith(`${r2Bucket}/`)) {
           r2Rel = r2Rel.slice(r2Bucket.length + 1);
         }
         const r2Base = getR2PublicUrl() || `${url.protocol}//${url.host}`;
-        const finalKey = r2Bucket ? `${r2Bucket}/${encodeStorageSegments(r2Rel)}` : encodeStorageSegments(r2Rel);
+        const finalKey = r2Bucket
+          ? `${r2Bucket}/${encodeStorageSegments(r2Rel)}`
+          : encodeStorageSegments(r2Rel);
         return `${r2Base}/${finalKey}`;
       }
 

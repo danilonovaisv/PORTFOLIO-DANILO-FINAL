@@ -10,12 +10,12 @@
 
 A migração parcial deixou o projeto em estado inconsistente:
 
-| Componente | Status | Fonte de Verdade |
-|------------|--------|------------------|
-| **Storage (imagens/vídeos)** | ✅ Migrado para R2 | `wrangler.toml` + `src/lib/storage/r2.ts` |
-| **Database (PostgreSQL/D1)** | ❌ Não migrado | Nenhum binding D1 configurado |
-| **Auth (usuários/tokens)** | ❌ Depende Supabase | `src/lib/supabase/server.ts` |
-| **Realtime (WebSocket)** | ❌ Incompatível | Não funciona em Workers |
+| Componente                   | Status              | Fonte de Verdade                          |
+| ---------------------------- | ------------------- | ----------------------------------------- |
+| **Storage (imagens/vídeos)** | ✅ Migrado para R2  | `wrangler.toml` + `src/lib/storage/r2.ts` |
+| **Database (PostgreSQL/D1)** | ❌ Não migrado      | Nenhum binding D1 configurado             |
+| **Auth (usuários/tokens)**   | ❌ Depende Supabase | `src/lib/supabase/server.ts`              |
+| **Realtime (WebSocket)**     | ❌ Incompatível     | Não funciona em Workers                   |
 
 ---
 
@@ -140,11 +140,11 @@ export async function createD1Client(): Promise<D1Database> {
   if (typeof DB !== 'undefined') {
     return DB;
   }
-  
+
   // Fallback para Supabase (modo desenvolvimento)
   const { createClient } = await import('@/lib/supabase/server');
   const supabase = await createClient();
-  
+
   return {
     prepare: () => {
       throw new Error('D1 not available in this environment');
@@ -179,6 +179,7 @@ export function getD1Query(table: string) {
 ### Opção A: Manter Supabase Auth (Recomendado)
 
 O middleware de auth já está bem implementado em `src/lib/supabase/middleware.ts`. Manter isso funcione com Supabase Auth mantém:
+
 - Login com Provider (Google, GitHub, etc.)
 - Session cookies
 - RBAC via `admin_users` table
@@ -188,6 +189,7 @@ O middleware de auth já está bem implementado em `src/lib/supabase/middleware.
 ### Opção B: Migrar para Cloudflare Access (Avançado)
 
 Se quiser migrar completamente, precisa:
+
 1. Configurar Cloudflare Access com `cloudflared access login`
 2. Criar `src/lib/cloudflare/auth.ts` com verificação de token JWT
 3. Atualizar middleware para usar `c.env.ACCESS_TOKEN` ou verificar JWT no cabeçalho Authorization
@@ -214,7 +216,7 @@ function usePollingFallback() {
           // ignore
         }
       }, POLLING_INTERVAL_MS);
-      
+
       return () => clearInterval(interval);
     }
   }, []);
@@ -262,15 +264,17 @@ SUPABASE_SERVICE_ROLE_KEY=sua_service_role_key
 2. **Atualizar wrangler.toml** com UUID do D1
 
 3. **Migrar dados**:
+
    ```bash
    # Exportar de Supabase
    pg_dump -h db.supabase.co -U postgres -d postgres --data-only --table=site_assets --table=portfolio_projects > assets_backup.sql
-   
+
    # Importar para D1
    wrangler d1 execute portfolio-db --remote < assets_backup.sql
    ```
 
 4. **Build e deploy**:
+
    ```bash
    pnpm run build:cloudflare
    wrangler deploy

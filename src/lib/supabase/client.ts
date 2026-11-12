@@ -72,36 +72,57 @@ function createMockClient() {
     error: null,
   };
 
-  const mockQuery: any = {
-    eq: () => mockQuery,
-    neq: () => mockQuery,
-    gt: () => mockQuery,
-    gte: () => mockQuery,
-    lt: () => mockQuery,
-    lte: () => mockQuery,
-    like: () => mockQuery,
-    ilike: () => mockQuery,
-    is: () => mockQuery,
-    in: () => mockQuery,
-    contains: () => mockQuery,
-    containedBy: () => mockQuery,
-    range: () => mockQuery,
-    or: () => mockQuery,
-    match: () => mockQuery,
-    order: () => mockQuery,
-    limit: () => mockQuery,
-    returns: () => Promise.resolve(mockData),
-    select: () => mockQuery,
-    single: () =>
-      Promise.resolve({
-        data: mockData.data[0],
-        error: null,
-      }),
-    // Make it awaitable / thenable
-    then: (onfulfilled: any) => Promise.resolve(mockData).then(onfulfilled),
+  const emptyData = { data: [], error: null };
+
+  const createMockQuery = (payload: { data: any[]; error: null }): any => {
+    const mockQuery: any = {
+      eq: () => mockQuery,
+      neq: () => mockQuery,
+      gt: () => mockQuery,
+      gte: () => mockQuery,
+      lt: () => mockQuery,
+      lte: () => mockQuery,
+      like: () => mockQuery,
+      ilike: () => mockQuery,
+      is: () => mockQuery,
+      in: () => mockQuery,
+      contains: () => mockQuery,
+      containedBy: () => mockQuery,
+      range: () => mockQuery,
+      or: () => mockQuery,
+      match: () => mockQuery,
+      order: () => mockQuery,
+      limit: () => mockQuery,
+      returns: () => Promise.resolve(payload),
+      select: () => mockQuery,
+      single: () =>
+        Promise.resolve({
+          data: payload.data[0] ?? null,
+          error: null,
+        }),
+      maybeSingle: () =>
+        Promise.resolve({
+          data: payload.data[0] ?? null,
+          error: null,
+        }),
+      // Make it awaitable / thenable
+      then: (onfulfilled: any) => Promise.resolve(payload).then(onfulfilled),
+    };
+    return mockQuery;
   };
+
+  const mockChannel: any = {
+    on: () => mockChannel,
+    subscribe: () => mockChannel,
+  };
+
   return {
-    from: () => mockQuery,
+    from: (table: string) =>
+      createMockQuery(
+        table === 'site_assets' || table === 'public_projects_view'
+          ? emptyData
+          : mockData
+      ),
     auth: {
       getSession: () =>
         Promise.resolve({
@@ -155,10 +176,7 @@ function createMockClient() {
     realtime: {
       setAuth: () => {},
     },
-    channel: () => ({
-      on: () => ({ on: () => ({ subscribe: () => {} }) }),
-      subscribe: () => {},
-    }),
+    channel: () => mockChannel,
     removeChannel: () => Promise.resolve(),
   } as unknown as ReturnType<typeof createBrowserClient<Database>>;
 }
@@ -171,7 +189,8 @@ export function createClientComponentClient(): ReturnType<
 > {
   // 1. Playwright test mock — lightweight override (check first)
   if (
-    process.env.PLAYWRIGHT_TEST ||
+    process.env.PLAYWRIGHT_TEST === 'true' ||
+    process.env.NEXT_PUBLIC_PLAYWRIGHT_TEST === 'true' ||
     (typeof window !== 'undefined' && (window as any).__IS_PLAYWRIGHT_MOCK__)
   ) {
     return createMockClient();

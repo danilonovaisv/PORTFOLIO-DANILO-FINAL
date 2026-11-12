@@ -229,7 +229,9 @@ function normalizeMasterTemplateV3(
 
   const defaults = createDefaultMasterProjectTemplateV3(fallback);
   const projectTitle =
-    asString(mergedRecord.project_title) ?? fallback.title ?? defaults.project_title;
+    asString(mergedRecord.project_title) ??
+    fallback.title ??
+    defaults.project_title;
   const fallbackAlt = `Capa de ${projectTitle}`;
   const logoFallbackAlt = `Logo de ${projectTitle}`;
 
@@ -334,7 +336,9 @@ function normalizeMasterTemplateV3(
       ? MASTER_PROJECT_TEMPLATE_V3_HERO
       : MASTER_PROJECT_TEMPLATE_V3,
     project_slug:
-      asString(mergedRecord.project_slug) ?? fallback.slug ?? defaults.project_slug,
+      asString(mergedRecord.project_slug) ??
+      fallback.slug ??
+      defaults.project_slug,
     hero_cover_image: heroCoverRecord
       ? normalizeAsset(
           heroCoverRecord,
@@ -365,7 +369,8 @@ function normalizeMasterTemplateV3(
     project_title: projectTitle,
     project_subtitle:
       asString(mergedRecord.project_subtitle) ?? defaults.project_subtitle,
-    project_client: asString(mergedRecord.project_client) ?? defaults.project_client,
+    project_client:
+      asString(mergedRecord.project_client) ?? defaults.project_client,
     project_year: asNumber(mergedRecord.project_year) ?? defaults.project_year,
     project_tags: asStringArray(mergedRecord.project_tags),
     project_services: asStringArray(mergedRecord.project_services),
@@ -373,10 +378,15 @@ function normalizeMasterTemplateV3(
       asString(mergedRecord.project_summary) ??
       asString(mergedRecord.summary) ??
       defaults.project_summary,
-    intro_headline: asString(mergedRecord.intro_headline) ?? defaults.intro_headline,
+    intro_headline:
+      asString(mergedRecord.intro_headline) ?? defaults.intro_headline,
     intro_body:
-      asV3IntroBlocks(mergedRecord.intro_body ?? mergedRecord.intro_paragraphs) ??
-      asIntroParagraphs(mergedRecord.intro_body ?? mergedRecord.intro_paragraphs),
+      asV3IntroBlocks(
+        mergedRecord.intro_body ?? mergedRecord.intro_paragraphs
+      ) ??
+      asIntroParagraphs(
+        mergedRecord.intro_body ?? mergedRecord.intro_paragraphs
+      ),
     highlight_color:
       asString(mergedRecord.highlight_color) ?? defaults.highlight_color,
     theme_color: asString(mergedRecord.theme_color) ?? defaults.theme_color,

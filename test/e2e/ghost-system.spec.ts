@@ -39,7 +39,7 @@ test.describe('Ghost System Verification', () => {
     ).toBeVisible();
     await expect(
       page
-        .locator('p', { hasText: /Antes de qualquer técnica/i })
+        .locator('p', { hasText: /Antes da técnica, o olhar/i })
         .filter({ visible: true })
     ).toBeVisible();
 

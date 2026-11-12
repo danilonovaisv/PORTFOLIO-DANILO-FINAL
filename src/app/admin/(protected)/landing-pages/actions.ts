@@ -21,10 +21,16 @@ export async function listLandingPagesAction() {
       return data;
     }
     if (error) {
-      console.warn('[listLandingPagesAction] Supabase query warning:', error.message);
+      console.warn(
+        '[listLandingPagesAction] Supabase query warning:',
+        error.message
+      );
     }
   } catch (err) {
-    console.warn('[listLandingPagesAction] Supabase connection failed, attempting D1 fallback:', err instanceof Error ? err.message : err);
+    console.warn(
+      '[listLandingPagesAction] Supabase connection failed, attempting D1 fallback:',
+      err instanceof Error ? err.message : err
+    );
   }
 
   // Fallback para Cloudflare D1 Database
@@ -33,17 +39,25 @@ export async function listLandingPagesAction() {
     const { env } = await getCloudflareContext({ async: true });
     const db = (env as unknown as { DB?: any })?.DB;
     if (db) {
-      const stmt = db.prepare('SELECT id, title, slug, created_at, content FROM landing_pages ORDER BY created_at DESC');
+      const stmt = db.prepare(
+        'SELECT id, title, slug, created_at, content FROM landing_pages ORDER BY created_at DESC'
+      );
       const { results } = await stmt.all();
       if (results && results.length > 0) {
         return results.map((row: any) => ({
           ...row,
-          content: typeof row.content === 'string' ? JSON.parse(row.content || '[]') : row.content
+          content:
+            typeof row.content === 'string'
+              ? JSON.parse(row.content || '[]')
+              : row.content,
         }));
       }
     }
   } catch (d1Err) {
-    console.warn('[listLandingPagesAction] D1 fallback failed:', d1Err instanceof Error ? d1Err.message : d1Err);
+    console.warn(
+      '[listLandingPagesAction] D1 fallback failed:',
+      d1Err instanceof Error ? d1Err.message : d1Err
+    );
   }
 
   return [];
@@ -61,7 +75,10 @@ export async function getLandingPageAction(id: string) {
 
     if (!error && data) return data;
   } catch (err) {
-    console.warn('[getLandingPageAction] Supabase query failed, trying D1 fallback:', err instanceof Error ? err.message : err);
+    console.warn(
+      '[getLandingPageAction] Supabase query failed, trying D1 fallback:',
+      err instanceof Error ? err.message : err
+    );
   }
 
   // Fallback para Cloudflare D1 Database
@@ -70,17 +87,27 @@ export async function getLandingPageAction(id: string) {
     const { env } = await getCloudflareContext({ async: true });
     const db = (env as unknown as { DB?: any })?.DB;
     if (db) {
-      const stmt = db.prepare('SELECT id, title, slug, cover, content FROM landing_pages WHERE id = ?').bind(parsedId);
+      const stmt = db
+        .prepare(
+          'SELECT id, title, slug, cover, content FROM landing_pages WHERE id = ?'
+        )
+        .bind(parsedId);
       const row = await stmt.first();
       if (row) {
         return {
           ...row,
-          content: typeof (row as any).content === 'string' ? JSON.parse((row as any).content || '[]') : (row as any).content
+          content:
+            typeof (row as any).content === 'string'
+              ? JSON.parse((row as any).content || '[]')
+              : (row as any).content,
         };
       }
     }
   } catch (d1Err) {
-    console.warn('[getLandingPageAction] D1 fallback failed:', d1Err instanceof Error ? d1Err.message : d1Err);
+    console.warn(
+      '[getLandingPageAction] D1 fallback failed:',
+      d1Err instanceof Error ? d1Err.message : d1Err
+    );
   }
 
   return null;

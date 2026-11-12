@@ -11,10 +11,14 @@ const { createClient } = require('@supabase/supabase-js');
 
 // Carregar variáveis de ambiente
 const envPath = path.join(__dirname, '../.env.local');
-const env = fs.existsSync(envPath) ? dotenv.parse(fs.readFileSync(envPath)) : {};
+const env = fs.existsSync(envPath)
+  ? dotenv.parse(fs.readFileSync(envPath))
+  : {};
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_SERVICE_ROLE_KEY;
+const SUPABASE_URL =
+  process.env.NEXT_PUBLIC_SUPABASE_URL || env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_KEY =
+  process.env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!SUPABASE_URL || !SUPABASE_KEY) {
   console.error('❌ Credenciais do Supabase não encontradas.');
@@ -22,7 +26,7 @@ if (!SUPABASE_URL || !SUPABASE_KEY) {
 }
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
-  auth: { persistSession: false }
+  auth: { persistSession: false },
 });
 
 const TABLES = [
@@ -30,7 +34,7 @@ const TABLES = [
   'portfolio_projects',
   'portfolio_tags',
   'portfolio_project_tags',
-  'landing_pages'
+  'landing_pages',
 ];
 
 function escapeSqlValue(value) {
@@ -48,8 +52,8 @@ function escapeSqlValue(value) {
 
 function generateInsert(table, row) {
   const columns = Object.keys(row);
-  const escapedColumns = columns.map(c => `"${c}"`);
-  const values = columns.map(c => escapeSqlValue(row[c]));
+  const escapedColumns = columns.map((c) => `"${c}"`);
+  const values = columns.map((c) => escapeSqlValue(row[c]));
   return `INSERT OR REPLACE INTO "${table}" (${escapedColumns.join(', ')}) VALUES (${values.join(', ')});`;
 }
 
@@ -77,7 +81,7 @@ async function exportTableData(table) {
   }
 
   console.log(`✅ ${table}: ${allRows.length} registros exportados.`);
-  return allRows.map(row => generateInsert(table, row)).join('\n');
+  return allRows.map((row) => generateInsert(table, row)).join('\n');
 }
 
 async function main() {
@@ -89,7 +93,10 @@ async function main() {
   sqlOutput += `-- ================================================================\n\n`;
 
   // Ler schema D1 unificado
-  const d1SchemaPath = path.join(__dirname, '../supabase/migrations/20261110000000_create_d1_schema.sql');
+  const d1SchemaPath = path.join(
+    __dirname,
+    '../supabase/migrations/20261110000000_create_d1_schema.sql'
+  );
   if (fs.existsSync(d1SchemaPath)) {
     sqlOutput += `-- === TABELAS E ESTRUTURA D1 ===\n`;
     sqlOutput += fs.readFileSync(d1SchemaPath, 'utf8') + '\n\n';
@@ -107,10 +114,12 @@ async function main() {
   fs.writeFileSync(outputPath, sqlOutput, 'utf8');
 
   console.log(`\n🎉 Dump D1 completo gerado com sucesso em: ${outputPath}`);
-  console.log(`📊 Tamanho do arquivo: ${(fs.statSync(outputPath).size / 1024).toFixed(2)} KB`);
+  console.log(
+    `📊 Tamanho do arquivo: ${(fs.statSync(outputPath).size / 1024).toFixed(2)} KB`
+  );
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error('Fatal error:', err);
   process.exit(1);
 });

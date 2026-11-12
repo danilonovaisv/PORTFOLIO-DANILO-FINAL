@@ -53,9 +53,12 @@ for (const mapping of typeMappings) {
 }
 
 // 3. Corrigir DEFAULT values PostgreSQL → SQLite
-sql = sql.replace(/\bgen_random_uuid\(\)/gi, "lower(hex(randomblob(16)))");
+sql = sql.replace(/\bgen_random_uuid\(\)/gi, 'lower(hex(randomblob(16)))');
 sql = sql.replace(/\bnow\(\)/gi, "datetime('now')");
-sql = sql.replace(/\btimezone\s*\(\s*'utc'\s*,\s*now\(\)\)/gi, "datetime('now')");
+sql = sql.replace(
+  /\btimezone\s*\(\s*'utc'\s*,\s*now\(\)\)/gi,
+  "datetime('now')"
+);
 sql = sql.replace(/\bCURRENT_TIMESTAMP\b/gi, "datetime('now')");
 sql = sql.replace(/\bCURRENT_DATE\b/gi, "date('now')");
 
