@@ -4,6 +4,8 @@ export const fetchCache = 'force-no-store';
 
 import Link from 'next/link';
 import { requireAdminAccess } from '@/lib/admin/server-access';
+import { getD1Database } from '@/lib/d1/client';
+import { listAdminProjectsFromD1, listTagsFromD1 } from '@/lib/d1/admin';
 import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 import ProjectsTable from '@/components/admin/ProjectsTable';
 import { AdminHeader } from '@/components/admin/AdminHeader';
@@ -36,75 +38,99 @@ export default async function TrabalhosPage(props: Props) {
   const search = resolvedSearchParams.search;
   const templateFilter = resolvedSearchParams.template;
 
-  let query = supabase
-    .from('portfolio_projects')
-    .select(
-      'id, title, client_name, year, featured_on_home, featured_on_portfolio, is_published, thumbnail_path, hero_image_path, project_type, slug, updated_at, url_landscape, url_square, landing_page_id, landing_pages(content)'
-    )
-    .order('updated_at', { ascending: false });
+  const d1 = await getD1Database();
+  let tags: Array<{ id: string; label: string; slug: string }> = [];
+  let projects: any[] = [];
 
-  if (yearFilter) query = query.eq('year', yearFilter);
-  if (typeFilter) query = query.eq('project_type', typeFilter);
-  if (statusFilter === 'published') query = query.eq('is_published', true);
-  if (statusFilter === 'draft') query = query.eq('is_published', false);
-  if (search)
-    query = query.or(`title.ilike.%${search}%,client_name.ilike.%${search}%`);
-
-  const [{ data: baseProjects, error: projectsError }, { data: tags }] =
-    await Promise.all([
-      query,
-      supabase
-        .from('portfolio_tags')
-        .select('id, label, slug')
-        .order('label', { ascending: true }),
+  if (d1) {
+    const [d1Projects, d1Tags] = await Promise.all([
+      listAdminProjectsFromD1(d1, {
+        year: yearFilter,
+        type: typeFilter,
+        status: statusFilter,
+        search,
+      }),
+      listTagsFromD1(d1),
     ]);
-
-  if (projectsError) {
-    console.error(
-      '[SYSTEM_SQL] CRITICAL_FAILURE: PROJECTS_FETCH_FAILED',
-      JSON.stringify(projectsError, null, 2)
-    );
+    projects = d1Projects;
+    tags = d1Tags.map((t) => ({
+      id: String(t.id),
+      label: String(t.label),
+      slug: String(t.slug),
+    }));
   } else {
-    console.warn(`[SYSTEM_SQL] Projects found: ${baseProjects?.length ?? 0}`);
+    let query = supabase
+      .from('portfolio_projects')
+      .select(
+        'id, title, client_name, year, featured_on_home, featured_on_portfolio, is_published, thumbnail_path, hero_image_path, project_type, slug, updated_at, url_landscape, url_square, landing_page_id, landing_pages(content)'
+      )
+      .order('updated_at', { ascending: false });
+
+    if (yearFilter) query = query.eq('year', yearFilter);
+    if (typeFilter) query = query.eq('project_type', typeFilter);
+    if (statusFilter === 'published') query = query.eq('is_published', true);
+    if (statusFilter === 'draft') query = query.eq('is_published', false);
+    if (search)
+      query = query.or(`title.ilike.%${search}%,client_name.ilike.%${search}%`);
+
+    const [{ data: baseProjects, error: projectsError }, { data: supabaseTags }] =
+      await Promise.all([
+        query,
+        supabase
+          .from('portfolio_tags')
+          .select('id, label, slug')
+          .order('label', { ascending: true }),
+      ]);
+
+    tags = supabaseTags ?? [];
+
+    if (projectsError) {
+      console.error(
+        '[SYSTEM_SQL] CRITICAL_FAILURE: PROJECTS_FETCH_FAILED',
+        JSON.stringify(projectsError, null, 2)
+      );
+    } else {
+      console.warn(`[SYSTEM_SQL] Projects found: ${baseProjects?.length ?? 0}`);
+    }
+
+    const projectIds = (baseProjects ?? []).map((project) => project.id);
+    const { data: projectTagRows, error: projectTagsError } =
+      projectIds.length > 0
+        ? await supabase
+            .from('portfolio_project_tags')
+            .select('project_id, tag_id')
+            .in('project_id', projectIds)
+        : { data: [], error: null };
+
+    if (projectTagsError) {
+      console.error(
+        '[SYSTEM_SQL] ERROR: PROJECT_TAGS_FETCH_FAILED',
+        projectTagsError.message,
+        projectTagsError.details,
+        projectTagsError.hint
+      );
+    }
+
+    const tagsById = new Map(tags.map((tag) => [tag.id, tag]));
+    const tagsByProject = new Map<
+      string,
+      Array<{ tag: { label: string; slug: string } }>
+    >();
+
+    for (const relation of projectTagRows ?? []) {
+      const tag = tagsById.get(relation.tag_id);
+      if (!tag) continue;
+
+      const current = tagsByProject.get(relation.project_id) ?? [];
+      current.push({ tag: { label: tag.label, slug: tag.slug } });
+      tagsByProject.set(relation.project_id, current);
+    }
+
+    projects = (baseProjects ?? []).map((project) => ({
+      ...project,
+      tags: tagsByProject.get(project.id) ?? [],
+    })) as any[];
   }
-
-  const projectIds = (baseProjects ?? []).map((project) => project.id);
-  const { data: projectTagRows, error: projectTagsError } =
-    projectIds.length > 0
-      ? await supabase
-          .from('portfolio_project_tags')
-          .select('project_id, tag_id')
-          .in('project_id', projectIds)
-      : { data: [], error: null };
-
-  if (projectTagsError) {
-    console.error(
-      '[SYSTEM_SQL] ERROR: PROJECT_TAGS_FETCH_FAILED',
-      projectTagsError.message,
-      projectTagsError.details,
-      projectTagsError.hint
-    );
-  }
-
-  const tagsById = new Map((tags ?? []).map((tag) => [tag.id, tag]));
-  const tagsByProject = new Map<
-    string,
-    Array<{ tag: { label: string; slug: string } }>
-  >();
-
-  for (const relation of projectTagRows ?? []) {
-    const tag = tagsById.get(relation.tag_id);
-    if (!tag) continue;
-
-    const current = tagsByProject.get(relation.project_id) ?? [];
-    current.push({ tag: { label: tag.label, slug: tag.slug } });
-    tagsByProject.set(relation.project_id, current);
-  }
-
-  const projects = (baseProjects ?? []).map((project) => ({
-    ...project,
-    tags: tagsByProject.get(project.id) ?? [],
-  })) as any[];
 
   let filteredProjects = tagFilter
     ? projects.filter((project) =>

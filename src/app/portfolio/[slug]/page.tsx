@@ -1,18 +1,18 @@
 import { notFound, permanentRedirect } from 'next/navigation';
 import Image from 'next/image';
-import { HOME_CONTENT } from '@/config/content';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 import { siteMetadata } from '@/config/metadata';
 import type { Metadata } from 'next';
-import { createStaticClient } from '@/lib/supabase/static';
-
+import { getD1Database } from '@/lib/d1/client';
 import {
-  mapDbProjectToPortfolioProject,
-  mapStaticProjectToPortfolioProject,
-} from '@/lib/portfolio/project-mappers';
-import { buildFallbackProjects } from '@/lib/portfolio/fallbacks';
+  getLandingPageBySlugFromD1,
+  getProjectBySlugFromD1,
+} from '@/lib/d1/projects';
+import { getFallbackLandingPage } from '@/lib/projects/landing-page-fallback';
+import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
+import { getFallbackProjectBySlug } from '@/lib/portfolio/fallbacks';
 import type { PortfolioProject } from '@/types/project';
 import { getAssetUrl, isVideo } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
@@ -101,67 +101,20 @@ const parsePortfolioBodyBlocks = (value?: string | null): PortfolioBodyBlock[] =
   }
 };
 
-function normalizeSlug(value: string): string {
-  return value
-    .trim()
-    .toLowerCase()
-    .replace(/[_\s]+/g, '-')
-    .replace(/[^a-z0-9-]/g, '')
-    .replace(/-+/g, '-');
-}
-
 async function getProject(slug: string): Promise<PortfolioProject | undefined> {
-  const normalizedSlug = slug.replace(/-/g, '_');
-  const normalizedRequested = normalizeSlug(slug);
-
-  // Try database first with direct query for better performance and reliability
   try {
-    const supabase = createStaticClient();
-
-    // Search by slug using common variations
-    const { data: dbProjects } = await supabase
-      .from('public_projects_view')
-      .select('*, tags:portfolio_project_tags(tag:portfolio_tags(id, slug, label, kind))')
-      .or(`slug.eq.${slug},slug.eq.${normalizedSlug}`);
-
-    if (dbProjects && dbProjects.length > 0) {
-      // Find the best match among results
-      const dbProject = dbProjects.find(
-        (p: any) =>
-          p.slug === slug ||
-          p.slug === normalizedSlug ||
-          p.slug?.replace(/_/g, '-') === slug ||
-          normalizeSlug(p.slug || '') === normalizedRequested
-      );
-
+    const db = await getD1Database();
+    if (db) {
+      const dbProject = await getProjectBySlugFromD1(db, slug);
       if (dbProject) {
-        // Need to find index for layout (though less critical for direct slug navigation)
         return mapDbProjectToPortfolioProject(dbProject, 0);
       }
     }
   } catch (error) {
-    console.warn(`Error fetching project ${slug} from DB:`, error);
+    console.warn(`Error fetching project ${slug} from D1:`, error);
   }
 
-  // Fallback to static content
-  const staticProject = HOME_CONTENT.featuredProjects.find(
-    (p) => p.slug === slug || normalizeSlug(p.slug || '') === normalizedRequested
-  );
-  if (staticProject) {
-    const index = HOME_CONTENT.featuredProjects.findIndex(
-      (p) => p.slug === slug || normalizeSlug(p.slug || '') === normalizedRequested
-    );
-    return mapStaticProjectToPortfolioProject(staticProject, index);
-  }
-
-  const fallbackCatalogProject = buildFallbackProjects().find(
-    (p) => p.slug === slug || normalizeSlug(p.slug || '') === normalizedRequested
-  );
-  if (fallbackCatalogProject) {
-    return fallbackCatalogProject;
-  }
-
-  return undefined;
+  return getFallbackProjectBySlug(slug);
 }
 
 import { BRAND } from '@/config/brand';
@@ -233,18 +186,20 @@ export default async function ProjectPage({ params }: Props) {
   if (!project) {
     // Resilience fallback: check if requested slug belongs to a landing page
     try {
-      const supabase = createStaticClient();
-      const { data: landingPage } = await supabase
-        .from('landing_pages')
-        .select('slug')
-        .or(`slug.eq.${slug},slug.eq.${normalizeSlug(slug)}`)
-        .maybeSingle();
-
-      if (landingPage?.slug) {
-        permanentRedirect(`/projects/${landingPage.slug}`);
+      const db = await getD1Database();
+      if (db) {
+        const landingPage = await getLandingPageBySlugFromD1(db, slug);
+        if (landingPage?.slug) {
+          permanentRedirect(`/projects/${landingPage.slug}`);
+        }
       }
     } catch {
-      // ignore and continue to notFound
+      // ignore and try static fallback
+    }
+
+    const fallbackLanding = getFallbackLandingPage(slug);
+    if (fallbackLanding?.slug) {
+      permanentRedirect(`/projects/${fallbackLanding.slug}`);
     }
 
     notFound();

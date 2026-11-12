@@ -1,6 +1,5 @@
 'use client';
 
-import { createClientComponentClient } from '@/lib/supabase/client';
 import type { DbAsset } from '@/types/admin';
 import {
   normalizeAssetList,
@@ -9,18 +8,12 @@ import {
 
 export type SiteAsset = NormalizedSiteAsset;
 
-export async function getClientSiteAssets() {
-  const supabase = createClientComponentClient();
-  const { data, error } = await supabase
-    .from('site_assets')
-    .select(
-      'id,key,bucket,file_path,asset_type,page,description,is_active,sort_order,metadata,created_at,updated_at'
-    )
-    .order('page', { ascending: true })
-    .order('sort_order', { ascending: true, nullsFirst: false });
+export async function getClientSiteAssets(): Promise<SiteAsset[]> {
+  const response = await fetch('/api/site-assets');
+  if (!response.ok) {
+    throw new Error(`Failed to load site assets (${response.status})`);
+  }
 
-  if (error) throw error;
-
-  const records = (data ?? []) as DbAsset[];
-  return normalizeAssetList(records, { onlyActive: true }) as SiteAsset[];
+  const records = (await response.json()) as DbAsset[];
+  return normalizeAssetList(records ?? [], { onlyActive: true }) as SiteAsset[];
 }

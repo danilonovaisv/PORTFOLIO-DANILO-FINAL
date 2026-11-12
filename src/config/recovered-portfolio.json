@@ -1,0 +1,3264 @@
+[
+  {
+    "id": "3b4c9489-b975-4533-9a89-b2a81b901f54",
+    "slug": "key-vision",
+    "title": "Honda Civic — Key Visual & Campanha",
+    "client_name": "Honda",
+    "brand_name": "Honda",
+    "year": 2024,
+    "project_type": "Brand & Campaigns",
+    "featured_on_home": 1,
+    "featured_home_order": 1,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 1,
+    "is_published": 1,
+    "landing_page_id": "89306f29-1794-450e-a585-4d7881b97244",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/civic/key-visual/assets-do-projeto/cover-16x9/thumb-honda.c2d0c6ccb21001ea.webp",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/civic/key-visual/assets-do-projeto/cover-16x9/thumb-honda.c2d0c6ccb21001ea.webp",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/civic/key-visual/assets-do-projeto/cover-16x9/thumb-honda.c2d0c6ccb21001ea.webp",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/civic/key-visual/assets-do-projeto/cover-1x1/thumb-honda.c2d0c6ccb21001ea.webp",
+    "home_featured": "{\"enabled\":true,\"logoPath\":\"https://assets.portfoliodanilo.com/portfolio-media/civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda-a85702e811bf9bb0.b265753cbbc12865.webp\",\"cardStyle\":\"ANIMATED_BG_THUMB_OVERLAY_5\"}",
+    "tags": [
+      {
+        "id": "2257a041-7643-4e0d-8eda-91f3942d20ef",
+        "slug": "key-visual",
+        "label": "Key Visual",
+        "kind": "tag",
+        "sort_order": 7
+      },
+      {
+        "id": "9b7d880b-b31e-43fe-8451-9da29e307992",
+        "slug": "campaign",
+        "label": "Campanha",
+        "kind": "tag",
+        "sort_order": 6
+      },
+      {
+        "id": "c489c2ca-3a8b-4232-8598-d2a9728146a6",
+        "slug": "brand-campaigns",
+        "label": "Brand & Campaigns",
+        "kind": "category",
+        "sort_order": 1
+      }
+    ],
+    "client_slug": "key",
+    "description": "Projeto de Brand & Campaigns desenvolvido para Honda (2024).",
+    "case_body": "Projeto de Brand & Campaigns desenvolvido para Honda (2024).",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "key-vision"
+    },
+    "gallery": [],
+    "landing_page_slug": "key-vision",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "key-vision",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/civic/key-visual/assets-do-projeto/cover-16x9/thumb-honda.c2d0c6ccb21001ea.webp",
+        "alt": "Capa de Honda Civic — Key Visual & Campanha",
+        "kind": "image"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/civic/key-visual/assets-do-projeto/cover-16x9/thumb-honda.c2d0c6ccb21001ea.webp",
+        "alt": "Honda Civic — Key Visual & Campanha — Hero Media",
+        "kind": "image"
+      },
+      "hero_logo_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda-a85702e811bf9bb0.b265753cbbc12865.webp",
+        "alt": "Logo de Honda",
+        "kind": "image"
+      },
+      "client_logo_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/civic/key-visual/assets-do-projeto/home-featured-logo/logo-honda-a85702e811bf9bb0.b265753cbbc12865.webp",
+        "alt": "Logo de Honda",
+        "kind": "image"
+      },
+      "hero_media_type": "image",
+      "project_title": "Honda Civic — Key Visual & Campanha",
+      "project_subtitle": "Honda · Brand & Campaigns",
+      "project_client": "Honda",
+      "project_year": 2024,
+      "project_tags": [
+        "Key Visual",
+        "Campanha",
+        "Brand & Campaigns"
+      ],
+      "project_services": [
+        "Brand & Campaigns",
+        "Key Visual",
+        "Campanha"
+      ],
+      "project_summary": "Projeto de Brand & Campaigns desenvolvido para Honda (2024).",
+      "intro_headline": "Honda Civic — Key Visual & Campanha",
+      "intro_body": [
+        "Projeto de Brand & Campaigns desenvolvido para Honda (2024)."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Nescafé Dolce Gusto — Ecossistema Digital",
+        "next_project_slug": "campanhas-digitais"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Brand & Campaigns desenvolvido para Honda (2024).",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/civic/key-visual/assets-do-projeto/cover-16x9/thumb-honda.c2d0c6ccb21001ea.webp"
+      }
+    }
+  },
+  {
+    "id": "46150067-43e9-44d8-91a7-eb5b6e933ac4",
+    "slug": "campanhas-digitais",
+    "title": "Nescafé Dolce Gusto — Ecossistema Digital",
+    "client_name": "Nestlé Dolce Gusto",
+    "brand_name": "Nestlé",
+    "year": 2024,
+    "project_type": "Brand & Campaigns",
+    "featured_on_home": 1,
+    "featured_home_order": 2,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 2,
+    "is_published": 1,
+    "landing_page_id": "7f291259-d315-4974-8669-76856a4929ab",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-16x9/thumb-dg-16-9.8ef92ed37a30b3b2.webp",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-16x9/thumb-dg-16-9.8ef92ed37a30b3b2.webp",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-16x9/thumb-dg-16-9.8ef92ed37a30b3b2.webp",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-1x1/thumb-dg-1-1.1e424f3b05e8f5a8.webp",
+    "home_featured": "{\"enabled\":true,\"cardStyle\":\"ANIMATED_BG_THUMB_OVERLAY_5\"}",
+    "tags": [
+      {
+        "id": "e8685536-2076-4094-b98c-823798284eb3",
+        "slug": "branding",
+        "label": "Branding",
+        "kind": "tag",
+        "sort_order": 4
+      },
+      {
+        "id": "9b7d880b-b31e-43fe-8451-9da29e307992",
+        "slug": "campaign",
+        "label": "Campanha",
+        "kind": "tag",
+        "sort_order": 6
+      },
+      {
+        "id": "c489c2ca-3a8b-4232-8598-d2a9728146a6",
+        "slug": "brand-campaigns",
+        "label": "Brand & Campaigns",
+        "kind": "category",
+        "sort_order": 1
+      }
+    ],
+    "client_slug": "campanhas",
+    "description": "Projeto de Brand & Campaigns desenvolvido para Nestlé Dolce Gusto (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "case_body": "Projeto de Brand & Campaigns desenvolvido para Nestlé Dolce Gusto (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "campanhas-digitais"
+    },
+    "gallery": [
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20220123-minime-449-419-desk.0d30169f2fc04991.webp",
+        "alt": "Nescafé Dolce Gusto — Ecossistema Digital",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20230124-ndg-milkshake-cappuccino.5f91d43d60d8d2dd.webp",
+        "alt": "Nescafé Dolce Gusto — Ecossistema Digital",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20230126-starbucks-mail-sunny-day-blend.f338916feb907c54.webp",
+        "alt": "Nescafé Dolce Gusto — Ecossistema Digital",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/converted-2.ba95967101ca4223.webp",
+        "alt": "Nescafé Dolce Gusto — Ecossistema Digital",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/converted.ab5a0d2f366f14af.webp",
+        "alt": "Nescafé Dolce Gusto — Ecossistema Digital",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/email.96c1cdb4e15f2e33.webp",
+        "alt": "Nescafé Dolce Gusto — Ecossistema Digital",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/post-estatico.e8a28c28ae6dfecd.webp",
+        "alt": "Nescafé Dolce Gusto — Ecossistema Digital",
+        "type": "image"
+      }
+    ],
+    "landing_page_slug": "campanhas-digitais",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "campanhas-digitais",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-16x9/thumb-dg-16-9.8ef92ed37a30b3b2.webp",
+        "alt": "Capa de Nescafé Dolce Gusto — Ecossistema Digital",
+        "kind": "image"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-16x9/thumb-dg-16-9.8ef92ed37a30b3b2.webp",
+        "alt": "Nescafé Dolce Gusto — Ecossistema Digital — Hero Media",
+        "kind": "image"
+      },
+      "hero_media_type": "image",
+      "project_title": "Nescafé Dolce Gusto — Ecossistema Digital",
+      "project_subtitle": "Nestlé Dolce Gusto · Brand & Campaigns",
+      "project_client": "Nestlé Dolce Gusto",
+      "project_year": 2024,
+      "project_tags": [
+        "Branding",
+        "Campanha",
+        "Brand & Campaigns"
+      ],
+      "project_services": [
+        "Brand & Campaigns",
+        "Branding",
+        "Campanha"
+      ],
+      "project_summary": "Projeto de Brand & Campaigns desenvolvido para Nestlé Dolce Gusto (2024), reunindo entregas visuais e direção criativa em alta definição.",
+      "intro_headline": "Nescafé Dolce Gusto — Ecossistema Digital",
+      "intro_body": [
+        "Projeto de Brand & Campaigns desenvolvido para Nestlé Dolce Gusto (2024), reunindo entregas visuais e direção criativa em alta definição."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [
+        {
+          "id": "block-pair-1",
+          "type": "image-image",
+          "order": 1,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20220123-minime-449-419-desk.0d30169f2fc04991.webp",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20230124-ndg-milkshake-cappuccino.5f91d43d60d8d2dd.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Nescafé Dolce Gusto — Ecossistema Digital — 20220123 minime 449 419 desk",
+            "alt2": "Nescafé Dolce Gusto — Ecossistema Digital — 20230124 ndg milkshake cappuccino"
+          }
+        },
+        {
+          "id": "block-pair-2",
+          "type": "image-image",
+          "order": 2,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/20230126-starbucks-mail-sunny-day-blend.f338916feb907c54.webp",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/converted-2.ba95967101ca4223.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Nescafé Dolce Gusto — Ecossistema Digital — 20230126 starbucks mail sunny day blend",
+            "alt2": "Nescafé Dolce Gusto — Ecossistema Digital — converted 2"
+          }
+        },
+        {
+          "id": "block-pair-3",
+          "type": "image-image",
+          "order": 3,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/converted.ab5a0d2f366f14af.webp",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/email.96c1cdb4e15f2e33.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Nescafé Dolce Gusto — Ecossistema Digital — converted",
+            "alt2": "Nescafé Dolce Gusto — Ecossistema Digital — email"
+          }
+        },
+        {
+          "id": "block-single-4",
+          "type": "image",
+          "order": 4,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/gallery/post-estatico.e8a28c28ae6dfecd.webp",
+            "mediaType": "image",
+            "alt": "Nescafé Dolce Gusto — Ecossistema Digital — post estatico"
+          }
+        }
+      ],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Swift — Campanha Sazonal & Motion",
+        "next_project_slug": "swift"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Brand & Campaigns desenvolvido para Nestlé Dolce Gusto (2024), reunindo entregas visuais e direção criativa em alta definição.",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/dolce-gusto/campaign/assets-do-projeto/cover-16x9/thumb-dg-16-9.8ef92ed37a30b3b2.webp"
+      }
+    }
+  },
+  {
+    "id": "13d3185c-4d83-428b-9b48-acce73407190",
+    "slug": "swift",
+    "title": "Swift — Campanha Sazonal & Motion",
+    "client_name": "Swift",
+    "brand_name": "Swift",
+    "year": 2024,
+    "project_type": "Videos & Motions",
+    "featured_on_home": 1,
+    "featured_home_order": 3,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 3,
+    "is_published": 1,
+    "landing_page_id": "1aeee8a8-6bdc-4f9d-b0e2-00b16525dcf3",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-kvs/assets-do-projeto/cover-16x9/thumb-swift-16-9.1507b4336165323f.mp4",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-kvs/assets-do-projeto/cover-16x9/thumb-swift-16-9.1507b4336165323f.mp4",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-kvs/assets-do-projeto/cover-16x9/thumb-swift-16-9.1507b4336165323f.mp4",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-kvs/assets-do-projeto/cover-1x1/thumb-swift-1-1.27eb9f106724b5fb.mp4",
+    "home_featured": "{\"enabled\":true,\"cardStyle\":\"ANIMATED_BG_THUMB_OVERLAY_5\"}",
+    "tags": [
+      {
+        "id": "47b1949c-a29b-4ca0-a6ae-14f83cabd3b7",
+        "slug": "motion",
+        "label": "Motion Design",
+        "kind": "tag",
+        "sort_order": 5
+      },
+      {
+        "id": "9b7d880b-b31e-43fe-8451-9da29e307992",
+        "slug": "campaign",
+        "label": "Campanha",
+        "kind": "tag",
+        "sort_order": 6
+      },
+      {
+        "id": "c4e6273d-8703-432f-877f-1cf0c7870086",
+        "slug": "videos-motions",
+        "label": "Videos & Motions",
+        "kind": "category",
+        "sort_order": 2
+      }
+    ],
+    "client_slug": "swift",
+    "description": "Projeto de Videos & Motions desenvolvido para Swift (2024).",
+    "case_body": "Projeto de Videos & Motions desenvolvido para Swift (2024).",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "swift"
+    },
+    "gallery": [],
+    "landing_page_slug": "swift",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "swift",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-kvs/assets-do-projeto/cover-16x9/thumb-swift-16-9.1507b4336165323f.mp4",
+        "alt": "Capa de Swift — Campanha Sazonal & Motion",
+        "kind": "video"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-kvs/assets-do-projeto/cover-16x9/thumb-swift-16-9.1507b4336165323f.mp4",
+        "alt": "Swift — Campanha Sazonal & Motion — Hero Media",
+        "kind": "video"
+      },
+      "hero_media_type": "video",
+      "project_title": "Swift — Campanha Sazonal & Motion",
+      "project_subtitle": "Swift · Videos & Motions",
+      "project_client": "Swift",
+      "project_year": 2024,
+      "project_tags": [
+        "Motion Design",
+        "Campanha",
+        "Videos & Motions"
+      ],
+      "project_services": [
+        "Videos & Motions",
+        "Motion Design",
+        "Campanha"
+      ],
+      "project_summary": "Projeto de Videos & Motions desenvolvido para Swift (2024).",
+      "intro_headline": "Swift — Campanha Sazonal & Motion",
+      "intro_body": [
+        "Projeto de Videos & Motions desenvolvido para Swift (2024)."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Conib — Plataforma & Experiência Digital",
+        "next_project_slug": "conid"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Videos & Motions desenvolvido para Swift (2024).",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-kvs/assets-do-projeto/cover-16x9/thumb-swift-16-9.1507b4336165323f.mp4"
+      }
+    }
+  },
+  {
+    "id": "3817bb58-196e-4c26-89cb-6114573d46fc",
+    "slug": "conid",
+    "title": "Conib — Plataforma & Experiência Digital",
+    "client_name": "Conib",
+    "brand_name": "Conib",
+    "year": 2024,
+    "project_type": "Websites & Tech",
+    "featured_on_home": 1,
+    "featured_home_order": 4,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 4,
+    "is_published": 1,
+    "landing_page_id": "678b8692-64ac-4104-a209-828c69de4a1c",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/conib/website/assets-do-projeto/cover-16x9/thumb-16-9.12da695978c19ce4.webp",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/conib/website/assets-do-projeto/cover-16x9/thumb-16-9.12da695978c19ce4.webp",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/conib/website/assets-do-projeto/cover-16x9/thumb-16-9.12da695978c19ce4.webp",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/conib/website/assets-do-projeto/cover-1x1/thumb-1-1.e36c592987d0fd48.webp",
+    "home_featured": "{\"enabled\":true,\"cardStyle\":\"ANIMATED_BG_THUMB_OVERLAY_5\"}",
+    "tags": [
+      {
+        "id": "5be6d5c9-3f9f-499f-b43f-ecd5069e91a2",
+        "slug": "ux-ui",
+        "label": "UX/UI",
+        "kind": "tag",
+        "sort_order": 8
+      },
+      {
+        "id": "02428296-905c-4aa8-8255-98e9d4637e11",
+        "slug": "digital",
+        "label": "Digital",
+        "kind": "tag",
+        "sort_order": 9
+      },
+      {
+        "id": "dca1e55c-863e-4eb7-9563-b355df2a7433",
+        "slug": "websites-tech",
+        "label": "Websites & Tech",
+        "kind": "category",
+        "sort_order": 3
+      }
+    ],
+    "client_slug": "conid",
+    "description": "Projeto de Websites & Tech desenvolvido para Conib (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "case_body": "Projeto de Websites & Tech desenvolvido para Conib (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "conid"
+    },
+    "gallery": [
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/conid/master-v3-grid-block-1789449278498-5-m1.webp",
+        "alt": "Conib — Plataforma & Experiência Digital",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/conid/master-v3-grid-block-1789449292964-7-m1.webp",
+        "alt": "Conib — Plataforma & Experiência Digital",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/conid/master-v3-grid-block-1789449308463-9-m1.webp",
+        "alt": "Conib — Plataforma & Experiência Digital",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/conid/master-v3-grid-block-1789449330014-11-m1.webp",
+        "alt": "Conib — Plataforma & Experiência Digital",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/conid/master-v3-grid-block-1789449343813-13-m1.webp",
+        "alt": "Conib — Plataforma & Experiência Digital",
+        "type": "image"
+      }
+    ],
+    "landing_page_slug": "conid",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "conid",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/conib/website/assets-do-projeto/cover-16x9/thumb-16-9.12da695978c19ce4.webp",
+        "alt": "Capa de Conib — Plataforma & Experiência Digital",
+        "kind": "image"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/conib/website/assets-do-projeto/cover-16x9/thumb-16-9.12da695978c19ce4.webp",
+        "alt": "Conib — Plataforma & Experiência Digital — Hero Media",
+        "kind": "image"
+      },
+      "hero_media_type": "image",
+      "project_title": "Conib — Plataforma & Experiência Digital",
+      "project_subtitle": "Conib · Websites & Tech",
+      "project_client": "Conib",
+      "project_year": 2024,
+      "project_tags": [
+        "UX/UI",
+        "Digital",
+        "Websites & Tech"
+      ],
+      "project_services": [
+        "Websites & Tech",
+        "UX/UI",
+        "Digital"
+      ],
+      "project_summary": "Projeto de Websites & Tech desenvolvido para Conib (2024), reunindo entregas visuais e direção criativa em alta definição.",
+      "intro_headline": "Conib — Plataforma & Experiência Digital",
+      "intro_body": [
+        "Projeto de Websites & Tech desenvolvido para Conib (2024), reunindo entregas visuais e direção criativa em alta definição."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [
+        {
+          "id": "block-v3-5",
+          "type": "image",
+          "order": 1,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/conid/master-v3-grid-block-1789449278498-5-m1.webp",
+            "mediaType": "image",
+            "alt": "Conib — Plataforma & Experiência Digital — visual 5"
+          }
+        },
+        {
+          "id": "block-v3-7",
+          "type": "image",
+          "order": 2,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/conid/master-v3-grid-block-1789449292964-7-m1.webp",
+            "mediaType": "image",
+            "alt": "Conib — Plataforma & Experiência Digital — visual 7"
+          }
+        },
+        {
+          "id": "block-v3-9",
+          "type": "image",
+          "order": 3,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/conid/master-v3-grid-block-1789449308463-9-m1.webp",
+            "mediaType": "image",
+            "alt": "Conib — Plataforma & Experiência Digital — visual 9"
+          }
+        },
+        {
+          "id": "block-v3-11",
+          "type": "image",
+          "order": 4,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/conid/master-v3-grid-block-1789449330014-11-m1.webp",
+            "mediaType": "image",
+            "alt": "Conib — Plataforma & Experiência Digital — visual 11"
+          }
+        },
+        {
+          "id": "block-v3-13",
+          "type": "image",
+          "order": 5,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/conid/master-v3-grid-block-1789449343813-13-m1.webp",
+            "mediaType": "image",
+            "alt": "Conib — Plataforma & Experiência Digital — visual 13"
+          }
+        }
+      ],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Hellmann's — Parcerias & Campanha",
+        "next_project_slug": "hellmanns-parcerias"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Websites & Tech desenvolvido para Conib (2024), reunindo entregas visuais e direção criativa em alta definição.",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/conib/website/assets-do-projeto/cover-16x9/thumb-16-9.12da695978c19ce4.webp"
+      }
+    }
+  },
+  {
+    "id": "3ca1ee69-a2f0-47e5-94c3-3628eafca9a7",
+    "slug": "hellmanns-parcerias",
+    "title": "Hellmann's — Parcerias & Campanha",
+    "client_name": "Hellmann's",
+    "brand_name": "Hellmann's",
+    "year": 2024,
+    "project_type": "Brand & Campaigns",
+    "featured_on_home": 1,
+    "featured_home_order": 5,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 5,
+    "is_published": 1,
+    "landing_page_id": "ab64ee1d-abb1-4b78-baad-bb59a81e2070",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/hellmann-s/hellmanns-parcerias/assets-do-projeto/cover-16x9/thumb-hellmanns-16-9.d08e71a295035fae.webp",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/hellmann-s/hellmanns-parcerias/assets-do-projeto/cover-16x9/thumb-hellmanns-16-9.d08e71a295035fae.webp",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/hellmann-s/hellmanns-parcerias/assets-do-projeto/cover-16x9/thumb-hellmanns-16-9.d08e71a295035fae.webp",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/hellmann-s/hellmanns-parcerias/assets-do-projeto/cover-1x1/thumb-hellmanns-1-1.04460c10601d0801.webp",
+    "home_featured": "{\"enabled\":true,\"cardStyle\":\"ANIMATED_BG_THUMB_OVERLAY_5\"}",
+    "tags": [
+      {
+        "id": "9b7d880b-b31e-43fe-8451-9da29e307992",
+        "slug": "campaign",
+        "label": "Campanha",
+        "kind": "tag",
+        "sort_order": 6
+      },
+      {
+        "id": "2257a041-7643-4e0d-8eda-91f3942d20ef",
+        "slug": "key-visual",
+        "label": "Key Visual",
+        "kind": "tag",
+        "sort_order": 7
+      },
+      {
+        "id": "c489c2ca-3a8b-4232-8598-d2a9728146a6",
+        "slug": "brand-campaigns",
+        "label": "Brand & Campaigns",
+        "kind": "category",
+        "sort_order": 1
+      }
+    ],
+    "client_slug": "hellmanns",
+    "description": "Projeto de Brand & Campaigns desenvolvido para Hellmann's (2024).",
+    "case_body": "Projeto de Brand & Campaigns desenvolvido para Hellmann's (2024).",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "hellmanns-parcerias"
+    },
+    "gallery": [],
+    "landing_page_slug": "hellmanns-parcerias",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "hellmanns-parcerias",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/hellmann-s/hellmanns-parcerias/assets-do-projeto/cover-16x9/thumb-hellmanns-16-9.d08e71a295035fae.webp",
+        "alt": "Capa de Hellmann's — Parcerias & Campanha",
+        "kind": "image"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/hellmann-s/hellmanns-parcerias/assets-do-projeto/cover-16x9/thumb-hellmanns-16-9.d08e71a295035fae.webp",
+        "alt": "Hellmann's — Parcerias & Campanha — Hero Media",
+        "kind": "image"
+      },
+      "hero_media_type": "image",
+      "project_title": "Hellmann's — Parcerias & Campanha",
+      "project_subtitle": "Hellmann's · Brand & Campaigns",
+      "project_client": "Hellmann's",
+      "project_year": 2024,
+      "project_tags": [
+        "Campanha",
+        "Key Visual",
+        "Brand & Campaigns"
+      ],
+      "project_services": [
+        "Brand & Campaigns",
+        "Campanha",
+        "Key Visual"
+      ],
+      "project_summary": "Projeto de Brand & Campaigns desenvolvido para Hellmann's (2024).",
+      "intro_headline": "Hellmann's — Parcerias & Campanha",
+      "intro_body": [
+        "Projeto de Brand & Campaigns desenvolvido para Hellmann's (2024)."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Ambev BEES — Plataforma B2B & Motion",
+        "next_project_slug": "ambev-bees"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Brand & Campaigns desenvolvido para Hellmann's (2024).",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/hellmann-s/hellmanns-parcerias/assets-do-projeto/cover-16x9/thumb-hellmanns-16-9.d08e71a295035fae.webp"
+      }
+    }
+  },
+  {
+    "id": "447f2778-aa48-47a6-b0b8-8ed66e52116c",
+    "slug": "ambev-bees",
+    "title": "Ambev BEES — Plataforma B2B & Motion",
+    "client_name": "Ambev BEES",
+    "brand_name": "Ambev",
+    "year": 2024,
+    "project_type": "Videos & Motions",
+    "featured_on_home": 1,
+    "featured_home_order": 6,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 6,
+    "is_published": 1,
+    "landing_page_id": "9b45c67d-98a6-4da7-86c1-f0848dbe8033",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/cover-16x9/thumb-ambev-16-9.4f0c04fa3464689a.mp4",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/cover-16x9/thumb-ambev-16-9.4f0c04fa3464689a.mp4",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/cover-16x9/thumb-ambev-16-9.4f0c04fa3464689a.mp4",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/cover-1x1/thumb-ambev-1-1.71a6da2d91c10594.mp4",
+    "home_featured": "{\"enabled\":true,\"cardStyle\":\"ANIMATED_BG_THUMB_OVERLAY_5\"}",
+    "tags": [
+      {
+        "id": "47b1949c-a29b-4ca0-a6ae-14f83cabd3b7",
+        "slug": "motion",
+        "label": "Motion Design",
+        "kind": "tag",
+        "sort_order": 5
+      },
+      {
+        "id": "02428296-905c-4aa8-8255-98e9d4637e11",
+        "slug": "digital",
+        "label": "Digital",
+        "kind": "tag",
+        "sort_order": 9
+      },
+      {
+        "id": "c4e6273d-8703-432f-877f-1cf0c7870086",
+        "slug": "videos-motions",
+        "label": "Videos & Motions",
+        "kind": "category",
+        "sort_order": 2
+      }
+    ],
+    "client_slug": "ambev",
+    "description": "Projeto de Videos & Motions desenvolvido para Ambev BEES (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "case_body": "Projeto de Videos & Motions desenvolvido para Ambev BEES (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "ambev-bees"
+    },
+    "gallery": [
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev.200a8910594a6a19.webp",
+        "alt": "Ambev BEES — Plataforma B2B & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev1.7273a1f7f93a9036.webp",
+        "alt": "Ambev BEES — Plataforma B2B & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev2.0bebf428e72e81f2.webp",
+        "alt": "Ambev BEES — Plataforma B2B & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev3.330f6eedc4b7743c.webp",
+        "alt": "Ambev BEES — Plataforma B2B & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev4.a814513ede0d70ce.webp",
+        "alt": "Ambev BEES — Plataforma B2B & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev6.6438c7de8c0b69c7.webp",
+        "alt": "Ambev BEES — Plataforma B2B & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev7.fa6784f28a05d5ff.webp",
+        "alt": "Ambev BEES — Plataforma B2B & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/mockup-3.48f606e84e27f1f3.webp",
+        "alt": "Ambev BEES — Plataforma B2B & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/mockup.31698ff7dcfc371f.webp",
+        "alt": "Ambev BEES — Plataforma B2B & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/mockup2-copy.0b7ade4c9ac5ed26.webp",
+        "alt": "Ambev BEES — Plataforma B2B & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/mockup2.def0b01647dd16e1.webp",
+        "alt": "Ambev BEES — Plataforma B2B & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/mockup3.4f4d529624df382d.webp",
+        "alt": "Ambev BEES — Plataforma B2B & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/mockup5.16fe2878344f69cc.webp",
+        "alt": "Ambev BEES — Plataforma B2B & Motion",
+        "type": "image"
+      }
+    ],
+    "landing_page_slug": "ambev-bees",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "ambev-bees",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/cover-16x9/thumb-ambev-16-9.4f0c04fa3464689a.mp4",
+        "alt": "Capa de Ambev BEES — Plataforma B2B & Motion",
+        "kind": "video"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/cover-16x9/thumb-ambev-16-9.4f0c04fa3464689a.mp4",
+        "alt": "Ambev BEES — Plataforma B2B & Motion — Hero Media",
+        "kind": "video"
+      },
+      "hero_media_type": "video",
+      "project_title": "Ambev BEES — Plataforma B2B & Motion",
+      "project_subtitle": "Ambev BEES · Videos & Motions",
+      "project_client": "Ambev BEES",
+      "project_year": 2024,
+      "project_tags": [
+        "Motion Design",
+        "Digital",
+        "Videos & Motions"
+      ],
+      "project_services": [
+        "Videos & Motions",
+        "Motion Design",
+        "Digital"
+      ],
+      "project_summary": "Projeto de Videos & Motions desenvolvido para Ambev BEES (2024), reunindo entregas visuais e direção criativa em alta definição.",
+      "intro_headline": "Ambev BEES — Plataforma B2B & Motion",
+      "intro_body": [
+        "Projeto de Videos & Motions desenvolvido para Ambev BEES (2024), reunindo entregas visuais e direção criativa em alta definição."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [
+        {
+          "id": "block-pair-1",
+          "type": "image-image",
+          "order": 1,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev.200a8910594a6a19.webp",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev1.7273a1f7f93a9036.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Ambev BEES — Plataforma B2B & Motion — ambev",
+            "alt2": "Ambev BEES — Plataforma B2B & Motion — ambev1"
+          }
+        },
+        {
+          "id": "block-pair-2",
+          "type": "image-image",
+          "order": 2,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev2.0bebf428e72e81f2.webp",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev3.330f6eedc4b7743c.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Ambev BEES — Plataforma B2B & Motion — ambev2",
+            "alt2": "Ambev BEES — Plataforma B2B & Motion — ambev3"
+          }
+        },
+        {
+          "id": "block-pair-3",
+          "type": "image-image",
+          "order": 3,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev4.a814513ede0d70ce.webp",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev6.6438c7de8c0b69c7.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Ambev BEES — Plataforma B2B & Motion — ambev4",
+            "alt2": "Ambev BEES — Plataforma B2B & Motion — ambev6"
+          }
+        },
+        {
+          "id": "block-pair-4",
+          "type": "image-image",
+          "order": 4,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev7.fa6784f28a05d5ff.webp",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/mockup-3.48f606e84e27f1f3.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Ambev BEES — Plataforma B2B & Motion — ambev7",
+            "alt2": "Ambev BEES — Plataforma B2B & Motion — mockup 3"
+          }
+        },
+        {
+          "id": "block-pair-5",
+          "type": "image-image",
+          "order": 5,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/mockup.31698ff7dcfc371f.webp",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/mockup2-copy.0b7ade4c9ac5ed26.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Ambev BEES — Plataforma B2B & Motion — mockup",
+            "alt2": "Ambev BEES — Plataforma B2B & Motion — mockup2 copy"
+          }
+        },
+        {
+          "id": "block-pair-6",
+          "type": "image-image",
+          "order": 6,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/mockup2.def0b01647dd16e1.webp",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/mockup3.4f4d529624df382d.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Ambev BEES — Plataforma B2B & Motion — mockup2",
+            "alt2": "Ambev BEES — Plataforma B2B & Motion — mockup3"
+          }
+        },
+        {
+          "id": "block-single-7",
+          "type": "image",
+          "order": 7,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/mockup5.16fe2878344f69cc.webp",
+            "mediaType": "image",
+            "alt": "Ambev BEES — Plataforma B2B & Motion — mockup5"
+          }
+        }
+      ],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Animale — Fashion Film & Direção Criativa",
+        "next_project_slug": "animale"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Videos & Motions desenvolvido para Ambev BEES (2024), reunindo entregas visuais e direção criativa em alta definição.",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/bees/bees/assets-do-projeto/gallery/ambev.200a8910594a6a19.webp"
+      }
+    }
+  },
+  {
+    "id": "b90f9b5c-2468-4f3c-b16e-651e937039d0",
+    "slug": "animale",
+    "title": "Animale — Fashion Film & Direção Criativa",
+    "client_name": "Animale",
+    "brand_name": "Animale",
+    "year": 2024,
+    "project_type": "Videos & Motions",
+    "featured_on_home": 1,
+    "featured_home_order": 7,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 7,
+    "is_published": 1,
+    "landing_page_id": "db14bae1-da43-4339-9bed-824bbdeb999b",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/animale/animale/assets-do-projeto/cover-16x9/thumb-animale-16-9.a7b6875341232e0c.mp4",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/animale/animale/assets-do-projeto/cover-16x9/thumb-animale-16-9.a7b6875341232e0c.mp4",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/animale/animale/assets-do-projeto/cover-16x9/thumb-animale-16-9.a7b6875341232e0c.mp4",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/animale/animale/assets-do-projeto/cover-1x1/thumb-animale-1-1.54723c79bed30c41.mp4",
+    "home_featured": "{\"enabled\":true,\"logoPath\":\"https://assets.portfoliodanilo.com/portfolio-media/animale/animale/assets-do-projeto/home-featured-logo/animale-logo-2022.c955d61e52adfb46.png\",\"cardStyle\":\"ANIMATED_BG_THUMB_OVERLAY_5\"}",
+    "tags": [
+      {
+        "id": "47b1949c-a29b-4ca0-a6ae-14f83cabd3b7",
+        "slug": "motion",
+        "label": "Motion Design",
+        "kind": "tag",
+        "sort_order": 5
+      },
+      {
+        "id": "ea6cb139-e3a5-4c32-9a95-db86c7e8a363",
+        "slug": "art-direction",
+        "label": "Art Direction",
+        "kind": "tag",
+        "sort_order": 10
+      },
+      {
+        "id": "c4e6273d-8703-432f-877f-1cf0c7870086",
+        "slug": "videos-motions",
+        "label": "Videos & Motions",
+        "kind": "category",
+        "sort_order": 2
+      }
+    ],
+    "client_slug": "animale",
+    "description": "Projeto de Videos & Motions desenvolvido para Animale (2024).",
+    "case_body": "Projeto de Videos & Motions desenvolvido para Animale (2024).",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "animale"
+    },
+    "gallery": [],
+    "landing_page_slug": "animale",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "animale",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/animale/animale/assets-do-projeto/cover-16x9/thumb-animale-16-9.a7b6875341232e0c.mp4",
+        "alt": "Capa de Animale — Fashion Film & Direção Criativa",
+        "kind": "video"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/animale/animale/assets-do-projeto/cover-16x9/thumb-animale-16-9.a7b6875341232e0c.mp4",
+        "alt": "Animale — Fashion Film & Direção Criativa — Hero Media",
+        "kind": "video"
+      },
+      "hero_logo_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/animale/animale/assets-do-projeto/home-featured-logo/animale-logo-2022.c955d61e52adfb46.png",
+        "alt": "Logo de Animale",
+        "kind": "image"
+      },
+      "client_logo_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/animale/animale/assets-do-projeto/home-featured-logo/animale-logo-2022.c955d61e52adfb46.png",
+        "alt": "Logo de Animale",
+        "kind": "image"
+      },
+      "hero_media_type": "video",
+      "project_title": "Animale — Fashion Film & Direção Criativa",
+      "project_subtitle": "Animale · Videos & Motions",
+      "project_client": "Animale",
+      "project_year": 2024,
+      "project_tags": [
+        "Motion Design",
+        "Art Direction",
+        "Videos & Motions"
+      ],
+      "project_services": [
+        "Videos & Motions",
+        "Motion Design",
+        "Art Direction"
+      ],
+      "project_summary": "Projeto de Videos & Motions desenvolvido para Animale (2024).",
+      "intro_headline": "Animale — Fashion Film & Direção Criativa",
+      "intro_body": [
+        "Projeto de Videos & Motions desenvolvido para Animale (2024)."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Zevi — Identidade Visual & Branding Café Premium",
+        "next_project_slug": "zevi-identidade-visual-branding-cafe-premium"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Videos & Motions desenvolvido para Animale (2024).",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/animale/animale/assets-do-projeto/home-featured-logo/animale-logo-2022.c955d61e52adfb46.png"
+      }
+    }
+  },
+  {
+    "id": "c3b46e13-2df7-483c-a5db-2de35288652c",
+    "slug": "zevi-identidade-visual-branding-cafe-premium",
+    "title": "Zevi — Identidade Visual & Branding Café Premium",
+    "client_name": "Zevi",
+    "brand_name": "Zevi",
+    "year": 2024,
+    "project_type": "Brand & Campaigns",
+    "featured_on_home": 1,
+    "featured_home_order": 8,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 8,
+    "is_published": 1,
+    "landing_page_id": "4bc79210-3ba2-4e4a-b714-bf630a8e36a7",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/zevi/branding/assets-do-projeto/cover-16x9/thumb-16-9-2.8810c51054ecf8bd.webp",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/zevi/branding/assets-do-projeto/cover-16x9/thumb-16-9-2.8810c51054ecf8bd.webp",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/zevi/branding/assets-do-projeto/cover-16x9/thumb-16-9-2.8810c51054ecf8bd.webp",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/zevi/branding/assets-do-projeto/cover-1x1/thumb-1-1-2.6bcd729356262bd9.webp",
+    "home_featured": "{\"enabled\":true,\"cardStyle\":\"ANIMATED_BG_THUMB_OVERLAY_5\"}",
+    "tags": [
+      {
+        "id": "e8685536-2076-4094-b98c-823798284eb3",
+        "slug": "branding",
+        "label": "Branding",
+        "kind": "tag",
+        "sort_order": 4
+      },
+      {
+        "id": "c489c2ca-3a8b-4232-8598-d2a9728146a6",
+        "slug": "brand-campaigns",
+        "label": "Brand & Campaigns",
+        "kind": "category",
+        "sort_order": 1
+      }
+    ],
+    "client_slug": "zevi",
+    "description": "Projeto de Brand & Campaigns desenvolvido para Zevi (2024).",
+    "case_body": "Projeto de Brand & Campaigns desenvolvido para Zevi (2024).",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "zevi-identidade-visual-branding-cafe-premium"
+    },
+    "gallery": [],
+    "landing_page_slug": "zevi-identidade-visual-branding-cafe-premium",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "zevi-identidade-visual-branding-cafe-premium",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/zevi/branding/assets-do-projeto/cover-16x9/thumb-16-9-2.8810c51054ecf8bd.webp",
+        "alt": "Capa de Zevi — Identidade Visual & Branding Café Premium",
+        "kind": "image"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/zevi/branding/assets-do-projeto/cover-16x9/thumb-16-9-2.8810c51054ecf8bd.webp",
+        "alt": "Zevi — Identidade Visual & Branding Café Premium — Hero Media",
+        "kind": "image"
+      },
+      "hero_media_type": "image",
+      "project_title": "Zevi — Identidade Visual & Branding Café Premium",
+      "project_subtitle": "Zevi · Brand & Campaigns",
+      "project_client": "Zevi",
+      "project_year": 2024,
+      "project_tags": [
+        "Branding",
+        "Brand & Campaigns"
+      ],
+      "project_services": [
+        "Brand & Campaigns",
+        "Branding",
+        "Brand & Campaigns"
+      ],
+      "project_summary": "Projeto de Brand & Campaigns desenvolvido para Zevi (2024).",
+      "intro_headline": "Zevi — Identidade Visual & Branding Café Premium",
+      "intro_body": [
+        "Projeto de Brand & Campaigns desenvolvido para Zevi (2024)."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Mercado Pago — AI Video & Campanha Digital",
+        "next_project_slug": "mercado-livre-ai-video-mp"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Brand & Campaigns desenvolvido para Zevi (2024).",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/zevi/branding/assets-do-projeto/cover-16x9/thumb-16-9-2.8810c51054ecf8bd.webp"
+      }
+    }
+  },
+  {
+    "id": "2edab59f-c89f-4946-9547-e0fd16e06b40",
+    "slug": "mercado-livre-ai-video-mp",
+    "title": "Mercado Pago — AI Video & Campanha Digital",
+    "client_name": "Mercado Pago",
+    "brand_name": "Mercado Pago",
+    "year": 2024,
+    "project_type": "Videos & Motions",
+    "featured_on_home": 0,
+    "featured_home_order": null,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 9,
+    "is_published": 1,
+    "landing_page_id": "f9d089fb-c977-4cd2-9aca-141502445fb5",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/cover-16x9/thumb-mercado-pago-16-9.9a0285e1eb6eb784.webp",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/cover-16x9/thumb-mercado-pago-16-9.9a0285e1eb6eb784.webp",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/cover-16x9/thumb-mercado-pago-16-9.9a0285e1eb6eb784.webp",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/cover-1x1/thumb-mercado-pago-1-1.1f603aece005b0c5.webp",
+    "home_featured": "{}",
+    "tags": [
+      {
+        "id": "47b1949c-a29b-4ca0-a6ae-14f83cabd3b7",
+        "slug": "motion",
+        "label": "Motion Design",
+        "kind": "tag",
+        "sort_order": 5
+      },
+      {
+        "id": "9b7d880b-b31e-43fe-8451-9da29e307992",
+        "slug": "campaign",
+        "label": "Campanha",
+        "kind": "tag",
+        "sort_order": 6
+      },
+      {
+        "id": "c4e6273d-8703-432f-877f-1cf0c7870086",
+        "slug": "videos-motions",
+        "label": "Videos & Motions",
+        "kind": "category",
+        "sort_order": 2
+      }
+    ],
+    "client_slug": "mercado",
+    "description": "Projeto de Videos & Motions desenvolvido para Mercado Pago (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "case_body": "Projeto de Videos & Motions desenvolvido para Mercado Pago (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "mercado-livre-ai-video-mp"
+    },
+    "gallery": [
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/gallery/converted-2.4b5634b790dd7202.webp",
+        "alt": "Mercado Pago — AI Video & Campanha Digital",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/gallery/converted-3.50a9fb83c5321438.webp",
+        "alt": "Mercado Pago — AI Video & Campanha Digital",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/gallery/converted.683b21845f6454b3.webp",
+        "alt": "Mercado Pago — AI Video & Campanha Digital",
+        "type": "image"
+      }
+    ],
+    "landing_page_slug": "mercado-livre-ai-video-mp",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "mercado-livre-ai-video-mp",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/cover-16x9/thumb-mercado-pago-16-9.9a0285e1eb6eb784.webp",
+        "alt": "Capa de Mercado Pago — AI Video & Campanha Digital",
+        "kind": "image"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/cover-16x9/thumb-mercado-pago-16-9.9a0285e1eb6eb784.webp",
+        "alt": "Mercado Pago — AI Video & Campanha Digital — Hero Media",
+        "kind": "image"
+      },
+      "hero_logo_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/home-featured-logo/mp-logo.b35db998902eb999.png",
+        "alt": "Logo de Mercado Pago",
+        "kind": "image"
+      },
+      "client_logo_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/home-featured-logo/mp-logo.b35db998902eb999.png",
+        "alt": "Logo de Mercado Pago",
+        "kind": "image"
+      },
+      "hero_media_type": "image",
+      "project_title": "Mercado Pago — AI Video & Campanha Digital",
+      "project_subtitle": "Mercado Pago · Videos & Motions",
+      "project_client": "Mercado Pago",
+      "project_year": 2024,
+      "project_tags": [
+        "Motion Design",
+        "Campanha",
+        "Videos & Motions"
+      ],
+      "project_services": [
+        "Videos & Motions",
+        "Motion Design",
+        "Campanha"
+      ],
+      "project_summary": "Projeto de Videos & Motions desenvolvido para Mercado Pago (2024), reunindo entregas visuais e direção criativa em alta definição.",
+      "intro_headline": "Mercado Pago — AI Video & Campanha Digital",
+      "intro_body": [
+        "Projeto de Videos & Motions desenvolvido para Mercado Pago (2024), reunindo entregas visuais e direção criativa em alta definição."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [
+        {
+          "id": "block-pair-1",
+          "type": "image-image",
+          "order": 1,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/gallery/converted-2.4b5634b790dd7202.webp",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/gallery/converted-3.50a9fb83c5321438.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Mercado Pago — AI Video & Campanha Digital — converted 2",
+            "alt2": "Mercado Pago — AI Video & Campanha Digital — converted 3"
+          }
+        },
+        {
+          "id": "block-single-2",
+          "type": "image",
+          "order": 2,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/gallery/converted.683b21845f6454b3.webp",
+            "mediaType": "image",
+            "alt": "Mercado Pago — AI Video & Campanha Digital — converted"
+          }
+        }
+      ],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "CBRE — Experiência Digital & Real Estate",
+        "next_project_slug": "cbre"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Videos & Motions desenvolvido para Mercado Pago (2024), reunindo entregas visuais e direção criativa em alta definição.",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/mercado-livre/ai-video-mp/assets-do-projeto/cover-16x9/thumb-mercado-pago-16-9.9a0285e1eb6eb784.webp"
+      }
+    }
+  },
+  {
+    "id": "ba08c675-cf7f-4174-b9a0-6dbb1d2ed302",
+    "slug": "cbre",
+    "title": "CBRE — Experiência Digital & Real Estate",
+    "client_name": "CBRE",
+    "brand_name": "CBRE",
+    "year": 2024,
+    "project_type": "Websites & Tech",
+    "featured_on_home": 0,
+    "featured_home_order": null,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 10,
+    "is_published": 1,
+    "landing_page_id": "a2b46a3b-fbb5-47da-abb5-f3161d3335b6",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/cbre/cbre/assets-do-projeto/cover-16x9/thumb-cbre-16-9.48ff5db28c951dd6.webp",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/cbre/cbre/assets-do-projeto/cover-16x9/thumb-cbre-16-9.48ff5db28c951dd6.webp",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/cbre/cbre/assets-do-projeto/cover-16x9/thumb-cbre-16-9.48ff5db28c951dd6.webp",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/cbre/cbre/assets-do-projeto/cover-1x1/thumb-cbre-1-1.a697d3ba547adcee.webp",
+    "home_featured": "{}",
+    "tags": [
+      {
+        "id": "5be6d5c9-3f9f-499f-b43f-ecd5069e91a2",
+        "slug": "ux-ui",
+        "label": "UX/UI",
+        "kind": "tag",
+        "sort_order": 8
+      },
+      {
+        "id": "02428296-905c-4aa8-8255-98e9d4637e11",
+        "slug": "digital",
+        "label": "Digital",
+        "kind": "tag",
+        "sort_order": 9
+      },
+      {
+        "id": "dca1e55c-863e-4eb7-9563-b355df2a7433",
+        "slug": "websites-tech",
+        "label": "Websites & Tech",
+        "kind": "category",
+        "sort_order": 3
+      }
+    ],
+    "client_slug": "cbre",
+    "description": "Projeto de Websites & Tech desenvolvido para CBRE (2024).",
+    "case_body": "Projeto de Websites & Tech desenvolvido para CBRE (2024).",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "cbre"
+    },
+    "gallery": [],
+    "landing_page_slug": "cbre",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "cbre",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/cbre/cbre/assets-do-projeto/cover-16x9/thumb-cbre-16-9.48ff5db28c951dd6.webp",
+        "alt": "Capa de CBRE — Experiência Digital & Real Estate",
+        "kind": "image"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/cbre/cbre/assets-do-projeto/cover-16x9/thumb-cbre-16-9.48ff5db28c951dd6.webp",
+        "alt": "CBRE — Experiência Digital & Real Estate — Hero Media",
+        "kind": "image"
+      },
+      "hero_media_type": "image",
+      "project_title": "CBRE — Experiência Digital & Real Estate",
+      "project_subtitle": "CBRE · Websites & Tech",
+      "project_client": "CBRE",
+      "project_year": 2024,
+      "project_tags": [
+        "UX/UI",
+        "Digital",
+        "Websites & Tech"
+      ],
+      "project_services": [
+        "Websites & Tech",
+        "UX/UI",
+        "Digital"
+      ],
+      "project_summary": "Projeto de Websites & Tech desenvolvido para CBRE (2024).",
+      "intro_headline": "CBRE — Experiência Digital & Real Estate",
+      "intro_body": [
+        "Projeto de Websites & Tech desenvolvido para CBRE (2024)."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Fundación Mapfre — Ecossistema Institucional",
+        "next_project_slug": "mapfre"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Websites & Tech desenvolvido para CBRE (2024).",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/cbre/cbre/assets-do-projeto/cover-16x9/thumb-cbre-16-9.48ff5db28c951dd6.webp"
+      }
+    }
+  },
+  {
+    "id": "2c5bafec-70c2-4279-8afb-237e9e30465a",
+    "slug": "mapfre",
+    "title": "Fundación Mapfre — Ecossistema Institucional",
+    "client_name": "Fundación Mapfre",
+    "brand_name": "Mapfre",
+    "year": 2024,
+    "project_type": "Websites & Tech",
+    "featured_on_home": 0,
+    "featured_home_order": null,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 11,
+    "is_published": 1,
+    "landing_page_id": "3b969a78-ed1d-4032-ad46-eae1dbe2dd5e",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/fundaci-n-mapfre/mapfre/assets-do-projeto/cover-16x9/thumb-mapfre-16-9.4d1b6f477776d2f6.webp",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/fundaci-n-mapfre/mapfre/assets-do-projeto/cover-16x9/thumb-mapfre-16-9.4d1b6f477776d2f6.webp",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/fundaci-n-mapfre/mapfre/assets-do-projeto/cover-16x9/thumb-mapfre-16-9.4d1b6f477776d2f6.webp",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/fundaci-n-mapfre/mapfre/assets-do-projeto/cover-1x1/thumb-mapfre-1-1.f84e44febddde052.webp",
+    "home_featured": "{}",
+    "tags": [
+      {
+        "id": "5be6d5c9-3f9f-499f-b43f-ecd5069e91a2",
+        "slug": "ux-ui",
+        "label": "UX/UI",
+        "kind": "tag",
+        "sort_order": 8
+      },
+      {
+        "id": "02428296-905c-4aa8-8255-98e9d4637e11",
+        "slug": "digital",
+        "label": "Digital",
+        "kind": "tag",
+        "sort_order": 9
+      },
+      {
+        "id": "dca1e55c-863e-4eb7-9563-b355df2a7433",
+        "slug": "websites-tech",
+        "label": "Websites & Tech",
+        "kind": "category",
+        "sort_order": 3
+      }
+    ],
+    "client_slug": "mapfre",
+    "description": "Projeto de Websites & Tech desenvolvido para Fundación Mapfre (2024).",
+    "case_body": "Projeto de Websites & Tech desenvolvido para Fundación Mapfre (2024).",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "mapfre"
+    },
+    "gallery": [],
+    "landing_page_slug": "mapfre",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "mapfre",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/fundaci-n-mapfre/mapfre/assets-do-projeto/cover-16x9/thumb-mapfre-16-9.4d1b6f477776d2f6.webp",
+        "alt": "Capa de Fundación Mapfre — Ecossistema Institucional",
+        "kind": "image"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/fundaci-n-mapfre/mapfre/assets-do-projeto/cover-16x9/thumb-mapfre-16-9.4d1b6f477776d2f6.webp",
+        "alt": "Fundación Mapfre — Ecossistema Institucional — Hero Media",
+        "kind": "image"
+      },
+      "hero_media_type": "image",
+      "project_title": "Fundación Mapfre — Ecossistema Institucional",
+      "project_subtitle": "Fundación Mapfre · Websites & Tech",
+      "project_client": "Fundación Mapfre",
+      "project_year": 2024,
+      "project_tags": [
+        "UX/UI",
+        "Digital",
+        "Websites & Tech"
+      ],
+      "project_services": [
+        "Websites & Tech",
+        "UX/UI",
+        "Digital"
+      ],
+      "project_summary": "Projeto de Websites & Tech desenvolvido para Fundación Mapfre (2024).",
+      "intro_headline": "Fundación Mapfre — Ecossistema Institucional",
+      "intro_body": [
+        "Projeto de Websites & Tech desenvolvido para Fundación Mapfre (2024)."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Bidaya Parfums — Scents Without Borders",
+        "next_project_slug": "bidaya-parfums-scents-without-borders"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Websites & Tech desenvolvido para Fundación Mapfre (2024).",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/fundaci-n-mapfre/mapfre/assets-do-projeto/cover-16x9/thumb-mapfre-16-9.4d1b6f477776d2f6.webp"
+      }
+    }
+  },
+  {
+    "id": "d14602a9-bafb-4d40-9645-2c897c86a750",
+    "slug": "bidaya-parfums-scents-without-borders",
+    "title": "Bidaya Parfums — Scents Without Borders",
+    "client_name": "Bidaya Parfums",
+    "brand_name": "Bidaya",
+    "year": 2024,
+    "project_type": "Websites & Tech",
+    "featured_on_home": 0,
+    "featured_home_order": null,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 12,
+    "is_published": 1,
+    "landing_page_id": "8a70acc9-f170-4547-99a3-ce6be52306a5",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/BG.webp",
+    "hero_image_path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/BG.webp",
+    "url_landscape": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/BG.webp",
+    "url_square": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-1/8.webp",
+    "home_featured": "{}",
+    "tags": [
+      {
+        "id": "02428296-905c-4aa8-8255-98e9d4637e11",
+        "slug": "digital",
+        "label": "Digital",
+        "kind": "tag",
+        "sort_order": 9
+      },
+      {
+        "id": "ea6cb139-e3a5-4c32-9a95-db86c7e8a363",
+        "slug": "art-direction",
+        "label": "Art Direction",
+        "kind": "tag",
+        "sort_order": 10
+      },
+      {
+        "id": "dca1e55c-863e-4eb7-9563-b355df2a7433",
+        "slug": "websites-tech",
+        "label": "Websites & Tech",
+        "kind": "category",
+        "sort_order": 3
+      }
+    ],
+    "client_slug": "bidaya",
+    "description": "Projeto de Websites & Tech desenvolvido para Bidaya Parfums (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "case_body": "Projeto de Websites & Tech desenvolvido para Bidaya Parfums (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "bidaya-parfums-scents-without-borders"
+    },
+    "gallery": [
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-1/8.webp",
+        "alt": "Bidaya Parfums — Scents Without Borders",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/BG.webp",
+        "alt": "Bidaya Parfums — Scents Without Borders",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/camada-0.webp",
+        "alt": "Bidaya Parfums — Scents Without Borders",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/camada-1.webp",
+        "alt": "Bidaya Parfums — Scents Without Borders",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/camada-2.webp",
+        "alt": "Bidaya Parfums — Scents Without Borders",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-6/bg.webp",
+        "alt": "Bidaya Parfums — Scents Without Borders",
+        "type": "image"
+      }
+    ],
+    "landing_page_slug": "bidaya-parfums-scents-without-borders",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "bidaya-parfums-scents-without-borders",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/BG.webp",
+        "alt": "Capa de Bidaya Parfums — Scents Without Borders",
+        "kind": "image"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/BG.webp",
+        "alt": "Bidaya Parfums — Scents Without Borders — Hero Media",
+        "kind": "image"
+      },
+      "hero_media_type": "image",
+      "project_title": "Bidaya Parfums — Scents Without Borders",
+      "project_subtitle": "Bidaya Parfums · Websites & Tech",
+      "project_client": "Bidaya Parfums",
+      "project_year": 2024,
+      "project_tags": [
+        "Digital",
+        "Art Direction",
+        "Websites & Tech"
+      ],
+      "project_services": [
+        "Websites & Tech",
+        "Digital",
+        "Art Direction"
+      ],
+      "project_summary": "Projeto de Websites & Tech desenvolvido para Bidaya Parfums (2024), reunindo entregas visuais e direção criativa em alta definição.",
+      "intro_headline": "Bidaya Parfums — Scents Without Borders",
+      "intro_body": [
+        "Projeto de Websites & Tech desenvolvido para Bidaya Parfums (2024), reunindo entregas visuais e direção criativa em alta definição."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [
+        {
+          "id": "block-pair-1",
+          "type": "image-image",
+          "order": 1,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-1/8.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/BG.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Bidaya Parfums — Scents Without Borders — 8",
+            "alt2": "Bidaya Parfums — Scents Without Borders — BG"
+          }
+        },
+        {
+          "id": "block-pair-2",
+          "type": "image-image",
+          "order": 2,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/camada-0.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/camada-1.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Bidaya Parfums — Scents Without Borders — camada 0",
+            "alt2": "Bidaya Parfums — Scents Without Borders — camada 1"
+          }
+        },
+        {
+          "id": "block-pair-3",
+          "type": "image-image",
+          "order": 3,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/camada-2.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-6/bg.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Bidaya Parfums — Scents Without Borders — camada 2",
+            "alt2": "Bidaya Parfums — Scents Without Borders — bg"
+          }
+        }
+      ],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Eudora — Direção de Arte & Campanha",
+        "next_project_slug": "eudora"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Websites & Tech desenvolvido para Bidaya Parfums (2024), reunindo entregas visuais e direção criativa em alta definição.",
+        "og_image": "https://assets.portfoliodanilo.com/site-assets/landing-pages/bidaya-parfums-scents-without-borders/anima-5/BG.webp"
+      }
+    }
+  },
+  {
+    "id": "19f9a05a-b12b-4b0c-aa73-c246f9b4cfee",
+    "slug": "eudora",
+    "title": "Eudora — Direção de Arte & Campanha",
+    "client_name": "Eudora",
+    "brand_name": "Eudora",
+    "year": 2023,
+    "project_type": "Brand & Campaigns",
+    "featured_on_home": 0,
+    "featured_home_order": null,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 13,
+    "is_published": 1,
+    "landing_page_id": "3ac28eae-d00e-4927-9f89-b826c2459087",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/cover-16x9/thumb-16-9.0eb82e6304067ac5.webp",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/cover-16x9/thumb-16-9.0eb82e6304067ac5.webp",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/cover-16x9/thumb-16-9.0eb82e6304067ac5.webp",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/cover-1x1/thumb-1-1.5a12ad6b73a3c927.webp",
+    "home_featured": "{}",
+    "tags": [
+      {
+        "id": "c489c2ca-3a8b-4232-8598-d2a9728146a6",
+        "slug": "brand-campaigns",
+        "label": "Brand & Campaigns",
+        "kind": "category",
+        "sort_order": 1
+      },
+      {
+        "id": "9b7d880b-b31e-43fe-8451-9da29e307992",
+        "slug": "campaign",
+        "label": "Campanha",
+        "kind": "tag",
+        "sort_order": 6
+      }
+    ],
+    "client_slug": "eudora",
+    "description": "Projeto de Brand & Campaigns desenvolvido para Eudora (2023), reunindo entregas visuais e direção criativa em alta definição.",
+    "case_body": "Projeto de Brand & Campaigns desenvolvido para Eudora (2023), reunindo entregas visuais e direção criativa em alta definição.",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "eudora"
+    },
+    "gallery": [
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/gallery/0bf2ba2b-8c7d-40c8-b441-7f216e695199.2c7650f2fdda3103.png",
+        "alt": "Eudora — Direção de Arte & Campanha",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/gallery/51aa1344-9531-4eaf-82ad-cf47a6aa2133.db37b9d22a050cb9.png",
+        "alt": "Eudora — Direção de Arte & Campanha",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/gallery/881a00f6-1a3c-414f-9b6e-4d6ffffec3dd.a3de015a60c2a92b.png",
+        "alt": "Eudora — Direção de Arte & Campanha",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/gallery/converted.f48657bf2f860eb0.webp",
+        "alt": "Eudora — Direção de Arte & Campanha",
+        "type": "image"
+      }
+    ],
+    "landing_page_slug": "eudora",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "eudora",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/cover-16x9/thumb-16-9.0eb82e6304067ac5.webp",
+        "alt": "Capa de Eudora — Direção de Arte & Campanha",
+        "kind": "image"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/cover-16x9/thumb-16-9.0eb82e6304067ac5.webp",
+        "alt": "Eudora — Direção de Arte & Campanha — Hero Media",
+        "kind": "image"
+      },
+      "hero_media_type": "image",
+      "project_title": "Eudora — Direção de Arte & Campanha",
+      "project_subtitle": "Eudora · Brand & Campaigns",
+      "project_client": "Eudora",
+      "project_year": 2023,
+      "project_tags": [
+        "Brand & Campaigns",
+        "Campanha"
+      ],
+      "project_services": [
+        "Brand & Campaigns",
+        "Brand & Campaigns",
+        "Campanha"
+      ],
+      "project_summary": "Projeto de Brand & Campaigns desenvolvido para Eudora (2023), reunindo entregas visuais e direção criativa em alta definição.",
+      "intro_headline": "Eudora — Direção de Arte & Campanha",
+      "intro_body": [
+        "Projeto de Brand & Campaigns desenvolvido para Eudora (2023), reunindo entregas visuais e direção criativa em alta definição."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [
+        {
+          "id": "block-pair-1",
+          "type": "image-image",
+          "order": 1,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/gallery/0bf2ba2b-8c7d-40c8-b441-7f216e695199.2c7650f2fdda3103.png",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/gallery/51aa1344-9531-4eaf-82ad-cf47a6aa2133.db37b9d22a050cb9.png",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Eudora — Direção de Arte & Campanha — 0bf2ba2b 8c7d 40c8 b441 7f216e695199",
+            "alt2": "Eudora — Direção de Arte & Campanha — 51aa1344 9531 4eaf 82ad cf47a6aa2133"
+          }
+        },
+        {
+          "id": "block-pair-2",
+          "type": "image-image",
+          "order": 2,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/gallery/881a00f6-1a3c-414f-9b6e-4d6ffffec3dd.a3de015a60c2a92b.png",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/gallery/converted.f48657bf2f860eb0.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Eudora — Direção de Arte & Campanha — 881a00f6 1a3c 414f 9b6e 4d6ffffec3dd",
+            "alt2": "Eudora — Direção de Arte & Campanha — converted"
+          }
+        }
+      ],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Nestlé — Brand & Campaigns",
+        "next_project_slug": "nestle"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Brand & Campaigns desenvolvido para Eudora (2023), reunindo entregas visuais e direção criativa em alta definição.",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/eudora/eudora/assets-do-projeto/cover-16x9/thumb-16-9.0eb82e6304067ac5.webp"
+      }
+    }
+  },
+  {
+    "id": "664e0c85-f1ef-4d44-a5c0-959246e3c127",
+    "slug": "nestle",
+    "title": "Nestlé — Brand & Campaigns",
+    "client_name": "Nestlé",
+    "brand_name": "Nestlé",
+    "year": 2024,
+    "project_type": "Brand & Campaigns",
+    "featured_on_home": 0,
+    "featured_home_order": null,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 14,
+    "is_published": 1,
+    "landing_page_id": "afbfff2a-9fd8-42dc-8b4a-8c12354e9adc",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/STORIES-NESTLE-100-ANOS--PROMO1920X1080px-v2.webp",
+    "hero_image_path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/STORIES-NESTLE-100-ANOS--PROMO1920X1080px-v2.webp",
+    "url_landscape": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/STORIES-NESTLE-100-ANOS--PROMO1920X1080px-v2.webp",
+    "url_square": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/KV-SAUDAVEIS-NESTLE-08.webp",
+    "home_featured": "{}",
+    "tags": [
+      {
+        "id": "c489c2ca-3a8b-4232-8598-d2a9728146a6",
+        "slug": "brand-campaigns",
+        "label": "Brand & Campaigns",
+        "kind": "category",
+        "sort_order": 1
+      },
+      {
+        "id": "2257a041-7643-4e0d-8eda-91f3942d20ef",
+        "slug": "key-visual",
+        "label": "Key Visual",
+        "kind": "tag",
+        "sort_order": 7
+      },
+      {
+        "id": "9b7d880b-b31e-43fe-8451-9da29e307992",
+        "slug": "campaign",
+        "label": "Campanha",
+        "kind": "tag",
+        "sort_order": 6
+      }
+    ],
+    "client_slug": "nestle",
+    "description": "Projeto de Brand & Campaigns desenvolvido para Nestlé (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "case_body": "Projeto de Brand & Campaigns desenvolvido para Nestlé (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "nestle"
+    },
+    "gallery": [
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/140920_TD_ATEVC_BLACK_FRIDAY_KV_AZUL.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/20211206_Banners_Nescau_1000x320px.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/20211229_SEJA_TRAINEE_POST_WP.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/20220630_Banners_Sites_Diferentes_Tamanhos_Banner_Mobile_768x714px.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/250820_TD_EMPORIO_SEMANA_CLIENTE_POSTER_A4_KITKAT.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/300920_TD_ATEVC_PROFESSIONAL_BF_KV.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/BRASIL_PASTAS_POST-2-800x800px.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/Banner%201000x1000%20PURINA%20ONE_DOG.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/CARTAZ%20A4_WARE%20NESTLE_final.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/FEED-FACE-BLACK-FRIDAY.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/INSTAGRAM_PATROCINADO_900x900.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/KV-SAUDAVEIS-NESTLE-08.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/KV-nestle-por-vc-dinheiro-de-volta-Pack.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/MOCA%20DE%20PASSAR%20-%20MKT.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/NESCAU-ORGaNICO.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/Passa%20tempo_EMPORIO_1000X1000.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/Passatempo%20320X320.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/STORIES-NESTLE-100-ANOS--PROMO1920X1080px-v2.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/banner_maggi_da_horta_verdemar__1022x1022px.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/banner_verdemar_nestle_100_anos_promo_-1000x400px.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/post_renove_seus_sonhos_barbosa_1001x1001px.webp",
+        "alt": "Nestlé — Brand & Campaigns",
+        "type": "image"
+      }
+    ],
+    "landing_page_slug": "nestle",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "nestle",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/STORIES-NESTLE-100-ANOS--PROMO1920X1080px-v2.webp",
+        "alt": "Capa de Nestlé — Brand & Campaigns",
+        "kind": "image"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/STORIES-NESTLE-100-ANOS--PROMO1920X1080px-v2.webp",
+        "alt": "Nestlé — Brand & Campaigns — Hero Media",
+        "kind": "image"
+      },
+      "hero_logo_image": {
+        "src": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/logo.png",
+        "alt": "Logo de Nestlé",
+        "kind": "image"
+      },
+      "client_logo_image": {
+        "src": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/logo.png",
+        "alt": "Logo de Nestlé",
+        "kind": "image"
+      },
+      "hero_media_type": "image",
+      "project_title": "Nestlé — Brand & Campaigns",
+      "project_subtitle": "Nestlé · Brand & Campaigns",
+      "project_client": "Nestlé",
+      "project_year": 2024,
+      "project_tags": [
+        "Brand & Campaigns",
+        "Key Visual",
+        "Campanha"
+      ],
+      "project_services": [
+        "Brand & Campaigns",
+        "Brand & Campaigns",
+        "Key Visual"
+      ],
+      "project_summary": "Projeto de Brand & Campaigns desenvolvido para Nestlé (2024), reunindo entregas visuais e direção criativa em alta definição.",
+      "intro_headline": "Nestlé — Brand & Campaigns",
+      "intro_body": [
+        "Projeto de Brand & Campaigns desenvolvido para Nestlé (2024), reunindo entregas visuais e direção criativa em alta definição."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [
+        {
+          "id": "block-pair-1",
+          "type": "image-image",
+          "order": 1,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/140920_TD_ATEVC_BLACK_FRIDAY_KV_AZUL.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/20211206_Banners_Nescau_1000x320px.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Nestlé — Brand & Campaigns — 140920 TD ATEVC BLACK FRIDAY KV AZUL",
+            "alt2": "Nestlé — Brand & Campaigns — 20211206 Banners Nescau 1000x320px"
+          }
+        },
+        {
+          "id": "block-pair-2",
+          "type": "image-image",
+          "order": 2,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/20211229_SEJA_TRAINEE_POST_WP.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/20220630_Banners_Sites_Diferentes_Tamanhos_Banner_Mobile_768x714px.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Nestlé — Brand & Campaigns — 20211229 SEJA TRAINEE POST WP",
+            "alt2": "Nestlé — Brand & Campaigns — 20220630 Banners Sites Diferentes Tamanhos Banner Mobile 768x714px"
+          }
+        },
+        {
+          "id": "block-pair-3",
+          "type": "image-image",
+          "order": 3,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/250820_TD_EMPORIO_SEMANA_CLIENTE_POSTER_A4_KITKAT.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/300920_TD_ATEVC_PROFESSIONAL_BF_KV.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Nestlé — Brand & Campaigns — 250820 TD EMPORIO SEMANA CLIENTE POSTER A4 KITKAT",
+            "alt2": "Nestlé — Brand & Campaigns — 300920 TD ATEVC PROFESSIONAL BF KV"
+          }
+        },
+        {
+          "id": "block-pair-4",
+          "type": "image-image",
+          "order": 4,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/BRASIL_PASTAS_POST-2-800x800px.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/Banner%201000x1000%20PURINA%20ONE_DOG.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Nestlé — Brand & Campaigns — BRASIL PASTAS POST 2 800x800px",
+            "alt2": "Nestlé — Brand & Campaigns — Banner 1000x1000 PURINA ONE DOG"
+          }
+        },
+        {
+          "id": "block-pair-5",
+          "type": "image-image",
+          "order": 5,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/CARTAZ%20A4_WARE%20NESTLE_final.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/FEED-FACE-BLACK-FRIDAY.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Nestlé — Brand & Campaigns — CARTAZ A4 WARE NESTLE final",
+            "alt2": "Nestlé — Brand & Campaigns — FEED FACE BLACK FRIDAY"
+          }
+        },
+        {
+          "id": "block-pair-6",
+          "type": "image-image",
+          "order": 6,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/INSTAGRAM_PATROCINADO_900x900.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/KV-SAUDAVEIS-NESTLE-08.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Nestlé — Brand & Campaigns — INSTAGRAM PATROCINADO 900x900",
+            "alt2": "Nestlé — Brand & Campaigns — KV SAUDAVEIS NESTLE 08"
+          }
+        },
+        {
+          "id": "block-pair-7",
+          "type": "image-image",
+          "order": 7,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/KV-nestle-por-vc-dinheiro-de-volta-Pack.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/MOCA%20DE%20PASSAR%20-%20MKT.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Nestlé — Brand & Campaigns — KV nestle por vc dinheiro de volta Pack",
+            "alt2": "Nestlé — Brand & Campaigns — MOCA DE PASSAR   MKT"
+          }
+        },
+        {
+          "id": "block-pair-8",
+          "type": "image-image",
+          "order": 8,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/NESCAU-ORGaNICO.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/Passa%20tempo_EMPORIO_1000X1000.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Nestlé — Brand & Campaigns — NESCAU ORGaNICO",
+            "alt2": "Nestlé — Brand & Campaigns — Passa tempo EMPORIO 1000X1000"
+          }
+        },
+        {
+          "id": "block-pair-9",
+          "type": "image-image",
+          "order": 9,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/Passatempo%20320X320.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/STORIES-NESTLE-100-ANOS--PROMO1920X1080px-v2.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Nestlé — Brand & Campaigns — Passatempo 320X320",
+            "alt2": "Nestlé — Brand & Campaigns — STORIES NESTLE 100 ANOS PROMO1920X1080px v2"
+          }
+        },
+        {
+          "id": "block-pair-10",
+          "type": "image-image",
+          "order": 10,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/banner_maggi_da_horta_verdemar__1022x1022px.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/banner_verdemar_nestle_100_anos_promo_-1000x400px.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Nestlé — Brand & Campaigns — banner maggi da horta verdemar 1022x1022px",
+            "alt2": "Nestlé — Brand & Campaigns — banner verdemar nestle 100 anos promo 1000x400px"
+          }
+        },
+        {
+          "id": "block-single-11",
+          "type": "image",
+          "order": 11,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/post_renove_seus_sonhos_barbosa_1001x1001px.webp",
+            "mediaType": "image",
+            "alt": "Nestlé — Brand & Campaigns — post renove seus sonhos barbosa 1001x1001px"
+          }
+        }
+      ],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "TCotton — Identidade Visual & Posicionamento",
+        "next_project_slug": "tcotton"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Brand & Campaigns desenvolvido para Nestlé (2024), reunindo entregas visuais e direção criativa em alta definição.",
+        "og_image": "https://assets.portfoliodanilo.com/site-assets/landing-pages/nestle/STORIES-NESTLE-100-ANOS--PROMO1920X1080px-v2.webp"
+      }
+    }
+  },
+  {
+    "id": "56ca529b-a18a-4040-b7c3-8f1937571239",
+    "slug": "tcotton",
+    "title": "TCotton — Identidade Visual & Posicionamento",
+    "client_name": "TCotton",
+    "brand_name": "TCotton",
+    "year": 2024,
+    "project_type": "Brand & Campaigns",
+    "featured_on_home": 0,
+    "featured_home_order": null,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 15,
+    "is_published": 1,
+    "landing_page_id": "b552ad61-87e7-445e-bd67-be7e43f48868",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/tcotton/tcotton/assets-do-projeto/cover-16x9/thumb-tcotton-16-9.9f1a032aa68f32ea.webp",
+    "hero_image_path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-hero-ece3a00a-7f23-40ca-8233-b1666c832d47.png",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/tcotton/tcotton/assets-do-projeto/cover-16x9/thumb-tcotton-16-9.9f1a032aa68f32ea.webp",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/tcotton/tcotton/assets-do-projeto/cover-1x1/thumb-tcotton-1-1.8e66892a4c5d6807.webp",
+    "home_featured": "{}",
+    "tags": [
+      {
+        "id": "e8685536-2076-4094-b98c-823798284eb3",
+        "slug": "branding",
+        "label": "Branding",
+        "kind": "tag",
+        "sort_order": 4
+      },
+      {
+        "id": "c489c2ca-3a8b-4232-8598-d2a9728146a6",
+        "slug": "brand-campaigns",
+        "label": "Brand & Campaigns",
+        "kind": "category",
+        "sort_order": 1
+      }
+    ],
+    "client_slug": "tcotton",
+    "description": "Projeto de Brand & Campaigns desenvolvido para TCotton (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "case_body": "Projeto de Brand & Campaigns desenvolvido para TCotton (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "tcotton"
+    },
+    "gallery": [
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174162827-2-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174167063-3-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174173496-5-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174175328-6-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174176749-7-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174178219-8-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174181396-9-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174422353-11-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174422353-11-m2.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174426435-12-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174426435-12-m2.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174434054-13-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174439555-14-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174439555-14-m2.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174443821-15-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174443821-15-m2.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174450853-16-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174455153-17-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174455153-17-m2.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174460845-18-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174464385-19-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174464385-19-m2.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174751301-20-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174751301-20-m2.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174754047-21-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174759729-23-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174759729-23-m2.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174762347-24-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174765034-25-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174765034-25-m2.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174766959-26-m1.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174766959-26-m2.webp",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-hero-ece3a00a-7f23-40ca-8233-b1666c832d47.png",
+        "alt": "TCotton — Identidade Visual & Posicionamento",
+        "type": "image"
+      }
+    ],
+    "landing_page_slug": "tcotton",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "tcotton",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-hero-ece3a00a-7f23-40ca-8233-b1666c832d47.png",
+        "alt": "Capa de TCotton — Identidade Visual & Posicionamento",
+        "kind": "image"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-hero-ece3a00a-7f23-40ca-8233-b1666c832d47.png",
+        "alt": "TCotton — Identidade Visual & Posicionamento — Hero Media",
+        "kind": "image"
+      },
+      "hero_logo_image": {
+        "src": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-logo-316fbd79-3e57-4f96-b200-1fb048aff61d.png",
+        "alt": "Logo de TCotton",
+        "kind": "image"
+      },
+      "client_logo_image": {
+        "src": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-logo-316fbd79-3e57-4f96-b200-1fb048aff61d.png",
+        "alt": "Logo de TCotton",
+        "kind": "image"
+      },
+      "hero_media_type": "image",
+      "project_title": "TCotton — Identidade Visual & Posicionamento",
+      "project_subtitle": "TCotton · Brand & Campaigns",
+      "project_client": "TCotton",
+      "project_year": 2024,
+      "project_tags": [
+        "Branding",
+        "Brand & Campaigns"
+      ],
+      "project_services": [
+        "Brand & Campaigns",
+        "Branding",
+        "Brand & Campaigns"
+      ],
+      "project_summary": "Projeto de Brand & Campaigns desenvolvido para TCotton (2024), reunindo entregas visuais e direção criativa em alta definição.",
+      "intro_headline": "TCotton — Identidade Visual & Posicionamento",
+      "intro_body": [
+        "Projeto de Brand & Campaigns desenvolvido para TCotton (2024), reunindo entregas visuais e direção criativa em alta definição."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [
+        {
+          "id": "block-v3-2",
+          "type": "image",
+          "order": 1,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174162827-2-m1.webp",
+            "mediaType": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — visual 2"
+          }
+        },
+        {
+          "id": "block-v3-3",
+          "type": "image",
+          "order": 2,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174167063-3-m1.webp",
+            "mediaType": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — visual 3"
+          }
+        },
+        {
+          "id": "block-v3-5",
+          "type": "image",
+          "order": 3,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174173496-5-m1.webp",
+            "mediaType": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — visual 5"
+          }
+        },
+        {
+          "id": "block-v3-6",
+          "type": "image",
+          "order": 4,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174175328-6-m1.webp",
+            "mediaType": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — visual 6"
+          }
+        },
+        {
+          "id": "block-v3-7",
+          "type": "image",
+          "order": 5,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174176749-7-m1.webp",
+            "mediaType": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — visual 7"
+          }
+        },
+        {
+          "id": "block-v3-8",
+          "type": "image",
+          "order": 6,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174178219-8-m1.webp",
+            "mediaType": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — visual 8"
+          }
+        },
+        {
+          "id": "block-v3-9",
+          "type": "image",
+          "order": 7,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174181396-9-m1.webp",
+            "mediaType": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — visual 9"
+          }
+        },
+        {
+          "id": "block-v3-11",
+          "type": "image-image",
+          "order": 8,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174422353-11-m1.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174422353-11-m2.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — frame 11A",
+            "alt2": "TCotton — Identidade Visual & Posicionamento — frame 11B"
+          }
+        },
+        {
+          "id": "block-v3-12",
+          "type": "image-image",
+          "order": 9,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174426435-12-m1.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174426435-12-m2.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — frame 12A",
+            "alt2": "TCotton — Identidade Visual & Posicionamento — frame 12B"
+          }
+        },
+        {
+          "id": "block-v3-13",
+          "type": "image",
+          "order": 10,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174434054-13-m1.webp",
+            "mediaType": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — visual 13"
+          }
+        },
+        {
+          "id": "block-v3-14",
+          "type": "image-image",
+          "order": 11,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174439555-14-m1.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174439555-14-m2.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — frame 14A",
+            "alt2": "TCotton — Identidade Visual & Posicionamento — frame 14B"
+          }
+        },
+        {
+          "id": "block-v3-15",
+          "type": "image-image",
+          "order": 12,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174443821-15-m1.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174443821-15-m2.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — frame 15A",
+            "alt2": "TCotton — Identidade Visual & Posicionamento — frame 15B"
+          }
+        },
+        {
+          "id": "block-v3-16",
+          "type": "image",
+          "order": 13,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174450853-16-m1.webp",
+            "mediaType": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — visual 16"
+          }
+        },
+        {
+          "id": "block-v3-17",
+          "type": "image-image",
+          "order": 14,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174455153-17-m1.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174455153-17-m2.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — frame 17A",
+            "alt2": "TCotton — Identidade Visual & Posicionamento — frame 17B"
+          }
+        },
+        {
+          "id": "block-v3-18",
+          "type": "image",
+          "order": 15,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174460845-18-m1.webp",
+            "mediaType": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — visual 18"
+          }
+        },
+        {
+          "id": "block-v3-19",
+          "type": "image-image",
+          "order": 16,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174464385-19-m1.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174464385-19-m2.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — frame 19A",
+            "alt2": "TCotton — Identidade Visual & Posicionamento — frame 19B"
+          }
+        },
+        {
+          "id": "block-v3-20",
+          "type": "image-image",
+          "order": 17,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174751301-20-m1.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174751301-20-m2.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — frame 20A",
+            "alt2": "TCotton — Identidade Visual & Posicionamento — frame 20B"
+          }
+        },
+        {
+          "id": "block-v3-21",
+          "type": "image",
+          "order": 18,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174754047-21-m1.webp",
+            "mediaType": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — visual 21"
+          }
+        },
+        {
+          "id": "block-v3-23",
+          "type": "image-image",
+          "order": 19,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174759729-23-m1.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174759729-23-m2.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — frame 23A",
+            "alt2": "TCotton — Identidade Visual & Posicionamento — frame 23B"
+          }
+        },
+        {
+          "id": "block-v3-24",
+          "type": "image",
+          "order": 20,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174762347-24-m1.webp",
+            "mediaType": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — visual 24"
+          }
+        },
+        {
+          "id": "block-v3-25",
+          "type": "image-image",
+          "order": 21,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174765034-25-m1.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174765034-25-m2.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — frame 25A",
+            "alt2": "TCotton — Identidade Visual & Posicionamento — frame 25B"
+          }
+        },
+        {
+          "id": "block-v3-26",
+          "type": "image-image",
+          "order": 22,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174766959-26-m1.webp",
+            "media2": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-grid-block-1773174766959-26-m2.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "TCotton — Identidade Visual & Posicionamento — frame 26A",
+            "alt2": "TCotton — Identidade Visual & Posicionamento — frame 26B"
+          }
+        }
+      ],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "DNTRO — Motion Design & Identidade Dinâmica",
+        "next_project_slug": "dntro"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Brand & Campaigns desenvolvido para TCotton (2024), reunindo entregas visuais e direção criativa em alta definição.",
+        "og_image": "https://assets.portfoliodanilo.com/site-assets/landing-pages/tcotton/master-v3-hero-ece3a00a-7f23-40ca-8233-b1666c832d47.png"
+      }
+    }
+  },
+  {
+    "id": "d124fc46-0b63-4595-ac4a-6983f28cd1ab",
+    "slug": "dntro",
+    "title": "DNTRO — Motion Design & Identidade Dinâmica",
+    "client_name": "DNTRO",
+    "brand_name": "DNTRO",
+    "year": 2024,
+    "project_type": "Videos & Motions",
+    "featured_on_home": 0,
+    "featured_home_order": null,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 16,
+    "is_published": 1,
+    "landing_page_id": "e9ea7285-f6c4-4cf2-83bf-2f0b557c08c3",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/dntro/dntro/assets-do-projeto/cover-16x9/thumb-16-9.11aff041d0e8a1ca.mp4",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/dntro/dntro/assets-do-projeto/cover-16x9/thumb-16-9.11aff041d0e8a1ca.mp4",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/dntro/dntro/assets-do-projeto/cover-16x9/thumb-16-9.11aff041d0e8a1ca.mp4",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/dntro/dntro/assets-do-projeto/cover-1x1/thumb-1-1.54f9cb8c351ac49d.mp4",
+    "home_featured": "{}",
+    "tags": [
+      {
+        "id": "47b1949c-a29b-4ca0-a6ae-14f83cabd3b7",
+        "slug": "motion",
+        "label": "Motion Design",
+        "kind": "tag",
+        "sort_order": 5
+      },
+      {
+        "id": "c4e6273d-8703-432f-877f-1cf0c7870086",
+        "slug": "videos-motions",
+        "label": "Videos & Motions",
+        "kind": "category",
+        "sort_order": 2
+      }
+    ],
+    "client_slug": "dntro",
+    "description": "Projeto de Videos & Motions desenvolvido para DNTRO (2024).",
+    "case_body": "Projeto de Videos & Motions desenvolvido para DNTRO (2024).",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "dntro"
+    },
+    "gallery": [],
+    "landing_page_slug": "dntro",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "dntro",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/dntro/dntro/assets-do-projeto/cover-16x9/thumb-16-9.11aff041d0e8a1ca.mp4",
+        "alt": "Capa de DNTRO — Motion Design & Identidade Dinâmica",
+        "kind": "video"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/dntro/dntro/assets-do-projeto/cover-16x9/thumb-16-9.11aff041d0e8a1ca.mp4",
+        "alt": "DNTRO — Motion Design & Identidade Dinâmica — Hero Media",
+        "kind": "video"
+      },
+      "hero_media_type": "video",
+      "project_title": "DNTRO — Motion Design & Identidade Dinâmica",
+      "project_subtitle": "DNTRO · Videos & Motions",
+      "project_client": "DNTRO",
+      "project_year": 2024,
+      "project_tags": [
+        "Motion Design",
+        "Videos & Motions"
+      ],
+      "project_services": [
+        "Videos & Motions",
+        "Motion Design",
+        "Videos & Motions"
+      ],
+      "project_summary": "Projeto de Videos & Motions desenvolvido para DNTRO (2024).",
+      "intro_headline": "DNTRO — Motion Design & Identidade Dinâmica",
+      "intro_body": [
+        "Projeto de Videos & Motions desenvolvido para DNTRO (2024)."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Glad / Dow Química — Vídeo Manifesto",
+        "next_project_slug": "glad"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Videos & Motions desenvolvido para DNTRO (2024).",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/dntro/dntro/assets-do-projeto/cover-16x9/thumb-16-9.11aff041d0e8a1ca.mp4"
+      }
+    }
+  },
+  {
+    "id": "eae89a60-9f4d-4e55-b5d2-81511bbcd41b",
+    "slug": "glad",
+    "title": "Glad / Dow Química — Vídeo Manifesto",
+    "client_name": "Glad",
+    "brand_name": "Glad",
+    "year": 2023,
+    "project_type": "Videos & Motions",
+    "featured_on_home": 0,
+    "featured_home_order": null,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 17,
+    "is_published": 1,
+    "landing_page_id": "d9e77498-b435-4261-bb99-658277b7cb47",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-16x9/thumb-glad.ead956218f26b9c0.webp",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-16x9/thumb-glad.ead956218f26b9c0.webp",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-16x9/thumb-glad.ead956218f26b9c0.webp",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-1x1/thumb-glad-1-1.ebbdf481eb783c7f.webp",
+    "home_featured": "{}",
+    "tags": [
+      {
+        "id": "47b1949c-a29b-4ca0-a6ae-14f83cabd3b7",
+        "slug": "motion",
+        "label": "Motion Design",
+        "kind": "tag",
+        "sort_order": 5
+      },
+      {
+        "id": "9b7d880b-b31e-43fe-8451-9da29e307992",
+        "slug": "campaign",
+        "label": "Campanha",
+        "kind": "tag",
+        "sort_order": 6
+      },
+      {
+        "id": "c4e6273d-8703-432f-877f-1cf0c7870086",
+        "slug": "videos-motions",
+        "label": "Videos & Motions",
+        "kind": "category",
+        "sort_order": 2
+      }
+    ],
+    "client_slug": "glad",
+    "description": "Projeto de Videos & Motions desenvolvido para Glad (2023), reunindo entregas visuais e direção criativa em alta definição.",
+    "case_body": "Projeto de Videos & Motions desenvolvido para Glad (2023), reunindo entregas visuais e direção criativa em alta definição.",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "glad"
+    },
+    "gallery": [],
+    "landing_page_slug": "glad",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "glad",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-16x9/thumb-glad.ead956218f26b9c0.webp",
+        "alt": "Capa de Glad / Dow Química — Vídeo Manifesto",
+        "kind": "image"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-16x9/thumb-glad.ead956218f26b9c0.webp",
+        "alt": "Glad / Dow Química — Vídeo Manifesto — Hero Media",
+        "kind": "image"
+      },
+      "hero_media_type": "image",
+      "project_title": "Glad / Dow Química — Vídeo Manifesto",
+      "project_subtitle": "Glad · Videos & Motions",
+      "project_client": "Glad",
+      "project_year": 2023,
+      "project_tags": [
+        "Motion Design",
+        "Campanha",
+        "Videos & Motions"
+      ],
+      "project_services": [
+        "Videos & Motions",
+        "Motion Design",
+        "Campanha"
+      ],
+      "project_summary": "Projeto de Videos & Motions desenvolvido para Glad (2023), reunindo entregas visuais e direção criativa em alta definição.",
+      "intro_headline": "Glad / Dow Química — Vídeo Manifesto",
+      "intro_body": [
+        "Projeto de Videos & Motions desenvolvido para Glad (2023), reunindo entregas visuais e direção criativa em alta definição."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [
+        {
+          "id": "block-video-1",
+          "type": "video-autoplay",
+          "order": 1,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-16x9/thumb-glad.5de7c334e6491aa0.webm",
+            "mediaType": "video",
+            "poster": "https://assets.portfoliodanilo.com/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-16x9/thumb-glad.ead956218f26b9c0.webp",
+            "alt": "Glad / Dow Química — Vídeo Manifesto — Motion Showcase"
+          }
+        }
+      ],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Swift Week — Campanha Promocional & Motion",
+        "next_project_slug": "swift-week"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Videos & Motions desenvolvido para Glad (2023), reunindo entregas visuais e direção criativa em alta definição.",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/down-qu-mica/video-manifesto/assets-do-projeto/cover-16x9/thumb-glad.ead956218f26b9c0.webp"
+      }
+    }
+  },
+  {
+    "id": "6bde9a53-82d0-43db-acca-a62a3a4eceb9",
+    "slug": "swift-week",
+    "title": "Swift Week — Campanha Promocional & Motion",
+    "client_name": "Swift",
+    "brand_name": "Swift",
+    "year": 2024,
+    "project_type": "Videos & Motions",
+    "featured_on_home": 0,
+    "featured_home_order": null,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 18,
+    "is_published": 1,
+    "landing_page_id": "c2ff7fa1-c0d4-48c1-a7f4-5e3a520616cf",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/cover-16x9/thumb.5b0e14348c108da3.mp4",
+    "hero_image_path": "https://assets.portfoliodanilo.com/site-assets/landing-pages/swift-week/master-v3-hero-7ce8f090-1f1d-4d72-a1ed-b6a284109def.webp",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/cover-16x9/thumb.5b0e14348c108da3.mp4",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/cover-1x1/thumb.5b0e14348c108da3.mp4",
+    "home_featured": "{}",
+    "tags": [
+      {
+        "id": "47b1949c-a29b-4ca0-a6ae-14f83cabd3b7",
+        "slug": "motion",
+        "label": "Motion Design",
+        "kind": "tag",
+        "sort_order": 5
+      },
+      {
+        "id": "9b7d880b-b31e-43fe-8451-9da29e307992",
+        "slug": "campaign",
+        "label": "Campanha",
+        "kind": "tag",
+        "sort_order": 6
+      },
+      {
+        "id": "c4e6273d-8703-432f-877f-1cf0c7870086",
+        "slug": "videos-motions",
+        "label": "Videos & Motions",
+        "kind": "category",
+        "sort_order": 2
+      }
+    ],
+    "client_slug": "swift",
+    "description": "Projeto de Videos & Motions desenvolvido para Swift (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "case_body": "Projeto de Videos & Motions desenvolvido para Swift (2024), reunindo entregas visuais e direção criativa em alta definição.",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "swift-week"
+    },
+    "gallery": [
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/gallery/11swf0197-rcs-swift-week-crm-push.7b4e973aaa642aef.webp",
+        "alt": "Swift Week — Campanha Promocional & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/gallery/caixa-week.a28bcda1a214e17e.webp",
+        "alt": "Swift Week — Campanha Promocional & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/gallery/kvs-swift-week.db2ca2c6acdc4bda.webp",
+        "alt": "Swift Week — Campanha Promocional & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/gallery/mock-week.c9185127dde6d861.webp",
+        "alt": "Swift Week — Campanha Promocional & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/gallery/mock-week2.372fec5ccd7832ad.webp",
+        "alt": "Swift Week — Campanha Promocional & Motion",
+        "type": "image"
+      },
+      {
+        "path": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/gallery/mock-week3.f9dd02c40e2acdf3.webp",
+        "alt": "Swift Week — Campanha Promocional & Motion",
+        "type": "image"
+      }
+    ],
+    "landing_page_slug": "swift-week",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "swift-week",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/site-assets/landing-pages/swift-week/master-v3-hero-7ce8f090-1f1d-4d72-a1ed-b6a284109def.webp",
+        "alt": "Capa de Swift Week — Campanha Promocional & Motion",
+        "kind": "image"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/site-assets/landing-pages/swift-week/master-v3-hero-7ce8f090-1f1d-4d72-a1ed-b6a284109def.webp",
+        "alt": "Swift Week — Campanha Promocional & Motion — Hero Media",
+        "kind": "image"
+      },
+      "hero_logo_image": {
+        "src": "https://assets.portfoliodanilo.com/site-assets/landing-pages/swift-week/master-v3-logo-761f2903-d8dc-42bc-a300-25819d7b82df.webp",
+        "alt": "Logo de Swift",
+        "kind": "image"
+      },
+      "client_logo_image": {
+        "src": "https://assets.portfoliodanilo.com/site-assets/landing-pages/swift-week/master-v3-logo-761f2903-d8dc-42bc-a300-25819d7b82df.webp",
+        "alt": "Logo de Swift",
+        "kind": "image"
+      },
+      "hero_media_type": "image",
+      "project_title": "Swift Week — Campanha Promocional & Motion",
+      "project_subtitle": "Swift · Videos & Motions",
+      "project_client": "Swift",
+      "project_year": 2024,
+      "project_tags": [
+        "Motion Design",
+        "Campanha",
+        "Videos & Motions"
+      ],
+      "project_services": [
+        "Videos & Motions",
+        "Motion Design",
+        "Campanha"
+      ],
+      "project_summary": "Projeto de Videos & Motions desenvolvido para Swift (2024), reunindo entregas visuais e direção criativa em alta definição.",
+      "intro_headline": "Swift Week — Campanha Promocional & Motion",
+      "intro_body": [
+        "Projeto de Videos & Motions desenvolvido para Swift (2024), reunindo entregas visuais e direção criativa em alta definição."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [
+        {
+          "id": "block-motion-cover",
+          "type": "video-autoplay",
+          "order": 1,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/cover-16x9/thumb.5b0e14348c108da3.mp4",
+            "mediaType": "video",
+            "poster": "https://assets.portfoliodanilo.com/site-assets/landing-pages/swift-week/master-v3-hero-7ce8f090-1f1d-4d72-a1ed-b6a284109def.webp",
+            "alt": "Swift Week — Campanha Promocional & Motion — Campaign Film"
+          }
+        },
+        {
+          "id": "block-v3-0",
+          "type": "image",
+          "order": 2,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/swift-week/master-v3-grid-block-1785903363716-0-m1.webp",
+            "mediaType": "image",
+            "alt": "Swift Week — Campanha Promocional & Motion — visual 0"
+          }
+        },
+        {
+          "id": "block-v3-2",
+          "type": "image",
+          "order": 3,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/swift-week/master-v3-grid-block-1785903420349-2-m1.webp",
+            "mediaType": "image",
+            "alt": "Swift Week — Campanha Promocional & Motion — visual 2"
+          }
+        },
+        {
+          "id": "block-v3-3",
+          "type": "image",
+          "order": 4,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/swift-week/master-v3-grid-block-1785903423882-3-m1.webp",
+            "mediaType": "image",
+            "alt": "Swift Week — Campanha Promocional & Motion — visual 3"
+          }
+        },
+        {
+          "id": "block-v3-4",
+          "type": "image",
+          "order": 5,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/swift-week/master-v3-grid-block-1785903426531-4-m1.webp",
+            "mediaType": "image",
+            "alt": "Swift Week — Campanha Promocional & Motion — visual 4"
+          }
+        },
+        {
+          "id": "block-v3-7",
+          "type": "image",
+          "order": 6,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/site-assets/landing-pages/swift-week/master-v3-grid-block-1785903725399-7-m1.webp",
+            "mediaType": "image",
+            "alt": "Swift Week — Campanha Promocional & Motion — visual 7"
+          }
+        },
+        {
+          "id": "block-pair-6",
+          "type": "image-image",
+          "order": 7,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/gallery/11swf0197-rcs-swift-week-crm-push.7b4e973aaa642aef.webp",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/gallery/caixa-week.a28bcda1a214e17e.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Swift Week — Campanha Promocional & Motion — 11swf0197 rcs swift week crm push",
+            "alt2": "Swift Week — Campanha Promocional & Motion — caixa week"
+          }
+        },
+        {
+          "id": "block-pair-7",
+          "type": "image-image",
+          "order": 8,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/gallery/kvs-swift-week.db2ca2c6acdc4bda.webp",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/gallery/mock-week.c9185127dde6d861.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Swift Week — Campanha Promocional & Motion — kvs swift week",
+            "alt2": "Swift Week — Campanha Promocional & Motion — mock week"
+          }
+        },
+        {
+          "id": "block-pair-8",
+          "type": "image-image",
+          "order": 9,
+          "content": {
+            "media": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/gallery/mock-week2.372fec5ccd7832ad.webp",
+            "media2": "https://assets.portfoliodanilo.com/portfolio-media/swift/swift-week/assets-do-projeto/gallery/mock-week3.f9dd02c40e2acdf3.webp",
+            "mediaType": "image",
+            "mediaType2": "image",
+            "alt": "Swift Week — Campanha Promocional & Motion — mock week2",
+            "alt2": "Swift Week — Campanha Promocional & Motion — mock week3"
+          }
+        }
+      ],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "AI Video — Exploração Criativa & GenAI",
+        "next_project_slug": "ai-video"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Videos & Motions desenvolvido para Swift (2024), reunindo entregas visuais e direção criativa em alta definição.",
+        "og_image": "https://assets.portfoliodanilo.com/site-assets/landing-pages/swift-week/master-v3-hero-7ce8f090-1f1d-4d72-a1ed-b6a284109def.webp"
+      }
+    }
+  },
+  {
+    "id": "ecb4af0d-3d5f-4e92-82cd-612748a80e9f",
+    "slug": "ai-video",
+    "title": "AI Video — Exploração Criativa & GenAI",
+    "client_name": "Ghost Lab",
+    "brand_name": "Ghost Lab",
+    "year": 2024,
+    "project_type": "Videos & Motions",
+    "featured_on_home": 0,
+    "featured_home_order": null,
+    "featured_on_portfolio": 1,
+    "featured_portfolio_order": 19,
+    "is_published": 1,
+    "landing_page_id": "cade8b35-0518-415a-b345-67bb8f97c500",
+    "thumbnail_path": "https://assets.portfoliodanilo.com/portfolio-media/projeto-pessoal/ai-video/assets-do-projeto/cover-1x1/ai-thumb-1-1-compressed.6ae532a6f68a3b42.mp4",
+    "hero_image_path": "https://assets.portfoliodanilo.com/portfolio-media/projeto-pessoal/ai-video/assets-do-projeto/cover-1x1/ai-thumb-1-1-compressed.6ae532a6f68a3b42.mp4",
+    "url_landscape": "https://assets.portfoliodanilo.com/portfolio-media/projeto-pessoal/ai-video/assets-do-projeto/cover-1x1/ai-thumb-1-1-compressed.6ae532a6f68a3b42.mp4",
+    "url_square": "https://assets.portfoliodanilo.com/portfolio-media/projeto-pessoal/ai-video/assets-do-projeto/cover-1x1/ai-thumb-1-1-compressed.6ae532a6f68a3b42.mp4",
+    "home_featured": "{}",
+    "tags": [
+      {
+        "id": "47b1949c-a29b-4ca0-a6ae-14f83cabd3b7",
+        "slug": "motion",
+        "label": "Motion Design",
+        "kind": "tag",
+        "sort_order": 5
+      },
+      {
+        "id": "c4e6273d-8703-432f-877f-1cf0c7870086",
+        "slug": "videos-motions",
+        "label": "Videos & Motions",
+        "kind": "category",
+        "sort_order": 2
+      }
+    ],
+    "client_slug": "ai",
+    "description": "Projeto de Videos & Motions desenvolvido para Ghost Lab (2024).",
+    "case_body": "Projeto de Videos & Motions desenvolvido para Ghost Lab (2024).",
+    "destination": {
+      "type": "internal_landing",
+      "landingSlug": "ai-video"
+    },
+    "gallery": [],
+    "landing_page_slug": "ai-video",
+    "landing_page_content": {
+      "schema_version": "3.0",
+      "template": "master-project-v3-alpa-hero",
+      "project_slug": "ai-video",
+      "hero_cover_image": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/projeto-pessoal/ai-video/assets-do-projeto/cover-1x1/ai-thumb-1-1-compressed.6ae532a6f68a3b42.mp4",
+        "alt": "Capa de AI Video — Exploração Criativa & GenAI",
+        "kind": "video"
+      },
+      "hero_top_media": {
+        "src": "https://assets.portfoliodanilo.com/portfolio-media/projeto-pessoal/ai-video/assets-do-projeto/cover-1x1/ai-thumb-1-1-compressed.6ae532a6f68a3b42.mp4",
+        "alt": "AI Video — Exploração Criativa & GenAI — Hero Media",
+        "kind": "video"
+      },
+      "hero_media_type": "video",
+      "project_title": "AI Video — Exploração Criativa & GenAI",
+      "project_subtitle": "Ghost Lab · Videos & Motions",
+      "project_client": "Ghost Lab",
+      "project_year": 2024,
+      "project_tags": [
+        "Motion Design",
+        "Videos & Motions"
+      ],
+      "project_services": [
+        "Videos & Motions",
+        "Motion Design",
+        "Videos & Motions"
+      ],
+      "project_summary": "Projeto de Videos & Motions desenvolvido para Ghost Lab (2024).",
+      "intro_headline": "AI Video — Exploração Criativa & GenAI",
+      "intro_body": [
+        "Projeto de Videos & Motions desenvolvido para Ghost Lab (2024)."
+      ],
+      "highlight_color": "#0048ff",
+      "theme_color": "#0048ff",
+      "gallery_grid": [],
+      "navigation": {
+        "back_label": "Voltar ao Portfólio",
+        "next_label": "Honda Civic — Key Visual & Campanha",
+        "next_project_slug": "key-vision"
+      },
+      "cta": {
+        "label": "Vamos trabalhar juntos",
+        "href": "#contact"
+      },
+      "seo": {
+        "description": "Projeto de Videos & Motions desenvolvido para Ghost Lab (2024).",
+        "og_image": "https://assets.portfoliodanilo.com/portfolio-media/projeto-pessoal/ai-video/assets-do-projeto/cover-1x1/ai-thumb-1-1-compressed.6ae532a6f68a3b42.mp4"
+      }
+    }
+  }
+]

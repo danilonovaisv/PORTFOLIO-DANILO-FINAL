@@ -1,5 +1,6 @@
-import { createClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
+import { getD1Database } from '@/lib/d1/client';
+import { listSiteAssetsFromD1 } from '@/lib/d1/site-assets';
 import { normalizeAssetList } from '@/lib/supabase/site-asset-utils';
 import type { DbAsset } from '@/types/admin';
 import staticAssetsSnapshot from '@/config/site-assets.json';
@@ -8,8 +9,8 @@ export const dynamic = 'force-dynamic';
 
 function getStaticFallbackAssets() {
   const rawList =
-    (staticAssetsSnapshot as any)?.[0]?.export_json ??
-    (staticAssetsSnapshot as any) ??
+    (staticAssetsSnapshot as { export_json?: unknown }[])?.[0]?.export_json ??
+    (staticAssetsSnapshot as unknown) ??
     [];
   return normalizeAssetList((rawList ?? []) as DbAsset[], {
     onlyActive: true,
@@ -18,50 +19,31 @@ function getStaticFallbackAssets() {
 
 export async function GET() {
   try {
-    const supabase = await createClient();
-
-    const { data, error } = await supabase
-      .from('site_assets')
-      .select(
-        'id, key, bucket, file_path, page, is_active, sort_order, asset_type'
-      )
-      .eq('is_active', true)
-      .order('page', { ascending: true })
-      .order('sort_order', { ascending: true, nullsFirst: false });
-
-    if (error) {
-      console.warn(
-        '[api/site-assets] Supabase indisponível, servindo fallback estático site-assets.json:',
-        error.message
-      );
-      const fallbackAssets = getStaticFallbackAssets();
-      return NextResponse.json(fallbackAssets, {
-        status: 200,
-        headers: { 'x-asset-source': 'static-backup' },
-      });
+    const db = await getD1Database();
+    if (db) {
+      const assets = await listSiteAssetsFromD1(db, { activeOnly: true });
+      if (assets.length > 0) {
+        return NextResponse.json(assets, {
+          status: 200,
+          headers: { 'x-asset-source': 'cloudflare-d1' },
+        });
+      }
     }
 
-    const assets = normalizeAssetList((data ?? []) as DbAsset[], {
-      onlyActive: true,
+    const fallbackAssets = getStaticFallbackAssets();
+    return NextResponse.json(fallbackAssets, {
+      status: 200,
+      headers: { 'x-asset-source': 'static-backup' },
     });
-
-    return NextResponse.json(assets, { status: 200 });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.warn(
-      '[api/site-assets] Erro inesperado, servindo fallback estático:',
-      err?.message || err
+      '[api/site-assets] D1 fallback triggered:',
+      err instanceof Error ? err.message : err
     );
-    try {
-      const fallbackAssets = getStaticFallbackAssets();
-      return NextResponse.json(fallbackAssets, {
-        status: 200,
-        headers: { 'x-asset-source': 'static-backup' },
-      });
-    } catch {
-      return NextResponse.json(
-        { error: 'SYSTEM_ERR: INTERNAL_SERVER_ERROR' },
-        { status: 500 }
-      );
-    }
+    const fallbackAssets = getStaticFallbackAssets();
+    return NextResponse.json(fallbackAssets, {
+      status: 200,
+      headers: { 'x-asset-source': 'static-backup' },
+    });
   }
 }

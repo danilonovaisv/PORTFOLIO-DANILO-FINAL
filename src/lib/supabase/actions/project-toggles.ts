@@ -3,6 +3,8 @@
 import { revalidatePath } from 'next/cache';
 import { logAdminAudit } from '@/lib/admin/audit';
 import { requireAdminAccess } from '@/lib/admin/server-access';
+import { getD1Database } from '@/lib/d1/client';
+import { toggleProjectColumnInD1 } from '@/lib/d1/admin';
 
 function parseTogglePayload(formData: FormData) {
   const projectId = formData.get('id');
@@ -27,6 +29,13 @@ function revalidateProjectSurfaces() {
 export async function togglePublish(formData: FormData) {
   const { projectId, enabled } = parseTogglePayload(formData);
   const { supabase, user } = await requireAdminAccess();
+  const d1 = await getD1Database();
+
+  if (d1) {
+    await toggleProjectColumnInD1(d1, projectId, 'is_published', enabled);
+    revalidateProjectSurfaces();
+    return;
+  }
 
   const { error } = await supabase
     .from('portfolio_projects')
@@ -58,6 +67,18 @@ export async function togglePublish(formData: FormData) {
 export async function toggleFeaturedOnPortfolio(formData: FormData) {
   const { projectId, enabled } = parseTogglePayload(formData);
   const { supabase, user } = await requireAdminAccess();
+  const d1 = await getD1Database();
+
+  if (d1) {
+    await toggleProjectColumnInD1(
+      d1,
+      projectId,
+      'featured_on_portfolio',
+      enabled
+    );
+    revalidateProjectSurfaces();
+    return;
+  }
 
   const { error } = await supabase
     .from('portfolio_projects')
@@ -89,6 +110,13 @@ export async function toggleFeaturedOnPortfolio(formData: FormData) {
 export async function toggleFeaturedOnHome(formData: FormData) {
   const { projectId, enabled } = parseTogglePayload(formData);
   const { supabase, user } = await requireAdminAccess();
+  const d1 = await getD1Database();
+
+  if (d1) {
+    await toggleProjectColumnInD1(d1, projectId, 'featured_on_home', enabled);
+    revalidateProjectSurfaces();
+    return;
+  }
 
   const { error } = await supabase
     .from('portfolio_projects')

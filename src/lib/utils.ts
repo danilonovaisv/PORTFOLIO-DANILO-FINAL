@@ -4,8 +4,10 @@ import type React from 'react';
 import { SUPABASE_STORAGE_URL } from '@/config/brand';
 import {
   buildSupabaseStorageUrl,
-  normalizeStoragePath,
   getR2PublicUrl,
+  isSignedOrPrivateStorageUrl,
+  normalizeStoragePath,
+  parsePublicSupabaseStorageUrl,
 } from '@/lib/supabase/urls';
 import {
   buildYoutubeEmbedUrl,
@@ -59,7 +61,28 @@ export function getAssetUrl(
   if (!trimmed) return ASSET_PLACEHOLDER;
   if (trimmed.startsWith('data:') || trimmed.startsWith('blob:'))
     return trimmed;
-  if (/^https?:\/\//.test(trimmed)) return trimmed;
+  if (/^https?:\/\//.test(trimmed)) {
+    if (isSignedOrPrivateStorageUrl(trimmed)) return trimmed;
+    const r2Base = getR2PublicUrl();
+    if (r2Base) {
+      const parsedSupabase = parsePublicSupabaseStorageUrl(trimmed);
+      if (parsedSupabase) {
+        return (
+          buildSupabaseStorageUrl(parsedSupabase.bucket, trimmed) ?? trimmed
+        );
+      }
+      try {
+        const parsed = new URL(trimmed);
+        const r2Host = new URL(r2Base).hostname;
+        if (parsed.hostname === r2Host || parsed.hostname.endsWith('.r2.dev')) {
+          return buildSupabaseStorageUrl('site-assets', trimmed) ?? trimmed;
+        }
+      } catch {
+        return trimmed;
+      }
+    }
+    return trimmed;
+  }
 
   // Ghost System: Return local paths as-is
   if (
@@ -155,6 +178,27 @@ export function supabaseLoader({
 }) {
   // If it's already a full URL or a data URL, return as is
   if (src.startsWith('http') || src.startsWith('data:')) {
+    if (isSignedOrPrivateStorageUrl(src)) {
+      return src;
+    }
+
+    const r2Base = getR2PublicUrl();
+    if (r2Base && src.startsWith('http')) {
+      const parsedSupabase = parsePublicSupabaseStorageUrl(src);
+      if (parsedSupabase) {
+        return buildSupabaseStorageUrl(parsedSupabase.bucket, src) ?? src;
+      }
+      try {
+        const parsed = new URL(src);
+        const r2Host = new URL(r2Base).hostname;
+        if (parsed.hostname === r2Host || parsed.hostname.endsWith('.r2.dev')) {
+          return buildSupabaseStorageUrl('site-assets', src) ?? src;
+        }
+      } catch {
+        return src;
+      }
+    }
+
     // If it's a Supabase URL, we can still try to append transform params if they aren't there
     if (src.includes('supabase.co')) {
       const url = new URL(src);
@@ -210,12 +254,7 @@ export const getGhostAssetUrl = (path?: string | null): string => {
   if (!path) return '/assets/placeholder.webp';
 
   try {
-    // Verifica se é uma URL válida
-    if (path.startsWith('http://') || path.startsWith('https://')) {
-      return path;
-    }
-
-    // Usa a função getAssetUrl existente
+    // Delega para getAssetUrl para normalizar URLs legadas do Supabase quando R2 estiver ativo
     return getAssetUrl(path);
   } catch (error) {
     console.error('Erro ao obter URL do asset:', error);

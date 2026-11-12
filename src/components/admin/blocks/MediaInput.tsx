@@ -31,11 +31,12 @@ export function MediaInput({
   // Detect if initial value is an external URL to set mode
   useEffect(() => {
     if (value && (value.startsWith('http') || value.startsWith('www'))) {
-      // If it's a Supabase storage URL, we might consider it an "upload" technically,
-      // but for editing input purposes, if it's text, it's a URL.
-      // However, we usually browse files. Let's keep it simple.
-      // If the user pasted a YouTube link, set to URL mode.
-      if (!value.includes('supabase.co')) {
+      // If it's a Supabase or R2 storage URL, consider it an upload-hosted URL;
+      // external URLs like YouTube links switch to URL mode.
+      if (
+        !value.includes('supabase.co') &&
+        !value.includes('assets.portfoliodanilo.com')
+      ) {
         setMode('url');
       }
     }

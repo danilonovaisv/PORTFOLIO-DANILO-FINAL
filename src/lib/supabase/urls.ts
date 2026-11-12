@@ -61,6 +61,157 @@ export function getR2PublicAssetUrl(bucket: string, filePath: string): string {
   return `${r2Base.replace(/\/+$/, '')}/${cleanBucket}/${encodedPath}`;
 }
 
+const KNOWN_R2_HOSTS = new Set(['assets.portfoliodanilo.com']);
+const KNOWN_VIRTUAL_BUCKETS = new Set([
+  'site-assets',
+  'portfolio-media',
+  'portfolio-assets',
+]);
+
+export interface ParsedSupabaseStorageUrl {
+  origin: string;
+  bucket: string;
+  filePath: string;
+}
+
+/**
+ * Detects signed, authenticated, or temporary pre-signed URLs that MUST NOT
+ * be rewritten to public CDN URLs.
+ */
+export function isSignedOrPrivateStorageUrl(rawUrl?: string | null): boolean {
+  if (!rawUrl) return false;
+  const trimmed = rawUrl.trim();
+  if (!trimmed) return false;
+
+  const lower = trimmed.toLowerCase();
+  if (
+    lower.includes('/storage/v1/object/sign/') ||
+    lower.includes('/storage/v1/object/authenticated/')
+  ) {
+    return true;
+  }
+
+  if (/^https?:\/\//i.test(trimmed)) {
+    try {
+      const parsed = new URL(trimmed);
+      for (const key of parsed.searchParams.keys()) {
+        const k = key.toLowerCase();
+        if (k === 'token' || k === 'signature' || k.startsWith('x-amz-')) {
+          return true;
+        }
+      }
+    } catch {
+      return false;
+    }
+  }
+
+  return false;
+}
+
+function isRecognizedSupabaseHost(hostname: string): boolean {
+  const lower = hostname.toLowerCase();
+  if (lower.endsWith('.supabase.co')) return true;
+
+  const envCandidates = [
+    getSupabaseBaseUrl(),
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL,
+    process.env.SUPABASE_URL,
+  ].filter(Boolean) as string[];
+
+  for (const candidate of envCandidates) {
+    try {
+      if (new URL(candidate).hostname.toLowerCase() === lower) {
+        return true;
+      }
+    } catch {
+      // ignore invalid env URL
+    }
+  }
+
+  return false;
+}
+
+function isR2CdnHost(hostname: string): boolean {
+  const lower = hostname.toLowerCase();
+  if (KNOWN_R2_HOSTS.has(lower) || lower.endsWith('.r2.dev')) return true;
+  const configuredR2 = getR2PublicUrl();
+  if (configuredR2) {
+    try {
+      if (new URL(configuredR2).hostname.toLowerCase() === lower) {
+        return true;
+      }
+    } catch {
+      // ignore malformed URL
+    }
+  }
+  return false;
+}
+
+function collapseSlashesAndDecodeSegments(rawPath: string): string {
+  return rawPath
+    .replace(/\/{2,}/g, '/')
+    .replace(/^\/+|\/+$/g, '')
+    .split('/')
+    .filter(Boolean)
+    .map((segment) => {
+      try {
+        return decodeURIComponent(segment);
+      } catch {
+        return segment;
+      }
+    })
+    .join('/');
+}
+
+/**
+ * Parses recognized public Supabase Storage object/render URLs into
+ * `{ origin, bucket, filePath }`. Returns `null` for external, signed,
+ * private, or non-storage URLs.
+ */
+export function parsePublicSupabaseStorageUrl(
+  rawUrl?: string | null
+): ParsedSupabaseStorageUrl | null {
+  if (!rawUrl) return null;
+  const trimmed = rawUrl.trim();
+  if (!/^https?:\/\//i.test(trimmed)) return null;
+  if (isSignedOrPrivateStorageUrl(trimmed)) return null;
+
+  try {
+    const parsed = new URL(trimmed);
+    if (!isRecognizedSupabaseHost(parsed.hostname)) return null;
+
+    const match = parsed.pathname.match(
+      /^\/storage\/v1\/(?:render\/image|object)\/public\/([^/]+)\/(.+)$/
+    );
+    if (!match) return null;
+
+    let bucket = match[1].replace(/^\/+|\/+$/g, '');
+    let filePath = collapseSlashesAndDecodeSegments(match[2]);
+
+    if (bucket === 'landing-pages') {
+      bucket = 'site-assets';
+      if (!filePath.startsWith('landing-pages/')) {
+        filePath = `landing-pages/${filePath}`;
+      }
+    }
+
+    while (filePath.startsWith(`${bucket}/`)) {
+      filePath = filePath.slice(bucket.length + 1);
+    }
+
+    if (!filePath) return null;
+
+    return {
+      origin: `${parsed.protocol}//${parsed.host}`,
+      bucket,
+      filePath,
+    };
+  } catch {
+    return null;
+  }
+}
+
 export function normalizeStoragePath(
   filePath?: string | null,
   bucket?: string
@@ -93,7 +244,7 @@ export function normalizeStoragePath(
 
   normalized = normalized.replace(/^\/+/, '');
 
-  if (bucketPrefix && normalized.startsWith(`${bucketPrefix}/`)) {
+  while (bucketPrefix && normalized.startsWith(`${bucketPrefix}/`)) {
     normalized = normalized.slice(bucketPrefix.length + 1);
   }
 
@@ -113,36 +264,72 @@ export interface StorageUrlOptions {
   resize?: 'cover' | 'contain' | 'fill';
 }
 
+function encodeStorageSegments(normalizedPath: string): string {
+  return normalizedPath
+    .split('/')
+    .filter(Boolean)
+    .map((segment) => {
+      try {
+        return encodeURIComponent(decodeURIComponent(segment));
+      } catch {
+        return encodeURIComponent(segment);
+      }
+    })
+    .join('/');
+}
+
 export function buildSupabaseStorageUrl(
   bucket: string,
   filePath?: string | null,
   options?: StorageUrlOptions
 ): string | null {
   if (!filePath) return null;
+  const trimmed = filePath.trim();
+  if (!trimmed) return null;
 
+  if (isSignedOrPrivateStorageUrl(trimmed)) {
+    return trimmed;
+  }
+
+  const parsedSupabase = parsePublicSupabaseStorageUrl(trimmed);
   const isHttp =
-    filePath.startsWith('http://') || filePath.startsWith('https://');
-  const isSupabaseUrl = filePath.includes('/storage/v1/');
+    trimmed.startsWith('http://') || trimmed.startsWith('https://');
+  const isSupabaseUrl = Boolean(parsedSupabase) || trimmed.includes('/storage/v1/');
 
-  // Verifica se é uma URL externa não-Supabase
+  // Handle already-migrated R2 CDN URLs (normalize duplicate slashes / duplicate virtual prefixes)
   if (isHttp && !isSupabaseUrl) {
-    // Validação de segurança para URLs externas
     try {
-      const url = new URL(filePath);
-      // Permitir apenas protocolos seguros
+      const url = new URL(trimmed);
       if (url.protocol !== 'https:') {
-        console.warn(`Protocolo inseguro detectado: ${filePath}`);
+        console.warn(`Protocolo inseguro detectado: ${trimmed}`);
         return null;
       }
-      return filePath;
+
+      if (isR2CdnHost(url.hostname)) {
+        const cleanSegments = collapseSlashesAndDecodeSegments(url.pathname);
+        const firstSeg = cleanSegments.split('/')[0];
+        const r2Bucket = KNOWN_VIRTUAL_BUCKETS.has(firstSeg) ? firstSeg : '';
+        let r2Rel = r2Bucket ? cleanSegments.slice(r2Bucket.length + 1) : cleanSegments;
+        while (r2Bucket && r2Rel.startsWith(`${r2Bucket}/`)) {
+          r2Rel = r2Rel.slice(r2Bucket.length + 1);
+        }
+        const r2Base = getR2PublicUrl() || `${url.protocol}//${url.host}`;
+        const finalKey = r2Bucket ? `${r2Bucket}/${encodeStorageSegments(r2Rel)}` : encodeStorageSegments(r2Rel);
+        return `${r2Base}/${finalKey}`;
+      }
+
+      return trimmed;
     } catch {
-      console.error(`URL inválida: ${filePath}`);
+      console.error(`URL inválida: ${trimmed}`);
       return null;
     }
   }
 
-  let cleanBucket = bucket.replace(/^\/+|\/+$/g, '');
-  let finalFilePath = filePath;
+  let cleanBucket = (parsedSupabase ? parsedSupabase.bucket : bucket).replace(
+    /^\/+|\/+$/g,
+    ''
+  );
+  let finalFilePath = parsedSupabase ? parsedSupabase.filePath : trimmed;
 
   // AUTO-HEAL: Se o banco de dados enviou "landing-pages" incorretamente como sendo o bucket
   if (cleanBucket === 'landing-pages') {
@@ -154,22 +341,13 @@ export function buildSupabaseStorageUrl(
 
   const normalizedPath = normalizeStoragePath(finalFilePath, cleanBucket);
   if (!normalizedPath) {
-    return finalFilePath.startsWith('http') ? finalFilePath : null;
+    return trimmed.startsWith('http') ? trimmed : null;
   }
 
   // Cloudflare R2 Migration: Prioritize R2 CDN endpoint when configured (Zero Egress)
   const r2Base = getR2PublicUrl();
   if (r2Base) {
-    const encodedPath = normalizedPath
-      .split('/')
-      .map((segment) => {
-        try {
-          return encodeURIComponent(decodeURIComponent(segment));
-        } catch {
-          return encodeURIComponent(segment);
-        }
-      })
-      .join('/');
+    const encodedPath = encodeStorageSegments(normalizedPath);
     const finalUrl = `${r2Base}/${cleanBucket}/${encodedPath}`;
     debugUrl(finalUrl);
     return finalUrl;
@@ -181,16 +359,16 @@ export function buildSupabaseStorageUrl(
   // Preserva a origem caso o caminho já seja uma URL completa de outro projeto Supabase
   if (isHttp && isSupabaseUrl) {
     try {
-      const url = new URL(finalFilePath);
+      const url = new URL(trimmed);
       baseOrigin = `${url.protocol}//${url.host}`;
     } catch {
       // se falhar, segue origin padrão
       if (!baseOrigin) {
-        return finalFilePath.startsWith('http') ? finalFilePath : null;
+        return trimmed.startsWith('http') ? trimmed : null;
       }
     }
   } else if (!baseOrigin) {
-    return finalFilePath.startsWith('http') ? finalFilePath : null;
+    return trimmed.startsWith('http') ? trimmed : null;
   }
 
   // Verifica se é um arquivo de vídeo ou 3D (não suportam proxy de renderização de imagem)
@@ -203,16 +381,7 @@ export function buildSupabaseStorageUrl(
     !isNonTransformable && options
       ? '/storage/v1/render/image/public/'
       : '/storage/v1/object/public/';
-  const encodedPath = normalizedPath
-    .split('/')
-    .map((segment) => {
-      try {
-        return encodeURIComponent(decodeURIComponent(segment));
-      } catch {
-        return encodeURIComponent(segment);
-      }
-    })
-    .join('/');
+  const encodedPath = encodeStorageSegments(normalizedPath);
   let finalUrl = `${baseOrigin}${endpoint}${cleanBucket}/${encodedPath}`;
 
   if (!isNonTransformable && options) {

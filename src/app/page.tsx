@@ -19,10 +19,10 @@ const VideoManifesto = dynamic(() =>
 );
 import { ShaderSection } from '@/components/home/ShaderSection';
 import { BRAND } from '@/config/brand';
-import { listProjects } from '@/lib/supabase/queries/projects';
+import { getD1Database } from '@/lib/d1/client';
+import { listProjectsFromD1 } from '@/lib/d1/projects';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
-import { createStaticClient } from '@/lib/supabase/static';
 import type { PortfolioProject } from '@/types/project';
 import { buildFallbackProjects } from '@/lib/portfolio/fallbacks';
 import JsonLd from '@/components/ui/JsonLd';
@@ -112,15 +112,17 @@ export default async function HomePage() {
   const deterministicSeed = 42;
 
   try {
-    const supabase = createStaticClient();
-    const dbProjects = await listProjects({ featuredOnHome: true }, supabase);
+    const db = await getD1Database();
+    const dbProjects = db
+      ? await listProjectsFromD1(db, { featuredOnHome: true })
+      : [];
     const mapped = dbProjects.map((project: DbProjectWithTags, index: number) =>
       mapDbProjectToPortfolioProject(project, index)
     );
     featuredProjects = shuffleProjects(mapped, deterministicSeed);
 
     if (featuredProjects.length === 0) {
-      logger.warn('[Home] No projects returned, using fallback projects.');
+      logger.warn('[Home] No D1 projects returned, using canonical R2 recovery projects.');
       featuredProjects = shuffleProjects(
         buildFallbackProjects({ featuredOnHomeOnly: true }),
         deterministicSeed

@@ -3,6 +3,8 @@ export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
 
 import { createClient } from '@/lib/supabase/server';
+import { getD1Database } from '@/lib/d1/client';
+import { listSiteAssetsFromD1 } from '@/lib/d1/site-assets';
 import { AssetForm } from '@/components/admin/AssetForm';
 import { AssetGuide } from '@/components/admin/AssetGuide';
 import { PresetButtons } from '@/app/admin/(protected)/midia/preset-buttons';
@@ -27,18 +29,26 @@ export default async function MidiaPage(props: {
   const currentShowInactive = searchParams?.showInactive === 'true';
   const currentPageParams = Number(searchParams?.page) || 1;
 
-  const supabase = await createClient();
-  const { data: assets } = await supabase
-    .from('site_assets')
-    .select(
-      'id,key,bucket,file_path,asset_type,page,description,is_active,sort_order,metadata,created_at,updated_at'
-    )
-    .order('page', { ascending: true })
-    .order('sort_order', { ascending: true, nullsFirst: false });
+  const d1 = await getD1Database();
+  let normalizedAssets = d1
+    ? await listSiteAssetsFromD1(d1, { activeOnly: false })
+    : [];
 
-  const normalizedAssets = normalizeAssetList((assets ?? []) as any, {
-    onlyActive: false,
-  });
+  if (!d1) {
+    const supabase = await createClient();
+    const { data: assets } = await supabase
+      .from('site_assets')
+      .select(
+        'id,key,bucket,file_path,asset_type,page,description,is_active,sort_order,metadata,created_at,updated_at'
+      )
+      .order('page', { ascending: true })
+      .order('sort_order', { ascending: true, nullsFirst: false });
+
+    normalizedAssets = normalizeAssetList((assets ?? []) as any, {
+      onlyActive: false,
+    });
+  }
+
   const validAssets = normalizedAssets.filter((asset) => {
     // Filter assets with invalid keys
     return !(
