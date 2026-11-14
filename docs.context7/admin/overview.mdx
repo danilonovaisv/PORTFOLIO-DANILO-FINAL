@@ -13,7 +13,7 @@ As rotas são protegidas por middleware e por Row Level Security. Cada ação se
 
 ## Áreas
 
-- **Assets:** upload e organização de mídia nos buckets do Supabase.
+- **Assets:** upload e organização de mídia no bucket R2 `portfolio-assets`.
 - **Conteúdo:** edição de textos, títulos e links exibidos no frontend.
 - **Leads:** leitura dos contatos recebidos pelo formulário.
 
@@ -23,4 +23,4 @@ Toda escrita no painel gera um registro com autor, horário e valores anteriores
 
 ## Realtime
 
-As alterações são publicadas por subscription e aparecem no site em menos de 2 segundos, sem refresh.
+As alterações são persistidas no D1 e a rota afetada é revalidada, aparecendo no site sem refresh.

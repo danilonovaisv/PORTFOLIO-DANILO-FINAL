@@ -1,11 +1,13 @@
 ---
 title: 'Gerenciador de Assets'
-description: 'Upload, formatos e ciclo de vida da mídia no Supabase Storage'
+description: 'Upload, formatos e ciclo de vida da mídia no Cloudflare R2'
 ---
 
 # Gerenciador de Assets
 
 ## Buckets
+
+A mídia fica no bucket R2 `portfolio-assets`, servido pelo CDN público. As pastas raiz `site-assets` e `portfolio-media` separam o conteúdo:
 
 - **`site-assets`:** elementos de interface, logos fixos e imagens de apoio.
 - **`portfolio-media`:** vídeos e imagens ligados a projetos.
@@ -20,10 +22,10 @@ Nenhuma imagem deve passar de 2MB. Vídeos de hero ou background devem ficar aba
 
 ## Fluxo de upload
 
-1. Envio do arquivo pelo painel.
+1. Envio do arquivo pelo painel para o R2, via API S3.
 2. Registro do caminho no banco e em `assets.json`.
 3. Consumo no frontend com carregamento progressivo nas imagens críticas.
 
 ## Ciclo de vida
 
-Assets removidos do banco também saem do Storage. Texturas usadas em R3F são descartadas no unmount para evitar vazamento de memória.
+Assets removidos do banco também saem do R2. Texturas usadas em R3F são descartadas no unmount para evitar vazamento de memória.

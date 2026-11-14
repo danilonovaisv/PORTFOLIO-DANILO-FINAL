@@ -28,7 +28,7 @@
         "pages": [
           "architecture/app-router",
           "architecture/state-and-realtime",
-          "architecture/supabase-pipeline",
+          "architecture/content-pipeline",
           "architecture/security-and-auth"
         ]
       },

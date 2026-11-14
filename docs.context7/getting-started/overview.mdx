@@ -11,13 +11,13 @@ O sistema é dividido em três camadas conceituais.
 
 1. **Camada Visual:** o Ghost Design System define paleta, tipografia com escala fluida via `clamp()` e o grid responsivo `.std-grid`.
 2. **Camada de Motion:** cenas 3D isoladas em R3F, shaders GLSL customizados e coreografia de interface com Lenis e Ghost Easing (`[0.22, 1, 0.36, 1]`).
-3. **Camada de Dados:** Server Components no Next.js App Router, estado global via Zustand, Supabase Storage (`site-assets`) e SSR Guardrails para Firebase Hosting.
+3. **Camada de Dados:** Server Components no Next.js App Router, estado global via Zustand, Cloudflare D1 e R2 e SSR Guardrails para Firebase Hosting.
 
 ## Como navegar
 
 - **Getting Started:** visão geral, stack tecnológica e configuração de ambiente.
 - **Ghost Design System:** tokens, tipografia, grid e coreografia de movimento.
-- **Core Architecture:** App Router, estado, Supabase e segurança.
+- **Core Architecture:** App Router, estado, Cloudflare D1/R2 e segurança.
 - **3D & WebGL Engine:** Canvas, shaders e otimizações de performance.
 - **Components & UI:** layout global, narrativa da Home, componentes de mídia e efeitos visuais.
 - **Admin & Backoffice:** painel administrativo, assets e conteúdo dinâmico.

@@ -13,7 +13,7 @@ description: 'Linguagens, frameworks e serviços que compõem o Ghost System'
 | **UI**         | React 19, Tailwind CSS 4                                     |
 | **Animation**  | Framer Motion, GSAP, Lenis                                   |
 | **3D / WebGL** | React Three Fiber, Three.js, GLSL customizado                |
-| **Backend**    | Supabase (PostgreSQL, Storage), Firebase Hosting & Functions |
+| **Backend**    | Cloudflare D1 (SQLite) e R2, Firebase Hosting & Functions   |
 | **State**      | Zustand, React Context                                       |
 
 ## Constantes de Design
@@ -27,4 +27,4 @@ description: 'Linguagens, frameworks e serviços que compõem o Ghost System'
 
 - Server Components por padrão; `"use client"` apenas para interatividade, hooks de estado e canvas 3D.
 - Componentes R3F (`<Canvas>`, meshes) são sempre Client Components.
-- Assets de produção servidos via Supabase Storage, referenciados por `assets.json` ou constantes tipadas.
+- Assets de produção servidos via Cloudflare R2, referenciados por `assets.json` ou constantes tipadas.

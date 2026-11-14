@@ -1,0 +1,28 @@
+---
+title: 'Pipeline de Conteúdo e Assets'
+description: 'Cloudflare D1, R2 e publicação realtime'
+---
+
+# Pipeline de Conteúdo e Assets
+
+O Cloudflare D1 é o content store do sistema: o código é o contêiner, o banco é o conteúdo. Textos, títulos e links não são hardcoded no React.
+
+## Estrutura
+
+- **D1 (SQLite):** tabelas de conteúdo e mídia (`portfolio_projects`, `landing_pages`, `portfolio_tags`, `portfolio_project_tags`, `site_assets`), acessadas pelo binding `DB` do Worker.
+- **R2:** bucket único `portfolio-assets`, servido pelo CDN público `https://assets.portfoliodanilo.com`. Os caminhos lógicos `site-assets` e `portfolio-media` são pastas raiz dentro desse bucket.
+- **Realtime:** o painel revalida as rotas afetadas após cada escrita, sem depender de subscription de banco.
+
+## Fluxo de assets
+
+1. Upload no R2 via API S3, sob a pasta raiz correspondente.
+2. Registro do caminho na tabela `site_assets` e em `assets.json`.
+3. Consumo no frontend via `next/image` ou `drei/useTexture`, com descarte no unmount. O endpoint `/api/site-assets` lê o D1 e cai para o snapshot estático quando não há dados.
+
+## Migrations
+
+Alterações de schema são versionadas em `cloudflare/migrations/`. Nunca se altera uma coluna diretamente em produção.
+
+## Diagnóstico
+
+Quando o conteúdo não aparece, verifique nesta ordem: binding `DB` ausente no Worker (a leitura cai para os fallbacks estáticos) e credenciais R2 incompletas (o upload falha com `SYSTEM_ERR: R2_CREDENTIALS_MISSING`).
